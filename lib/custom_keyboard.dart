@@ -71,7 +71,7 @@ class _CustomKeyboardExperimentState extends State<CustomKeyboardExperiment> {
                   style: const TextStyle(fontSize: 24),
                   autofocus: true,
                   showCursor: true,
-                  readOnly: _readOnly,
+                  readOnly: true,
                 ),
               ),
             ),
@@ -83,6 +83,30 @@ class _CustomKeyboardExperimentState extends State<CustomKeyboardExperiment> {
                 _backspace();
               },
             ),
+            ElevatedButton(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0.0),
+                    ),
+                  ),
+                  overlayColor: MaterialStateProperty.all(
+                    Colors.black.withOpacity(0.2),
+                  ),
+                  elevation: MaterialStateProperty.all(8),
+                  foregroundColor: MaterialStateProperty.all(Colors.black),
+                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                  padding: MaterialStateProperty.all(
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                  ),
+                ),
+                child: const Text(
+                  "Submit Amount",
+                  style: TextStyle(fontSize: 34.0, fontWeight: FontWeight.bold),
+                ),
+                onPressed: () {
+                  print(_controller.text);
+                }),
           ],
         ),
       ),
@@ -92,17 +116,36 @@ class _CustomKeyboardExperimentState extends State<CustomKeyboardExperiment> {
   void _insertText(String myText) {
     final text = _controller.text;
     final textSelection = _controller.selection;
-    final newText = text.replaceRange(
-      textSelection.start,
-      textSelection.end,
-      myText,
-    );
+
+    // Return if first initial value is 0
+    if (myText == "0" && text.isEmpty) {
+      return;
+    }
+
+    // Return if dot is pressed and already contains a dot
+    if (myText == "." && text.contains(".")) {
+      return;
+    }
+
     final myTextLength = myText.length;
-    _controller.text = newText;
-    _controller.selection = textSelection.copyWith(
-      baseOffset: textSelection.start + myTextLength,
-      extentOffset: textSelection.start + myTextLength,
-    );
+    if (text.isEmpty && myText == ".") {
+      _controller.text = "0.";
+      _controller.selection = textSelection.copyWith(
+        baseOffset: textSelection.start + myTextLength + 1,
+        extentOffset: textSelection.start + myTextLength + 1,
+      );
+    } else {
+      final newText = text.replaceRange(
+        textSelection.start,
+        textSelection.end,
+        myText,
+      );
+      _controller.text = newText;
+      _controller.selection = textSelection.copyWith(
+        baseOffset: textSelection.start + myTextLength,
+        extentOffset: textSelection.start + myTextLength,
+      );
+    }
   }
 
   void _backspace() {
@@ -171,7 +214,7 @@ class CustomKeyboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 260,
+      height: 300,
       child: Column(
         children: [
           GridView.count(
