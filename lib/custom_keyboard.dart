@@ -62,6 +62,7 @@ class _CustomKeyboardExperimentState extends State<CustomKeyboardExperiment> {
                     const EdgeInsets.symmetric(horizontal: 18, vertical: 6),
                 child: TextFormField(
                   textAlign: TextAlign.center,
+                  keyboardType: TextInputType.none,
                   decoration: const InputDecoration(
                       contentPadding: EdgeInsets.zero,
                       border: InputBorder.none,
@@ -71,7 +72,7 @@ class _CustomKeyboardExperimentState extends State<CustomKeyboardExperiment> {
                   style: const TextStyle(fontSize: 24),
                   autofocus: true,
                   showCursor: true,
-                  readOnly: true,
+                  readOnly: false,
                 ),
               ),
             ),
@@ -126,26 +127,22 @@ class _CustomKeyboardExperimentState extends State<CustomKeyboardExperiment> {
     if (myText == "." && text.contains(".")) {
       return;
     }
-
-    final myTextLength = myText.length;
+    String newText;
     if (text.isEmpty && myText == ".") {
-      _controller.text = "0.";
-      _controller.selection = textSelection.copyWith(
-        baseOffset: textSelection.start + myTextLength + 1,
-        extentOffset: textSelection.start + myTextLength + 1,
-      );
+      newText = "0.";
     } else {
-      final newText = text.replaceRange(
+      newText = text.replaceRange(
         textSelection.start,
         textSelection.end,
         myText,
       );
-      _controller.text = newText;
-      _controller.selection = textSelection.copyWith(
-        baseOffset: textSelection.start + myTextLength,
-        extentOffset: textSelection.start + myTextLength,
-      );
     }
+    _controller.value = _controller.value.copyWith(
+      text: newText,
+      selection: TextSelection(
+          baseOffset: newText.length, extentOffset: newText.length),
+      composing: TextRange.empty,
+    );
   }
 
   void _backspace() {
@@ -160,6 +157,7 @@ class _CustomKeyboardExperimentState extends State<CustomKeyboardExperiment> {
         textSelection.end,
         '',
       );
+
       _controller.text = newText;
       _controller.selection = textSelection.copyWith(
         baseOffset: textSelection.start,
