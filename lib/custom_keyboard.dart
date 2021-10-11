@@ -23,7 +23,6 @@ class CustomKeyboardExperiment extends StatefulWidget {
 
 class _CustomKeyboardExperimentState extends State<CustomKeyboardExperiment> {
   final TextEditingController _controller = TextEditingController();
-  final bool _readOnly = true;
   num currentNumber = 0;
 
   @override
@@ -105,9 +104,7 @@ class _CustomKeyboardExperimentState extends State<CustomKeyboardExperiment> {
                   "Submit Amount",
                   style: TextStyle(fontSize: 34.0, fontWeight: FontWeight.bold),
                 ),
-                onPressed: () {
-                  print(_controller.text);
-                }),
+                onPressed: () {}),
           ],
         ),
       ),
