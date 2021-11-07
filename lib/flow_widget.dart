@@ -117,7 +117,6 @@ class FlowMenuDelegate extends FlowDelegate {
 
   @override
   bool shouldRepaint(covariant FlowDelegate oldDelegate) {
-    // TODO: implement shouldRepaint
     throw UnimplementedError();
   }
 }
