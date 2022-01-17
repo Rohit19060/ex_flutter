@@ -26,9 +26,9 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     DatabaseReference child = ref.child("name");
-    print("child: $child");
-    print("ref.key : ${ref.key}");
-    print("ref.parent?.key : ${ref.parent?.key}");
+    debugPrint("child: $child");
+    debugPrint("ref.key : ${ref.key}");
+    debugPrint("ref.parent?.key : ${ref.parent?.key}");
 
     _addData();
   }
@@ -36,13 +36,13 @@ class _MyAppState extends State<MyApp> {
   Future _addData() async {
     DatabaseReference ref = FirebaseDatabase.instance.ref("Match/1");
     DatabaseEvent event = await ref.once();
-    print("event: $event");
-    print("event.snapshot.value ${event.snapshot.value}");
+    debugPrint("event: $event");
+    debugPrint("event.snapshot.value ${event.snapshot.value}");
 
     Stream<DatabaseEvent> stream = ref.onValue;
     stream.listen((DatabaseEvent event) {
-      print("event: $event");
-      print("event.snapshot.value ${event.snapshot.value}");
+      debugPrint("event: $event");
+      debugPrint("event.snapshot.value ${event.snapshot.value}");
     });
   }
 
