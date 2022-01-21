@@ -57,15 +57,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: const Center(
-          child: Text("Flutter Experiments"),
+      body: const Center(
+        child: Text("Flutter Experiments"),
+      ),
+      floatingActionButton: FloatingActionButton(
+        foregroundColor: const Color.fromRGBO(255, 255, 255, 1),
+        onPressed: _notify,
+        child: const FlutterLogo(
+          style: FlutterLogoStyle.markOnly,
         ),
-        floatingActionButton: FloatingActionButton(
-          foregroundColor: const Color.fromRGBO(255, 255, 255, 1),
-          onPressed: _notify,
-          child: const FlutterLogo(
-            style: FlutterLogoStyle.markOnly,
-          ),
-        ));
+      ),
+    );
   }
 }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 const double buttonSize = 80;
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
