@@ -76,7 +76,6 @@ class _PictureScannerState extends State<PictureScanner> {
   Future<void> _scanImage(File imageFile) async {
     final GoogleVisionImage visionImage = GoogleVisionImage.fromFile(imageFile);
     _scanResults = await _faceDetector.processImage(visionImage);
-    print(_scanResults.length);
     setState(() {});
   }
 

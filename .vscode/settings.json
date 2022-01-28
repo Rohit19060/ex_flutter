@@ -3,6 +3,7 @@
         "allinonesdk",
         "autofocus",
         "fluttertoast",
+        "mipmap",
         "pinput"
     ]
 }

@@ -14,17 +14,17 @@ dependencies:
   # Sending Notifications
   dio: ^4.0.4
   flutter_dotenv: ^5.0.2
-  firebase_core: ^1.10.6
-  firebase_database: ^9.0.4
+  firebase_core: ^1.12.0
+  firebase_database: ^9.0.6
   # Notifications
-  firebase_messaging: ^11.2.4
+  firebase_messaging: ^11.2.6
   flutter_local_notifications: ^9.2.0
   # Face Detection
   google_ml_vision: ^0.0.7
-  path: ^1.8.0
+  path: ^1.8.1
   path_provider: ^2.0.8
-  image_picker: ^0.8.4+4
-  image: ^3.1.0
+  image_picker: ^0.8.4+5
+  image: ^3.1.1
 
   # WebSocket Chat
   web_socket_channel: ^2.1.0
@@ -34,17 +34,14 @@ dependencies:
   http: ^0.13.4
   pinput: ^1.2.2
   # Firebase Storage
-  file_picker: ^4.3.0
-  firebase_storage: ^10.2.4
-
-  # Upi Pay
-  upi_pay: ^1.0.1
+  file_picker: ^4.3.3
+  firebase_storage: ^10.2.6
 
   # Paytm
   paytm_allinonesdk: ^1.1.4
 
   # Google Auth
-  google_sign_in: ^5.2.1
+  google_sign_in: ^5.2.3
 
 dev_dependencies:
   flutter_test:

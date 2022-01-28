@@ -43,9 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     LocalNotificationService.initialize(context);
 
-    FirebaseMessaging.instance.getToken().then((token) {
-      print('token: $token');
-    });
+    FirebaseMessaging.instance.getToken().then((token) {});
 
     // Gives you the message on which user taps and it opened the app from terminated state
     FirebaseMessaging.instance.getInitialMessage().then((message) {
