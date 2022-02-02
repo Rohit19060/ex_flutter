@@ -1,40 +1,3 @@
-// import 'package:flutter/material.dart';
-
-// void main() {
-//   runApp(const MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({Key? key}) : super(key: key);
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Flutter Experiments',
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: const MyHomePage(),
-//     );
-//   }
-// }
-
-// class MyHomePage extends StatefulWidget {
-//   const MyHomePage({Key? key}) : super(key: key);
-//   @override
-//   State<MyHomePage> createState() => _MyHomePageState();
-// }
-
-// class _MyHomePageState extends State<MyHomePage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Scaffold(
-//       body: Center(
-//         child: Text("Flutter Experiments"),
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -66,15 +29,19 @@ class _MyHomePageState extends State<MyHomePage> {
   String x = "";
 
   Map<String, String> get headers => {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "*",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
+        "Access-Control-Allow-Headers":
+            "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
       };
 
   getImage() async {
     var request = http.get(
       Uri.parse(
-          'https://firebasestorage.googleapis.com/v0/b/experiments-344b6.appspot.com/o/istockphoto-1147657970-612x612.jpg?alt=media&token=d939c0b9-0eb1-47be-b858-8cfa407bb49d'),
+          'https://firebasestorage.googleapis.com/v0/b/vatsalaya-parivar-foundation.appspot.com/o/Doc%20Images%2Fimage_picker263424257541013687.jpg?alt=media&token=b3c274d5-d35e-4933-b853-7a1f6a19b3a4'),
       headers: headers,
     );
     var response = await request;
