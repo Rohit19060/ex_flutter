@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Experiments',
+      title: 'Shimmer Effect',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -25,9 +28,19 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text("Flutter Experiments"),
+        child: Shimmer.fromColors(
+          baseColor: Colors.black,
+          highlightColor: Colors.grey,
+          child: Center(
+            child: Container(
+              height: 500,
+              width: 500,
+              color: Colors.black,
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -31,7 +31,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final List<Message> _messages = [];
 
   final _channel = WebSocketChannel.connect(
-    Uri.parse('ws://192.168.1.209:8080'),
+    Uri.parse('ws://192.168.1.98:8080'),
   );
 
   @override
