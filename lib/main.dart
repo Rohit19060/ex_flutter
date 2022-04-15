@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,6 +20,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -25,10 +28,21 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       body: Center(
-        child: Text("Flutter Experiments"),
+        child: ElevatedButton(
+          onPressed: () {
+         launch("upi://pay?pa=kingrohitjain19060@okaxis&pn=Rohit Jain&tn=Paying for Fun&cu=INR");
+          },
+          child: const Text("GPay"),
+        ),
       ),
     );
   }
 }
+//String upi_url = 'upi://pay?pa=address@okhdfcbank&pn=Payee Name&tn=Payment Message&cu=INR';
+// pa : Payee address, usually found in GooglePay app profile page
+// pn : Payee name
+// tn : Txn note, basically your message for the payee
+// cu : Currency
+// am : amount

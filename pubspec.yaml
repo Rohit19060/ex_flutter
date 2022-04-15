@@ -46,6 +46,7 @@ dependencies:
   # Shimmer Effect
   shimmer: ^2.0.0
   flutter_inset_box_shadow: ^1.0.7
+  url_launcher: ^6.0.20
 
 dev_dependencies:
   flutter_test:
