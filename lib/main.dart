@@ -25,8 +25,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
+    return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
+      floatingActionButton:
+          FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add)),
+      body: const Center(
         child: Text("Flutter Experiments"),
       ),
     );
