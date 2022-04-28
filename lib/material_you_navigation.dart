@@ -40,18 +40,15 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) => MaterialApp(
       title: 'Material You Navigation Bar',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(
         body: screens[index],
         bottomNavigationBar: NavigationBarTheme(
           data: NavigationBarThemeData(
               height: 70,
-              labelBehavior:
-                  NavigationDestinationLabelBehavior.onlyShowSelected,
+              labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
               backgroundColor: Colors.white,
-              indicatorColor: Colors.blue.shade100,
+              indicatorColor: Color.fromARGB(255, 0, 140, 255),
               labelTextStyle: MaterialStateProperty.all(
                 const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
               )),
@@ -62,20 +59,33 @@ class _MyAppState extends State<MyApp> {
                 setState(() => this.index = index),
             destinations: const [
               NavigationDestination(
-                  selectedIcon: Icon(Icons.photo_size_select_actual_outlined),
-                  icon: Icon(Icons.photo_size_select_actual_rounded),
+                  tooltip: "Photos",
+                  selectedIcon: Icon(
+                    Icons.photo_size_select_actual_rounded,
+                    color: Colors.white,
+                  ),
+                  icon: Icon(Icons.photo_size_select_actual_outlined),
                   label: "Photos"),
               NavigationDestination(
-                  selectedIcon: Icon(Icons.image_search_outlined),
+                  selectedIcon: Icon(
+                    Icons.image_search_outlined,
+                    color: Colors.white,
+                  ),
                   icon: Icon(Icons.image_search_rounded),
                   label: "Search"),
               NavigationDestination(
-                  selectedIcon: Icon(Icons.people_outline),
+                  selectedIcon: Icon(
+                    Icons.people_outlined,
+                    color: Colors.white,
+                  ),
                   icon: Icon(Icons.people_outline_rounded),
                   label: "Sharing"),
               NavigationDestination(
-                  selectedIcon: Icon(Icons.collections_outlined),
-                  icon: Icon(Icons.collections),
+                  selectedIcon: Icon(
+                    Icons.collections_rounded,
+                    color: Colors.white,
+                  ),
+                  icon: Icon(Icons.collections_outlined),
                   label: "Library")
             ],
           ),

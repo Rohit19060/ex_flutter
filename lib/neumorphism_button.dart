@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -23,8 +24,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool isPressed = true;
-  bool isDarkMode = true;
+  bool isPressed = false;
   @override
   Widget build(BuildContext context) {
     const backgroundCOlor = Color(0xFFE7ECEF);
@@ -33,15 +33,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: backgroundCOlor,
       body: Center(
-        child: GestureDetector(
-          onTapUp: (_) => setState(() => isPressed = false),
-          onTapDown: (_) => setState(() => isPressed = true),
-          // child: Listener(
-          //   onPointerUp: (_) => setState(() => isPressed = false),
-          //   onPointerDown: (_) {
-          //     print("Called");
-          //     setState(() => isPressed = true);
-          //   },
+        child: Listener(
+          onPointerUp: (_) => setState(() => isPressed = false),
+          onPointerDown: (_) => setState(() => isPressed = true),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 100),
             decoration: BoxDecoration(
