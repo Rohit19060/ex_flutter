@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class UpiLink extends StatelessWidget {
   const UpiLink({Key? key}) : super(key: key);
@@ -9,10 +9,8 @@ class UpiLink extends StatelessWidget {
     return Scaffold(
       body: Center(
           child: ElevatedButton(
-        onPressed: () {
-          launch(
-              "upi://pay?pa=kingrohitjain19060@okaxis&pn=Rohit Jain&cu=INR&am=100&tn=Transaction Note");
-        },
+        onPressed: () => launchUrlString(
+            "upi://pay?pa=kingrohitjain19060@okaxis&pn=Rohit Jain&tn=Paying for Fun&cu=INR"),
         child: const Text("UPI Pay"),
       )),
     );

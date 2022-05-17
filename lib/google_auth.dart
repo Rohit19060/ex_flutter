@@ -4,9 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 void main() => runApp(
       MaterialApp(
         title: "Google Auth",
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: ThemeData(primarySwatch: Colors.blue),
         home: const MyHomePage(),
       ),
     );

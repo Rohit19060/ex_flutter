@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import "package:fluttertoast/fluttertoast.dart";
 import 'package:http/http.dart' as http;
-import 'package:pinput/pin_put/pin_put.dart';
+import 'package:pinput/pinput.dart';
 
 class Otp2Factor {
   static Future sendRequest(String url) async {
@@ -141,25 +141,16 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             _isOtpSent
-                ? PinPut(
-                    withCursor: true,
-                    fieldsCount: 6,
+                ? Pinput(
                     autofocus: _isOtpSent,
-                    fieldsAlignment: MainAxisAlignment.spaceAround,
-                    textStyle:
-                        const TextStyle(fontSize: 25.0, color: Colors.white),
-                    eachFieldMargin: const EdgeInsets.all(0),
-                    eachFieldWidth: 45.0,
-                    eachFieldHeight: 55.0,
                     controller: _otpController,
-                    submittedFieldDecoration: _pinPutDecoration,
-                    selectedFieldDecoration: _pinPutDecoration.copyWith(
-                      color: Colors.white,
-                      border: Border.all(
-                        width: 2,
-                        color: Colors.black,
-                      ),
-                    ),
+                    androidSmsAutofillMethod:
+                        AndroidSmsAutofillMethod.smsUserConsentApi,
+                    onClipboardFound: (String value) {
+                      _otpController.text = value;
+                    },
+                    closeKeyboardWhenCompleted: true,
+                    length: 6,
                     onChanged: (value) {
                       setState(() {
                         if (value.length >= 6) {
@@ -170,7 +161,6 @@ class _HomePageState extends State<HomePage> {
                       });
                     },
                     keyboardType: TextInputType.number,
-                    followingFieldDecoration: _pinPutDecoration,
                     pinAnimationType: PinAnimationType.scale,
                   )
                 : TextFormField(

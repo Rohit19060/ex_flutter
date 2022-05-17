@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 
 void main() => runApp(const MyApp());
 
@@ -7,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Neomorphism Button",
+      title: "Neumorphic Button",
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -23,30 +24,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool isPressed = true;
-  bool isDarkMode = true;
+  bool isPressed = false;
+  Color backgroundColor = const Color(0xFFE7ECEF);
+  Offset distance = const Offset(12, 12);
+  double blur = 30;
   @override
   Widget build(BuildContext context) {
-    const backgroundCOlor = Color(0xFFE7ECEF);
-    Offset distance = const Offset(12, 12);
-    double blur = 30;
     return Scaffold(
-      backgroundColor: backgroundCOlor,
+      backgroundColor: backgroundColor,
       body: Center(
         child: GestureDetector(
+          onTap: () => debugPrint("hi"),
           onTapUp: (_) => setState(() => isPressed = false),
           onTapDown: (_) => setState(() => isPressed = true),
-          // child: Listener(
-          //   onPointerUp: (_) => setState(() => isPressed = false),
-          //   onPointerDown: (_) {
-          //     print("Called");
-          //     setState(() => isPressed = true);
-          //   },
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 100),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: backgroundCOlor,
+                color: backgroundColor,
                 boxShadow: isPressed
                     ? []
                     : [

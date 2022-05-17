@@ -6,52 +6,60 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.16.0-134.0.dev <3.0.0"
+  sdk: ">=2.16.2 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   # Sending Notifications
-  dio: ^4.0.4
+  dio: ^4.0.6
   flutter_dotenv: ^5.0.2
-  firebase_core: ^1.12.0
-  firebase_database: ^9.0.6
+  firebase_core: ^1.17.0
+  firebase_database: ^9.0.14
   # Notifications
-  firebase_messaging: ^11.2.6
-  flutter_local_notifications: ^9.2.0
+  firebase_messaging: ^11.4.0
+  flutter_local_notifications: ^9.5.3+1
   # Face Detection
   google_ml_vision: ^0.0.7
   path: ^1.8.1
-  path_provider: ^2.0.8
-  image_picker: ^0.8.4+7
-  image: ^3.1.1
+  path_provider: ^2.0.10
+  image_picker: ^0.8.5+3
+  image: ^3.1.3
 
   # WebSocket Chat
-  web_socket_channel: ^2.1.0
+  web_socket_channel: ^2.2.0
 
   # OTP 2 Factor.in
-  fluttertoast: ^8.0.8
+  fluttertoast: ^8.0.9
   http: ^0.13.4
-  pinput: ^1.2.2
+  pinput: ^2.2.8
   # Firebase Storage
-  file_picker: ^4.3.3
-  firebase_storage: ^10.2.7
+  file_picker: ^4.5.1
+  firebase_storage: ^10.2.16
 
   # Paytm
-  paytm_allinonesdk: ^1.1.4
+  paytm_allinonesdk: ^1.1.6
 
   # Google Auth
-  google_sign_in: ^5.2.3
+  google_sign_in: ^5.3.1
 
   # Shimmer Effect
   shimmer: ^2.0.0
-  flutter_inset_box_shadow: ^1.0.7
-  url_launcher: ^6.0.20
+  flutter_inset_box_shadow: ^1.0.8
+  url_launcher: ^6.1.2
+  font_awesome_flutter: ^10.1.0
+
+  provider: ^6.0.2
+  transparent_image: ^2.0.0
+  math_expressions: ^2.3.0
+  google_fonts: ^2.3.2
+
+dev_dependencies:
+  flutter_lints: 
 
 flutter:
   uses-material-design: true
 
   assets:
     - lib/.env
-    # Feature Discovery
-    - assets/images/pic.png
+    - assets/images/
