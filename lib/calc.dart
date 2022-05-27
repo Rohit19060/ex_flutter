@@ -21,7 +21,7 @@ class CalculatorNeuApp extends StatefulWidget {
   const CalculatorNeuApp({Key? key}) : super(key: key);
 
   @override
-  _CalculatorNeuAppState createState() => _CalculatorNeuAppState();
+  State<CalculatorNeuApp> createState() => _CalculatorNeuAppState();
 }
 
 class _CalculatorNeuAppState extends State<CalculatorNeuApp> {
@@ -250,7 +250,7 @@ class NeuContainer extends StatefulWidget {
       : super(key: key);
 
   @override
-  _NeuContainerState createState() => _NeuContainerState();
+  State<NeuContainer> createState() => _NeuContainerState();
 }
 
 class _NeuContainerState extends State<NeuContainer> {

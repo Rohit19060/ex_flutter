@@ -381,11 +381,11 @@ class _TouchTarget extends StatelessWidget {
         child: RawMaterialButton(
           shape: const CircleBorder(),
           fillColor: Colors.white,
+          onPressed: onPressed,
           child: Icon(
             icon,
             color: color,
           ),
-          onPressed: onPressed,
         ),
       ),
     );
@@ -480,7 +480,7 @@ class _OverlayBuilderState extends State<OverlayBuilder> {
   }
 
   void addToOverlay(OverlayEntry entry) async {
-    SchedulerBinding.instance?.addPostFrameCallback((_) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       Overlay.of(context)?.insert(entry);
     });
   }
