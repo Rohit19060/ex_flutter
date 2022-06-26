@@ -53,10 +53,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TextEditingController _mobController = TextEditingController();
   final TextEditingController _otpController = TextEditingController();
-  final BoxDecoration _pinPutDecoration = BoxDecoration(
-    color: Colors.black,
-    borderRadius: BorderRadius.circular(5.0),
-  );
   bool _isOtpSent = false;
   String _sessionId = "";
   bool _buttonActive = false;
