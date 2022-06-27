@@ -99,7 +99,7 @@ class _PictureScannerState extends State<PictureScanner> {
                       ),
                     ),
                   )
-                : Text("Face Count:" + _scanResults.length.toString()))
+                : Text("Face Count:${_scanResults.length}"))
         : const Text("Not Image Selected");
   }
 
