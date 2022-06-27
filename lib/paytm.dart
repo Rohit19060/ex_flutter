@@ -84,9 +84,8 @@ class _PaytmIntegrationState extends State<PaytmIntegration> {
                         }).catchError((onError) {
                           if (onError is PlatformException) {
                             setState(() {
-                              result = onError.message! +
-                                  " \n " +
-                                  onError.details!.toString();
+                              result =
+                                  "${onError.message!} \n ${onError.details!}";
                             });
                           } else {
                             setState(() {
