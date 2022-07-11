@@ -48,3 +48,4 @@ android/app/google-services.json
 .env
 Php/vendor/
 .lock
+lib/.env
