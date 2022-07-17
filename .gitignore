@@ -49,3 +49,5 @@ android/app/google-services.json
 Php/vendor/
 .lock
 lib/.env
+GoogleService-Info.plist
+firebase_app_id_file.json

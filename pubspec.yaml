@@ -19,6 +19,8 @@ dependencies:
   # Notifications
   firebase_messaging: ^11.4.0
   flutter_local_notifications: ^9.5.3+1
+  rxdart: ^0.27.5
+  flutter_native_timezone: ^2.0.0
 
   # Face Detection
   google_ml_vision: ^0.0.7
@@ -56,6 +58,8 @@ dependencies:
   google_fonts: ^2.3.2
   cloud_firestore: ^3.1.18
   flutter_native_splash: ^2.2.3+1
+  device_info_plus: ^4.0.0
+
 
 dev_dependencies:
   flutter_lints:
