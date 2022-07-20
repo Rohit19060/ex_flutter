@@ -25,7 +25,7 @@ class Storage extends StatefulWidget {
   const Storage({Key? key}) : super(key: key);
 
   @override
-  _StorageState createState() => _StorageState();
+  State<Storage> createState() => _StorageState();
 }
 
 class _StorageState extends State<Storage> {
@@ -44,7 +44,7 @@ class StorageHome extends StatefulWidget {
   const StorageHome({Key? key}) : super(key: key);
 
   @override
-  _StorageHomeState createState() => _StorageHomeState();
+  State<StorageHome> createState() => _StorageHomeState();
 }
 
 class _StorageHomeState extends State<StorageHome> {

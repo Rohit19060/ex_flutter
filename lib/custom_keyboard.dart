@@ -17,7 +17,7 @@ class CustomKeyboardExperiment extends StatefulWidget {
   const CustomKeyboardExperiment({Key? key}) : super(key: key);
 
   @override
-  _CustomKeyboardExperimentState createState() =>
+  State<CustomKeyboardExperiment> createState() =>
       _CustomKeyboardExperimentState();
 }
 
@@ -215,6 +215,10 @@ class CustomKeyboard extends StatelessWidget {
           GridView.count(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
+            crossAxisCount: 3,
+            childAspectRatio: 2.5,
+            mainAxisSpacing: 0.2,
+            crossAxisSpacing: 0.2,
             children: [
               "1",
               "2",
@@ -253,10 +257,6 @@ class CustomKeyboard extends StatelessWidget {
                 );
               }
             }).toList(),
-            crossAxisCount: 3,
-            childAspectRatio: 2.5,
-            mainAxisSpacing: 0.2,
-            crossAxisSpacing: 0.2,
           ),
         ],
       ),

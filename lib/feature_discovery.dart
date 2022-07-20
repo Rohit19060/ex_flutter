@@ -36,7 +36,7 @@ class FeatureDiscovery extends StatefulWidget {
   const FeatureDiscovery({Key? key, required this.child}) : super(key: key);
 
   @override
-  _FeatureDiscoveryState createState() => _FeatureDiscoveryState();
+  State<FeatureDiscovery> createState() => _FeatureDiscoveryState();
 }
 
 class _FeatureDiscoveryState extends State<FeatureDiscovery> {
@@ -115,7 +115,7 @@ class DescribeFeatureOverlay extends StatefulWidget {
       : super(key: key);
 
   @override
-  _DescriberFeatureOverlayState createState() =>
+  State<DescribeFeatureOverlay> createState() =>
       _DescriberFeatureOverlayState();
 }
 
@@ -436,7 +436,7 @@ class OverlayBuilder extends StatefulWidget {
       : super(key: key);
 
   @override
-  _OverlayBuilderState createState() => _OverlayBuilderState();
+  State<OverlayBuilder> createState() => _OverlayBuilderState();
 }
 
 class _OverlayBuilderState extends State<OverlayBuilder> {
@@ -550,7 +550,7 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -615,7 +615,7 @@ class Content extends StatefulWidget {
   const Content({Key? key}) : super(key: key);
 
   @override
-  _ContentState createState() => _ContentState();
+  State<Content> createState() => _ContentState();
 }
 
 class _ContentState extends State<Content> {
