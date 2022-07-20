@@ -38,7 +38,7 @@ class LinearFlowWidget extends StatefulWidget {
   const LinearFlowWidget({Key? key}) : super(key: key);
 
   @override
-  _LinearFlowWidgetState createState() => _LinearFlowWidgetState();
+  State<LinearFlowWidget> createState() => _LinearFlowWidgetState();
 }
 
 class _LinearFlowWidgetState extends State<LinearFlowWidget>

@@ -5,6 +5,7 @@
         "fluttertoast",
         "mipmap",
         "Neumorphism",
-        "pinput"
+        "pinput",
+        "vsync"
     ]
 }
