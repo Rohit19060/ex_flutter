@@ -59,6 +59,7 @@ dependencies:
   cloud_firestore: ^3.1.18
   flutter_native_splash: ^2.2.3+1
   device_info_plus: ^4.0.0
+  timezone: ^0.8.0
 
 
 dev_dependencies:

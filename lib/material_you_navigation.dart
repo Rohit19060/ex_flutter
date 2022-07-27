@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
               height: 70,
               labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
               backgroundColor: Colors.white,
-              indicatorColor: Color.fromARGB(255, 0, 140, 255),
+              indicatorColor: const Color.fromARGB(255, 0, 140, 255),
               labelTextStyle: MaterialStateProperty.all(
                 const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
               )),

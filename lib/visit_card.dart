@@ -71,7 +71,7 @@ class MainCard extends StatelessWidget {
                     NMButton(icon: Icons.menu),
                   ],
                 ),
-                AvatarImage(),
+                const AvatarImage(),
                 const SizedBox(height: 15),
                 const Text(
                   'Steven Dz',
@@ -256,6 +256,8 @@ class NMButton extends StatelessWidget {
 }
 
 class AvatarImage extends StatelessWidget {
+  const AvatarImage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(

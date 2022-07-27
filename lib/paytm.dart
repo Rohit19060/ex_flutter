@@ -27,7 +27,7 @@ class PaytmIntegration extends StatefulWidget {
   const PaytmIntegration({Key? key}) : super(key: key);
 
   @override
-  _PaytmIntegrationState createState() => _PaytmIntegrationState();
+  State<PaytmIntegration>  createState() => _PaytmIntegrationState();
 }
 
 class _PaytmIntegrationState extends State<PaytmIntegration> {

@@ -332,11 +332,6 @@ class ButtonTapped extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.all(5),
           padding: const EdgeInsets.all(20),
-          child: Icon(
-            icon,
-            size: 35,
-            color: Colors.grey.shade700,
-          ),
           decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.grey.shade300,
@@ -367,6 +362,11 @@ class ButtonTapped extends StatelessWidget {
                     0.3,
                     1
                   ])),
+          child: Icon(
+            icon,
+            size: 35,
+            color: Colors.grey.shade700,
+          ),
         ),
       ),
     );
