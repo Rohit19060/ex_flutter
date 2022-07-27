@@ -60,12 +60,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
     FirebaseMessaging.instance.getToken().then((token) {
       Clipboard.setData(ClipboardData(text: token));
-      print('Token: $token');
+      debugPrint('Token: $token');
     });
 
     // Gives you the message on which user taps and it opened the app from terminated state
     FirebaseMessaging.instance.getInitialMessage().then((message) {
-      print('Initial Message: $message');
+      debugPrint('Initial Message: $message');
       /*  if (message != null) {
         final routeFromMessage = message.data["route"];
         Navigator.of(context).pushNamed(routeFromMessage);
@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // Trigger when App is running in background
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
-      print('onMessageOpenedApp: $message');
+      debugPrint('onMessageOpenedApp: $message');
       // final routeFromMessage = message.data["route"];
       // Navigator.of(context).pushNamed(routeFromMessage);
     });

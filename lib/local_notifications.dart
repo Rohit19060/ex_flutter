@@ -896,7 +896,7 @@ class _HomePageState extends State<HomePage> {
                   androidAllowWhileIdle: true,
                   uiLocalNotificationDateInterpretation:
                       UILocalNotificationDateInterpretation.absoluteTime);
-
+              if (!mounted) return;
               Navigator.pop(context);
             },
             child: const Text('OK'),

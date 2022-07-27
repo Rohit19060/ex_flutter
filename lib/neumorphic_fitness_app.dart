@@ -18,7 +18,7 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -123,7 +123,7 @@ class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
 
   @override
-  _BodyState createState() => _BodyState();
+  State<Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
@@ -567,7 +567,7 @@ class Page extends StatefulWidget {
   const Page({Key? key}) : super(key: key);
 
   @override
-  _PageState createState() => _PageState();
+   State<Page> createState() => _PageState();
 }
 
 class _PageState extends State<Page> {
@@ -622,7 +622,7 @@ class PageBody extends StatefulWidget {
   const PageBody({Key? key}) : super(key: key);
 
   @override
-  _PageBodyState createState() => _PageBodyState();
+   State<PageBody> createState() => _PageBodyState();
 }
 
 class _PageBodyState extends State<PageBody> {

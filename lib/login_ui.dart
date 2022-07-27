@@ -21,7 +21,7 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -34,15 +34,15 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text("Welcome"),
+            const Text('Welcome'),
             const Text(
-              "Sign In",
+              'Sign In',
               style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w900),
             ),
             const SizedBox(
               height: 40.0,
             ),
-            const Text("Email"),
+            const Text('Email'),
             const SizedBox(
               height: 10.0,
             ),
@@ -64,13 +64,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   ]),
               child: const TextField(
                 decoration: InputDecoration(
-                    border: InputBorder.none, hintText: "Admin@live.com"),
+                    border: InputBorder.none, hintText: 'Admin@live.com'),
               ),
             ),
             const SizedBox(
               height: 30.0,
             ),
-            const Text("Password"),
+            const Text('Password'),
             const SizedBox(
               height: 10.0,
             ),
@@ -94,14 +94,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 obscureText: true,
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: "********",
+                  hintText: '********',
                 ),
               ),
             ),
             const SizedBox(
               height: 30.0,
             ),
-            const Text("Forgot Password ?"),
+            const Text('Forgot Password ?'),
             const SizedBox(
               height: 30.0,
             ),
@@ -110,21 +110,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
+                    decoration: BoxDecoration(
+                      color: const Color(0XFFFF27B0),
+                      borderRadius: BorderRadius.circular(100.0),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0XFFFF27B0),
+                          offset: Offset(6, 2),
+                          blurRadius: 1.0,
+                          spreadRadius: 2.0,
+                        ),
+                      ],
+                    ),
                     child: const Center(
                         child: Text(
                       "Log In",
                       style: TextStyle(color: Colors.white, fontSize: 16.0),
                     )),
-                    decoration: BoxDecoration(
-                        color: const Color(0XFFFF27B0),
-                        borderRadius: BorderRadius.circular(100.0),
-                        boxShadow: const [
-                          BoxShadow(
-                              color: Color(0XFFFF27B0),
-                              offset: Offset(6, 2),
-                              blurRadius: 1.0,
-                              spreadRadius: 2.0),
-                        ]),
                   ),
                 )
               ],

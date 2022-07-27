@@ -20,7 +20,7 @@ class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
 
   @override
-  _ChatScreenState createState() => _ChatScreenState();
+  State<ChatScreen> createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
@@ -85,8 +85,8 @@ class _ChatScreenState extends State<ChatScreen> {
             itemCount: _messages.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                child: messageLayout(_messages[index], context),
                 margin: const EdgeInsets.symmetric(horizontal: 4),
+                child: messageLayout(_messages[index], context),
               );
             },
           )),
@@ -180,10 +180,10 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget messageLayout(Message _msg, BuildContext context) {
+  Widget messageLayout(Message msg, BuildContext context) {
     Radius messageRadius = const Radius.circular(16);
     return Align(
-      alignment: _msg.userId == _currentUserId
+      alignment: msg.userId == _currentUserId
           ? Alignment.centerRight
           : Alignment.centerLeft,
       child: Container(
@@ -191,7 +191,7 @@ class _ChatScreenState extends State<ChatScreen> {
         constraints: BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width * 0.65,
         ),
-        decoration: _msg.userId == _currentUserId
+        decoration: msg.userId == _currentUserId
             ? BoxDecoration(
                 color: Colors.pink,
                 borderRadius: BorderRadius.only(
@@ -209,7 +209,7 @@ class _ChatScreenState extends State<ChatScreen> {
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Text(
-            _msg.msg,
+            msg.msg,
             style: const TextStyle(color: Colors.white, fontSize: 16),
           ),
         ),
