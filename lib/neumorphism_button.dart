@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Neumorphic Button",
+      title: 'Neumorphic Button',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: backgroundColor,
       body: Center(
         child: GestureDetector(
-          onTap: () => debugPrint("hi"),
+          onTap: () => debugPrint('hi'),
           onTapUp: (_) => setState(() => isPressed = false),
           onTapDown: (_) => setState(() => isPressed = true),
           child: AnimatedContainer(

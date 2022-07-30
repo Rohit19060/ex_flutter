@@ -123,10 +123,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                     child: const Center(
-                        child: Text(
-                      "Log In",
-                      style: TextStyle(color: Colors.white, fontSize: 16.0),
-                    )),
+                      child: Text(
+                        'Log In',
+                        style: TextStyle(color: Colors.white, fontSize: 16.0),
+                      ),
+                    ),
                   ),
                 )
               ],

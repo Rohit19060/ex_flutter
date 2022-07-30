@@ -67,10 +67,13 @@ class _PictureScannerState extends State<PictureScanner> {
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
     if (pickedImage == null) return;
     _imageFile = File(pickedImage.path);
-    await Future.wait([
-      _scanImage(_imageFile!),
-    ]);
-    setState(() {});
+    await _scanImage(_imageFile!);
+  }
+
+  @override
+  void dispose() {
+    _faceDetector.close();
+    super.dispose();
   }
 
   Future<void> _scanImage(File imageFile) async {
@@ -79,17 +82,43 @@ class _PictureScannerState extends State<PictureScanner> {
     setState(() {});
   }
 
-  Widget _buildImage() {
-    return _imageFile != null
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Picture Scanner')),
+      body: _scanResults.isEmpty
+          ? const Center(child: Text('No image selected.'))
+          : BuildImage(scanResults: _scanResults, imageFile: _imageFile),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _getAndScanImage,
+        tooltip: 'Pick Image',
+        child: const Icon(Icons.add_a_photo),
+      ),
+    );
+  }
+}
+
+class BuildImage extends StatelessWidget {
+  final File? imageFile;
+  final List<Face> scanResults;
+  const BuildImage({
+    Key? key,
+    this.imageFile,
+    required this.scanResults,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return imageFile != null
         ? Container(
             constraints: const BoxConstraints.expand(),
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: Image.file(_imageFile!).image,
+                image: Image.file(imageFile!).image,
                 fit: BoxFit.fitWidth,
               ),
             ),
-            child: _scanResults.isEmpty
+            child: scanResults.isEmpty
                 ? const Center(
                     child: Text(
                       'Scanning...',
@@ -99,31 +128,8 @@ class _PictureScannerState extends State<PictureScanner> {
                       ),
                     ),
                   )
-                : Text("Face Count:${_scanResults.length}"))
-        : const Text("Not Image Selected");
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Picture Scanner'),
-        actions: const <Widget>[],
-      ),
-      body: _scanResults.isEmpty
-          ? const Center(child: Text('No image selected.'))
-          : _buildImage(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _getAndScanImage,
-        tooltip: 'Pick Image',
-        child: const Icon(Icons.add_a_photo),
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    _faceDetector.close();
-    super.dispose();
+                : Text('Face Count:${scanResults.length}'),
+          )
+        : const Text('No Image Selected');
   }
 }

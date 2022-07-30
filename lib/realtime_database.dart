@@ -20,57 +20,44 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   FirebaseDatabase database = FirebaseDatabase.instance;
 
-  DatabaseReference ref = FirebaseDatabase.instance.ref("Match/1");
+  DatabaseReference ref = FirebaseDatabase.instance.ref('Match/1');
 
   @override
   void initState() {
     super.initState();
-    DatabaseReference child = ref.child("name");
-    debugPrint("child: $child");
-    debugPrint("ref.key : ${ref.key}");
-    debugPrint("ref.parent?.key : ${ref.parent?.key}");
-
+    DatabaseReference child = ref.child('name');
+    debugPrint('child: $child');
+    debugPrint('ref.key : ${ref.key}');
+    debugPrint('ref.parent?.key : ${ref.parent?.key}');
     _addData();
   }
 
   Future _addData() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("Match/1");
+    DatabaseReference ref = FirebaseDatabase.instance.ref('Match/1');
     DatabaseEvent event = await ref.once();
-    debugPrint("event: $event");
-    debugPrint("event.snapshot.value ${event.snapshot.value}");
+    debugPrint('event: $event');
+    debugPrint('event.snapshot.value ${event.snapshot.value}');
 
     Stream<DatabaseEvent> stream = ref.onValue;
     stream.listen((DatabaseEvent event) {
-      debugPrint("event: $event");
-      debugPrint("event.snapshot.value ${event.snapshot.value}");
+      debugPrint('event: $event');
+      debugPrint('event.snapshot.value ${event.snapshot.value}');
     });
   }
 
   _addMSG(String val) async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("Match/1");
+    DatabaseReference ref = FirebaseDatabase.instance.ref('Match/1');
     DatabaseReference child = ref.child(Random().nextInt(100).toString());
-    child.set("hello");
+    child.set('hello');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (_, __) => const Text('Item'),
-              ),
-            ),
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'Label'),
-              onFieldSubmitted: (String value) {
-                _addMSG(value);
-              },
-            ),
-          ],
+      body: Center(
+        child: TextFormField(
+          decoration: const InputDecoration(labelText: 'Label'),
+          onFieldSubmitted: _addMSG,
         ),
       ),
     );

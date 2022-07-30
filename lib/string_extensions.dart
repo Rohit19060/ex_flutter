@@ -7,7 +7,7 @@ extension StringCasingExtension on String {
       length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
 
   String toCapitalizedWords() => split(
-        RegExp("(?=[A-Z])"),
+        RegExp('(?=[A-Z])'),
       ).map((e) => e.toCapitalized()).join(' ');
 
   String toTitleCase() => replaceAll(RegExp(' +'), ' ')

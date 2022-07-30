@@ -10,8 +10,8 @@ class UpiLink extends StatelessWidget {
       body: Center(
           child: ElevatedButton(
         onPressed: () => launchUrlString(
-            "upi://pay?pa=kingrohitjain19060@okaxis&pn=Rohit Jain&tn=Paying for Fun&cu=INR"),
-        child: const Text("UPI Pay"),
+            'upi://pay?pa=kingrohitjain19060@okaxis&pn=Rohit Jain&tn=Paying for Fun&cu=INR'),
+        child: const Text('UPI Pay'),
       )),
     );
   }

@@ -6,19 +6,15 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 
-class FileBaseAPI {
-  static uploadFile(String destination, File file) {
-    final ref = FirebaseStorage.instance.ref(destination);
-    return ref.putFile(file);
-  }
+UploadTask uploadFile(String destination, File file) {
+  final ref = FirebaseStorage.instance.ref(destination);
+  return ref.putFile(file);
 }
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(
-    const Storage(),
-  );
+  runApp(const Storage());
 }
 
 class Storage extends StatefulWidget {
@@ -32,9 +28,7 @@ class _StorageState extends State<Storage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const StorageHome(),
     );
   }
@@ -53,7 +47,7 @@ class _StorageHomeState extends State<StorageHome> {
 
   @override
   Widget build(BuildContext context) {
-    final fileName = file != null ? basename(file!.path) : "No file Selected";
+    final fileName = file != null ? basename(file!.path) : 'No file Selected';
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -65,11 +59,9 @@ class _StorageHomeState extends State<StorageHome> {
               OutlinedButton.icon(
                 onPressed: _selectFile,
                 icon: const Icon(Icons.upload_file_outlined),
-                label: const Text("Select File"),
+                label: const Text('Select File'),
               ),
-              const SizedBox(
-                height: 28,
-              ),
+              const SizedBox(height: 28),
               Text(
                 fileName.toString(),
                 style: const TextStyle(
@@ -77,16 +69,14 @@ class _StorageHomeState extends State<StorageHome> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(
-                height: 28,
-              ),
+              const SizedBox(height: 28),
               OutlinedButton.icon(
                 onPressed: _uploadFile,
                 icon: const Icon(Icons.upload),
-                label: const Text("Upload File"),
+                label: const Text('Upload File'),
               ),
               const SizedBox(height: 20),
-              task != null ? buildUploadStatus(task!) : Container(),
+              task != null ? buildUploadStatus(task!) : const SizedBox(),
             ],
           ),
         ),
@@ -105,7 +95,7 @@ class _StorageHomeState extends State<StorageHome> {
     if (file == null) return;
     final fileName = basename(file!.path);
     final destination = 'files/$fileName';
-    task = FileBaseAPI.uploadFile(destination, file!);
+    task = uploadFile(destination, file!);
     setState(() {});
     if (task == null) return;
     // final snapshot = await task!.whenComplete(() {});
@@ -124,7 +114,7 @@ class _StorageHomeState extends State<StorageHome> {
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             );
           } else {
-            return Container();
+            return const SizedBox();
           }
         },
       );

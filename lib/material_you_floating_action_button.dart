@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
               children: [
                 FloatingActionButton.extended(
                   onPressed: () {},
-                  label: const Text("Floating Action Button One"),
+                  label: const Text('Floating Action Button One'),
                 ),
                 FloatingActionButton.large(
                   onPressed: () {},
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
                                   height: 80, width: 240))),
                   child: FloatingActionButton.extended(
                     onPressed: () {},
-                    label: const Text("Compose"),
+                    label: const Text('Compose'),
                     icon: const Icon(Icons.ac_unit),
                   ),
                 ),
@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
                     backgroundColor: Colors.amber,
                     foregroundColor: Colors.black,
                     onPressed: () {},
-                    label: const Text("Compose"),
+                    label: const Text('Compose'),
                     icon: const Icon(Icons.ac_unit),
                   ),
                 ),

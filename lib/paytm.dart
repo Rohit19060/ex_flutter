@@ -15,9 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Paytm Gateway Flutter & Php Template',
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-      ),
+      theme: ThemeData(primarySwatch: Colors.amber),
       home: const PaytmIntegration(),
     );
   }
@@ -27,11 +25,11 @@ class PaytmIntegration extends StatefulWidget {
   const PaytmIntegration({Key? key}) : super(key: key);
 
   @override
-  State<PaytmIntegration>  createState() => _PaytmIntegrationState();
+  State<PaytmIntegration> createState() => _PaytmIntegrationState();
 }
 
 class _PaytmIntegrationState extends State<PaytmIntegration> {
-  String result = "";
+  String result = '';
   final TextEditingController _amountController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -42,12 +40,10 @@ class _PaytmIntegrationState extends State<PaytmIntegration> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "Please Enter Amount to do payment",
+              'Please Enter Amount to do payment',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             TextFormField(
               controller: _amountController,
               keyboardType: TextInputType.number,
@@ -59,25 +55,25 @@ class _PaytmIntegrationState extends State<PaytmIntegration> {
               autofocus: true,
               validator: (val) {
                 if (val == null || val.isEmpty) {
-                  return "Please Enter valid Amount";
+                  return 'Please Enter valid Amount';
                 }
                 return null;
               },
             ),
             ElevatedButton(
-                child: const Text("PAYTM"),
+                child: const Text('PAYTM'),
                 onPressed: () {
                   initiateTransaction().then(
                     (value) {
                       final jsonData = jsonDecode(value);
-                      if (jsonData["success"]) {
+                      if (jsonData['success']) {
                         AllInOneSdk.startTransaction(
-                                jsonData["mid"],
-                                jsonData["orderId"],
-                                jsonData["amount"],
-                                jsonData["txnToken"],
-                                jsonData["callbackUrl"],
-                                jsonData["isStaging"],
+                                jsonData['mid'],
+                                jsonData['orderId'],
+                                jsonData['amount'],
+                                jsonData['txnToken'],
+                                jsonData['callbackUrl'],
+                                jsonData['isStaging'],
                                 true)
                             .then((paymentResponse) {
                           result = paymentResponse.toString();
@@ -85,7 +81,7 @@ class _PaytmIntegrationState extends State<PaytmIntegration> {
                           if (onError is PlatformException) {
                             setState(() {
                               result =
-                                  "${onError.message!} \n ${onError.details!}";
+                                  '${onError.message!} \n ${onError.details!}';
                             });
                           } else {
                             setState(() {
@@ -95,19 +91,14 @@ class _PaytmIntegrationState extends State<PaytmIntegration> {
                         });
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(jsonData["message"])));
+                            SnackBar(content: Text(jsonData['message'])));
                       }
                     },
                   );
                 }),
-            const SizedBox(
-              height: 12,
-            ),
+            const SizedBox(height: 12),
             if (result.isNotEmpty)
-              Text(
-                "Your Response : $result",
-                textAlign: TextAlign.center,
-              )
+              Text('Your Response : $result', textAlign: TextAlign.center)
           ],
         ),
       ),
@@ -116,22 +107,22 @@ class _PaytmIntegrationState extends State<PaytmIntegration> {
 
   Future initiateTransaction() async {
     try {
-      var url = "http://172.29.16.1/paytm_php_flutter/Php/";
-      FormData formData = FormData.fromMap({"amount": _amountController.text});
+      var url = 'http://172.29.16.1/paytm_php_flutter/Php/';
+      FormData formData = FormData.fromMap({'amount': _amountController.text});
       var response = await Dio().post(url, data: formData);
       return response.data;
     } on TimeoutException {
       return {
-        "success": false,
-        "message": 'The connection has timed out, Please try again!'
+        'success': false,
+        'message': 'The connection has timed out, Please try again!'
       };
     } on SocketException {
       return {
-        "success": false,
-        "message": "Internet Issue! No Internet connection 😑"
+        'success': false,
+        'message': 'Internet Issue! No Internet connection 😑'
       };
     } catch (e) {
-      return {"success": false, "message": "Connection Problem"};
+      return {'success': false, 'message': 'Connection Problem'};
     }
   }
 }

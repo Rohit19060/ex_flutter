@@ -77,7 +77,7 @@ class _FeatureDiscoveryState extends State<FeatureDiscovery> {
   @override
   Widget build(BuildContext context) {
     return _InheritedFeatureDiscovery(
-      activeStepId: steps?.elementAt(activeStepIndex ?? steps!.length) ?? "",
+      activeStepId: steps?.elementAt(activeStepIndex ?? steps!.length) ?? '',
       child: widget.child,
     );
   }
@@ -186,7 +186,7 @@ class _DescriberFeatureOverlayState extends State<DescribeFeatureOverlay> {
             color: Colors.transparent,
           ),
         ),
-        _Background(
+        Background(
           anchor: anchor,
           color: widget.color,
           screenSize: screenSize,
@@ -199,7 +199,7 @@ class _DescriberFeatureOverlayState extends State<DescribeFeatureOverlay> {
           touchTargetRadius: 44.0,
           touchTargetToContentPadding: 20.0,
         ),
-        _TouchTarget(
+        TouchTarget(
           anchor: anchor,
           icon: widget.icon,
           color: widget.color,
@@ -221,13 +221,17 @@ class _DescriberFeatureOverlayState extends State<DescribeFeatureOverlay> {
   }
 }
 
-class _Background extends StatelessWidget {
+class Background extends StatelessWidget {
   final Offset anchor;
   final Color color;
   final Size screenSize;
 
-  const _Background(
-      {required this.anchor, required this.color, required this.screenSize});
+  const Background({
+    Key? key,
+    required this.anchor,
+    required this.color,
+    required this.screenSize,
+  }) : super(key: key);
 
   bool isCloseToTheTopOrBottom(Offset position) {
     return position.dy <= 88.0 || (screenSize.height - position.dy) <= 88.0;
@@ -357,17 +361,19 @@ class _Content extends StatelessWidget {
   }
 }
 
-class _TouchTarget extends StatelessWidget {
+class TouchTarget extends StatelessWidget {
   final Offset anchor;
   final IconData icon;
   final Color color;
   final VoidCallback onPressed;
 
-  const _TouchTarget(
-      {required this.anchor,
-      required this.icon,
-      required this.color,
-      required this.onPressed});
+  const TouchTarget({
+    Key? key,
+    required this.anchor,
+    required this.icon,
+    required this.color,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -382,10 +388,7 @@ class _TouchTarget extends StatelessWidget {
           shape: const CircleBorder(),
           fillColor: Colors.white,
           onPressed: onPressed,
-          child: Icon(
-            icon,
-            color: color,
-          ),
+          child: Icon(icon, color: color),
         ),
       ),
     );
@@ -526,10 +529,10 @@ class CenterAbout extends StatelessWidget {
 
 void main() => runApp(const MyApp());
 
-const feature1 = "FEATURE_1";
-const feature2 = "FEATURE_2";
-const feature3 = "FEATURE_3";
-const feature4 = "FEATURE_4";
+const feature1 = 'FEATURE_1';
+const feature2 = 'FEATURE_2';
+const feature3 = 'FEATURE_3';
+const feature4 = 'FEATURE_4';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -537,7 +540,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Feature Discovery",
+      title: 'Feature Discovery',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -626,7 +629,7 @@ class _ContentState extends State<Content> {
         Column(
           children: [
             Image.asset(
-              "assets/images/pic.png",
+              'assets/images/pic.png',
               fit: BoxFit.cover,
               width: double.infinity,
               height: 200.0,
@@ -685,9 +688,7 @@ class _ContentState extends State<Content> {
               child: FloatingActionButton(
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.blue,
-                child: const Icon(
-                  Icons.drive_eta,
-                ),
+                child: const Icon(Icons.drive_eta),
                 onPressed: () {},
               ),
             ),

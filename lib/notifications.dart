@@ -49,8 +49,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String payload = "";
-  String token = "";
+  String payload = '';
+  String token = '';
 
   @override
   void initState() {
@@ -76,12 +76,12 @@ class _MyHomePageState extends State<MyHomePage> {
     FirebaseMessaging.onMessage.listen((message) {
       if (message.notification != null) {
         NotificationAPI.showNotification(
-          channelId: message.data["channelId"],
-          channelName: message.data["channelName"],
-          sound: message.notification!.android!.sound ?? "default",
-          payload: "",
-          title: message.notification!.title ?? "",
-          body: message.notification!.body ?? "",
+          channelId: message.data['channelId'],
+          channelName: message.data['channelName'],
+          sound: message.notification!.android!.sound ?? 'default',
+          payload: '',
+          title: message.notification!.title ?? '',
+          body: message.notification!.body ?? '',
         );
       }
     });
@@ -108,38 +108,38 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: const Text("Flutter Notification System")),
+      appBar: AppBar(title: const Text('Flutter Notification System')),
       body: Column(
         children: [
-          const Text("Main Screen"),
-          Text("Payload: $payload"),
+          const Text('Main Screen'),
+          Text('Payload: $payload'),
           ElevatedButton(
-            child: const Text("Get Notification"),
+            child: const Text('Get Notification'),
             onPressed: () => NotificationAPI.showNotification(
-              channelId: "channel_id 1",
-              channelName: "channel_name 1",
-              sound: "siren",
-              title: "Testing Title",
-              body: "Testing Body",
-              payload: "green",
+              channelId: 'channel_id 1',
+              channelName: 'channel_name 1',
+              sound: 'siren',
+              title: 'Testing Title',
+              body: 'Testing Body',
+              payload: 'green',
             ),
           ),
           ElevatedButton(
-              child: const Text("Schedule Notification"),
+              child: const Text('Schedule Notification'),
               onPressed: () {
                 NotificationAPI.showScheduledNotification(
-                  channelId: "channel_id 1",
-                  channelName: "channel_name 1",
-                  sound: "siren.mp3",
-                  title: "Testing Title",
-                  body: "Testing Body",
-                  payload: "green",
+                  channelId: 'channel_id 1',
+                  channelName: 'channel_name 1',
+                  sound: 'siren.mp3',
+                  title: 'Testing Title',
+                  body: 'Testing Body',
+                  payload: 'green',
                   scheduledDate: DateTime.now().add(
                     const Duration(seconds: 5),
                   ),
                 );
                 const snackbar = SnackBar(
-                  content: Text("Notification Scheduled"),
+                  content: Text('Notification Scheduled'),
                   backgroundColor: Colors.green,
                 );
                 ScaffoldMessenger.of(context)
@@ -157,7 +157,7 @@ class RedPage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
           body: Center(
         child: Text(
-          "Red Screen: $payload",
+          'Red Screen: $payload',
           style: const TextStyle(color: Colors.red),
         ),
       ));
@@ -168,7 +168,7 @@ class GreenPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => const Scaffold(
       body: Center(
-          child: Text("Green Screen", style: TextStyle(color: Colors.green))));
+          child: Text('Green Screen', style: TextStyle(color: Colors.green))));
 }
 
 class NotificationAPI {
@@ -323,7 +323,7 @@ class NotificationAPI {
         importance: Importance.max,
         priority: Priority.high,
         playSound: true,
-        sound: sound != "default"
+        sound: sound != 'default'
             ? RawResourceAndroidNotificationSound(sound)
             : null,
         enableVibration: true,

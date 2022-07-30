@@ -40,21 +40,18 @@ class _CalculatorNeuAppState extends State<CalculatorNeuApp> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          darkMode ? darkMode = false : darkMode = true;
-                        });
-                      },
-                      child: _switchMode()),
+                      onTap: () => setState(() => darkMode = !darkMode),
+                      child: SwitchMode(darkMode: darkMode)),
                   const SizedBox(height: 80),
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
                       '6.010',
                       style: TextStyle(
-                          fontSize: 55,
-                          fontWeight: FontWeight.bold,
-                          color: darkMode ? Colors.white : Colors.red),
+                        fontSize: 55,
+                        fontWeight: FontWeight.bold,
+                        color: darkMode ? Colors.white : Colors.red,
+                      ),
                     ),
                   ),
                   Row(
@@ -74,162 +71,96 @@ class _CalculatorNeuAppState extends State<CalculatorNeuApp> {
                       )
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  )
+                  const SizedBox(height: 10)
                 ],
               ),
               Column(children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _buttonOval(title: 'sin'),
-                    _buttonOval(title: 'cos'),
-                    _buttonOval(title: 'tan'),
-                    _buttonOval(title: '%')
+                    OvalButton(title: 'sin', darkMode: darkMode),
+                    OvalButton(title: 'cos', darkMode: darkMode),
+                    OvalButton(title: 'tan', darkMode: darkMode),
+                    OvalButton(title: '%', darkMode: darkMode),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _buttonRounded(
-                        title: 'C',
-                        textColor: darkMode ? Colors.green : Colors.redAccent),
-                    _buttonRounded(title: '('),
-                    _buttonRounded(title: ')'),
-                    _buttonRounded(
-                        title: '/',
-                        textColor: darkMode ? Colors.green : Colors.redAccent)
+                    RoundedButton(
+                      title: 'C',
+                      darkMode: darkMode,
+                      textColor: darkMode ? Colors.green : Colors.redAccent,
+                    ),
+                    RoundedButton(title: '(', darkMode: darkMode),
+                    RoundedButton(title: ')', darkMode: darkMode),
+                    RoundedButton(
+                      title: '/',
+                      darkMode: darkMode,
+                      textColor: darkMode ? Colors.green : Colors.redAccent,
+                    ),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _buttonRounded(title: '7'),
-                    _buttonRounded(title: '8'),
-                    _buttonRounded(title: '9'),
-                    _buttonRounded(
-                        title: 'x',
-                        textColor: darkMode ? Colors.green : Colors.redAccent)
+                    RoundedButton(title: '7', darkMode: darkMode),
+                    RoundedButton(title: '8', darkMode: darkMode),
+                    RoundedButton(title: '9', darkMode: darkMode),
+                    RoundedButton(
+                      title: 'x',
+                      darkMode: darkMode,
+                      textColor: darkMode ? Colors.green : Colors.redAccent,
+                    ),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _buttonRounded(title: '4'),
-                    _buttonRounded(title: '5'),
-                    _buttonRounded(title: '6'),
-                    _buttonRounded(
-                        title: '-',
-                        textColor: darkMode ? Colors.green : Colors.redAccent)
+                    RoundedButton(title: '4', darkMode: darkMode),
+                    RoundedButton(title: '5', darkMode: darkMode),
+                    RoundedButton(title: '6', darkMode: darkMode),
+                    RoundedButton(
+                      title: '-',
+                      darkMode: darkMode,
+                      textColor: darkMode ? Colors.green : Colors.redAccent,
+                    ),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _buttonRounded(title: '1'),
-                    _buttonRounded(title: '2'),
-                    _buttonRounded(title: '3'),
-                    _buttonRounded(
-                        title: '+',
-                        textColor: darkMode ? Colors.green : Colors.redAccent)
+                    RoundedButton(title: '1', darkMode: darkMode),
+                    RoundedButton(title: '2', darkMode: darkMode),
+                    RoundedButton(title: '3', darkMode: darkMode),
+                    RoundedButton(
+                      title: '+',
+                      darkMode: darkMode,
+                      textColor: darkMode ? Colors.green : Colors.redAccent,
+                    ),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _buttonRounded(title: '0'),
-                    _buttonRounded(title: ','),
-                    _buttonRounded(
-                        icon: Icons.backspace_outlined,
-                        iconColor: darkMode ? Colors.green : Colors.redAccent),
-                    _buttonRounded(
-                        title: '=',
-                        textColor: darkMode ? Colors.green : Colors.redAccent)
+                    RoundedButton(title: '0', darkMode: darkMode),
+                    RoundedButton(title: ',', darkMode: darkMode),
+                    RoundedButton(
+                      icon: Icons.backspace_outlined,
+                      darkMode: darkMode,
+                      iconColor: darkMode ? Colors.green : Colors.redAccent,
+                    ),
+                    RoundedButton(
+                      title: '=',
+                      darkMode: darkMode,
+                      iconColor: darkMode ? Colors.green : Colors.redAccent,
+                    ),
                   ],
                 )
               ]),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buttonRounded(
-      {String? title = "",
-      double padding = 17,
-      IconData icon = Icons.ac_unit,
-      Color iconColor = Colors.white,
-      Color textColor = Colors.black}) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: NeuContainer(
-        darkMode: darkMode,
-        borderRadius: BorderRadius.circular(40),
-        padding: EdgeInsets.all(padding),
-        child: SizedBox(
-          width: padding * 2,
-          height: padding * 2,
-          child: Center(
-            child: title != null
-                ? Text(
-                    title,
-                    style: TextStyle(color: textColor, fontSize: 30),
-                  )
-                : Icon(
-                    icon,
-                    color: iconColor,
-                    size: 30,
-                  ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buttonOval({required String title, double padding = 17}) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: NeuContainer(
-        darkMode: darkMode,
-        borderRadius: BorderRadius.circular(50),
-        padding:
-            EdgeInsets.symmetric(horizontal: padding, vertical: padding / 2),
-        child: SizedBox(
-          width: padding * 2,
-          child: Center(
-            child: Text(
-              title,
-              style: TextStyle(
-                  color: darkMode ? Colors.white : Colors.black,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _switchMode() {
-    return NeuContainer(
-      darkMode: darkMode,
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-      borderRadius: BorderRadius.circular(40),
-      child: SizedBox(
-        width: 70,
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Icon(
-            Icons.wb_sunny,
-            color: darkMode ? Colors.grey : Colors.redAccent,
-          ),
-          Icon(
-            Icons.nightlight_round,
-            color: darkMode ? Colors.green : Colors.grey,
-          ),
-        ]),
       ),
     );
   }
@@ -241,13 +172,13 @@ class NeuContainer extends StatefulWidget {
   final BorderRadius borderRadius;
   final EdgeInsetsGeometry padding;
 
-  const NeuContainer(
-      {Key? key,
-      this.darkMode = false,
-      required this.child,
-      required this.borderRadius,
-      required this.padding})
-      : super(key: key);
+  const NeuContainer({
+    Key? key,
+    this.darkMode = false,
+    required this.child,
+    required this.borderRadius,
+    required this.padding,
+  }) : super(key: key);
 
   @override
   State<NeuContainer> createState() => _NeuContainerState();
@@ -277,26 +208,138 @@ class _NeuContainerState extends State<NeuContainer> {
       child: Container(
         padding: widget.padding,
         decoration: BoxDecoration(
-            color: darkMode ? colorDark : colorLight,
-            borderRadius: widget.borderRadius,
-            boxShadow: _isPressed
-                ? null
-                : [
-                    BoxShadow(
+          color: darkMode ? colorDark : colorLight,
+          borderRadius: widget.borderRadius,
+          boxShadow: _isPressed
+              ? null
+              : [
+                  BoxShadow(
                       color:
                           darkMode ? Colors.black54 : Colors.blueGrey.shade200,
                       offset: const Offset(4.0, 4.0),
                       blurRadius: 15.0,
-                      spreadRadius: 1.0,
-                    ),
-                    BoxShadow(
-                        color:
-                            darkMode ? Colors.blueGrey.shade700 : Colors.white,
-                        offset: const Offset(-4.0, -4.0),
-                        blurRadius: 15.0,
-                        spreadRadius: 1.0)
-                  ]),
+                      spreadRadius: 1.0),
+                  BoxShadow(
+                    color: darkMode ? Colors.blueGrey.shade700 : Colors.white,
+                    offset: const Offset(-4.0, -4.0),
+                    blurRadius: 15.0,
+                    spreadRadius: 1.0,
+                  )
+                ],
+        ),
         child: widget.child,
+      ),
+    );
+  }
+}
+
+class RoundedButton extends StatelessWidget {
+  final String? title;
+  final bool darkMode;
+  final double padding;
+  final IconData icon;
+  final Color iconColor;
+  final Color textColor;
+  const RoundedButton({
+    Key? key,
+    required this.darkMode,
+    this.title,
+    this.padding = 18,
+    this.icon = Icons.ac_unit,
+    this.iconColor = Colors.white,
+    this.textColor = Colors.black,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: NeuContainer(
+        darkMode: darkMode,
+        borderRadius: BorderRadius.circular(40),
+        padding: EdgeInsets.all(padding),
+        child: SizedBox(
+          width: padding * 2,
+          height: padding * 2,
+          child: Center(
+            child: title != null
+                ? Text(
+                    title ?? '',
+                    style: TextStyle(color: textColor, fontSize: 30),
+                  )
+                : Icon(
+                    icon,
+                    color: iconColor,
+                    size: 30,
+                  ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SwitchMode extends StatelessWidget {
+  final bool darkMode;
+  const SwitchMode({Key? key, required this.darkMode}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return NeuContainer(
+      darkMode: darkMode,
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      borderRadius: BorderRadius.circular(40),
+      child: SizedBox(
+        width: 70,
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Icon(
+            Icons.wb_sunny,
+            color: darkMode ? Colors.grey : Colors.redAccent,
+          ),
+          Icon(
+            Icons.nightlight_round,
+            color: darkMode ? Colors.green : Colors.grey,
+          ),
+        ]),
+      ),
+    );
+  }
+}
+
+class OvalButton extends StatelessWidget {
+  final String title;
+  final double padding;
+  final bool darkMode;
+  const OvalButton({
+    Key? key,
+    required this.title,
+    this.padding = 16,
+    required this.darkMode,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: NeuContainer(
+        darkMode: darkMode,
+        borderRadius: BorderRadius.circular(50),
+        padding:
+            EdgeInsets.symmetric(horizontal: padding, vertical: padding / 2),
+        child: SizedBox(
+          width: padding * 2,
+          child: Center(
+            child: Text(
+              title,
+              style: TextStyle(
+                color: darkMode ? Colors.white : Colors.black,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

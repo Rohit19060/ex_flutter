@@ -3,7 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 void main() => runApp(
       MaterialApp(
-        title: "Google Auth",
+        title: 'Google Auth',
         theme: ThemeData(primarySwatch: Colors.blue),
         home: const MyHomePage(),
       ),
@@ -24,14 +24,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Google Auth"),
-      ),
+      appBar: AppBar(title: const Text('Google Auth')),
       body: _isLoggedIn
           ? Column(
               children: [
-                Image.network(_userObj!.photoUrl ?? ""),
-                Text(_userObj!.displayName ?? ""),
+                Image.network(_userObj!.photoUrl ?? ''),
+                Text(_userObj!.displayName ?? ''),
                 Text(_userObj!.email),
                 TextButton(
                   onPressed: () {
@@ -41,13 +39,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       });
                     });
                   },
-                  child: const Text("Logout"),
+                  child: const Text('Logout'),
                 )
               ],
             )
           : Center(
               child: ElevatedButton(
-                child: const Text("Login with Google"),
+                child: const Text('Login with Google'),
                 onPressed: () {
                   _googleSignIN.signIn().then((value) {
                     setState(() {

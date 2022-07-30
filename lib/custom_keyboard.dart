@@ -66,7 +66,7 @@ class _CustomKeyboardExperimentState extends State<CustomKeyboardExperiment> {
                       contentPadding: EdgeInsets.zero,
                       border: InputBorder.none,
                       hintText: 'Enter text',
-                      prefix: Text("₹")),
+                      prefix: Text('₹')),
                   controller: _controller,
                   style: const TextStyle(fontSize: 24),
                   autofocus: true,
@@ -101,7 +101,7 @@ class _CustomKeyboardExperimentState extends State<CustomKeyboardExperiment> {
                   ),
                 ),
                 child: const Text(
-                  "Submit Amount",
+                  'Submit Amount',
                   style: TextStyle(fontSize: 34.0, fontWeight: FontWeight.bold),
                 ),
                 onPressed: () {}),
@@ -116,17 +116,17 @@ class _CustomKeyboardExperimentState extends State<CustomKeyboardExperiment> {
     final textSelection = _controller.selection;
 
     // Return if first initial value is 0
-    if (myText == "0" && text.isEmpty) {
+    if (myText == '0' && text.isEmpty) {
       return;
     }
 
     // Return if dot is pressed and already contains a dot
-    if (myText == "." && text.contains(".")) {
+    if (myText == '.' && text.contains('.')) {
       return;
     }
     String newText;
-    if (text.isEmpty && myText == ".") {
-      newText = "0.";
+    if (text.isEmpty && myText == '.') {
+      newText = '0.';
     } else {
       newText = text.replaceRange(
         textSelection.start,
@@ -220,20 +220,20 @@ class CustomKeyboard extends StatelessWidget {
             mainAxisSpacing: 0.2,
             crossAxisSpacing: 0.2,
             children: [
-              "1",
-              "2",
-              "3",
-              "4",
-              "5",
-              "6",
-              "7",
-              "8",
-              "9",
-              ".",
-              "0",
-              "Clear"
+              '1',
+              '2',
+              '3',
+              '4',
+              '5',
+              '6',
+              '7',
+              '8',
+              '9',
+              '.',
+              '0',
+              'Clear'
             ].map((e) {
-              if (e != "Clear") {
+              if (e != 'Clear') {
                 return TextButton(
                     onPressed: () {
                       onTextInput.call(e);

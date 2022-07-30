@@ -18,7 +18,7 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
-   State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -70,23 +70,23 @@ class Navigation {
 }
 
 List<Navigation> navigation = [
-  Navigation(title: "Home", icon: "assets/images/Group 2361.png"),
+  Navigation(title: 'Home', icon: 'assets/images/Group 2361.png'),
   Navigation(
-      title: "Activity", icon: "assets/images/Icon feather-activity.png"),
+      title: 'Activity', icon: 'assets/images/Icon feather-activity.png'),
   Navigation(
-      title: "Settings", icon: "assets/images/Icon feather-settings.png"),
-  Navigation(title: "Profile", icon: "assets/images/Icon feather-user.png"),
+      title: 'Settings', icon: 'assets/images/Icon feather-settings.png'),
+  Navigation(title: 'Profile', icon: 'assets/images/Icon feather-user.png'),
 ];
 
 List<DailyActivity> daily = [
-  DailyActivity(day: "MON", date: "8"),
-  DailyActivity(day: "SUN", date: "7"),
-  DailyActivity(day: "SAT", date: "6"),
-  DailyActivity(day: "FRI", date: "5"),
-  DailyActivity(day: "THU", date: "4"),
-  DailyActivity(day: "WED", date: "3"),
-  DailyActivity(day: "TUE", date: "2"),
-  DailyActivity(day: "MON", date: "1"),
+  DailyActivity(day: 'MON', date: '8'),
+  DailyActivity(day: 'SUN', date: '7'),
+  DailyActivity(day: 'SAT', date: '6'),
+  DailyActivity(day: 'FRI', date: '5'),
+  DailyActivity(day: 'THU', date: '4'),
+  DailyActivity(day: 'WED', date: '3'),
+  DailyActivity(day: 'TUE', date: '2'),
+  DailyActivity(day: 'MON', date: '1'),
 ];
 
 class TodayActivity {
@@ -96,13 +96,13 @@ class TodayActivity {
 
 List<TodayActivity> today = [
   TodayActivity(
-      icon: "assets/images/trail-running-shoe (1).png",
-      title: "Steps",
-      count: "1,254"),
+      icon: 'assets/images/trail-running-shoe (1).png',
+      title: 'Steps',
+      count: '1,254'),
   TodayActivity(
-      icon: "assets/images/weight.png", title: "Calories", count: "826"),
+      icon: 'assets/images/weight.png', title: 'Calories', count: '826'),
   TodayActivity(
-      icon: "assets/images/cardiogram (1).png", title: "BPM", count: "88.0"),
+      icon: 'assets/images/cardiogram (1).png', title: 'BPM', count: '88.0'),
 ];
 
 class Activity {
@@ -111,12 +111,12 @@ class Activity {
 }
 
 List<Activity> item = [
-  Activity(icon: "assets/images/trail-running-shoe (1).png", title: "Walking"),
-  Activity(icon: "assets/images/treadmill (1).png", title: "Tradmill"),
-  Activity(icon: "assets/images/running (2).png", title: "Running"),
-  Activity(icon: "assets/images/bike (2).png", title: "Cycling"),
-  Activity(icon: "assets/images/gym.png", title: "Gym"),
-  Activity(icon: "assets/images/Path 1711.png", title: "Yoge"),
+  Activity(icon: 'assets/images/trail-running-shoe (1).png', title: 'Walking'),
+  Activity(icon: 'assets/images/treadmill (1).png', title: 'Tradmill'),
+  Activity(icon: 'assets/images/running (2).png', title: 'Running'),
+  Activity(icon: 'assets/images/bike (2).png', title: 'Cycling'),
+  Activity(icon: 'assets/images/gym.png', title: 'Gym'),
+  Activity(icon: 'assets/images/Path 1711.png', title: 'Yoge'),
 ];
 
 class Body extends StatefulWidget {
@@ -142,19 +142,19 @@ class _BodyState extends State<Body> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Hello Almamun",
+                      'Hello Almamun',
                       style: TextStyle(fontSize: 16, color: Color(0xff869CEE)),
                     ),
                     Row(
                       children: const [
                         Text(
-                          "Find A ",
+                          'Find A ',
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.w900),
                         ),
-                        Text("Workout",
+                        Text('Workout',
                             style: TextStyle(
                                 color: Color(0xff4F59DC),
                                 fontSize: 20,
@@ -187,7 +187,7 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 Image.asset(
-                  "assets/images/Group 1.png",
+                  'assets/images/Group 1.png',
                   height: 220,
                 ),
                 Positioned(
@@ -202,12 +202,12 @@ class _BodyState extends State<Body> {
                           children: [
                             Row(
                               children: const [
-                                Text("Legs ",
+                                Text('Legs ',
                                     style: TextStyle(
                                         fontSize: 20,
                                         color: Colors.white,
                                         fontWeight: FontWeight.w800)),
-                                Text("and ",
+                                Text('and ',
                                     style: TextStyle(
                                       fontSize: 20,
                                       color: Colors.white,
@@ -216,12 +216,12 @@ class _BodyState extends State<Body> {
                             ),
                             Row(
                               children: const [
-                                Text("Glutes ",
+                                Text('Glutes ',
                                     style: TextStyle(
                                         fontSize: 20,
                                         color: Colors.white,
                                         fontWeight: FontWeight.w800)),
-                                Text("workout ",
+                                Text('workout ',
                                     style: TextStyle(
                                       fontSize: 20,
                                       color: Colors.white,
@@ -233,14 +233,14 @@ class _BodyState extends State<Body> {
                               child: Row(
                                 children: [
                                   Image.asset(
-                                    "assets/images/Group 2359.png",
+                                    'assets/images/Group 2359.png',
                                     height: 10,
                                   ),
                                   const SizedBox(
                                     width: 10,
                                   ),
                                   const Text(
-                                    "Advanced",
+                                    'Advanced',
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),
@@ -252,13 +252,13 @@ class _BodyState extends State<Body> {
                               padding: const EdgeInsets.only(top: 15),
                               child: Row(
                                 children: [
-                                  Image.asset("assets/images/stopwatch.png",
+                                  Image.asset('assets/images/stopwatch.png',
                                       height: 10, color: Colors.white),
                                   const SizedBox(
                                     width: 10,
                                   ),
                                   const Text(
-                                    "45 min",
+                                    '45 min',
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),
@@ -286,7 +286,7 @@ class _BodyState extends State<Body> {
                                       borderRadius: BorderRadius.circular(20)),
                                   child: const Center(
                                     child: Text(
-                                      "Start Workout",
+                                      'Start Workout',
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 14),
                                     ),
@@ -322,7 +322,7 @@ class _BodyState extends State<Body> {
                       Row(
                         children: [
                           Text(
-                            "Details",
+                            'Details',
                             style: TextStyle(color: textColor),
                           ),
                           const Icon(Icons.arrow_forward)
@@ -358,14 +358,14 @@ class _BodyState extends State<Body> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
-                        "Daily Activity",
+                        'Daily Activity',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       Row(
                         children: [
                           Text(
-                            "Details",
+                            'Details',
                             style: TextStyle(color: textColor),
                           ),
                           const Icon(Icons.arrow_forward)
@@ -567,7 +567,7 @@ class Page extends StatefulWidget {
   const Page({Key? key}) : super(key: key);
 
   @override
-   State<Page> createState() => _PageState();
+  State<Page> createState() => _PageState();
 }
 
 class _PageState extends State<Page> {
@@ -581,14 +581,14 @@ class _PageState extends State<Page> {
         title: Row(
           children: const [
             Text(
-              "Start ",
+              'Start ',
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 25,
                   fontWeight: FontWeight.bold),
             ),
             Text(
-              "Activity",
+              'Activity',
               style: TextStyle(
                   color: Color(0xff5868E0),
                   fontSize: 25,
@@ -607,7 +607,7 @@ class _PageState extends State<Page> {
           child: Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Image.asset(
-              "assets/images/Group 2359 - Copy.png",
+              'assets/images/Group 2359 - Copy.png',
               width: 40,
             ),
           ),
@@ -622,7 +622,7 @@ class PageBody extends StatefulWidget {
   const PageBody({Key? key}) : super(key: key);
 
   @override
-   State<PageBody> createState() => _PageBodyState();
+  State<PageBody> createState() => _PageBodyState();
 }
 
 class _PageBodyState extends State<PageBody> {
@@ -733,12 +733,8 @@ class _PageBodyState extends State<PageBody> {
 }
 
 class ItemList extends StatelessWidget {
-  const ItemList({
-    Key? key,
-    required this.index,
-  }) : super(key: key);
-
   final int index;
+  const ItemList({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -754,13 +750,8 @@ class ItemList extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              item[index].icon,
-              height: 30,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
+            Image.asset(item[index].icon, height: 30),
+            const SizedBox(height: 20),
             Text(item[index].title, style: TextStyle(color: textColor))
           ],
         ),

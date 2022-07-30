@@ -26,9 +26,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text("Flutter Experiments"),
-        ),
+        appBar: AppBar(title: const Text('Flutter Experiments')),
         body: const Center(),
         floatingActionButton: const LinearFlowWidget(),
       );
