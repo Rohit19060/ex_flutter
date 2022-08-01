@@ -89,7 +89,7 @@ class _ECommerceItemsState extends State<ECommerceItems> {
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
-              Categories(),
+              const Categories(),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: kPadding),

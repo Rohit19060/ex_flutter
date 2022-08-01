@@ -7,36 +7,31 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:pinput/pinput.dart';
 
-class Otp2Factor {
-  static Future sendRequest(String url) async {
-    try {
-      var response =
-          await get(Uri.parse(url), headers: {'Accept': 'application/json'});
-      return json.decode(response.body);
-    } on SocketException {
-      return {
-        'Status': 'Internet Issue',
-        'Details': 'No Internet connection 😑'
-      };
-    } catch (e) {
-      return {'Status': 'Server Problem', 'Details': 'Connection Error 😑'};
-    }
-  }
-
-  static Future sendOtp({required String mob}) {
-    return sendRequest(
-        "https://2factor.in/API/V1/${dotenv.env['otpkey']}/SMS/$mob/AUTOGEN");
-  }
-
-  static Future validateOTP({required String sessionId, required String otp}) {
-    return sendRequest(
-        "https://2factor.in/API/V1/${dotenv.env['otpkey']}/SMS/VERIFY/$sessionId/$otp");
-  }
-}
-
 Future main() async {
   await dotenv.load(fileName: 'lib/.env');
   runApp(const MaterialApp(home: HomePage()));
+}
+
+Future sendRequest(String url) async {
+  try {
+    var response =
+        await get(Uri.parse(url), headers: {'Accept': 'application/json'});
+    return json.decode(response.body);
+  } on SocketException {
+    return {'Status': 'Internet Issue', 'Details': 'No Internet connection 😑'};
+  } catch (e) {
+    return {'Status': 'Server Problem', 'Details': 'Connection Error 😑'};
+  }
+}
+
+Future sendOtp({required String mob}) {
+  return sendRequest(
+      "https://2factor.in/API/V1/${dotenv.env['otpkey']}/SMS/$mob/AUTOGEN");
+}
+
+Future validateOTP({required String sessionId, required String otp}) {
+  return sendRequest(
+      "https://2factor.in/API/V1/${dotenv.env['otpkey']}/SMS/VERIFY/$sessionId/$otp");
 }
 
 class HomePage extends StatefulWidget {
@@ -63,7 +58,7 @@ class _HomePageState extends State<HomePage> {
 
   void _sendOtp() {
     setState(() => _isLoading = true);
-    Otp2Factor.sendOtp(mob: _mobController.text.toString()).then((value) {
+    sendOtp(mob: _mobController.text.toString()).then((value) {
       if (value['Status'] == 'Success') {
         Fluttertoast.showToast(msg: 'Otp Sent Successfully');
         _isOtpSent = true;
@@ -78,8 +73,7 @@ class _HomePageState extends State<HomePage> {
 
   void _validateOTP() {
     setState(() => _isLoading = true);
-    Otp2Factor.validateOTP(otp: _otpController.text, sessionId: _sessionId)
-        .then((value) {
+    validateOTP(otp: _otpController.text, sessionId: _sessionId).then((value) {
       if (value['Status'] == 'Success') {
         Fluttertoast.showToast(msg: 'Mobile Number Verified');
         _isOtpSent = false;

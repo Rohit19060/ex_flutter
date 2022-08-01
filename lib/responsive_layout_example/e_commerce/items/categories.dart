@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 
 import '../../k_padding.dart';
 
-// We need satefull widget for our categories
-
 class Categories extends StatefulWidget {
+  const Categories({Key? key}) : super(key: key);
+
   @override
-  _CategoriesState createState() => _CategoriesState();
+  State<Categories> createState() => _CategoriesState();
 }
 
 class _CategoriesState extends State<Categories> {
   List<String> categories = [
-    "Electronics",
-    "Video Games",
-    "Devices & Accessories",
-    "Music",
-    "Watches"
+    'Electronics',
+    'Video Games',
+    'Devices & Accessories',
+    'Music',
+    'Watches'
   ];
   int selectedIndex = 0;
   @override
@@ -43,14 +43,12 @@ class _CategoriesState extends State<Categories> {
                       ),
                     ),
                     padding: MaterialStateProperty.all(
-                      EdgeInsets.all(
-                        kPadding,
-                      ),
+                      const EdgeInsets.all(kPadding),
                     ),
                     backgroundColor: MaterialStateProperty.all(
                         selectedIndex == index
                             ? Colors.white.withOpacity(0.8)
-                            : Theme.of(context).accentColor)),
+                            : Theme.of(context).colorScheme.secondary)),
                 child: Text(
                   categories[index],
                   style: TextStyle(
