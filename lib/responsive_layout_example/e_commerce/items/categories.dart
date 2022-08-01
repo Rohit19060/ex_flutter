@@ -43,8 +43,7 @@ class _CategoriesState extends State<Categories> {
                       ),
                     ),
                     padding: MaterialStateProperty.all(
-                      const EdgeInsets.all(kPadding),
-                    ),
+                        const EdgeInsets.all(kPadding)),
                     backgroundColor: MaterialStateProperty.all(
                         selectedIndex == index
                             ? Colors.white.withOpacity(0.8)
