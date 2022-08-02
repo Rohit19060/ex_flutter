@@ -10,9 +10,12 @@ import '../../email/email_screen.dart';
 import 'email_card.dart';
 
 class ListOfEmails extends StatefulWidget {
-  // Press "Command + ."
+  final Function(int) onMenuTap;
+  final int mailIndex;
   const ListOfEmails({
     Key? key,
+    required this.onMenuTap,
+    required this.mailIndex,
   }) : super(key: key);
 
   @override
@@ -36,14 +39,11 @@ class _ListOfEmailsState extends State<ListOfEmails> {
           right: false,
           child: Column(
             children: [
-              // This is our Seearch bar
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                 child: Row(
                   children: [
-                    // Once user click the menu icon the menu shows like drawer
-                    // Also we want to hide this menu icon on desktop
                     if (!Responsive.isDesktop(context))
                       IconButton(
                         icon: const Icon(Icons.menu),
@@ -54,23 +54,27 @@ class _ListOfEmailsState extends State<ListOfEmails> {
                     if (!Responsive.isDesktop(context))
                       const SizedBox(width: 5),
                     Expanded(
-                      child: TextField(
-                        onChanged: (value) {},
-                        decoration: InputDecoration(
-                          hintText: 'Search',
-                          fillColor: kBgLightColor,
-                          filled: true,
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.all(
-                                kDefaultPadding * 0.75), //15
-                            child: WebsafeSvg.asset(
-                              'assets/icons/Search.svg',
-                              width: 24,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: TextField(
+                          onChanged: (value) {},
+                          decoration: InputDecoration(
+                            hintText: 'Search',
+                            fillColor: kBgLightColor,
+                            filled: true,
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.all(
+                                  kDefaultPadding * 0.75), //15
+                              child: WebsafeSvg.asset(
+                                'assets/icons/Search.svg',
+                                width: 24,
+                              ),
                             ),
-                          ),
-                          border: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide.none,
+                            border: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide.none,
+                            ),
                           ),
                         ),
                       ),
@@ -110,19 +114,22 @@ class _ListOfEmailsState extends State<ListOfEmails> {
               Expanded(
                 child: ListView.builder(
                   itemCount: emails.length,
-                  // On mobile this active dosen't mean anything
                   itemBuilder: (context, index) => EmailCard(
-                    isActive: Responsive.isMobile(context) ? false : index == 0,
+                    isActive: index == widget.mailIndex,
                     email: emails[index],
-                    press: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              EmailScreen(email: emails[index]),
-                        ),
-                      );
-                    },
+                    press: Responsive.isMobile(context)
+                        ? () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    EmailScreen(email: emails[index]),
+                              ),
+                            );
+                          }
+                        : () {
+                            widget.onMenuTap(index);
+                          },
                   ),
                 ),
               ),

@@ -19,12 +19,16 @@ class SideMenu extends StatelessWidget {
       color: kBgLightColor,
       child: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+          padding: const EdgeInsets.all(kDefaultPadding),
           child: Column(
             children: [
               Row(
                 children: [
-                  Image.asset('assets/images/Logo Outlook.png', width: 46),
+                  Image.asset('assets/images/Logo Outlook.png', width: 36)
+                      .addNeumorphism(
+                    topShadowColor: Colors.white,
+                    bottomShadowColor: const Color(0xFF234395).withOpacity(0.2),
+                  ),
                   const Spacer(),
                   if (!Responsive.isDesktop(context)) const CloseButton(),
                 ],
@@ -54,11 +58,8 @@ class SideMenu extends StatelessWidget {
               const SizedBox(height: kDefaultPadding),
               TextButton.icon(
                 style: ButtonStyle(
-                  padding: MaterialStateProperty.all(
-                    const EdgeInsets.symmetric(
-                      vertical: kDefaultPadding,
-                    ),
-                  ),
+                  padding: MaterialStateProperty.all(const EdgeInsets.symmetric(
+                      vertical: kDefaultPadding, horizontal: kDefaultPadding)),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -72,9 +73,11 @@ class SideMenu extends StatelessWidget {
                   'Get messages',
                   style: TextStyle(color: kTextColor),
                 ),
-              ).addNeumorphism(),
+              ).addNeumorphism(
+                topShadowColor: Colors.white,
+                bottomShadowColor: const Color(0xFF234395).withOpacity(0.2),
+              ),
               const SizedBox(height: kDefaultPadding * 2),
-              // Menu Items
               SideMenuItem(
                 press: () {},
                 title: 'Inbox',
@@ -101,7 +104,6 @@ class SideMenu extends StatelessWidget {
                 isActive: false,
                 showBorder: false,
               ),
-
               const SizedBox(height: kDefaultPadding * 2),
               const Tags(),
             ],

@@ -74,7 +74,7 @@ List demoData = [
     'subject': 'New job opportunities',
     'isAttachmentAvailable': false,
     'isChecked': false,
-    'tagColor': const Color(0xFF3A6FF7),
+    'tagColor': const Color.fromARGB(255, 0, 0, 0),
     'time': '9:58'
   }
 ];
