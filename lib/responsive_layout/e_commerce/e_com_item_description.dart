@@ -27,7 +27,7 @@ class ECommerceItemDescription extends StatelessWidget {
                       const CircleAvatar(
                         maxRadius: 24,
                         backgroundColor: Colors.transparent,
-                        backgroundImage: AssetImage('images/switch_logo.png'),
+                        backgroundImage: AssetImage('assets/images/switch_logo.png'),
                       ),
                       const SizedBox(width: kPadding),
                       Expanded(
@@ -95,7 +95,7 @@ class ECommerceItemDescription extends StatelessWidget {
                                                 borderRadius:
                                                     BorderRadius.circular(8),
                                                 child: Image.asset(
-                                                  'images/switch_$index.jpg',
+                                                  'assets/images/switch_$index.jpg',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
@@ -114,7 +114,7 @@ class ECommerceItemDescription extends StatelessWidget {
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                               child: Image.asset(
-                                                'images/switch_box.jpg',
+                                                'assets/images/switch_box.jpg',
                                                 fit: BoxFit.contain,
                                               ),
                                             ),

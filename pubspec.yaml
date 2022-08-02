@@ -63,7 +63,8 @@ dependencies:
   palette_generator: ^0.3.3+1
   connectivity_plus: ^2.3.6
   flutter_screenutil: ^5.5.3+2
-
+  flutter_staggered_grid_view: 
+  websafe_svg: 
 
 dev_dependencies:
   flutter_lints:
@@ -74,6 +75,7 @@ flutter:
   assets:
     - lib/.env
     - assets/images/
+    - assets/icons/
     - assets/
 
 # Flutter native scrips

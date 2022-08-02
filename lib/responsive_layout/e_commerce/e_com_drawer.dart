@@ -23,7 +23,7 @@ class ECommerceDrawer extends StatelessWidget {
               Row(
                 children: [
                   Image.asset(
-                    'images/sellar.png',
+                    'assets/images/sellar.png',
                     width: 150,
                   ),
                   const Spacer(),
