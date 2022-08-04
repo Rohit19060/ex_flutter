@@ -1,21 +1,20 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Neumorphic Fitness App',
-      home: MyHomePage(),
-    );
-  }
+  Widget build(BuildContext context) => const MaterialApp(
+        title: 'Neumorphic Fitness App',
+        home: MyHomePage(),
+      );
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -23,9 +22,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: boxColor, body: const Body());
-  }
+  Widget build(BuildContext context) =>
+      Scaffold(backgroundColor: boxColor, body: const Body());
 }
 
 Color textColor = const Color(0xff3E67D6);
@@ -60,13 +58,13 @@ final kIShadow = [
 ];
 
 class DailyActivity {
-  final String day, date;
   DailyActivity({required this.day, required this.date});
+  final String day, date;
 }
 
 class Navigation {
-  final String icon, title;
   Navigation({required this.icon, required this.title});
+  final String icon, title;
 }
 
 List<Navigation> navigation = [
@@ -90,8 +88,8 @@ List<DailyActivity> daily = [
 ];
 
 class TodayActivity {
-  final String icon, title, count;
   TodayActivity({required this.icon, required this.count, required this.title});
+  final String icon, title, count;
 }
 
 List<TodayActivity> today = [
@@ -106,8 +104,8 @@ List<TodayActivity> today = [
 ];
 
 class Activity {
-  final String icon, title;
   Activity({required this.icon, required this.title});
+  final String icon, title;
 }
 
 List<Activity> item = [
@@ -120,7 +118,7 @@ List<Activity> item = [
 ];
 
 class Body extends StatefulWidget {
-  const Body({Key? key}) : super(key: key);
+  const Body({super.key});
 
   @override
   State<Body> createState() => _BodyState();
@@ -129,276 +127,274 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   int selectedIndex = 0;
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Hello Almamun',
-                      style: TextStyle(fontSize: 16, color: Color(0xff869CEE)),
-                    ),
-                    Row(
-                      children: const [
-                        Text(
-                          'Find A ',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w900),
-                        ),
-                        Text('Workout',
+  Widget build(BuildContext context) => SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Hello Almamun',
+                        style:
+                            TextStyle(fontSize: 16, color: Color(0xff869CEE)),
+                      ),
+                      Row(
+                        children: const [
+                          Text(
+                            'Find A ',
                             style: TextStyle(
-                                color: Color(0xff4F59DC),
+                                color: Colors.black,
                                 fontSize: 20,
-                                fontWeight: FontWeight.w900))
-                      ],
-                    )
-                  ],
-                ),
-                const Icon(Icons.search)
-              ],
-            ),
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    height: 190,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                        color: Colors.indigo,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(130),
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                        )),
+                                fontWeight: FontWeight.w900),
+                          ),
+                          Text('Workout',
+                              style: TextStyle(
+                                  color: Color(0xff4F59DC),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w900))
+                        ],
+                      )
+                    ],
                   ),
-                ),
-                Image.asset(
-                  'assets/images/Group 1.png',
-                  height: 220,
-                ),
-                Positioned(
-                    top: 30,
-                    right: 50,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: const [
-                                Text('Legs ',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w800)),
-                                Text('and ',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                    ))
-                              ],
-                            ),
-                            Row(
-                              children: const [
-                                Text('Glutes ',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w800)),
-                                Text('workout ',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                    ))
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 15),
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/Group 2359.png',
-                                    height: 10,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const Text(
-                                    'Advanced',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 15),
-                              child: Row(
-                                children: [
-                                  Image.asset('assets/images/stopwatch.png',
-                                      height: 10, color: Colors.white),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const Text(
-                                    '45 min',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 15),
-                              child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const Page()));
-                                  });
-                                },
-                                child: Container(
-                                  height: 35,
-                                  width: 120,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(.15),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: const Center(
-                                    child: Text(
-                                      'Start Workout',
+                  const Icon(Icons.search)
+                ],
+              ),
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Container(
+                      height: 190,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: const BoxDecoration(
+                          color: Colors.indigo,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(130),
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          )),
+                    ),
+                  ),
+                  Image.asset(
+                    'assets/images/Group 1.png',
+                    height: 220,
+                  ),
+                  Positioned(
+                      top: 30,
+                      right: 50,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: const [
+                                  Text('Legs ',
                                       style: TextStyle(
-                                          color: Colors.white, fontSize: 14),
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w800)),
+                                  Text('and ',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ))
+                                ],
+                              ),
+                              Row(
+                                children: const [
+                                  Text('Glutes ',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w800)),
+                                  Text('workout ',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ))
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 15),
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/Group 2359.png',
+                                      height: 10,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    const Text(
+                                      'Advanced',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 15),
+                                child: Row(
+                                  children: [
+                                    Image.asset('assets/images/stopwatch.png',
+                                        height: 10, color: Colors.white),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    const Text(
+                                      '45 min',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 15),
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const Page()));
+                                    });
+                                  },
+                                  child: Container(
+                                    height: 35,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white.withOpacity(.15),
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    child: const Center(
+                                      child: Text(
+                                        'Start Workout',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            )
+                              )
+                            ],
+                          )
+                        ],
+                      ))
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 10,
+              ),
+              child: Container(
+                height: 128.4,
+                color: boxColor,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Today's Activity",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              'Details',
+                              style: TextStyle(color: textColor),
+                            ),
+                            const Icon(Icons.arrow_forward)
                           ],
                         )
                       ],
-                    ))
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 10,
-            ),
-            child: Container(
-              height: 128.4,
-              color: boxColor,
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "Today's Activity",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'Details',
-                            style: TextStyle(color: textColor),
-                          ),
-                          const Icon(Icons.arrow_forward)
-                        ],
-                      )
-                    ],
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: List.generate(
-                          today.length,
-                          (index) => TodayAC(
-                                index: index,
-                              )),
                     ),
-                  )
-                ],
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: List.generate(
+                            today.length,
+                            (index) => TodayAC(
+                                  index: index,
+                                )),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 10,
-            ),
-            child: Container(
-              height: 135,
-              color: boxColor,
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Daily Activity',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'Details',
-                            style: TextStyle(color: textColor),
-                          ),
-                          const Icon(Icons.arrow_forward)
-                        ],
-                      )
-                    ],
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: List.generate(
-                          daily.length,
-                          (index) => DailyAC(
-                                index: index,
-                              )),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 10,
+              ),
+              child: Container(
+                height: 135,
+                color: boxColor,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Daily Activity',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              'Details',
+                              style: TextStyle(color: textColor),
+                            ),
+                            const Icon(Icons.arrow_forward)
+                          ],
+                        )
+                      ],
                     ),
-                  )
-                ],
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: List.generate(
+                            daily.length,
+                            (index) => DailyAC(
+                                  index: index,
+                                )),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 84,
-            width: MediaQuery.of(context).size.width,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children:
-                    List.generate(navigation.length, (index) => nav(index))),
-          )
-        ],
-      ),
-    );
-  }
+            SizedBox(
+              height: 84,
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: List.generate(navigation.length, nav)),
+            )
+          ],
+        ),
+      );
 
   Widget nav(int index) => InkWell(
         onTap: () {
@@ -459,112 +455,123 @@ class _BodyState extends State<Body> {
                 ),
         ),
       );
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IntProperty('selectedIndex', selectedIndex));
+  }
 }
 
 class TodayAC extends StatelessWidget {
   const TodayAC({
-    Key? key,
+    super.key,
     required this.index,
-  }) : super(key: key);
+  });
 
   final int index;
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.2),
-      child: Padding(
-        padding: const EdgeInsets.only(right: 6),
-        child: Container(
-          height: 80,
-          width: 140,
-          margin: const EdgeInsets.only(top: 8),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: boxColor,
-              boxShadow: kboxShadow),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    today[index].icon,
-                    height: 20,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    today[index].title,
-                    style: const TextStyle(letterSpacing: 2),
-                  )
-                ],
-              ),
-              Text(
-                today[index].count,
-                style: TextStyle(
-                    color: Colors.blue[700],
-                    fontWeight: FontWeight.bold,
-                    fontSize: 26),
-              )
-            ],
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.all(8.2),
+        child: Padding(
+          padding: const EdgeInsets.only(right: 6),
+          child: Container(
+            height: 80,
+            width: 140,
+            margin: const EdgeInsets.only(top: 8),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: boxColor,
+                boxShadow: kboxShadow),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      today[index].icon,
+                      height: 20,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      today[index].title,
+                      style: const TextStyle(letterSpacing: 2),
+                    )
+                  ],
+                ),
+                Text(
+                  today[index].count,
+                  style: TextStyle(
+                      color: Colors.blue[700],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 26),
+                )
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IntProperty('index', index));
   }
 }
 
 class DailyAC extends StatelessWidget {
   const DailyAC({
-    Key? key,
+    super.key,
     required this.index,
-  }) : super(key: key);
+  });
 
   final int index;
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.2),
-      child: Padding(
-        padding: const EdgeInsets.only(right: 6),
-        child: Container(
-          height: 80,
-          width: 66,
-          margin: const EdgeInsets.only(top: 8),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: boxColor,
-              boxShadow: kboxShadow),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                daily[index].day,
-                style: const TextStyle(
-                    letterSpacing: 0, fontSize: 12, color: Colors.grey),
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                daily[index].date,
-                style: TextStyle(
-                    color: Colors.blue[700],
-                    fontWeight: FontWeight.bold,
-                    fontSize: 26),
-              )
-            ],
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.all(8.2),
+        child: Padding(
+          padding: const EdgeInsets.only(right: 6),
+          child: Container(
+            height: 80,
+            width: 66,
+            margin: const EdgeInsets.only(top: 8),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: boxColor,
+                boxShadow: kboxShadow),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  daily[index].day,
+                  style: const TextStyle(
+                      letterSpacing: 0, fontSize: 12, color: Colors.grey),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  daily[index].date,
+                  style: TextStyle(
+                      color: Colors.blue[700],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 26),
+                )
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IntProperty('index', index));
   }
 }
 
 class Page extends StatefulWidget {
-  const Page({Key? key}) : super(key: key);
+  const Page({super.key});
 
   @override
   State<Page> createState() => _PageState();
@@ -572,54 +579,52 @@ class Page extends StatefulWidget {
 
 class _PageState extends State<Page> {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: boxColor,
-      appBar: AppBar(
+  Widget build(BuildContext context) => Scaffold(
         backgroundColor: boxColor,
-        elevation: 0,
-        title: Row(
-          children: const [
-            Text(
-              'Start ',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold),
-            ),
-            Text(
-              'Activity',
-              style: TextStyle(
-                  color: Color(0xff5868E0),
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold),
-            )
-          ],
-        ),
-        titleSpacing: 85,
-        leading: InkWell(
-          onTap: () {
-            setState(() {
-              Navigator.pop(context,
-                  MaterialPageRoute(builder: (context) => const Page()));
-            });
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Image.asset(
-              'assets/images/Group 2359 - Copy.png',
-              width: 40,
+        appBar: AppBar(
+          backgroundColor: boxColor,
+          elevation: 0,
+          title: Row(
+            children: const [
+              Text(
+                'Start ',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(
+                'Activity',
+                style: TextStyle(
+                    color: Color(0xff5868E0),
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
+          titleSpacing: 85,
+          leading: InkWell(
+            onTap: () {
+              setState(() {
+                Navigator.pop(context,
+                    MaterialPageRoute(builder: (context) => const Page()));
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: Image.asset(
+                'assets/images/Group 2359 - Copy.png',
+                width: 40,
+              ),
             ),
           ),
         ),
-      ),
-      body: const PageBody(),
-    );
-  }
+        body: const PageBody(),
+      );
 }
 
 class PageBody extends StatefulWidget {
-  const PageBody({Key? key}) : super(key: key);
+  const PageBody({super.key});
 
   @override
   State<PageBody> createState() => _PageBodyState();
@@ -628,48 +633,44 @@ class PageBody extends StatefulWidget {
 class _PageBodyState extends State<PageBody> {
   int selectedIndex = 0;
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8),
-      child: Column(
-        children: [
-          Container(
-            color: boxColor,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30),
-              child: Column(
-                children: [
-                  GridView.count(
-                    crossAxisCount: 2,
-                    shrinkWrap: true,
-                    childAspectRatio: 1,
-                    crossAxisSpacing: 25,
-                    mainAxisSpacing: 6.8,
-                    children: List.generate(
-                        item.length,
-                        (index) => ItemList(
-                              index: index,
-                            )),
-                  )
-                ],
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(top: 8),
+        child: Column(
+          children: [
+            ColoredBox(
+              color: boxColor,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30, right: 30),
+                child: Column(
+                  children: [
+                    GridView.count(
+                      crossAxisCount: 2,
+                      shrinkWrap: true,
+                      crossAxisSpacing: 25,
+                      mainAxisSpacing: 6.8,
+                      children: List.generate(
+                          item.length,
+                          (index) => ItemList(
+                                index: index,
+                              )),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: SizedBox(
-              height: 84,
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children:
-                      List.generate(navigation.length, (index) => nav(index))),
-            ),
-          )
-        ],
-      ),
-    );
-  }
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: SizedBox(
+                height: 84,
+                width: MediaQuery.of(context).size.width,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: List.generate(navigation.length, nav)),
+              ),
+            )
+          ],
+        ),
+      );
 
   Widget nav(int index) => InkWell(
         onTap: () {
@@ -730,32 +731,40 @@ class _PageBodyState extends State<PageBody> {
                 ),
         ),
       );
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IntProperty('selectedIndex', selectedIndex));
+  }
 }
 
 class ItemList extends StatelessWidget {
+  const ItemList({super.key, required this.index});
   final int index;
-  const ItemList({Key? key, required this.index}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Container(
-        height: 150,
-        width: 150,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: boxColor,
-            boxShadow: kboxShadow),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(item[index].icon, height: 30),
-            const SizedBox(height: 20),
-            Text(item[index].title, style: TextStyle(color: textColor))
-          ],
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.all(10),
+        child: Container(
+          height: 150,
+          width: 150,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: boxColor,
+              boxShadow: kboxShadow),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(item[index].icon, height: 30),
+              const SizedBox(height: 20),
+              Text(item[index].title, style: TextStyle(color: textColor))
+            ],
+          ),
         ),
-      ),
-    );
+      );
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IntProperty('index', index));
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fluttericon/octicons_icons.dart';
@@ -18,16 +19,14 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'GitHub Client',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: const MyHomePage(title: 'GitHub Client'),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        title: 'GitHub Client',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: const MyHomePage(title: 'GitHub Client'),
+      );
 }
 
 class MyHomePage extends StatelessWidget {
@@ -35,28 +34,28 @@ class MyHomePage extends StatelessWidget {
   final String title;
 
   @override
-  Widget build(BuildContext context) {
-    return GithubLoginWidget(
-      builder: (context, httpClient) {
-        return Scaffold(
+  Widget build(BuildContext context) => GithubLoginWidget(
+        builder: (context, httpClient) => Scaffold(
           appBar: AppBar(
             title: Text(title),
           ),
           body: GitHubSummary(
             gitHub: _getGitHub(httpClient.credentials.accessToken),
           ),
-        );
-      },
-      githubClientId: dotenv.env['githubClientId'].toString(),
-      githubClientSecret: dotenv.env['githubClientSecret'].toString(),
-      githubScopes: const ['repo', 'read:org'],
-    );
+        ),
+        githubClientId: dotenv.env['githubClientId'].toString(),
+        githubClientSecret: dotenv.env['githubClientSecret'].toString(),
+        githubScopes: const ['repo', 'read:org'],
+      );
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('title', title));
   }
 }
 
-GitHub _getGitHub(String accessToken) {
-  return GitHub(auth: Authentication.withToken(accessToken));
-}
+GitHub _getGitHub(String accessToken) =>
+    GitHub(auth: Authentication.withToken(accessToken));
 
 final _authorizationEndpoint =
     Uri.parse('https://github.com/login/oauth/authorize');
@@ -77,6 +76,15 @@ class GithubLoginWidget extends StatefulWidget {
 
   @override
   State<GithubLoginWidget> createState() => _GithubLoginState();
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IterableProperty<String>('githubScopes', githubScopes));
+    properties.add(StringProperty('githubClientSecret', githubClientSecret));
+    properties.add(StringProperty('githubClientId', githubClientId));
+    properties
+        .add(ObjectFlagProperty<AuthenticatedBuilder>.has('builder', builder));
+  }
 }
 
 typedef AuthenticatedBuilder = Widget Function(
@@ -103,7 +111,7 @@ class _GithubLoginState extends State<GithubLoginWidget> {
             await _redirectServer?.close();
             // Bind to an ephemeral port on localhost
             _redirectServer = await HttpServer.bind('localhost', 0);
-            var authenticatedHttpClient = await _getOAuth2Client(
+            final authenticatedHttpClient = await _getOAuth2Client(
                 Uri.parse('http://localhost:${_redirectServer!.port}/auth'));
             setState(() {
               _client = authenticatedHttpClient;
@@ -121,19 +129,19 @@ class _GithubLoginState extends State<GithubLoginWidget> {
           'githubClientId and githubClientSecret must be not empty. '
           'See `lib/github_oauth_credentials.dart` for more detail.');
     }
-    var grant = oauth2.AuthorizationCodeGrant(
+    final grant = oauth2.AuthorizationCodeGrant(
       widget.githubClientId,
       _authorizationEndpoint,
       _tokenEndpoint,
       secret: widget.githubClientSecret,
       httpClient: _JsonAcceptingHttpClient(),
     );
-    var authorizationUrl =
+    final authorizationUrl =
         grant.getAuthorizationUrl(redirectUrl, scopes: widget.githubScopes);
 
     await _redirect(authorizationUrl);
-    var responseQueryParameters = await _listen();
-    var client =
+    final responseQueryParameters = await _listen();
+    final client =
         await grant.handleAuthorizationResponse(responseQueryParameters);
     return client;
   }
@@ -147,8 +155,8 @@ class _GithubLoginState extends State<GithubLoginWidget> {
   }
 
   Future<Map<String, String>> _listen() async {
-    var request = await _redirectServer!.first;
-    var params = request.uri.queryParameters;
+    final request = await _redirectServer!.first;
+    final params = request.uri.queryParameters;
     request.response.statusCode = 200;
     request.response.headers.set('content-type', 'text/plain');
     request.response.writeln('Authenticated! You can close this tab.');
@@ -181,53 +189,56 @@ class GitHubSummary extends StatefulWidget {
 
   @override
   State<GitHubSummary> createState() => _GitHubSummaryState();
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<GitHub>('gitHub', gitHub));
+  }
 }
 
 class _GitHubSummaryState extends State<GitHubSummary> {
   int _selectedIndex = 0;
 
   @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        NavigationRail(
-          selectedIndex: _selectedIndex,
-          onDestinationSelected: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          labelType: NavigationRailLabelType.selected,
-          destinations: const [
-            NavigationRailDestination(
-              icon: Icon(Octicons.repo),
-              label: Text('Repositories'),
-            ),
-            NavigationRailDestination(
-              icon: Icon(Octicons.issue_opened),
-              label: Text('Assigned Issues'),
-            ),
-            NavigationRailDestination(
-              icon: Icon(Octicons.git_pull_request),
-              label: Text('Pull Requests'),
-            ),
-          ],
-        ),
-        const VerticalDivider(thickness: 1, width: 1),
-        // This is the main content.
-        Expanded(
-          child: IndexedStack(
-            index: _selectedIndex,
-            children: [
-              RepositoriesList(gitHub: widget.gitHub),
-              AssignedIssuesList(gitHub: widget.gitHub),
-              PullRequestsList(gitHub: widget.gitHub),
+  Widget build(BuildContext context) => Row(
+        children: [
+          NavigationRail(
+            selectedIndex: _selectedIndex,
+            onDestinationSelected: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+            labelType: NavigationRailLabelType.selected,
+            destinations: const [
+              NavigationRailDestination(
+                icon: Icon(Octicons.repo),
+                label: Text('Repositories'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Octicons.issue_opened),
+                label: Text('Assigned Issues'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Octicons.git_pull_request),
+                label: Text('Pull Requests'),
+              ),
             ],
           ),
-        ),
-      ],
-    );
-  }
+          const VerticalDivider(thickness: 1, width: 1),
+          // This is the main content.
+          Expanded(
+            child: IndexedStack(
+              index: _selectedIndex,
+              children: [
+                RepositoriesList(gitHub: widget.gitHub),
+                AssignedIssuesList(gitHub: widget.gitHub),
+                PullRequestsList(gitHub: widget.gitHub),
+              ],
+            ),
+          ),
+        ],
+      );
 }
 
 class RepositoriesList extends StatefulWidget {
@@ -236,11 +247,16 @@ class RepositoriesList extends StatefulWidget {
 
   @override
   State<RepositoriesList> createState() => _RepositoriesListState();
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<GitHub>('gitHub', gitHub));
+  }
 }
 
 class _RepositoriesListState extends State<RepositoriesList> {
   @override
-  initState() {
+  void initState() {
     super.initState();
     _repositories = widget.gitHub.repositories.listRepositories().toList();
   }
@@ -248,33 +264,31 @@ class _RepositoriesListState extends State<RepositoriesList> {
   late Future<List<Repository>> _repositories;
 
   @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Repository>>(
-      future: _repositories,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Center(child: Text('${snapshot.error}'));
-        }
-        if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        var repositories = snapshot.data;
-        return ListView.builder(
-          primary: false,
-          itemBuilder: (context, index) {
-            var repository = repositories![index];
-            return ListTile(
-              title:
-                  Text('${repository.owner?.login ?? ''}/${repository.name}'),
-              subtitle: Text(repository.description),
-              onTap: () => _launchUrl(context, repository.htmlUrl),
-            );
-          },
-          itemCount: repositories!.length,
-        );
-      },
-    );
-  }
+  Widget build(BuildContext context) => FutureBuilder<List<Repository>>(
+        future: _repositories,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text('${snapshot.error}'));
+          }
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          final repositories = snapshot.data;
+          return ListView.builder(
+            primary: false,
+            itemBuilder: (context, index) {
+              final repository = repositories![index];
+              return ListTile(
+                title:
+                    Text('${repository.owner?.login ?? ''}/${repository.name}'),
+                subtitle: Text(repository.description),
+                onTap: () => _launchUrl(context, repository.htmlUrl),
+              );
+            },
+            itemCount: repositories!.length,
+          );
+        },
+      );
 }
 
 class AssignedIssuesList extends StatefulWidget {
@@ -283,11 +297,16 @@ class AssignedIssuesList extends StatefulWidget {
 
   @override
   State<AssignedIssuesList> createState() => _AssignedIssuesListState();
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<GitHub>('gitHub', gitHub));
+  }
 }
 
 class _AssignedIssuesListState extends State<AssignedIssuesList> {
   @override
-  initState() {
+  void initState() {
     super.initState();
     _assignedIssues = widget.gitHub.issues.listByUser().toList();
   }
@@ -295,34 +314,32 @@ class _AssignedIssuesListState extends State<AssignedIssuesList> {
   late Future<List<Issue>> _assignedIssues;
 
   @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Issue>>(
-      future: _assignedIssues,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Center(child: Text('${snapshot.error}'));
-        }
-        if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        var assignedIssues = snapshot.data;
-        return ListView.builder(
-          primary: false,
-          itemBuilder: (context, index) {
-            var assignedIssue = assignedIssues![index];
-            return ListTile(
-              title: Text(assignedIssue.title),
-              subtitle: Text('${_nameWithOwner(assignedIssue)} '
-                  'Issue #${assignedIssue.number} '
-                  'opened by ${assignedIssue.user?.login ?? ''}'),
-              onTap: () => _launchUrl(context, assignedIssue.htmlUrl),
-            );
-          },
-          itemCount: assignedIssues!.length,
-        );
-      },
-    );
-  }
+  Widget build(BuildContext context) => FutureBuilder<List<Issue>>(
+        future: _assignedIssues,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text('${snapshot.error}'));
+          }
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          final assignedIssues = snapshot.data;
+          return ListView.builder(
+            primary: false,
+            itemBuilder: (context, index) {
+              final assignedIssue = assignedIssues![index];
+              return ListTile(
+                title: Text(assignedIssue.title),
+                subtitle: Text('${_nameWithOwner(assignedIssue)} '
+                    'Issue #${assignedIssue.number} '
+                    'opened by ${assignedIssue.user?.login ?? ''}'),
+                onTap: () => _launchUrl(context, assignedIssue.htmlUrl),
+              );
+            },
+            itemCount: assignedIssues!.length,
+          );
+        },
+      );
 
   String _nameWithOwner(Issue assignedIssue) {
     final endIndex = assignedIssue.url.lastIndexOf('/issues/');
@@ -336,11 +353,16 @@ class PullRequestsList extends StatefulWidget {
 
   @override
   State<PullRequestsList> createState() => _PullRequestsListState();
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<GitHub>('gitHub', gitHub));
+  }
 }
 
 class _PullRequestsListState extends State<PullRequestsList> {
   @override
-  initState() {
+  void initState() {
     super.initState();
     _pullRequests = widget.gitHub.pullRequests
         .list(RepositorySlug('flutter', 'flutter'))
@@ -350,35 +372,33 @@ class _PullRequestsListState extends State<PullRequestsList> {
   late Future<List<PullRequest>> _pullRequests;
 
   @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<PullRequest>>(
-      future: _pullRequests,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Center(child: Text('${snapshot.error}'));
-        }
-        if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        var pullRequests = snapshot.data;
-        return ListView.builder(
-          primary: false,
-          itemBuilder: (context, index) {
-            var pullRequest = pullRequests![index];
-            return ListTile(
-              title: Text(pullRequest.title ?? ''),
-              subtitle: Text('flutter/flutter '
-                  'PR #${pullRequest.number} '
-                  'opened by ${pullRequest.user?.login ?? ''} '
-                  '(${pullRequest.state?.toLowerCase() ?? ''})'),
-              onTap: () => _launchUrl(context, pullRequest.htmlUrl ?? ''),
-            );
-          },
-          itemCount: pullRequests!.length,
-        );
-      },
-    );
-  }
+  Widget build(BuildContext context) => FutureBuilder<List<PullRequest>>(
+        future: _pullRequests,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text('${snapshot.error}'));
+          }
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          final pullRequests = snapshot.data;
+          return ListView.builder(
+            primary: false,
+            itemBuilder: (context, index) {
+              final pullRequest = pullRequests![index];
+              return ListTile(
+                title: Text(pullRequest.title ?? ''),
+                subtitle: Text('flutter/flutter '
+                    'PR #${pullRequest.number} '
+                    'opened by ${pullRequest.user?.login ?? ''} '
+                    '(${pullRequest.state?.toLowerCase() ?? ''})'),
+                onTap: () => _launchUrl(context, pullRequest.htmlUrl ?? ''),
+              );
+            },
+            itemCount: pullRequests!.length,
+          );
+        },
+      );
 }
 
 Future<void> _launchUrl(BuildContext context, String url) async {

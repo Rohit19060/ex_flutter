@@ -42,7 +42,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
-    _channel.stream.listen((dynamic data) {
+    _channel.stream.listen((data) {
       setState(() => _messages.insert(
           0,
           Message.fromMap(
@@ -109,7 +109,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                   ),
                   if (_isWriting)
-                    Container(
+                    DecoratedBox(
                       decoration: const BoxDecoration(
                           color: Colors.black, shape: BoxShape.circle),
                       child: IconButton(
@@ -164,7 +164,7 @@ class MessageLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Radius messageRadius = Radius.circular(16);
+    const messageRadius = Radius.circular(16);
     return Align(
       alignment: msg.uid == uid ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/side_menu.dart';
@@ -7,7 +8,7 @@ import '../email/email_screen.dart';
 import 'components/list_of_emails.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -16,11 +17,11 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int mailIndex = 0;
 
-  updateMailIndex(int index) => setState(() => mailIndex = index);
+  void updateMailIndex(int index) => setState(() => mailIndex = index);
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Responsive(
         mobile: ListOfEmails(
@@ -63,5 +64,11 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IntProperty('mailIndex', mailIndex));
   }
 }

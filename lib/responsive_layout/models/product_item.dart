@@ -1,12 +1,12 @@
 class ProductItem {
-  final String image, title;
-  final int amount, uid;
   ProductItem({
     required this.uid,
     required this.image,
     required this.title,
     required this.amount,
   });
+  final String image, title;
+  final int amount, uid;
 }
 
 List<ProductItem> products = [

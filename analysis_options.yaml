@@ -21,10 +21,10 @@ linter:
     - always_put_control_body_on_new_line
     # - always_put_required_named_parameters_first # we prefer having parameters in the same order as fields https://github.com/flutter/flutter/issues/10219
     - always_require_non_null_named_parameters
-    - always_specify_types
+    # - always_specify_types
     # - always_use_package_imports # we do this commonly
     - annotate_overrides
-    # - avoid_annotating_with_dynamic # conflicts with always_specify_types
+    - avoid_annotating_with_dynamic # conflicts with always_specify_types
     - avoid_bool_literals_in_conditional_expressions
     - avoid_catches_without_on_clauses # blocked on https://github.com/dart-lang/linter/issues/3023
     # - avoid_catching_errors # blocked on https://github.com/dart-lang/linter/issues/3023
@@ -103,7 +103,7 @@ linter:
     # - literal_only_boolean_expressions # too many false positives: https://github.com/dart-lang/linter/issues/453
     - missing_whitespace_between_adjacent_strings
     - no_adjacent_strings_in_list
-    - no_default_cases
+    # - no_default_cases
     - no_duplicate_case_values
     - no_leading_underscores_for_library_prefixes
     - no_leading_underscores_for_local_identifiers
@@ -113,7 +113,7 @@ linter:
     - noop_primitive_operations
     - null_check_on_nullable_type_parameter
     - null_closures
-    # - omit_local_variable_types # opposite of always_specify_types
+    - omit_local_variable_types # opposite of always_specify_types
     - one_member_abstracts # too many false positives
     - only_throw_errors # this does get disabled in a few places where we have legacy code that uses strings et al
     - overridden_fields
@@ -176,7 +176,7 @@ linter:
     - test_types_in_equals
     - throw_in_finally
     - tighten_type_of_initializing_formals
-    # - type_annotate_public_apis # subset of always_specify_types
+    - type_annotate_public_apis # subset of always_specify_types
     - type_init_formals
     # - unawaited_futures # too many false positives, especially with the way AnimationController works
     - unnecessary_await_in_return

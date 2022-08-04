@@ -73,7 +73,7 @@ class _PaytmIntegrationState extends State<PaytmIntegration> {
                                   value['callbackUrl'].toString(),
                                   value['isStaging'] == true,
                                   true)
-                              .then((Map? paymentResponse) {
+                              .then((paymentResponse) {
                             result = paymentResponse.toString();
                           }).catchError((Object onError) {
                             if (onError is PlatformException) {
@@ -104,10 +104,10 @@ class _PaytmIntegrationState extends State<PaytmIntegration> {
 
   Future<Map<String, dynamic>> initiateTransaction() async {
     try {
-      const String url = 'http://172.29.16.1/paytm_php_flutter/Php/';
-      final FormData formData =
+      const url = 'http://172.29.16.1/paytm_php_flutter/Php/';
+      final formData =
           FormData.fromMap(<String, String>{'amount': _amountController.text});
-      final Response<dynamic> response = await Dio().post(url, data: formData);
+      final response = await Dio().post(url, data: formData);
       return jsonDecode(response.data.toString()) as Map<String, dynamic>;
     } on TimeoutException {
       return {

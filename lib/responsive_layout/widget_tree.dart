@@ -6,11 +6,11 @@ import 'e_commerce/e_com_items.dart';
 import 'responsive_layout.dart';
 
 class WidgetTree extends StatelessWidget {
-  const WidgetTree({Key? key}) : super(key: key);
+  const WidgetTree({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: ResponsiveLayout(
         iphone: const ECommerceItems(),

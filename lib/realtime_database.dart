@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
@@ -11,7 +12,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -25,41 +26,45 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    DatabaseReference child = ref.child('name');
+    final child = ref.child('name');
     debugPrint('child: $child');
     debugPrint('ref.key : ${ref.key}');
     debugPrint('ref.parent?.key : ${ref.parent?.key}');
     _addData();
   }
 
-  Future _addData() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref('Match/1');
-    DatabaseEvent event = await ref.once();
+  Future<void> _addData() async {
+    final ref = FirebaseDatabase.instance.ref('Match/1');
+    final event = await ref.once();
     debugPrint('event: $event');
     debugPrint('event.snapshot.value ${event.snapshot.value}');
 
-    Stream<DatabaseEvent> stream = ref.onValue;
+    final stream = ref.onValue;
     stream.listen((DatabaseEvent event) {
       debugPrint('event: $event');
       debugPrint('event.snapshot.value ${event.snapshot.value}');
     });
   }
 
-  _addMSG(String val) async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref('Match/1');
-    DatabaseReference child = ref.child(Random().nextInt(100).toString());
+  Future<void> _addMSG(String val) async {
+    final ref = FirebaseDatabase.instance.ref('Match/1');
+    final child = ref.child(Random().nextInt(100).toString());
     child.set('hello');
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: TextFormField(
-          decoration: const InputDecoration(labelText: 'Label'),
-          onFieldSubmitted: _addMSG,
+  Widget build(BuildContext context) => Scaffold(
+        body: Center(
+          child: TextFormField(
+            decoration: const InputDecoration(labelText: 'Label'),
+            onFieldSubmitted: _addMSG,
+          ),
         ),
-      ),
-    );
+      );
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<DatabaseReference>('ref', ref));
+    properties.add(DiagnosticsProperty<FirebaseDatabase>('database', database));
   }
 }

@@ -5,14 +5,12 @@ import 'screens/main/main_screen.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Responsive Layout',
-      home: MainScreen(),
-    );
-  }
+  Widget build(BuildContext context) => const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Responsive Layout',
+        home: MainScreen(),
+      );
 }

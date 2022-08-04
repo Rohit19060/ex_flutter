@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    NotificationAPI.init(initScheduled: true);
+    init(initScheduled: true);
     listenNotifications();
 
     FirebaseMessaging.instance.getToken().then((String? token) {
@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // Trigger when App is running in foreground
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       if (message.notification != null) {
-        NotificationAPI.showNotification(
+        showNotification(
           channelId: message.data['channelId'].toString(),
           channelName: message.data['channelName'].toString(),
           sound: message.notification!.android!.sound ?? 'default',
@@ -96,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void listenNotifications() {
-    NotificationAPI.onNotifications.listen(onClickedNotification);
+    onNotifications.listen(onClickedNotification);
   }
 
   void onClickedNotification(String? payload) {
@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Text('Payload: $payload'),
           ElevatedButton(
             child: const Text('Get Notification'),
-            onPressed: () => NotificationAPI.showNotification(
+            onPressed: () => showNotification(
               channelId: 'channel_id 1',
               channelName: 'channel_name 1',
               sound: 'siren',
@@ -127,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ElevatedButton(
               child: const Text('Schedule Notification'),
               onPressed: () {
-                NotificationAPI.showScheduledNotification(
+                showScheduledNotification(
                   channelId: 'channel_id 1',
                   channelName: 'channel_name 1',
                   sound: 'siren.mp3',
@@ -138,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     const Duration(seconds: 5),
                   ),
                 );
-                const SnackBar snackbar = SnackBar(
+                const snackbar = SnackBar(
                   content: Text('Notification Scheduled'),
                   backgroundColor: Colors.green,
                 );
@@ -182,204 +182,187 @@ class GreenPage extends StatelessWidget {
           child: Text('Green Screen', style: TextStyle(color: Colors.green))));
 }
 
-class NotificationAPI {
-  static final FlutterLocalNotificationsPlugin _notifications =
-      FlutterLocalNotificationsPlugin();
-  static final BehaviorSubject<String?> onNotifications =
-      BehaviorSubject<String?>();
+final FlutterLocalNotificationsPlugin _notifications =
+    FlutterLocalNotificationsPlugin();
+final BehaviorSubject<String?> onNotifications = BehaviorSubject<String?>();
 
-  static Future<void> init({bool initScheduled = false}) async {
-    const AndroidInitializationSettings android =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-    const IOSInitializationSettings iOS = IOSInitializationSettings();
-    const InitializationSettings initializationSettings =
-        InitializationSettings(android: android, iOS: iOS);
-    if (initScheduled) {
-      tz.initializeTimeZones();
-      final String locationName =
-          await FlutterNativeTimezone.getLocalTimezone();
-      tz.setLocalLocation(tz.getLocation(locationName));
-    }
+Future<void> init({bool initScheduled = false}) async {
+  const android = AndroidInitializationSettings('@mipmap/ic_launcher');
+  const iOS = IOSInitializationSettings();
+  const initializationSettings =
+      InitializationSettings(android: android, iOS: iOS);
+  if (initScheduled) {
+    tz.initializeTimeZones();
+    final locationName = await FlutterNativeTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(locationName));
+  }
 
-    // When the app is closed
-    final NotificationAppLaunchDetails? details =
-        await _notifications.getNotificationAppLaunchDetails();
-    if (details != null && details.didNotificationLaunchApp) {
-      onNotifications.add(details.payload);
-    }
-    await _notifications.initialize(
-      initializationSettings,
-      onSelectNotification: onNotifications.add,
+  // When the app is closed
+  final details = await _notifications.getNotificationAppLaunchDetails();
+  if (details != null && details.didNotificationLaunchApp) {
+    onNotifications.add(details.payload);
+  }
+  await _notifications.initialize(
+    initializationSettings,
+    onSelectNotification: onNotifications.add,
+  );
+}
+
+Future<void> showNotification({
+  int id = 0,
+  required String title,
+  required String body,
+  required String payload,
+  required String channelId,
+  required String channelName,
+  required String sound,
+}) async {
+  _notifications.show(
+      id,
+      title,
+      body,
+      await _notificationDetails(
+        channelId: channelId,
+        channelName: channelName,
+        sound: sound,
+      ),
+      payload: payload);
+}
+
+Future<void> showScheduledNotification({
+  int id = 0,
+  required String title,
+  required String body,
+  required String payload,
+  required String channelId,
+  required String channelName,
+  required String sound,
+  required DateTime scheduledDate,
+}) async =>
+    _notifications.zonedSchedule(
+      id,
+      title,
+      body,
+      tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+      await _notificationDetails(
+          channelId: channelId, channelName: channelName, sound: sound),
+      payload: payload,
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
     );
+
+Future<void> showScheduledDailyNotification({
+  int id = 0,
+  required String title,
+  required String body,
+  required String payload,
+  required String channelId,
+  required String channelName,
+  required String sound,
+  required DateTime scheduledDate,
+}) async =>
+    _notifications.zonedSchedule(
+      id,
+      title,
+      body,
+      _scheduleDaily(const Time(8, 30, 23)),
+      await _notificationDetails(
+          channelId: channelId, channelName: channelName, sound: sound),
+      payload: payload,
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time,
+    );
+
+tz.TZDateTime _scheduleDaily(Time time) {
+  final now = tz.TZDateTime.now(tz.local);
+  final scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day,
+      time.hour, time.minute, time.second);
+  return scheduledDate.isBefore(now)
+      ? scheduledDate.add(const Duration(days: 1))
+      : scheduledDate;
+}
+
+tz.TZDateTime _scheduleWeekly(Time time, {required List<int> days}) {
+  final scheduledDate = _scheduleDaily(time);
+  while (!days.contains(scheduledDate.weekday)) {
+    scheduledDate.add(const Duration(days: 1));
   }
+  return scheduledDate;
+}
 
-  static Future<void> showNotification({
-    int id = 0,
-    required String title,
-    required String body,
-    required String payload,
-    required String channelId,
-    required String channelName,
-    required String sound,
-  }) async {
-    _notifications.show(
-        id,
-        title,
-        body,
-        await _notificationDetails(
-          channelId: channelId,
-          channelName: channelName,
-          sound: sound,
-        ),
-        payload: payload);
-  }
+Future<void> showScheduledWeeklyNotification({
+  int id = 0,
+  required String title,
+  required String body,
+  required String payload,
+  required String channelId,
+  required String channelName,
+  required String sound,
+  required DateTime scheduledDate,
+}) async =>
+    _notifications.zonedSchedule(
+      id,
+      title,
+      body,
+      _scheduleWeekly(const Time(8, 30, 23),
+          days: [DateTime.monday, DateTime.wednesday, DateTime.friday]),
+      await _notificationDetails(
+          channelId: channelId, channelName: channelName, sound: sound),
+      payload: payload,
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
+    );
 
-  static Future showScheduledNotification({
-    int id = 0,
-    required String title,
-    required String body,
-    required String payload,
-    required String channelId,
-    required String channelName,
-    required String sound,
-    required DateTime scheduledDate,
-  }) async =>
-      _notifications.zonedSchedule(
-        id,
-        title,
-        body,
-        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
-        await _notificationDetails(
-            channelId: channelId, channelName: channelName, sound: sound),
-        payload: payload,
-        androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-      );
-
-  static Future showScheduledDailyNotification({
-    int id = 0,
-    required String title,
-    required String body,
-    required String payload,
-    required String channelId,
-    required String channelName,
-    required String sound,
-    required DateTime scheduledDate,
-  }) async =>
-      _notifications.zonedSchedule(
-        id,
-        title,
-        body,
-        _scheduleDaily(const Time(8, 30, 23)),
-        await _notificationDetails(
-            channelId: channelId, channelName: channelName, sound: sound),
-        payload: payload,
-        androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        matchDateTimeComponents: DateTimeComponents.time,
-      );
-
-  static tz.TZDateTime _scheduleDaily(Time time) {
-    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    final tz.TZDateTime scheduledDate = tz.TZDateTime(tz.local, now.year,
-        now.month, now.day, time.hour, time.minute, time.second);
-    return scheduledDate.isBefore(now)
-        ? scheduledDate.add(const Duration(days: 1))
-        : scheduledDate;
-  }
-
-  static tz.TZDateTime _scheduleWeekly(Time time, {required List<int> days}) {
-    final tz.TZDateTime scheduledDate = _scheduleDaily(time);
-    while (!days.contains(scheduledDate.weekday)) {
-      scheduledDate.add(const Duration(days: 1));
-    }
-    return scheduledDate;
-  }
-
-  static Future showScheduledWeeklyNotification({
-    int id = 0,
-    required String title,
-    required String body,
-    required String payload,
-    required String channelId,
-    required String channelName,
-    required String sound,
-    required DateTime scheduledDate,
-  }) async =>
-      _notifications.zonedSchedule(
-        id,
-        title,
-        body,
-        _scheduleWeekly(const Time(8, 30, 23),
-            days: [DateTime.monday, DateTime.wednesday, DateTime.friday]),
-        await _notificationDetails(
-            channelId: channelId, channelName: channelName, sound: sound),
-        payload: payload,
-        androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
-      );
-
-  static Future<NotificationDetails> _notificationDetails({
-    required String channelId,
-    required String channelName,
-    required String sound,
-  }) async =>
-      NotificationDetails(
-        android: AndroidNotificationDetails(
-          channelId,
-          channelName,
-          importance: Importance.max,
-          priority: Priority.high,
-          sound: sound != 'default'
-              ? RawResourceAndroidNotificationSound(sound)
-              : null,
-          styleInformation: BigPictureStyleInformation(
-            FilePathAndroidBitmap(
-              await Utils.downloadFile(
-                'https://images.unsplash.com/photo-1657963062468-472b9dabf100?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-                'large_icon',
-              ),
+Future<NotificationDetails> _notificationDetails({
+  required String channelId,
+  required String channelName,
+  required String sound,
+}) async =>
+    NotificationDetails(
+      android: AndroidNotificationDetails(
+        channelId,
+        channelName,
+        importance: Importance.max,
+        priority: Priority.high,
+        sound: sound != 'default'
+            ? RawResourceAndroidNotificationSound(sound)
+            : null,
+        styleInformation: BigPictureStyleInformation(
+          FilePathAndroidBitmap(
+            await downloadFile(
+              'https://images.unsplash.com/photo-1657963062468-472b9dabf100?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+              'large_icon',
             ),
-            largeIcon: FilePathAndroidBitmap(
-              await Utils.downloadFile(
-                'https://i.imgur.com/w3duR07.png',
-                'small_image',
-              ),
+          ),
+          largeIcon: FilePathAndroidBitmap(
+            await downloadFile(
+              'https://i.imgur.com/w3duR07.png',
+              'small_image',
             ),
           ),
         ),
-        iOS: IOSNotificationDetails(
-          presentSound: true,
-          sound: sound,
-          presentAlert: true,
-        ),
-      );
+      ),
+      iOS: IOSNotificationDetails(
+        presentSound: true,
+        sound: sound,
+        presentAlert: true,
+      ),
+    );
 
-  static Future<void> cancel(int id) async => _notifications.cancel(id);
+Future<void> cancel(int id) async => _notifications.cancel(id);
 
-  static Future<void> cancelAll() async => _notifications.cancelAll();
+Future<void> cancelAll() async => _notifications.cancelAll();
+
+Future<String> downloadFile(String url, String fileName) async {
+  final directory = await getApplicationDocumentsDirectory();
+  final filePath = '${directory.path}/$fileName';
+  final response = await http.get(Uri.parse(url));
+  final file = File(filePath);
+  await file.writeAsBytes(response.bodyBytes);
+  return filePath;
 }
-
-class Utils {
-  static Future<String> downloadFile(String url, String fileName) async {
-    final Directory directory = await getApplicationDocumentsDirectory();
-    final String filePath = '${directory.path}/$fileName';
-    final http.Response response = await http.get(Uri.parse(url));
-    final File file = File(filePath);
-
-    await file.writeAsBytes(response.bodyBytes);
-    return filePath;
-  }
-}
-
-/* STEPS
-1. Add the following to pubspec.yaml
-  firebase_messaging: ^11.4.0
-  flutter_local_notifications: ^9.5.3+1
-  rxdart: ^0.27.5
-  flutter_native_timezone: ^2.0.0
-*/

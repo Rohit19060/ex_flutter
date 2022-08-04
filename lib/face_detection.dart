@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_ml_vision/google_ml_vision.dart';
 import 'package:image_picker/image_picker.dart';
@@ -25,33 +26,30 @@ class _ExampleListState extends State<_ExampleList> {
   ];
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Example List'),
-      ),
-      body: ListView.builder(
-        itemCount: _exampleWidgetNames.length,
-        itemBuilder: (BuildContext context, int index) {
-          final String widgetName = _exampleWidgetNames[index];
-
-          return Container(
-            decoration: const BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.grey)),
-            ),
-            child: ListTile(
-              title: Text(widgetName),
-              onTap: () => Navigator.pushNamed(context, '/$widgetName'),
-            ),
-          );
-        },
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Example List'),
+        ),
+        body: ListView.builder(
+          itemCount: _exampleWidgetNames.length,
+          itemBuilder: (BuildContext context, int index) {
+            final widgetName = _exampleWidgetNames[index];
+            return DecoratedBox(
+              decoration: const BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.grey)),
+              ),
+              child: ListTile(
+                title: Text(widgetName),
+                onTap: () => Navigator.pushNamed(context, '/$widgetName'),
+              ),
+            );
+          },
+        ),
+      );
 }
 
 class PictureScanner extends StatefulWidget {
-  const PictureScanner({Key? key}) : super(key: key);
+  const PictureScanner({super.key});
 
   @override
   State<StatefulWidget> createState() => _PictureScannerState();
@@ -59,13 +57,15 @@ class PictureScanner extends StatefulWidget {
 
 class _PictureScannerState extends State<PictureScanner> {
   File? _imageFile;
-  List<Face> _scanResults = [];
+  List<Face> _scanResults = <Face>[];
   final FaceDetector _faceDetector = GoogleVision.instance.faceDetector();
-  var picker = ImagePicker();
+  ImagePicker picker = ImagePicker();
 
   Future<void> _getAndScanImage() async {
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedImage == null) return;
+    if (pickedImage == null) {
+      return;
+    }
     _imageFile = File(pickedImage.path);
     await _scanImage(_imageFile!);
   }
@@ -77,59 +77,66 @@ class _PictureScannerState extends State<PictureScanner> {
   }
 
   Future<void> _scanImage(File imageFile) async {
-    final GoogleVisionImage visionImage = GoogleVisionImage.fromFile(imageFile);
+    final visionImage = GoogleVisionImage.fromFile(imageFile);
     _scanResults = await _faceDetector.processImage(visionImage);
     setState(() {});
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Picture Scanner')),
-      body: _scanResults.isEmpty
-          ? const Center(child: Text('No image selected.'))
-          : BuildImage(scanResults: _scanResults, imageFile: _imageFile),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _getAndScanImage,
-        tooltip: 'Pick Image',
-        child: const Icon(Icons.add_a_photo),
-      ),
-    );
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(title: const Text('Picture Scanner')),
+        body: _scanResults.isEmpty
+            ? const Center(child: Text('No image selected.'))
+            : BuildImage(scanResults: _scanResults, imageFile: _imageFile),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _getAndScanImage,
+          tooltip: 'Pick Image',
+          child: const Icon(Icons.add_a_photo),
+        ),
+      );
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<ImagePicker>('picker', picker));
   }
 }
 
 class BuildImage extends StatelessWidget {
-  final File? imageFile;
-  final List<Face> scanResults;
   const BuildImage({
-    Key? key,
+    super.key,
     this.imageFile,
     required this.scanResults,
-  }) : super(key: key);
+  });
+  final File? imageFile;
+  final List<Face> scanResults;
 
   @override
-  Widget build(BuildContext context) {
-    return imageFile != null
-        ? Container(
-            constraints: const BoxConstraints.expand(),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: Image.file(imageFile!).image,
-                fit: BoxFit.fitWidth,
-              ),
+  Widget build(BuildContext context) => imageFile != null
+      ? Container(
+          constraints: const BoxConstraints.expand(),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: Image.file(imageFile!).image,
+              fit: BoxFit.fitWidth,
             ),
-            child: scanResults.isEmpty
-                ? const Center(
-                    child: Text(
-                      'Scanning...',
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontSize: 30,
-                      ),
+          ),
+          child: scanResults.isEmpty
+              ? const Center(
+                  child: Text(
+                    'Scanning...',
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontSize: 30,
                     ),
-                  )
-                : Text('Face Count:${scanResults.length}'),
-          )
-        : const Text('No Image Selected');
+                  ),
+                )
+              : Text('Face Count:${scanResults.length}'),
+        )
+      : const Text('No Image Selected');
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IterableProperty<Face>('scanResults', scanResults));
+    properties.add(DiagnosticsProperty<File?>('imageFile', imageFile));
   }
 }

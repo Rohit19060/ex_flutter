@@ -4,21 +4,19 @@ const double buttonSize = 80;
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context) => MaterialApp(
       title: 'Flow Widget',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(),
     );
-  }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -33,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class LinearFlowWidget extends StatefulWidget {
-  const LinearFlowWidget({Key? key}) : super(key: key);
+  const LinearFlowWidget({super.key});
 
   @override
   State<LinearFlowWidget> createState() => _LinearFlowWidgetState();
@@ -92,9 +90,9 @@ class _LinearFlowWidgetState extends State<LinearFlowWidget>
 }
 
 class FlowMenuDelegate extends FlowDelegate {
-  final Animation<double> animation;
 
   const FlowMenuDelegate({required this.animation}) : super(repaint: animation);
+  final Animation<double> animation;
 
   @override
   void paintChildren(FlowPaintingContext context) {

@@ -91,8 +91,8 @@ final ThemeData darkTheme = ThemeData(
     padding: const EdgeInsets.all(8),
   ),
   bottomAppBarColor: kBackgroundColor,
-  bottomAppBarTheme: const BottomAppBarTheme(
-      color: kBackgroundColor, elevation: 4, shape: null),
+  bottomAppBarTheme:
+      const BottomAppBarTheme(color: kBackgroundColor, elevation: 4),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     showUnselectedLabels: true,
     unselectedItemColor: Colors.black,

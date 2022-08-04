@@ -22,9 +22,8 @@ class AutocompleteApp extends StatelessWidget {
                 if (textEditingValue.text == '') {
                   return const Iterable<String>.empty();
                 }
-                return _kOptions.where((String option) {
-                  return option.contains(textEditingValue.text.toLowerCase());
-                });
+                return _kOptions.where((String option) =>
+                    option.contains(textEditingValue.text.toLowerCase()));
               },
               onSelected: (String selection) {
                 debugPrint('You just selected $selection');
@@ -90,9 +89,11 @@ class AutocompleteBasicUserExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Autocomplete<User>(
         displayStringForOption: _displayStringForOption,
-        fieldViewBuilder:
-            (context, textEditingController, focusNode, onFieldSubmitted) =>
-                TextField(
+        fieldViewBuilder: (BuildContext context,
+                TextEditingController textEditingController,
+                FocusNode focusNode,
+                Function() onFieldSubmitted) =>
+            TextField(
           controller: textEditingController,
           focusNode: focusNode,
           onSubmitted: (String value) {},
@@ -105,11 +106,8 @@ class AutocompleteBasicUserExample extends StatelessWidget {
           if (textEditingValue.text == '') {
             return const Iterable<User>.empty();
           }
-          return _userOptions.where((User option) {
-            return option
-                .toString()
-                .contains(textEditingValue.text.toLowerCase());
-          });
+          return _userOptions.where((User option) =>
+              option.toString().contains(textEditingValue.text.toLowerCase()));
         },
         onSelected: (User selection) {
           debugPrint('You just selected ${_displayStringForOption(selection)}');

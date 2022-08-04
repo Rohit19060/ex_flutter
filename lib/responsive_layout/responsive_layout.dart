@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ResponsiveLayout extends StatelessWidget {
+  const ResponsiveLayout(
+      {super.key,
+      required this.ipad,
+      required this.iphone,
+      required this.macbook});
   final Widget iphone;
   final Widget ipad;
   final Widget macbook;
-  const ResponsiveLayout(
-      {Key? key,
-      required this.ipad,
-      required this.iphone,
-      required this.macbook})
-      : super(key: key);
 
   static int iphoneLimit = 600;
   static int ipadLimit = 1200;
@@ -25,17 +24,15 @@ class ResponsiveLayout extends StatelessWidget {
       MediaQuery.of(context).size.width >= ipadLimit;
 
   @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      if (constraints.maxWidth < iphoneLimit) {
-        return iphone;
-      }
-      if (constraints.maxWidth < ipadLimit) {
-        return ipad;
-      } else {
-        return macbook;
-      }
-    });
-  }
+  Widget build(BuildContext context) => LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+        if (constraints.maxWidth < iphoneLimit) {
+          return iphone;
+        }
+        if (constraints.maxWidth < ipadLimit) {
+          return ipad;
+        } else {
+          return macbook;
+        }
+      });
 }

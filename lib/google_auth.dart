@@ -10,7 +10,7 @@ void main() => runApp(
     );
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -22,8 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final GoogleSignIn _googleSignIN = GoogleSignIn();
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: const Text('Google Auth')),
       body: _isLoggedIn
           ? Column(
@@ -57,5 +56,4 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
     );
-  }
 }

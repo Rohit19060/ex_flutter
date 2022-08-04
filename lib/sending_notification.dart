@@ -12,19 +12,17 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Experiments',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const MyHomePage(),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        title: 'Flutter Experiments',
+        theme: ThemeData(primarySwatch: Colors.blue),
+        home: const MyHomePage(),
+      );
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -32,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Future<void> _notify() async {
     try {
-      var response = await Dio().post('https://fcm.googleapis.com/fcm/send',
+      final response = await Dio().post('https://fcm.googleapis.com/fcm/send',
           data: {
             'to': dotenv.env['token'],
             'notification': {
@@ -47,20 +45,18 @@ class _MyHomePageState extends State<MyHomePage> {
       debugPrint('The connection has timed out, Please try again!');
     } on SocketException {
       debugPrint('Internet Issue! No Internet connection 😑');
-    } catch (e) {
+    } on Exception catch (e) {
       debugPrint('Connection Problem $e');
     }
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Center(child: Text('Flutter Experiments')),
-      floatingActionButton: FloatingActionButton(
-        foregroundColor: const Color.fromRGBO(255, 255, 255, 1),
-        onPressed: _notify,
-        child: const FlutterLogo(style: FlutterLogoStyle.markOnly),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        body: const Center(child: Text('Flutter Experiments')),
+        floatingActionButton: FloatingActionButton(
+          foregroundColor: const Color.fromRGBO(255, 255, 255, 1),
+          onPressed: _notify,
+          child: const FlutterLogo(),
+        ),
+      );
 }

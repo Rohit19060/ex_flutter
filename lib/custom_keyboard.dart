@@ -1,20 +1,19 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: CustomKeyboardExperiment(),
-    );
-  }
+  Widget build(BuildContext context) => const MaterialApp(
+        home: CustomKeyboardExperiment(),
+      );
 }
 
 class CustomKeyboardExperiment extends StatefulWidget {
-  const CustomKeyboardExperiment({Key? key}) : super(key: key);
+  const CustomKeyboardExperiment({super.key});
 
   @override
   State<CustomKeyboardExperiment> createState() =>
@@ -36,80 +35,74 @@ class _CustomKeyboardExperimentState extends State<CustomKeyboardExperiment> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(1.2),
-              decoration: BoxDecoration(
-                  gradient: const LinearGradient(colors: [
-                    Color.fromRGBO(31, 169, 250, 1),
-                    Color.fromRGBO(55, 100, 235, 1)
-                  ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-                  borderRadius: BorderRadius.circular(5)),
-              width: double.infinity,
-              child: Container(
+  Widget build(BuildContext context) => Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.all(1.2),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.white,
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 18, vertical: 6),
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  keyboardType: TextInputType.none,
-                  decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.zero,
-                      border: InputBorder.none,
-                      hintText: 'Enter text',
-                      prefix: Text('₹')),
-                  controller: _controller,
-                  style: const TextStyle(fontSize: 24),
-                  autofocus: true,
-                  showCursor: true,
-                  readOnly: false,
+                    gradient: const LinearGradient(colors: <Color>[
+                      Color.fromRGBO(31, 169, 250, 1),
+                      Color.fromRGBO(55, 100, 235, 1)
+                    ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                    borderRadius: BorderRadius.circular(5)),
+                width: double.infinity,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.white,
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 18, vertical: 6),
+                  child: TextFormField(
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.none,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.zero,
+                        border: InputBorder.none,
+                        hintText: 'Enter text',
+                        prefix: Text('₹')),
+                    controller: _controller,
+                    style: const TextStyle(fontSize: 24),
+                    autofocus: true,
+                    showCursor: true,
+                  ),
                 ),
               ),
-            ),
-            CustomKeyboard(
-              onTextInput: (myText) {
-                _insertText(myText);
-              },
-              onBackspace: () {
-                _backspace();
-              },
-            ),
-            ElevatedButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0.0),
+              CustomKeyboard(
+                onTextInput: _insertText,
+                onBackspace: _backspace,
+              ),
+              ElevatedButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                      ),
+                    ),
+                    overlayColor: MaterialStateProperty.all(
+                      Colors.black.withOpacity(0.2),
+                    ),
+                    elevation: MaterialStateProperty.all(8),
+                    foregroundColor: MaterialStateProperty.all(Colors.black),
+                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                    padding: MaterialStateProperty.all(
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                     ),
                   ),
-                  overlayColor: MaterialStateProperty.all(
-                    Colors.black.withOpacity(0.2),
+                  child: const Text(
+                    'Submit Amount',
+                    style:
+                        TextStyle(fontSize: 34.0, fontWeight: FontWeight.bold),
                   ),
-                  elevation: MaterialStateProperty.all(8),
-                  foregroundColor: MaterialStateProperty.all(Colors.black),
-                  backgroundColor: MaterialStateProperty.all(Colors.white),
-                  padding: MaterialStateProperty.all(
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  ),
-                ),
-                child: const Text(
-                  'Submit Amount',
-                  style: TextStyle(fontSize: 34.0, fontWeight: FontWeight.bold),
-                ),
-                onPressed: () {}),
-          ],
+                  onPressed: () {}),
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 
   void _insertText(String myText) {
     final text = _controller.text;
@@ -185,81 +178,88 @@ class _CustomKeyboardExperimentState extends State<CustomKeyboardExperiment> {
     );
   }
 
-  bool _isUtf16Surrogate(int value) {
-    return value & 0xF800 == 0xD800;
-  }
+  bool _isUtf16Surrogate(int value) => value & 0xF800 == 0xD800;
 
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<num>('currentNumber', currentNumber));
+  }
 }
 
 class CustomKeyboard extends StatelessWidget {
   const CustomKeyboard({
-    Key? key,
+    super.key,
     required this.onTextInput,
     required this.onBackspace,
-  }) : super(key: key);
+  });
 
   final ValueSetter<String> onTextInput;
   final VoidCallback onBackspace;
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 300,
-      child: Column(
-        children: [
-          GridView.count(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            crossAxisCount: 3,
-            childAspectRatio: 2.5,
-            mainAxisSpacing: 0.2,
-            crossAxisSpacing: 0.2,
-            children: [
-              '1',
-              '2',
-              '3',
-              '4',
-              '5',
-              '6',
-              '7',
-              '8',
-              '9',
-              '.',
-              '0',
-              'Clear'
-            ].map((e) {
-              if (e != 'Clear') {
-                return TextButton(
-                    onPressed: () {
-                      onTextInput.call(e);
-                    },
-                    child: Text(e));
-              } else {
-                return TextButton(
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(EdgeInsets.zero),
-                    textStyle: MaterialStateProperty.all(
-                        const TextStyle(fontSize: 20)),
-                  ),
-                  onPressed: () {
-                    onBackspace.call();
-                  },
-                  child: const Icon(
-                    Icons.backspace_outlined,
-                    color: Colors.black,
-                    size: 15,
-                  ),
-                );
-              }
-            }).toList(),
-          ),
-        ],
-      ),
-    );
+  Widget build(BuildContext context) => SizedBox(
+        height: 300,
+        child: Column(
+          children: <Widget>[
+            GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: 3,
+              childAspectRatio: 2.5,
+              mainAxisSpacing: 0.2,
+              crossAxisSpacing: 0.2,
+              children: <String>[
+                '1',
+                '2',
+                '3',
+                '4',
+                '5',
+                '6',
+                '7',
+                '8',
+                '9',
+                '.',
+                '0',
+                'Clear'
+              ].map((String e) {
+                if (e != 'Clear') {
+                  return TextButton(
+                      onPressed: () {
+                        onTextInput.call(e);
+                      },
+                      child: Text(e));
+                } else {
+                  return TextButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(EdgeInsets.zero),
+                      textStyle: MaterialStateProperty.all(
+                          const TextStyle(fontSize: 20)),
+                    ),
+                    onPressed: onBackspace.call,
+                    child: const Icon(
+                      Icons.backspace_outlined,
+                      color: Colors.black,
+                      size: 15,
+                    ),
+                  );
+                }
+              }).toList(),
+            ),
+          ],
+        ),
+      );
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(ObjectFlagProperty<VoidCallback>.has('onBackspace', onBackspace));
+    properties.add(ObjectFlagProperty<ValueSetter<String>>.has(
+        'onTextInput', onTextInput));
   }
 }

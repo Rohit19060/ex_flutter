@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -40,116 +41,109 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MainCard(),
-    );
-  }
+  Widget build(BuildContext context) => const MaterialApp(home: MainCard());
 }
 
 class MainCard extends StatelessWidget {
-  const MainCard({Key? key}) : super(key: key);
+  const MainCard({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: mC,
-      body: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(25),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    NMButton(icon: Icons.arrow_back),
-                    NMButton(icon: Icons.menu),
-                  ],
-                ),
-                const AvatarImage(),
-                const SizedBox(height: 15),
-                const Text(
-                  'Steven Dz',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
-                ),
-                const Text(
-                  'Amsterdam',
-                  style: TextStyle(fontWeight: FontWeight.w200),
-                ),
-                const SizedBox(height: 15),
-                const Text(
-                  'Mobile App Developer and Game Designer',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20),
-                ),
-                const SizedBox(height: 35),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    NMButton(icon: FontAwesomeIcons.facebookF),
-                    SizedBox(width: 25),
-                    NMButton(icon: FontAwesomeIcons.twitter),
-                    SizedBox(width: 25),
-                    NMButton(icon: FontAwesomeIcons.instagram),
-                  ],
-                ),
-                const Spacer(),
-                Row(
-                  children: const [
-                    SocialBox(
-                        icon: FontAwesomeIcons.dribbble,
-                        count: '35',
-                        category: 'shots'),
-                    SizedBox(width: 15),
-                    SocialBox(
-                        icon: FontAwesomeIcons.userLarge,
-                        count: '1.2k',
-                        category: 'followers'),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: const [
-                    SocialBox(
-                        icon: FontAwesomeIcons.heart,
-                        count: '5.1k',
-                        category: 'likes'),
-                    SizedBox(width: 15),
-                    SocialBox(
-                        icon: FontAwesomeIcons.user,
-                        count: '485',
-                        category: 'following'),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: const [
-                    SocialBox(
-                        icon: FontAwesomeIcons.whiskeyGlass,
-                        count: '97',
-                        category: 'buckets'),
-                    SizedBox(width: 15),
-                    SocialBox(
-                        icon: FontAwesomeIcons.folderOpen,
-                        count: '7',
-                        category: 'projects'),
-                  ],
-                ),
-                const SizedBox(height: 35),
-              ],
+  Widget build(BuildContext context) => Scaffold(
+        backgroundColor: mC,
+        body: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(25),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      NMButton(icon: Icons.arrow_back),
+                      NMButton(icon: Icons.menu),
+                    ],
+                  ),
+                  const AvatarImage(),
+                  const SizedBox(height: 15),
+                  const Text(
+                    'Steven Dz',
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
+                  ),
+                  const Text(
+                    'Amsterdam',
+                    style: TextStyle(fontWeight: FontWeight.w200),
+                  ),
+                  const SizedBox(height: 15),
+                  const Text(
+                    'Mobile App Developer and Game Designer',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  const SizedBox(height: 35),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      NMButton(icon: FontAwesomeIcons.facebookF),
+                      SizedBox(width: 25),
+                      NMButton(icon: FontAwesomeIcons.twitter),
+                      SizedBox(width: 25),
+                      NMButton(icon: FontAwesomeIcons.instagram),
+                    ],
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: const [
+                      SocialBox(
+                          icon: FontAwesomeIcons.dribbble,
+                          count: '35',
+                          category: 'shots'),
+                      SizedBox(width: 15),
+                      SocialBox(
+                          icon: FontAwesomeIcons.userLarge,
+                          count: '1.2k',
+                          category: 'followers'),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: const [
+                      SocialBox(
+                          icon: FontAwesomeIcons.heart,
+                          count: '5.1k',
+                          category: 'likes'),
+                      SizedBox(width: 15),
+                      SocialBox(
+                          icon: FontAwesomeIcons.user,
+                          count: '485',
+                          category: 'following'),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: const [
+                      SocialBox(
+                          icon: FontAwesomeIcons.whiskeyGlass,
+                          count: '97',
+                          category: 'buckets'),
+                      SizedBox(width: 15),
+                      SocialBox(
+                          icon: FontAwesomeIcons.folderOpen,
+                          count: '7',
+                          category: 'projects'),
+                    ],
+                  ),
+                  const SizedBox(height: 35),
+                ],
+              ),
             ),
-          ),
-          DraggableScrollableSheet(
-            initialChildSize: 0.07,
-            minChildSize: 0.07,
-            maxChildSize: 0.4,
-            builder: (BuildContext context, scroll) {
-              return Container(
+            DraggableScrollableSheet(
+              initialChildSize: 0.07,
+              minChildSize: 0.07,
+              maxChildSize: 0.4,
+              builder: (BuildContext context, scroll) => DecoratedBox(
                 decoration: nMbox,
                 child: ListView(
                   controller: scroll,
@@ -192,91 +186,90 @@ class MainCard extends StatelessWidget {
                     )
                   ],
                 ),
-              );
-            },
-          )
-        ],
-      ),
-    );
-  }
+              ),
+            )
+          ],
+        ),
+      );
 }
 
 class SocialBox extends StatelessWidget {
+  const SocialBox(
+      {super.key,
+      required this.icon,
+      required this.count,
+      required this.category});
   final IconData icon;
   final String count;
   final String category;
 
-  const SocialBox(
-      {Key? key,
-      required this.icon,
-      required this.count,
-      required this.category})
-      : super(key: key);
-
   @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(15),
-        decoration: nMboxInvert,
-        child: Row(
-          children: [
-            FaIcon(icon, color: Colors.pink.shade800, size: 20),
-            const SizedBox(width: 8),
-            Text(
-              count,
-              style: const TextStyle(fontWeight: FontWeight.w700),
-            ),
-            const SizedBox(width: 3),
-            Text(
-              category,
-            ),
-          ],
+  Widget build(BuildContext context) => Expanded(
+        child: Container(
+          padding: const EdgeInsets.all(15),
+          decoration: nMboxInvert,
+          child: Row(
+            children: [
+              FaIcon(icon, color: Colors.pink.shade800, size: 20),
+              const SizedBox(width: 8),
+              Text(
+                count,
+                style: const TextStyle(fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(width: 3),
+              Text(
+                category,
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('category', category));
+    properties.add(StringProperty('count', count));
+    properties.add(DiagnosticsProperty<IconData>('icon', icon));
   }
 }
 
 class NMButton extends StatelessWidget {
+  const NMButton({super.key, required this.icon});
   final IconData icon;
-  const NMButton({Key? key, required this.icon}) : super(key: key);
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 55,
-      height: 55,
-      decoration: nMbox,
-      child: Icon(
-        icon,
-        color: fCL,
-      ),
-    );
+  Widget build(BuildContext context) => Container(
+        width: 55,
+        height: 55,
+        decoration: nMbox,
+        child: Icon(icon, color: fCL),
+      );
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<IconData>('icon', icon));
   }
 }
 
 class AvatarImage extends StatelessWidget {
-  const AvatarImage({Key? key}) : super(key: key);
+  const AvatarImage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 150,
-      height: 150,
-      padding: const EdgeInsets.all(8),
-      decoration: nMbox,
-      child: Container(
+  Widget build(BuildContext context) => Container(
+        width: 150,
+        height: 150,
+        padding: const EdgeInsets.all(8),
         decoration: nMbox,
-        padding: const EdgeInsets.all(3),
         child: Container(
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: AssetImage('assets/images/avatar.jpg'),
+          decoration: nMbox,
+          padding: const EdgeInsets.all(3),
+          child: const DecoratedBox(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: AssetImage('assets/images/avatar.jpg'),
+              ),
             ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }

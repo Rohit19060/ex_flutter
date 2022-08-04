@@ -14,10 +14,9 @@ void main() async {
 
 Future<Map<String, String>> sendRequest(String url) async {
   try {
-    final Response response = await get(Uri.parse(url),
+    final response = await get(Uri.parse(url),
         headers: <String, String>{'Accept': 'application/json'});
-    final Map<String, String> x =
-        json.decode(response.body) as Map<String, String>;
+    final x = json.decode(response.body) as Map<String, String>;
     return <String, String>{
       'status': x['status'].toString(),
       'message': x['message'].toString()

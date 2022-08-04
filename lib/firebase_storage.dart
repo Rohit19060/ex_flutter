@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 
@@ -11,14 +12,14 @@ UploadTask uploadFile(String destination, File file) {
   return ref.putFile(file);
 }
 
-Future main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const Storage());
 }
 
 class Storage extends StatefulWidget {
-  const Storage({Key? key}) : super(key: key);
+  const Storage({super.key});
 
   @override
   State<Storage> createState() => _StorageState();
@@ -26,16 +27,14 @@ class Storage extends StatefulWidget {
 
 class _StorageState extends State<Storage> {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const StorageHome(),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        theme: ThemeData(primarySwatch: Colors.blue),
+        home: const StorageHome(),
+      );
 }
 
 class StorageHome extends StatefulWidget {
-  const StorageHome({Key? key}) : super(key: key);
+  const StorageHome({super.key});
 
   @override
   State<StorageHome> createState() => _StorageHomeState();
@@ -63,7 +62,7 @@ class _StorageHomeState extends State<StorageHome> {
               ),
               const SizedBox(height: 28),
               Text(
-                fileName.toString(),
+                fileName,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -76,7 +75,7 @@ class _StorageHomeState extends State<StorageHome> {
                 label: const Text('Upload File'),
               ),
               const SizedBox(height: 20),
-              task != null ? buildUploadStatus(task!) : const SizedBox(),
+              if (task != null) buildUploadStatus(task!) else const SizedBox(),
             ],
           ),
         ),
@@ -84,20 +83,26 @@ class _StorageHomeState extends State<StorageHome> {
     );
   }
 
-  Future _selectFile() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
-    if (result == null) return;
+  Future<void> _selectFile() async {
+    final result = await FilePicker.platform.pickFiles();
+    if (result == null) {
+      return;
+    }
     final path = result.files.single.path!;
     setState(() => file = File(path));
   }
 
-  Future _uploadFile() async {
-    if (file == null) return;
+  Future<void> _uploadFile() async {
+    if (file == null) {
+      return;
+    }
     final fileName = basename(file!.path);
     final destination = 'files/$fileName';
     task = uploadFile(destination, file!);
     setState(() {});
-    if (task == null) return;
+    if (task == null) {
+      return;
+    }
     // final snapshot = await task!.whenComplete(() {});
     // final urlDownload = await snapshot.ref.getDownloadURL();
   }
@@ -118,4 +123,10 @@ class _StorageHomeState extends State<StorageHome> {
           }
         },
       );
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<File?>('file', file));
+    properties.add(DiagnosticsProperty<UploadTask?>('task', task));
+  }
 }
