@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -16,7 +17,7 @@ import 'firebase_options.dart';
 
 Future<void> backgroundHandler(RemoteMessage message) async {}
 
-Future main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
@@ -24,25 +25,23 @@ Future main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Notification System',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(),
-      routes: {
-        'red': (_) => const RedPage(payload: 'red'),
-        'green': (_) => const GreenPage(),
-      },
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        title: 'Flutter Notification System',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const MyHomePage(),
+        routes: <String, Widget Function(BuildContext)>{
+          'red': (_) => const RedPage(payload: 'red'),
+          'green': (_) => const GreenPage(),
+        },
+      );
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -58,13 +57,15 @@ class _MyHomePageState extends State<MyHomePage> {
     NotificationAPI.init(initScheduled: true);
     listenNotifications();
 
-    FirebaseMessaging.instance.getToken().then((token) {
+    FirebaseMessaging.instance.getToken().then((String? token) {
       Clipboard.setData(ClipboardData(text: token));
       debugPrint('Token: $token');
     });
 
     // Gives you the message on which user taps and it opened the app from terminated state
-    FirebaseMessaging.instance.getInitialMessage().then((message) {
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? message) {
       debugPrint('Initial Message: $message');
       /*  if (message != null) {
         final routeFromMessage = message.data["route"];
@@ -73,11 +74,11 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     // Trigger when App is running in foreground
-    FirebaseMessaging.onMessage.listen((message) {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       if (message.notification != null) {
         NotificationAPI.showNotification(
-          channelId: message.data['channelId'],
-          channelName: message.data['channelName'],
+          channelId: message.data['channelId'].toString(),
+          channelName: message.data['channelName'].toString(),
           sound: message.notification!.android!.sound ?? 'default',
           payload: '',
           title: message.notification!.title ?? '',
@@ -87,22 +88,21 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     // Trigger when App is running in background
-    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       debugPrint('onMessageOpenedApp: $message');
       // final routeFromMessage = message.data["route"];
       // Navigator.of(context).pushNamed(routeFromMessage);
     });
   }
 
-  listenNotifications() {
+  void listenNotifications() {
     NotificationAPI.onNotifications.listen(onClickedNotification);
   }
 
   void onClickedNotification(String? payload) {
     if (payload != null) {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return RedPage(payload: payload);
-      }));
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) => RedPage(payload: payload)));
     }
   }
 
@@ -138,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     const Duration(seconds: 5),
                   ),
                 );
-                const snackbar = SnackBar(
+                const SnackBar snackbar = SnackBar(
                   content: Text('Notification Scheduled'),
                   backgroundColor: Colors.green,
                 );
@@ -148,11 +148,17 @@ class _MyHomePageState extends State<MyHomePage> {
               }),
         ],
       ));
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('token', token));
+    properties.add(StringProperty('payload', payload));
+  }
 }
 
 class RedPage extends StatelessWidget {
+  const RedPage({super.key, required this.payload});
   final String payload;
-  const RedPage({Key? key, required this.payload}) : super(key: key);
   @override
   Widget build(BuildContext context) => Scaffold(
           body: Center(
@@ -161,10 +167,15 @@ class RedPage extends StatelessWidget {
           style: const TextStyle(color: Colors.red),
         ),
       ));
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('payload', payload));
+  }
 }
 
 class GreenPage extends StatelessWidget {
-  const GreenPage({Key? key}) : super(key: key);
+  const GreenPage({super.key});
   @override
   Widget build(BuildContext context) => const Scaffold(
       body: Center(
@@ -178,26 +189,27 @@ class NotificationAPI {
       BehaviorSubject<String?>();
 
   static Future<void> init({bool initScheduled = false}) async {
-    const android = AndroidInitializationSettings('@mipmap/ic_launcher');
-    const iOS = IOSInitializationSettings();
-    const initializationSettings =
+    const AndroidInitializationSettings android =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+    const IOSInitializationSettings iOS = IOSInitializationSettings();
+    const InitializationSettings initializationSettings =
         InitializationSettings(android: android, iOS: iOS);
     if (initScheduled) {
       tz.initializeTimeZones();
-      final locationName = await FlutterNativeTimezone.getLocalTimezone();
+      final String locationName =
+          await FlutterNativeTimezone.getLocalTimezone();
       tz.setLocalLocation(tz.getLocation(locationName));
     }
 
     // When the app is closed
-    final details = await _notifications.getNotificationAppLaunchDetails();
+    final NotificationAppLaunchDetails? details =
+        await _notifications.getNotificationAppLaunchDetails();
     if (details != null && details.didNotificationLaunchApp) {
       onNotifications.add(details.payload);
     }
     await _notifications.initialize(
       initializationSettings,
-      onSelectNotification: (payload) {
-        onNotifications.add(payload);
-      },
+      onSelectNotification: onNotifications.add,
     );
   }
 
@@ -270,16 +282,16 @@ class NotificationAPI {
       );
 
   static tz.TZDateTime _scheduleDaily(Time time) {
-    final now = tz.TZDateTime.now(tz.local);
-    final scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day,
-        time.hour, time.minute, time.second);
+    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+    final tz.TZDateTime scheduledDate = tz.TZDateTime(tz.local, now.year,
+        now.month, now.day, time.hour, time.minute, time.second);
     return scheduledDate.isBefore(now)
         ? scheduledDate.add(const Duration(days: 1))
         : scheduledDate;
   }
 
   static tz.TZDateTime _scheduleWeekly(Time time, {required List<int> days}) {
-    final scheduledDate = _scheduleDaily(time);
+    final tz.TZDateTime scheduledDate = _scheduleDaily(time);
     while (!days.contains(scheduledDate.weekday)) {
       scheduledDate.add(const Duration(days: 1));
     }
@@ -315,40 +327,37 @@ class NotificationAPI {
     required String channelId,
     required String channelName,
     required String sound,
-  }) async {
-    return NotificationDetails(
-      android: AndroidNotificationDetails(
-        channelId,
-        channelName,
-        importance: Importance.max,
-        priority: Priority.high,
-        playSound: true,
-        sound: sound != 'default'
-            ? RawResourceAndroidNotificationSound(sound)
-            : null,
-        enableVibration: true,
-        styleInformation: BigPictureStyleInformation(
-          FilePathAndroidBitmap(
-            await Utils.downloadFile(
-              'https://images.unsplash.com/photo-1657963062468-472b9dabf100?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-              'large_icon',
+  }) async =>
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          channelId,
+          channelName,
+          importance: Importance.max,
+          priority: Priority.high,
+          sound: sound != 'default'
+              ? RawResourceAndroidNotificationSound(sound)
+              : null,
+          styleInformation: BigPictureStyleInformation(
+            FilePathAndroidBitmap(
+              await Utils.downloadFile(
+                'https://images.unsplash.com/photo-1657963062468-472b9dabf100?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+                'large_icon',
+              ),
             ),
-          ),
-          largeIcon: FilePathAndroidBitmap(
-            await Utils.downloadFile(
-              'https://i.imgur.com/w3duR07.png',
-              'small_image',
+            largeIcon: FilePathAndroidBitmap(
+              await Utils.downloadFile(
+                'https://i.imgur.com/w3duR07.png',
+                'small_image',
+              ),
             ),
           ),
         ),
-      ),
-      iOS: IOSNotificationDetails(
-        presentSound: true,
-        sound: sound,
-        presentAlert: true,
-      ),
-    );
-  }
+        iOS: IOSNotificationDetails(
+          presentSound: true,
+          sound: sound,
+          presentAlert: true,
+        ),
+      );
 
   static Future<void> cancel(int id) async => _notifications.cancel(id);
 
@@ -357,10 +366,10 @@ class NotificationAPI {
 
 class Utils {
   static Future<String> downloadFile(String url, String fileName) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final filePath = '${directory.path}/$fileName';
-    final response = await http.get(Uri.parse(url));
-    final file = File(filePath);
+    final Directory directory = await getApplicationDocumentsDirectory();
+    final String filePath = '${directory.path}/$fileName';
+    final http.Response response = await http.get(Uri.parse(url));
+    final File file = File(filePath);
 
     await file.writeAsBytes(response.bodyBytes);
     return filePath;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 class FeatureDiscovery extends StatefulWidget {
+  const FeatureDiscovery({super.key, required this.child});
   static String activeStep(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<
             _InheritedFeatureDiscovery>() as _InheritedFeatureDiscovery)
@@ -9,7 +10,7 @@ class FeatureDiscovery extends StatefulWidget {
   }
 
   static void discoverFeatures(BuildContext context, List<String> steps) {
-    _FeatureDiscoveryState state =
+    final _FeatureDiscoveryState state =
         context.findAncestorStateOfType<_FeatureDiscoveryState>()
             as _FeatureDiscoveryState;
 
@@ -17,7 +18,7 @@ class FeatureDiscovery extends StatefulWidget {
   }
 
   static void markStepComplete(BuildContext context, String stepId) {
-    _FeatureDiscoveryState state =
+    final _FeatureDiscoveryState state =
         context.findAncestorStateOfType<_FeatureDiscoveryState>()
             as _FeatureDiscoveryState;
 
@@ -25,7 +26,7 @@ class FeatureDiscovery extends StatefulWidget {
   }
 
   static void dismiss(BuildContext context) {
-    _FeatureDiscoveryState state =
+    final _FeatureDiscoveryState state =
         context.findAncestorStateOfType<_FeatureDiscoveryState>()
             as _FeatureDiscoveryState;
 
@@ -33,7 +34,6 @@ class FeatureDiscovery extends StatefulWidget {
   }
 
   final Widget child;
-  const FeatureDiscovery({Key? key, required this.child}) : super(key: key);
 
   @override
   State<FeatureDiscovery> createState() => _FeatureDiscoveryState();
@@ -64,9 +64,7 @@ class _FeatureDiscoveryState extends State<FeatureDiscovery> {
   }
 
   void dismiss() {
-    setState(() {
-      _cleanupAfterSteps();
-    });
+    setState(_cleanupAfterSteps);
   }
 
   void _cleanupAfterSteps() {
@@ -84,11 +82,11 @@ class _FeatureDiscoveryState extends State<FeatureDiscovery> {
 }
 
 class _InheritedFeatureDiscovery extends InheritedWidget {
-  final String activeStepId;
   const _InheritedFeatureDiscovery({
     required this.activeStepId,
-    child,
-  }) : super(child: child);
+    required super.child,
+  });
+  final String activeStepId;
 
   @override
   bool updateShouldNotify(_InheritedFeatureDiscovery oldWidget) {
@@ -97,22 +95,20 @@ class _InheritedFeatureDiscovery extends InheritedWidget {
 }
 
 class DescribeFeatureOverlay extends StatefulWidget {
+  const DescribeFeatureOverlay(
+      {super.key,
+      required this.featureId,
+      required this.icon,
+      required this.color,
+      required this.title,
+      required this.description,
+      required this.child});
   final String featureId;
   final IconData icon;
   final Color color;
   final String title;
   final String description;
   final Widget child;
-
-  const DescribeFeatureOverlay(
-      {Key? key,
-      required this.featureId,
-      required this.icon,
-      required this.color,
-      required this.title,
-      required this.description,
-      required this.child})
-      : super(key: key);
 
   @override
   State<DescribeFeatureOverlay> createState() =>
@@ -133,7 +129,7 @@ class _DescriberFeatureOverlayState extends State<DescribeFeatureOverlay> {
   }
 
   void showOverlayIfActiveStep() {
-    String activeStep = FeatureDiscovery.activeStep(context);
+    final String activeStep = FeatureDiscovery.activeStep(context);
     setState(() => showOverlay = activeStep == widget.featureId);
   }
 
@@ -222,16 +218,15 @@ class _DescriberFeatureOverlayState extends State<DescribeFeatureOverlay> {
 }
 
 class Background extends StatelessWidget {
-  final Offset anchor;
-  final Color color;
-  final Size screenSize;
-
   const Background({
-    Key? key,
+    super.key,
     required this.anchor,
     required this.color,
     required this.screenSize,
-  }) : super(key: key);
+  });
+  final Offset anchor;
+  final Color color;
+  final Size screenSize;
 
   bool isCloseToTheTopOrBottom(Offset position) {
     return position.dy <= 88.0 || (screenSize.height - position.dy) <= 88.0;
@@ -247,10 +242,10 @@ class Background extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isBackgroundCentered = isCloseToTheTopOrBottom(anchor);
-    final backgroundRadius =
+    final bool isBackgroundCentered = isCloseToTheTopOrBottom(anchor);
+    final double backgroundRadius =
         screenSize.width * (isBackgroundCentered ? 1.0 : 0.75);
-    final backgroundPosition = isBackgroundCentered
+    final Offset backgroundPosition = isBackgroundCentered
         ? anchor
         : Offset(
             screenSize.width / 2.0 +
@@ -274,13 +269,6 @@ class Background extends StatelessWidget {
 }
 
 class _Content extends StatelessWidget {
-  final Offset anchor;
-  final Size screenSize;
-  final String title;
-  final String description;
-  final double touchTargetRadius;
-  final double touchTargetToContentPadding;
-
   const _Content({
     required this.anchor,
     required this.screenSize,
@@ -289,6 +277,12 @@ class _Content extends StatelessWidget {
     required this.touchTargetRadius,
     required this.touchTargetToContentPadding,
   });
+  final Offset anchor;
+  final Size screenSize;
+  final String title;
+  final String description;
+  final double touchTargetRadius;
+  final double touchTargetToContentPadding;
 
   bool isCloseToTheTopOrBottom(Offset position) {
     return position.dy <= 88.0 || (screenSize.height - position.dy) <= 88.0;
@@ -320,14 +314,16 @@ class _Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final contentOrientation = getContentOrientation(anchor);
-    final contentOffsetMultiplier =
+    final DescribedFeatureContentOrientation contentOrientation =
+        getContentOrientation(anchor);
+    final double contentOffsetMultiplier =
         contentOrientation == DescribedFeatureContentOrientation.below
             ? 1.0
             : -1.0;
-    final contentY =
+    final double contentY =
         anchor.dy + (contentOffsetMultiplier * (touchTargetRadius + 20.0));
-    final contentFractionalOffset = contentOffsetMultiplier.clamp(-1.0, 0.0);
+    final double contentFractionalOffset =
+        contentOffsetMultiplier.clamp(-1.0, 0.0);
 
     return Positioned(
       top: contentY,
@@ -362,22 +358,21 @@ class _Content extends StatelessWidget {
 }
 
 class TouchTarget extends StatelessWidget {
+  const TouchTarget({
+    super.key,
+    required this.anchor,
+    required this.icon,
+    required this.color,
+    required this.onPressed,
+  });
   final Offset anchor;
   final IconData icon;
   final Color color;
   final VoidCallback onPressed;
 
-  const TouchTarget({
-    Key? key,
-    required this.anchor,
-    required this.icon,
-    required this.color,
-    required this.onPressed,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    const touchTargetRadius = 44.0;
+    const double touchTargetRadius = 44.0;
 
     return CenterAbout(
       position: anchor,
@@ -396,16 +391,15 @@ class TouchTarget extends StatelessWidget {
 }
 
 class AnchoredOverlay extends StatelessWidget {
-  final bool showOverlay;
-  final Widget Function(BuildContext, Offset anchor) overlayBuilder;
-  final Widget child;
-
   const AnchoredOverlay({
-    Key? key,
+    super.key,
     required this.showOverlay,
     required this.overlayBuilder,
     required this.child,
-  }) : super(key: key);
+  });
+  final bool showOverlay;
+  final Widget Function(BuildContext, Offset anchor) overlayBuilder;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -414,8 +408,8 @@ class AnchoredOverlay extends StatelessWidget {
       return OverlayBuilder(
         showOverlay: showOverlay,
         overlayBuilder: (BuildContext overlayContext) {
-          RenderBox box = context.findRenderObject() as RenderBox;
-          final center =
+          final RenderBox box = context.findRenderObject() as RenderBox;
+          final Offset center =
               box.size.center(box.localToGlobal(const Offset(0.0, 0.0)));
 
           return overlayBuilder(overlayContext, center);
@@ -427,16 +421,14 @@ class AnchoredOverlay extends StatelessWidget {
 }
 
 class OverlayBuilder extends StatefulWidget {
+  const OverlayBuilder(
+      {super.key,
+      this.showOverlay = false,
+      required this.overlayBuilder,
+      required this.child});
   final bool showOverlay;
   final Function(BuildContext) overlayBuilder;
   final Widget child;
-
-  const OverlayBuilder(
-      {Key? key,
-      this.showOverlay = false,
-      required this.overlayBuilder,
-      required this.child})
-      : super(key: key);
 
   @override
   State<OverlayBuilder> createState() => _OverlayBuilderState();
@@ -482,7 +474,7 @@ class _OverlayBuilderState extends State<OverlayBuilder> {
     addToOverlay(overlayEntry!);
   }
 
-  void addToOverlay(OverlayEntry entry) async {
+  Future<void> addToOverlay(OverlayEntry entry) async {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       Overlay.of(context)?.insert(entry);
     });
@@ -508,11 +500,9 @@ class _OverlayBuilderState extends State<OverlayBuilder> {
 }
 
 class CenterAbout extends StatelessWidget {
+  const CenterAbout({super.key, required this.position, required this.child});
   final Offset position;
   final Widget child;
-
-  const CenterAbout({Key? key, required this.position, required this.child})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -529,13 +519,13 @@ class CenterAbout extends StatelessWidget {
 
 void main() => runApp(const MyApp());
 
-const feature1 = 'FEATURE_1';
-const feature2 = 'FEATURE_2';
-const feature3 = 'FEATURE_3';
-const feature4 = 'FEATURE_4';
+const String feature1 = 'FEATURE_1';
+const String feature2 = 'FEATURE_2';
+const String feature3 = 'FEATURE_3';
+const String feature4 = 'FEATURE_4';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -550,7 +540,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -615,7 +605,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class Content extends StatefulWidget {
-  const Content({Key? key}) : super(key: key);
+  const Content({super.key});
 
   @override
   State<Content> createState() => _ContentState();
