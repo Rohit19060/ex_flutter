@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 void main() => runApp(const AutocompleteApp());
 
 class AutocompleteApp extends StatelessWidget {
-  const AutocompleteApp({Key? key}) : super(key: key);
+  const AutocompleteApp({super.key});
   static const List<String> _kOptions = <String>[
     'aardvark',
     'bobcat',
@@ -11,48 +11,44 @@ class AutocompleteApp extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Autocomplete'),
-        ),
-        body: Center(
-          child: Autocomplete<String>(
-            optionsBuilder: (TextEditingValue textEditingValue) {
-              if (textEditingValue.text == '') {
-                return const Iterable<String>.empty();
-              }
-              return _kOptions.where((String option) {
-                return option.contains(textEditingValue.text.toLowerCase());
-              });
-            },
-            onSelected: (String selection) {
-              debugPrint('You just selected $selection');
-            },
+  Widget build(BuildContext context) => MaterialApp(
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Text('Autocomplete'),
+          ),
+          body: Center(
+            child: Autocomplete<String>(
+              optionsBuilder: (TextEditingValue textEditingValue) {
+                if (textEditingValue.text == '') {
+                  return const Iterable<String>.empty();
+                }
+                return _kOptions.where((String option) {
+                  return option.contains(textEditingValue.text.toLowerCase());
+                });
+              },
+              onSelected: (String selection) {
+                debugPrint('You just selected $selection');
+              },
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class AutocompleteDartApp extends StatelessWidget {
-  const AutocompleteDartApp({Key? key}) : super(key: key);
+  const AutocompleteDartApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Autocomplete Basic User'),
+  Widget build(BuildContext context) => MaterialApp(
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Text('Autocomplete Basic User'),
+          ),
+          body: const Center(
+            child: AutocompleteBasicUserExample(),
+          ),
         ),
-        body: const Center(
-          child: AutocompleteBasicUserExample(),
-        ),
-      ),
-    );
-  }
+      );
 }
 
 @immutable
@@ -66,9 +62,7 @@ class User {
   final String name;
 
   @override
-  String toString() {
-    return '$name, $email';
-  }
+  String toString() => '$name, $email';
 
   @override
   bool operator ==(Object other) {
@@ -83,7 +77,7 @@ class User {
 }
 
 class AutocompleteBasicUserExample extends StatelessWidget {
-  const AutocompleteBasicUserExample({Key? key}) : super(key: key);
+  const AutocompleteBasicUserExample({super.key});
 
   static const List<User> _userOptions = <User>[
     User(name: 'Alice', email: 'alice@example.com'),
@@ -94,33 +88,31 @@ class AutocompleteBasicUserExample extends StatelessWidget {
   static String _displayStringForOption(User option) => option.name;
 
   @override
-  Widget build(BuildContext context) {
-    return Autocomplete<User>(
-      displayStringForOption: _displayStringForOption,
-      fieldViewBuilder:
-          (context, textEditingController, focusNode, onFieldSubmitted) =>
-              TextField(
-        controller: textEditingController,
-        focusNode: focusNode,
-        onSubmitted: (String value) {},
-        decoration: const InputDecoration(
-          labelText: 'User',
-          border: OutlineInputBorder(),
+  Widget build(BuildContext context) => Autocomplete<User>(
+        displayStringForOption: _displayStringForOption,
+        fieldViewBuilder:
+            (context, textEditingController, focusNode, onFieldSubmitted) =>
+                TextField(
+          controller: textEditingController,
+          focusNode: focusNode,
+          onSubmitted: (String value) {},
+          decoration: const InputDecoration(
+            labelText: 'User',
+            border: OutlineInputBorder(),
+          ),
         ),
-      ),
-      optionsBuilder: (TextEditingValue textEditingValue) {
-        if (textEditingValue.text == '') {
-          return const Iterable<User>.empty();
-        }
-        return _userOptions.where((User option) {
-          return option
-              .toString()
-              .contains(textEditingValue.text.toLowerCase());
-        });
-      },
-      onSelected: (User selection) {
-        debugPrint('You just selected ${_displayStringForOption(selection)}');
-      },
-    );
-  }
+        optionsBuilder: (TextEditingValue textEditingValue) {
+          if (textEditingValue.text == '') {
+            return const Iterable<User>.empty();
+          }
+          return _userOptions.where((User option) {
+            return option
+                .toString()
+                .contains(textEditingValue.text.toLowerCase());
+          });
+        },
+        onSelected: (User selection) {
+          debugPrint('You just selected ${_displayStringForOption(selection)}');
+        },
+      );
 }

@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Email {
-  final String image, name, subject, body, time;
-  final bool isAttachmentAvailable, isChecked;
-  final Color? tagColor;
-
-  Email({
+  const Email({
     required this.time,
     required this.isChecked,
     required this.image,
@@ -15,24 +11,27 @@ class Email {
     required this.isAttachmentAvailable,
     required this.tagColor,
   });
+  final String image, name, subject, body, time;
+  final bool isAttachmentAvailable, isChecked;
+  final Color? tagColor;
 }
 
-List<Email> emails = List.generate(
+List<Email> emails = List<Email>.generate(
   demoData.length,
-  (index) => Email(
-    name: demoData[index]['name'],
-    image: demoData[index]['image'],
-    subject: demoData[index]['subject'],
-    isAttachmentAvailable: demoData[index]['isAttachmentAvailable'],
-    isChecked: demoData[index]['isChecked'],
-    tagColor: demoData[index]['tagColor'],
-    time: demoData[index]['time'],
+  (int index) => Email(
+    name: demoData[index]['name'].toString(),
+    image: demoData[index]['image'].toString(),
+    subject: demoData[index]['subject'].toString(),
+    isAttachmentAvailable: demoData[index]['isAttachmentAvailable'] == true,
+    isChecked: demoData[index]['isChecked'] == true,
+    tagColor: demoData[index]['tagColor'] as Color?,
+    time: demoData[index]['time'].toString(),
     body: emailDemoText,
   ),
 );
 
-List demoData = [
-  {
+List<Map<String, dynamic>> demoData = [
+  <String, dynamic>{
     'name': 'Apple',
     'image': 'assets/images/user_1.png',
     'subject': 'iPhone 12 is here',
@@ -41,7 +40,7 @@ List demoData = [
     'tagColor': null,
     'time': 'Now'
   },
-  {
+  <String, dynamic>{
     'name': 'Elvia Atkins',
     'image': 'assets/images/user_2.png',
     'subject': 'Inspiration for our new home',
@@ -50,7 +49,7 @@ List demoData = [
     'tagColor': null,
     'time': '15:32'
   },
-  {
+  <String, dynamic>{
     'name': 'Marvin Kiehn',
     'image': 'assets/images/user_3.png',
     'subject': 'Business-focused empowering the world',
@@ -59,7 +58,7 @@ List demoData = [
     'tagColor': null,
     'time': '14:27',
   },
-  {
+  <String, dynamic>{
     'name': 'Domenic Bosco',
     'image': 'assets/images/user_4.png',
     'subject': 'The fastest way to Design',
@@ -68,7 +67,7 @@ List demoData = [
     'tagColor': const Color(0xFF23CF91),
     'time': '10:43'
   },
-  {
+  <String, dynamic>{
     'name': 'Elenor Bauch',
     'image': 'assets/images/user_5.png',
     'subject': 'New job opportunities',
