@@ -10,9 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         title: 'Glass Morphism',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: ThemeData(primarySwatch: Colors.blue),
         home: const MyHomePage(),
       );
 }
@@ -35,15 +33,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 fit: BoxFit.cover, height: double.infinity),
             Center(
               child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _isBlur = !_isBlur;
-                  });
-                },
+                onTap: () => setState(() => _isBlur = !_isBlur),
                 child: GlassMorphic(
-                    blur: _isBlur ? 20 : 0,
-                    opacity: 0.2,
-                    child: const SizedBox(height: 210, width: 320)),
+                  blur: _isBlur ? 20 : 0,
+                  opacity: 0.2,
+                  child: const SizedBox(height: 210, width: 320),
+                ),
               ),
             ),
           ],
@@ -52,11 +47,12 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class GlassMorphic extends StatelessWidget {
-  const GlassMorphic(
-      {super.key,
-      required this.blur,
-      required this.opacity,
-      required this.child});
+  const GlassMorphic({
+    super.key,
+    required this.blur,
+    required this.opacity,
+    required this.child,
+  });
   final double blur;
   final double opacity;
   final Widget child;
@@ -77,6 +73,7 @@ class GlassMorphic extends StatelessWidget {
           ),
         ),
       );
+
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);

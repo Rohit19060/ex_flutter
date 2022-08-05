@@ -40,9 +40,10 @@ final kboxShadow = [
 
 final kIShadow = [
   BoxShadow(
-      color: Colors.black.withOpacity(.15),
-      spreadRadius: 2,
-      offset: const Offset(-1, 1)),
+    color: Colors.black.withOpacity(.15),
+    spreadRadius: 2,
+    offset: const Offset(-1, 1),
+  ),
   BoxShadow(
       color: Colors.white.withOpacity(.7),
       spreadRadius: 2,
@@ -148,15 +149,19 @@ class _BodyState extends State<Body> {
                           Text(
                             'Find A ',
                             style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w900),
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
+                            ),
                           ),
-                          Text('Workout',
-                              style: TextStyle(
-                                  color: Color(0xff4F59DC),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w900))
+                          Text(
+                            'Workout',
+                            style: TextStyle(
+                              color: Color(0xff4F59DC),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          )
                         ],
                       )
                     ],
@@ -175,13 +180,14 @@ class _BodyState extends State<Body> {
                       height: 190,
                       width: MediaQuery.of(context).size.width,
                       decoration: const BoxDecoration(
-                          color: Colors.indigo,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(130),
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
-                            topRight: Radius.circular(10),
-                          )),
+                        color: Colors.indigo,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(130),
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+                          topRight: Radius.circular(10),
+                        ),
+                      ),
                     ),
                   ),
                   Image.asset(
@@ -189,113 +195,115 @@ class _BodyState extends State<Body> {
                     height: 220,
                   ),
                   Positioned(
-                      top: 30,
-                      right: 50,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: const [
-                                  Text('Legs ',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w800)),
-                                  Text('and ',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                      ))
+                    top: 30,
+                    right: 50,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: const [
+                                Text(
+                                  'Legs ',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                                Text(
+                                  'and ',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: const [
+                                Text(
+                                  'Glutes ',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                                Text(
+                                  'workout ',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 15),
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/Group 2359.png',
+                                    height: 10,
+                                  ),
+                                  const SizedBox(width: 10),
+                                  const Text(
+                                    'Advanced',
+                                    style: TextStyle(color: Colors.white),
+                                  )
                                 ],
                               ),
-                              Row(
-                                children: const [
-                                  Text('Glutes ',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w800)),
-                                  Text('workout ',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                      ))
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 15),
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/stopwatch.png',
+                                    height: 10,
+                                    color: Colors.white,
+                                  ),
+                                  const SizedBox(width: 10),
+                                  const Text(
+                                    '45 min',
+                                    style: TextStyle(color: Colors.white),
+                                  )
                                 ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 15),
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/Group 2359.png',
-                                      height: 10,
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    const Text(
-                                      'Advanced',
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 15),
+                              child: InkWell(
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const Page())),
+                                child: Container(
+                                  height: 35,
+                                  width: 120,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(.15),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: const Center(
+                                    child: Text(
+                                      'Start Workout',
                                       style: TextStyle(
                                         color: Colors.white,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 15),
-                                child: Row(
-                                  children: [
-                                    Image.asset('assets/images/stopwatch.png',
-                                        height: 10, color: Colors.white),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    const Text(
-                                      '45 min',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 15),
-                                child: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const Page()));
-                                    });
-                                  },
-                                  child: Container(
-                                    height: 35,
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white.withOpacity(.15),
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                    child: const Center(
-                                      child: Text(
-                                        'Start Workout',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 14),
+                                        fontSize: 14,
                                       ),
                                     ),
                                   ),
                                 ),
-                              )
-                            ],
-                          )
-                        ],
-                      ))
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -332,10 +340,7 @@ class _BodyState extends State<Body> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: List.generate(
-                            today.length,
-                            (index) => TodayAC(
-                                  index: index,
-                                )),
+                            today.length, (index) => TodayAC(index: index)),
                       ),
                     )
                   ],
@@ -343,9 +348,7 @@ class _BodyState extends State<Body> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                left: 10,
-              ),
+              padding: const EdgeInsets.only(left: 10),
               child: Container(
                 height: 135,
                 color: boxColor,
@@ -358,7 +361,9 @@ class _BodyState extends State<Body> {
                         const Text(
                           'Daily Activity',
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         Row(
                           children: [
@@ -375,10 +380,9 @@ class _BodyState extends State<Body> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: List.generate(
-                            daily.length,
-                            (index) => DailyAC(
-                                  index: index,
-                                )),
+                          daily.length,
+                          (index) => DailyAC(index: index),
+                        ),
                       ),
                     )
                   ],
@@ -389,19 +393,16 @@ class _BodyState extends State<Body> {
               height: 84,
               width: MediaQuery.of(context).size.width,
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: List.generate(navigation.length, nav)),
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(navigation.length, nav),
+              ),
             )
           ],
         ),
       );
 
   Widget nav(int index) => InkWell(
-        onTap: () {
-          setState(() {
-            selectedIndex = index;
-          });
-        },
+        onTap: () => setState(() => selectedIndex = index),
         child: Container(
           height: 66,
           width: 66,
@@ -426,9 +427,7 @@ class _BodyState extends State<Body> {
                         height: 22,
                         color: textColor,
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
+                      const SizedBox(width: 5),
                       Text(
                         navigation[index].title,
                         style: TextStyle(color: textColor),
@@ -444,9 +443,7 @@ class _BodyState extends State<Body> {
                       height: 22,
                       color: Colors.grey,
                     ),
-                    const SizedBox(
-                      width: 5,
-                    ),
+                    const SizedBox(width: 5),
                     Text(
                       navigation[index].title,
                       style: const TextStyle(color: Colors.grey),
@@ -463,12 +460,9 @@ class _BodyState extends State<Body> {
 }
 
 class TodayAC extends StatelessWidget {
-  const TodayAC({
-    super.key,
-    required this.index,
-  });
-
+  const TodayAC({super.key, required this.index});
   final int index;
+
   @override
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.all(8.2),
@@ -492,9 +486,7 @@ class TodayAC extends StatelessWidget {
                       today[index].icon,
                       height: 20,
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    const SizedBox(width: 10),
                     Text(
                       today[index].title,
                       style: const TextStyle(letterSpacing: 2),
@@ -521,12 +513,9 @@ class TodayAC extends StatelessWidget {
 }
 
 class DailyAC extends StatelessWidget {
-  const DailyAC({
-    super.key,
-    required this.index,
-  });
-
+  const DailyAC({super.key, required this.index});
   final int index;
+
   @override
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.all(8.2),
@@ -548,15 +537,14 @@ class DailyAC extends StatelessWidget {
                   style: const TextStyle(
                       letterSpacing: 0, fontSize: 12, color: Colors.grey),
                 ),
-                const SizedBox(
-                  width: 5,
-                ),
+                const SizedBox(width: 5),
                 Text(
                   daily[index].date,
                   style: TextStyle(
-                      color: Colors.blue[700],
-                      fontWeight: FontWeight.bold,
-                      fontSize: 26),
+                    color: Colors.blue[700],
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26,
+                  ),
                 )
               ],
             ),
@@ -604,12 +592,8 @@ class _PageState extends State<Page> {
           ),
           titleSpacing: 85,
           leading: InkWell(
-            onTap: () {
-              setState(() {
-                Navigator.pop(context,
-                    MaterialPageRoute(builder: (context) => const Page()));
-              });
-            },
+            onTap: () => Navigator.pop(
+                context, MaterialPageRoute(builder: (context) => const Page())),
             child: Padding(
               padding: const EdgeInsets.only(left: 15),
               child: Image.asset(
@@ -649,10 +633,7 @@ class _PageBodyState extends State<PageBody> {
                       crossAxisSpacing: 25,
                       mainAxisSpacing: 6.8,
                       children: List.generate(
-                          item.length,
-                          (index) => ItemList(
-                                index: index,
-                              )),
+                          item.length, (index) => ItemList(index: index)),
                     )
                   ],
                 ),
@@ -664,8 +645,9 @@ class _PageBodyState extends State<PageBody> {
                 height: 84,
                 width: MediaQuery.of(context).size.width,
                 child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: List.generate(navigation.length, nav)),
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: List.generate(navigation.length, nav),
+                ),
               ),
             )
           ],
@@ -673,11 +655,7 @@ class _PageBodyState extends State<PageBody> {
       );
 
   Widget nav(int index) => InkWell(
-        onTap: () {
-          setState(() {
-            selectedIndex = index;
-          });
-        },
+        onTap: () => setState(() => selectedIndex = index),
         child: Container(
           height: 66,
           width: 66,
@@ -702,9 +680,7 @@ class _PageBodyState extends State<PageBody> {
                         height: 22,
                         color: textColor,
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
+                      const SizedBox(width: 5),
                       Text(
                         navigation[index].title,
                         style: TextStyle(color: textColor),
@@ -720,9 +696,7 @@ class _PageBodyState extends State<PageBody> {
                       height: 22,
                       color: Colors.grey,
                     ),
-                    const SizedBox(
-                      width: 5,
-                    ),
+                    const SizedBox(width: 5),
                     Text(
                       navigation[index].title,
                       style: const TextStyle(color: Colors.grey),
@@ -749,9 +723,10 @@ class ItemList extends StatelessWidget {
           height: 150,
           width: 150,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: boxColor,
-              boxShadow: kboxShadow),
+            borderRadius: BorderRadius.circular(12),
+            color: boxColor,
+            boxShadow: kboxShadow,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
