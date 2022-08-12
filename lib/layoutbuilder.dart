@@ -84,7 +84,7 @@ class _SecondPageState extends State<SecondPage> {
                   children: <Widget>[
                     NavigationRail(
                       selectedIndex: _selectedIndex,
-                      onDestinationSelected: (int index) {
+                      onDestinationSelected: (index) {
                         setState(() {
                           _selectedIndex = index;
                         });

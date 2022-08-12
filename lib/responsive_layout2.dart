@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   NavigationRail(
                     selectedIndex: _selectedIndex,
-                    onDestinationSelected: (int index) {
+                    onDestinationSelected: (index) {
                       setState(() {
                         _selectedIndex = index;
                       });

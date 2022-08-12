@@ -23,37 +23,35 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: const Text('Google Auth')),
-      body: _isLoggedIn
-          ? Column(
-              children: [
-                Image.network(_userObj!.photoUrl ?? ''),
-                Text(_userObj!.displayName ?? ''),
-                Text(_userObj!.email),
-                TextButton(
-                  onPressed: () {
-                    _googleSignIN.signOut().then((value) {
-                      setState(() {
-                        _isLoggedIn = false;
+        appBar: AppBar(title: const Text('Google Auth')),
+        body: _isLoggedIn
+            ? Column(
+                children: [
+                  Image.network(_userObj!.photoUrl ?? ''),
+                  Text(_userObj!.displayName ?? ''),
+                  Text(_userObj!.email),
+                  TextButton(
+                    onPressed: () {
+                      _googleSignIN.signOut().then((value) {
+                        setState(() {
+                          _isLoggedIn = false;
+                        });
                       });
-                    });
-                  },
-                  child: const Text('Logout'),
-                )
-              ],
-            )
-          : Center(
-              child: ElevatedButton(
-                child: const Text('Login with Google'),
-                onPressed: () {
-                  _googleSignIN.signIn().then((value) {
+                    },
+                    child: const Text('Logout'),
+                  )
+                ],
+              )
+            : Center(
+                child: ElevatedButton(
+                  child: const Text('Login with Google'),
+                  onPressed: () => _googleSignIN.signIn().then((value) {
                     setState(() {
                       _isLoggedIn = true;
                       _userObj = value;
                     });
-                  }).catchError((e) {});
-                },
+                  }),
+                ),
               ),
-            ),
-    );
+      );
 }

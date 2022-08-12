@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
 
   void _sendOtp() {
     setState(() => _isLoading = true);
-    sendOtp(mob: _mobController.text).then((Map<String, String> value) {
+    sendOtp(mob: _mobController.text).then((value) {
       if (value['Status'] == 'Success') {
         Fluttertoast.showToast(msg: 'Otp Sent Successfully');
         _isOtpSent = true;
@@ -81,8 +81,7 @@ class _HomePageState extends State<HomePage> {
 
   void _validateOTP() {
     setState(() => _isLoading = true);
-    validateOTP(otp: _otpController.text, sessionId: _sessionId)
-        .then((Map<String, String> value) {
+    validateOTP(otp: _otpController.text, sessionId: _sessionId).then((value) {
       if (value['Status'] == 'Success') {
         Fluttertoast.showToast(msg: 'Mobile Number Verified');
         _isOtpSent = false;
@@ -128,11 +127,11 @@ class _HomePageState extends State<HomePage> {
                   controller: _otpController,
                   androidSmsAutofillMethod:
                       AndroidSmsAutofillMethod.smsUserConsentApi,
-                  onClipboardFound: (String value) {
+                  onClipboardFound: (value) {
                     _otpController.text = value;
                   },
                   length: 6,
-                  onChanged: (String value) {
+                  onChanged: (value) {
                     setState(() {
                       if (value.length >= 6) {
                         _buttonActive = true;
@@ -174,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                   textInputAction: TextInputAction.send,
                   keyboardType: TextInputType.number,
                   controller: _mobController,
-                  onChanged: (String value) {
+                  onChanged: (value) {
                     setState(() {
                       if (value.length >= 10) {
                         _buttonActive = true;

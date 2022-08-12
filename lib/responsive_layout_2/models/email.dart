@@ -18,7 +18,7 @@ class Email {
 
 List<Email> emails = List<Email>.generate(
   demoData.length,
-  (int index) => Email(
+  (index) => Email(
     name: demoData[index]['name'].toString(),
     image: demoData[index]['image'].toString(),
     subject: demoData[index]['subject'].toString(),

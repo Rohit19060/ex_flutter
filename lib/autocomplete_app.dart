@@ -18,14 +18,14 @@ class AutocompleteApp extends StatelessWidget {
           ),
           body: Center(
             child: Autocomplete<String>(
-              optionsBuilder: (TextEditingValue textEditingValue) {
+              optionsBuilder: (textEditingValue) {
                 if (textEditingValue.text == '') {
                   return const Iterable<String>.empty();
                 }
-                return _kOptions.where((String option) =>
+                return _kOptions.where((option) =>
                     option.contains(textEditingValue.text.toLowerCase()));
               },
-              onSelected: (String selection) {
+              onSelected: (selection) {
                 debugPrint('You just selected $selection');
               },
             ),
@@ -89,27 +89,25 @@ class AutocompleteBasicUserExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Autocomplete<User>(
         displayStringForOption: _displayStringForOption,
-        fieldViewBuilder: (BuildContext context,
-                TextEditingController textEditingController,
-                FocusNode focusNode,
+        fieldViewBuilder: (context, textEditingController, focusNode,
                 Function() onFieldSubmitted) =>
             TextField(
           controller: textEditingController,
           focusNode: focusNode,
-          onSubmitted: (String value) {},
+          onSubmitted: (value) {},
           decoration: const InputDecoration(
             labelText: 'User',
             border: OutlineInputBorder(),
           ),
         ),
-        optionsBuilder: (TextEditingValue textEditingValue) {
+        optionsBuilder: (textEditingValue) {
           if (textEditingValue.text == '') {
             return const Iterable<User>.empty();
           }
-          return _userOptions.where((User option) =>
+          return _userOptions.where((option) =>
               option.toString().contains(textEditingValue.text.toLowerCase()));
         },
-        onSelected: (User selection) {
+        onSelected: (selection) {
           debugPrint('You just selected ${_displayStringForOption(selection)}');
         },
       );

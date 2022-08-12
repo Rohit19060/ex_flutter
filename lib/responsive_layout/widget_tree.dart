@@ -26,7 +26,7 @@ class WidgetTree extends StatelessWidget {
             ),
           ],
         ),
-        macbook: Row(
+        macBook: Row(
           children: [
             Expanded(
               flex: size.width > 1340 ? 3 : 5,

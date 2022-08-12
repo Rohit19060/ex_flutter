@@ -277,7 +277,7 @@ class _BodyState extends State<Body> {
                             Padding(
                               padding: const EdgeInsets.only(top: 15),
                               child: InkWell(
-                                onTap: () => Navigator.push(
+                                onTap: () => Navigator.push<Page>(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => const Page())),
@@ -592,8 +592,8 @@ class _PageState extends State<Page> {
           ),
           titleSpacing: 85,
           leading: InkWell(
-            onTap: () => Navigator.pop(
-                context, MaterialPageRoute(builder: (context) => const Page())),
+            onTap: () => Navigator.pop(context,
+                MaterialPageRoute<Page>(builder: (context) => const Page())),
             child: Padding(
               padding: const EdgeInsets.only(left: 15),
               child: Image.asset(

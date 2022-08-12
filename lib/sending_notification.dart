@@ -30,7 +30,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Future<void> _notify() async {
     try {
-      final response = await Dio().post('https://fcm.googleapis.com/fcm/send',
+      final response = await Dio().post<dynamic>(
+          'https://fcm.googleapis.com/fcm/send',
           data: {
             'to': dotenv.env['token'],
             'notification': {
@@ -38,8 +39,9 @@ class _MyHomePageState extends State<MyHomePage> {
               'body': 'Notification Body'
             },
           },
-          options: Options(
-              headers: {'Authorization': "Key=${dotenv.env['FCMkey']}"}));
+          options: Options(headers: <String, String>{
+            'Authorization': "Key=${dotenv.env['FCMkey']}"
+          }));
       debugPrint(response.data.toString());
     } on TimeoutException {
       debugPrint('The connection has timed out, Please try again!');

@@ -77,10 +77,10 @@ Future<void> main() async {
       requestBadgePermission: false,
       requestSoundPermission: false,
       onDidReceiveLocalNotification: (
-        int id,
-        String? title,
-        String? body,
-        String? payload,
+        id,
+        title,
+        body,
+        payload,
       ) async {
         didReceiveLocalNotificationSubject.add(
           ReceivedNotification(
@@ -107,7 +107,7 @@ Future<void> main() async {
     linux: initializationSettingsLinux,
   );
   await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-      onSelectNotification: (String? payload) async {
+      onSelectNotification: (payload) async {
     if (payload != null) {
       debugPrint('notification payload: $payload');
     }
@@ -219,10 +219,10 @@ class _HomePageState extends State<HomePage> {
 
   void _configureDidReceiveLocalNotificationSubject() {
     didReceiveLocalNotificationSubject.stream
-        .listen((ReceivedNotification receivedNotification) async {
-      await showDialog(
+        .listen((receivedNotification) async {
+      await showDialog<void>(
         context: context,
-        builder: (BuildContext context) => CupertinoAlertDialog(
+        builder: (context) => CupertinoAlertDialog(
           title: receivedNotification.title != null
               ? Text(receivedNotification.title!)
               : null,
@@ -237,7 +237,7 @@ class _HomePageState extends State<HomePage> {
                 await Navigator.push(
                   context,
                   MaterialPageRoute<void>(
-                    builder: (BuildContext context) =>
+                    builder: (context) =>
                         SecondPage(receivedNotification.payload),
                   ),
                 );
@@ -251,7 +251,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _configureSelectNotificationSubject() {
-    selectNotificationSubject.stream.listen((String? payload) async {
+    selectNotificationSubject.stream.listen((payload) async {
       await Navigator.pushNamed(context, '/secondPage');
     });
   }
@@ -690,8 +690,8 @@ class _HomePageState extends State<HomePage> {
                       FutureBuilder<LinuxServerCapabilities>(
                         future: getLinuxCapabilities(),
                         builder: (
-                          BuildContext context,
-                          AsyncSnapshot<LinuxServerCapabilities> snapshot,
+                          context,
+                          snapshot,
                         ) {
                           if (snapshot.hasData) {
                             final caps = snapshot.data!;
@@ -876,7 +876,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _showFullScreenNotification() async {
-    await showDialog(
+    await showDialog<dynamic>(
       context: context,
       builder: (_) => AlertDialog(
         title: const Text('Turn off your screen'),
@@ -1260,7 +1260,8 @@ class _HomePageState extends State<HomePage> {
     // use a platform channel to resolve an Android drawable resource to a URI.
     // This is NOT part of the notifications plugin. Calls made over this
     /// channel is handled by the app
-    final imageUri = await platform.invokeMethod('drawableToUri', 'food');
+    final dynamic imageUri =
+        await platform.invokeMethod<dynamic>('drawableToUri', 'food');
 
     /// First two person objects will use icons that part of the Android app's
     /// drawable resources
@@ -1401,7 +1402,7 @@ class _HomePageState extends State<HomePage> {
         await flutterLocalNotificationsPlugin.pendingNotificationRequests();
     return showDialog<void>(
       context: context,
-      builder: (BuildContext context) => AlertDialog(
+      builder: (context) => AlertDialog(
         content:
             Text('${pendingNotificationRequests.length} pending notification '
                 'requests'),
@@ -1838,7 +1839,7 @@ class _HomePageState extends State<HomePage> {
 
     await showDialog<void>(
         context: context,
-        builder: (BuildContext context) => AlertDialog(
+        builder: (context) => AlertDialog(
               content: Text('Channel group with name '
                   '${androidNotificationChannelGroup.name} created'),
               actions: <Widget>[
@@ -1861,7 +1862,7 @@ class _HomePageState extends State<HomePage> {
 
     await showDialog<void>(
       context: context,
-      builder: (BuildContext context) => AlertDialog(
+      builder: (context) => AlertDialog(
         content: const Text('Channel group with id $channelGroupId deleted'),
         actions: <Widget>[
           TextButton(
@@ -1932,7 +1933,7 @@ class _HomePageState extends State<HomePage> {
 
     await showDialog<void>(
         context: context,
-        builder: (BuildContext context) => AlertDialog(
+        builder: (context) => AlertDialog(
               content:
                   Text('Channel with name ${androidNotificationChannel.name} '
                       'created'),
@@ -1954,7 +1955,7 @@ class _HomePageState extends State<HomePage> {
         ?.areNotificationsEnabled();
     await showDialog<void>(
         context: context,
-        builder: (BuildContext context) => AlertDialog(
+        builder: (context) => AlertDialog(
               content: Text(areEnabled == null
                   ? 'ERROR: received null'
                   : (areEnabled
@@ -1980,7 +1981,7 @@ class _HomePageState extends State<HomePage> {
 
     await showDialog<void>(
       context: context,
-      builder: (BuildContext context) => AlertDialog(
+      builder: (context) => AlertDialog(
         content: const Text('Channel with id $channelId deleted'),
         actions: <Widget>[
           TextButton(
@@ -1999,7 +2000,7 @@ class _HomePageState extends State<HomePage> {
         await _getActiveNotificationsDialogContent();
     await showDialog<void>(
       context: context,
-      builder: (BuildContext context) => AlertDialog(
+      builder: (context) => AlertDialog(
         content: activeNotificationsDialogContent,
         actions: <Widget>[
           TextButton(
@@ -2116,7 +2117,7 @@ class _HomePageState extends State<HomePage> {
 
     await showDialog<void>(
       context: context,
-      builder: (BuildContext context) => AlertDialog(
+      builder: (context) => AlertDialog(
         title: const Text('Messaging style'),
         content: dialogContent,
         actions: <Widget>[
@@ -2176,7 +2177,7 @@ class _HomePageState extends State<HomePage> {
         await _getNotificationChannelsDialogContent();
     await showDialog<void>(
       context: context,
-      builder: (BuildContext context) => AlertDialog(
+      builder: (context) => AlertDialog(
         content: notificationChannelsDialogContent,
         actions: <Widget>[
           TextButton(

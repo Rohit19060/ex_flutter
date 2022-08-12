@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
             child: NavigationBar(
               animationDuration: const Duration(seconds: 1),
               selectedIndex: index,
-              onDestinationSelected: (int index) =>
+              onDestinationSelected: (index) =>
                   setState(() => this.index = index),
               destinations: const [
                 NavigationDestination(

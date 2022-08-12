@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
     debugPrint('event.snapshot.value ${event.snapshot.value}');
 
     final stream = ref.onValue;
-    stream.listen((DatabaseEvent event) {
+    stream.listen((event) {
       debugPrint('event: $event');
       debugPrint('event.snapshot.value ${event.snapshot.value}');
     });
@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> _addMSG(String val) async {
     final ref = FirebaseDatabase.instance.ref('Match/1');
     final child = ref.child(Random().nextInt(100).toString());
-    child.set('hello');
+    await child.set('hello');
   }
 
   @override

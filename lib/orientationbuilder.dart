@@ -86,7 +86,7 @@ class _ThirdPageState extends State<ThirdPage> {
                   children: <Widget>[
                     NavigationRail(
                       selectedIndex: _selectedIndex,
-                      onDestinationSelected: (int index) {
+                      onDestinationSelected: (index) {
                         setState(() {
                           _selectedIndex = index;
                         });

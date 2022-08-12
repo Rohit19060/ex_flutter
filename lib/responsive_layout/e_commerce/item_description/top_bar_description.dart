@@ -12,7 +12,7 @@ class TopBarDescription extends StatelessWidget {
         child: Row(
           children: [
             if (ResponsiveLayout.isIphone(context)) const BackButton(),
-            if (ResponsiveLayout.isMacbook(context))
+            if (ResponsiveLayout.isMacBook(context))
               IconButton(
                 icon: Icon(
                   Icons.print_outlined,

@@ -79,7 +79,7 @@ class _ChatScreenState extends State<ChatScreen> {
               child: ListView.builder(
                 reverse: true,
                 itemCount: _messages.length,
-                itemBuilder: (BuildContext context, int index) =>
+                itemBuilder: (context, index) =>
                     MessageLayout(msg: _messages[index], uid: _currentUserId),
               ),
             ),
@@ -94,7 +94,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       onTap: () => keyboardFocus.requestFocus(),
                       keyboardType: TextInputType.name,
                       style: const TextStyle(color: Colors.white, fontSize: 18),
-                      onChanged: (String val) => setState(() =>
+                      onChanged: (val) => setState(() =>
                           _isWriting = val.isNotEmpty && val.trim() != ''),
                       decoration: const InputDecoration(
                         hintText: 'Type a message',
@@ -224,5 +224,5 @@ class Message {
   final DateTime dt;
 
   Map<String, dynamic> toMap() =>
-      {'uid': uid, 'from': from, 'msg': msg, 'dt': dt};
+      <String, dynamic>{'uid': uid, 'from': from, 'msg': msg, 'dt': dt};
 }

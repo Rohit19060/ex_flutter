@@ -105,7 +105,8 @@ class _ECommerceItemsState extends State<ECommerceItems> {
                         selected:
                             !ResponsiveLayout.isIphone(context) && index == 0,
                         item: products[index],
-                        onPressed: () => Navigator.push(
+                        onPressed: () =>
+                            Navigator.push<ECommerceItemDescription>(
                           context,
                           MaterialPageRoute(
                             builder: (context) =>

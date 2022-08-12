@@ -227,7 +227,7 @@ class CustomKeyboard extends StatelessWidget {
                 '.',
                 '0',
                 'Clear'
-              ].map((String e) {
+              ].map((e) {
                 if (e != 'Clear') {
                   return TextButton(
                       onPressed: () {

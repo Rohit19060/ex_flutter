@@ -5,10 +5,10 @@ class ResponsiveLayout extends StatelessWidget {
       {super.key,
       required this.ipad,
       required this.iphone,
-      required this.macbook});
+      required this.macBook});
   final Widget iphone;
   final Widget ipad;
-  final Widget macbook;
+  final Widget macBook;
 
   static int iphoneLimit = 600;
   static int ipadLimit = 1200;
@@ -20,19 +20,19 @@ class ResponsiveLayout extends StatelessWidget {
       MediaQuery.of(context).size.width < ipadLimit &&
       MediaQuery.of(context).size.width >= iphoneLimit;
 
-  static bool isMacbook(BuildContext context) =>
+  static bool isMacBook(BuildContext context) =>
       MediaQuery.of(context).size.width >= ipadLimit;
 
   @override
-  Widget build(BuildContext context) => LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
+  Widget build(BuildContext context) =>
+      LayoutBuilder(builder: (context, constraints) {
         if (constraints.maxWidth < iphoneLimit) {
           return iphone;
         }
         if (constraints.maxWidth < ipadLimit) {
           return ipad;
         } else {
-          return macbook;
+          return macBook;
         }
       });
 }

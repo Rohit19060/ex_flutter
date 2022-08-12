@@ -16,9 +16,7 @@ class App extends StatelessWidget {
         ],
         child: Consumer<ThemeProvider>(
           child: const HomePage(),
-          builder:
-              (BuildContext c, ThemeProvider themeProvider, Widget? child) =>
-                  MaterialApp(
+          builder: (c, themeProvider, child) => MaterialApp(
             debugShowCheckedModeBanner: false,
             themeMode: themeProvider.selectedThemeMode,
             theme: ThemeData(
@@ -91,7 +89,7 @@ class ThemeSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Consumer<ThemeProvider>(
-        builder: (BuildContext c, ThemeProvider themeProvider, _) => SizedBox(
+        builder: (c, themeProvider, _) => SizedBox(
           height: (_containerWidth - (17 * 2) - (10 * 2)) / 3,
           child: GridView.count(
             physics: const NeverScrollableScrollPhysics(),
@@ -99,7 +97,7 @@ class ThemeSwitcher extends StatelessWidget {
             crossAxisCount: appThemes.length,
             children: List<Widget>.generate(
               appThemes.length,
-              (int i) {
+              (i) {
                 final isSelectedTheme =
                     appThemes[i].mode == themeProvider.selectedThemeMode;
                 return GestureDetector(
@@ -153,7 +151,7 @@ class PrimaryColorSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Consumer<ThemeProvider>(
-        builder: (BuildContext c, ThemeProvider themeProvider, _) => SizedBox(
+        builder: (c, themeProvider, _) => SizedBox(
           height: (_containerWidth - (17 * 2) - (10 * 2)) / 3,
           child: GridView.count(
             crossAxisCount: primaryColors.length,
@@ -161,7 +159,7 @@ class PrimaryColorSwitcher extends StatelessWidget {
             crossAxisSpacing: 10,
             children: List<Widget>.generate(
               primaryColors.length,
-              (int i) {
+              (i) {
                 final isSelectedColor =
                     primaryColors[i] == themeProvider.selectedPrimaryColor;
                 return GestureDetector(

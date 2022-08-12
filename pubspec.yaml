@@ -11,6 +11,7 @@ environment:
 dependencies:
   cloud_firestore: ^3.4.2
   connectivity_plus: ^2.3.6
+  date_format: ^2.0.6
   device_info_plus: ^4.0.1
   # Sending Notifications
   dio: ^4.0.6
@@ -46,6 +47,7 @@ dependencies:
   http: ^0.13.4
   image: ^3.2.0
   image_picker: ^0.8.5+3
+  intl: ^0.17.0
   math_expressions: ^2.3.1
   oauth2: ^2.0.0
   palette_generator: ^0.3.3+1

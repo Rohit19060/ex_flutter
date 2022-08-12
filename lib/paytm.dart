@@ -51,7 +51,7 @@ class _PaytmIntegrationState extends State<PaytmIntegration> {
                     focusedBorder: OutlineInputBorder(),
                     border: OutlineInputBorder()),
                 autofocus: true,
-                validator: (String? val) {
+                validator: (val) {
                   if (val == null || val.isEmpty) {
                     return 'Please Enter valid Amount';
                   }
@@ -62,31 +62,26 @@ class _PaytmIntegrationState extends State<PaytmIntegration> {
                   child: const Text('PAYTM'),
                   onPressed: () {
                     initiateTransaction().then(
-                      (Map<String, dynamic> value) {
-                        // final jsonData = jsonDecode(value);
+                      (value) {
                         if (value['success'] == true) {
-                          AllInOneSdk.startTransaction(
-                                  value['mid'].toString(),
-                                  value['orderId'].toString(),
-                                  value['amount'].toString(),
-                                  value['txnToken'].toString(),
-                                  value['callbackUrl'].toString(),
-                                  value['isStaging'] == true,
-                                  true)
-                              .then((paymentResponse) {
-                            result = paymentResponse.toString();
-                          }).catchError((Object onError) {
-                            if (onError is PlatformException) {
-                              setState(() {
-                                result =
-                                    '${onError.message!} \n ${onError.details!}';
-                              });
-                            } else {
-                              setState(() {
-                                result = onError.toString();
-                              });
-                            }
-                          });
+                          try {
+                            AllInOneSdk.startTransaction(
+                                    value['mid'].toString(),
+                                    value['orderId'].toString(),
+                                    value['amount'].toString(),
+                                    value['txnToken'].toString(),
+                                    value['callbackUrl'].toString(),
+                                    value['isStaging'] == true,
+                                    true)
+                                .then((paymentResponse) {
+                              result = paymentResponse.toString();
+                            });
+                          } on PlatformException catch (e) {
+                            setState(() =>
+                                result = '${e.message!} \n ${e.details!}');
+                          } on Exception catch (e) {
+                            setState(() => result = e.toString());
+                          }
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text(value['message'].toString())));
@@ -107,10 +102,10 @@ class _PaytmIntegrationState extends State<PaytmIntegration> {
       const url = 'http://172.29.16.1/paytm_php_flutter/Php/';
       final formData =
           FormData.fromMap(<String, String>{'amount': _amountController.text});
-      final response = await Dio().post(url, data: formData);
+      final response = await Dio().post<dynamic>(url, data: formData);
       return jsonDecode(response.data.toString()) as Map<String, dynamic>;
     } on TimeoutException {
-      return {
+      return <String, dynamic>{
         'success': false,
         'message': 'The connection has timed out, Please try again!'
       };

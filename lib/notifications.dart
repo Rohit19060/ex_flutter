@@ -57,15 +57,13 @@ class _MyHomePageState extends State<MyHomePage> {
     init(initScheduled: true);
     listenNotifications();
 
-    FirebaseMessaging.instance.getToken().then((String? token) {
+    FirebaseMessaging.instance.getToken().then((token) {
       Clipboard.setData(ClipboardData(text: token));
       debugPrint('Token: $token');
     });
 
     // Gives you the message on which user taps and it opened the app from terminated state
-    FirebaseMessaging.instance
-        .getInitialMessage()
-        .then((RemoteMessage? message) {
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
       debugPrint('Initial Message: $message');
       /*  if (message != null) {
         final routeFromMessage = message.data["route"];
@@ -74,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     // Trigger when App is running in foreground
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    FirebaseMessaging.onMessage.listen((message) {
       if (message.notification != null) {
         showNotification(
           channelId: message.data['channelId'].toString(),
@@ -88,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     // Trigger when App is running in background
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
       debugPrint('onMessageOpenedApp: $message');
       // final routeFromMessage = message.data["route"];
       // Navigator.of(context).pushNamed(routeFromMessage);
@@ -101,8 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onClickedNotification(String? payload) {
     if (payload != null) {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (BuildContext context) => RedPage(payload: payload)));
+      Navigator.of(context).push<RedPage>(
+          MaterialPageRoute(builder: (context) => RedPage(payload: payload)));
     }
   }
 
@@ -217,7 +215,7 @@ Future<void> showNotification({
   required String channelName,
   required String sound,
 }) async {
-  _notifications.show(
+  await _notifications.show(
       id,
       title,
       body,

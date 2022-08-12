@@ -126,7 +126,7 @@ class _ListOfEmailsState extends State<ListOfEmails> {
                       email: emails[index],
                       press: Responsive.isMobile(context)
                           ? () {
-                              Navigator.push(
+                              Navigator.push<EmailScreen>(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>

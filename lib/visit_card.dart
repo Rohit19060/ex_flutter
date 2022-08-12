@@ -143,7 +143,7 @@ class MainCard extends StatelessWidget {
               initialChildSize: 0.07,
               minChildSize: 0.07,
               maxChildSize: 0.4,
-              builder: (BuildContext context, scroll) => DecoratedBox(
+              builder: (context, scroll) => DecoratedBox(
                 decoration: nMbox,
                 child: ListView(
                   controller: scroll,

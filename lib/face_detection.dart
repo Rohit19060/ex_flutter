@@ -9,8 +9,8 @@ import 'package:image_picker/image_picker.dart';
 void main() {
   runApp(
     MaterialApp(routes: <String, WidgetBuilder>{
-      '/': (BuildContext context) => _ExampleList(),
-      '/$PictureScanner': (BuildContext context) => const PictureScanner(),
+      '/': (context) => _ExampleList(),
+      '/$PictureScanner': (context) => const PictureScanner(),
     }),
   );
 }
@@ -32,7 +32,7 @@ class _ExampleListState extends State<_ExampleList> {
         ),
         body: ListView.builder(
           itemCount: _exampleWidgetNames.length,
-          itemBuilder: (BuildContext context, int index) {
+          itemBuilder: (context, index) {
             final widgetName = _exampleWidgetNames[index];
             return DecoratedBox(
               decoration: const BoxDecoration(

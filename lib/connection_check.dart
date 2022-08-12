@@ -36,15 +36,14 @@ class _ConnectionsCheckState extends State<ConnectionsCheck> {
   void initState() {
     super.initState();
     initConnectivity();
-    _connectivityStream =
-        _connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
+    _connectivityStream = _connectivity.onConnectivityChanged.listen((result) {
       setState(() => isOnline = result != ConnectivityResult.none);
     });
   }
 
   Future<void> initConnectivity() async {
     try {
-      await _connectivity.checkConnectivity().then((ConnectivityResult value) =>
+      await _connectivity.checkConnectivity().then((value) =>
           setState(() => isOnline = value != ConnectivityResult.none));
     } on PlatformException catch (e) {
       debugPrint(e.message);
