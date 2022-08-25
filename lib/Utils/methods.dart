@@ -12,15 +12,10 @@ Future<dynamic> networkRequest({
 }) async {
   try {
     final headers = <String, String>{
-      HttpHeaders.acceptHeader: 'application/json',
+      HttpHeaders.acceptHeader: 'application/json'
     };
     if (isPost) {
-      // final List<String> customerData = await SharedPref.getCustomerData();
-      // formData ??= {};
-      // if (customerData.isNotEmpty) {
-      //   formData['customerID'] = customerData[0];
-      //   headers[HttpHeaders.authorizationHeader] = customerData[1];
-      // }
+      // Do Authentication Related Stuff like Adding Authentication Token or Id
     }
     Response response;
     if (isPost) {

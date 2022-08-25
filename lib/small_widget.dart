@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class SliderDots extends StatelessWidget {
@@ -24,11 +25,10 @@ class SliderDots extends StatelessWidget {
           ),
         ),
       );
-
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(IntProperty('length', length));
     properties.add(DiagnosticsProperty<bool>('selected', selected));
+    properties.add(IntProperty('length', length));
   }
 }

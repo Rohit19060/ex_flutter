@@ -49,6 +49,7 @@ dependencies:
   image: ^3.2.0
   image_picker: ^0.8.5+3
   intl: ^0.17.0
+  local_auth: ^2.1.2
   location: ^4.4.0
   math_expressions: ^2.3.1
   oauth2: ^2.0.0

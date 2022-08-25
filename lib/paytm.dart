@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) => MaterialApp(
-        title: 'Paytm Gateway Flutter & Php Template',
+        title: 'Paytm Gateway',
         theme: ThemeData(primarySwatch: Colors.amber),
         home: const PaytmIntegration(),
       );
