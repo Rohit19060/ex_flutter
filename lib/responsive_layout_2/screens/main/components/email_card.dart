@@ -60,7 +60,7 @@ class EmailCard extends StatelessWidget {
                                     text: email.subject,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .bodyText2!
+                                        .bodyMedium!
                                         .copyWith(
                                           color: isActive
                                               ? Colors.white
@@ -77,7 +77,7 @@ class EmailCard extends StatelessWidget {
                                 email.time,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .caption!
+                                    .bodySmall!
                                     .copyWith(
                                       color: isActive ? Colors.white70 : null,
                                     ),
@@ -97,7 +97,7 @@ class EmailCard extends StatelessWidget {
                         email.body,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.caption!.copyWith(
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
                               height: 1.5,
                               color: isActive ? Colors.white70 : null,
                             ),

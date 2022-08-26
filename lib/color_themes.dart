@@ -131,7 +131,7 @@ class ThemeSwitcher extends StatelessWidget {
                             Icon(appThemes[i].icon),
                             Text(
                               appThemes[i].title,
-                              style: Theme.of(context).textTheme.subtitle2,
+                              style: Theme.of(context).textTheme.titleSmall
                             ),
                           ],
                         ),

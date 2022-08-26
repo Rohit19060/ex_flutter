@@ -19,7 +19,7 @@ class Tags extends StatelessWidget {
                 'Tags',
                 style: Theme.of(context)
                     .textTheme
-                    .button!
+                    .labelLarge!
                     .copyWith(color: kGrayColor),
               ),
               const Spacer(),
@@ -64,7 +64,7 @@ class Tags extends StatelessWidget {
                 title,
                 style: Theme.of(context)
                     .textTheme
-                    .button!
+                    .labelLarge!
                     .copyWith(color: kGrayColor),
               ),
             ],

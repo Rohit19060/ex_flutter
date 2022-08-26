@@ -83,7 +83,7 @@ class _ECommerceItemsState extends State<ECommerceItems> {
                     'Sellar eCommerce',
                     style: Theme.of(context)
                         .textTheme
-                        .headline5!
+                        .headlineSmall!
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),

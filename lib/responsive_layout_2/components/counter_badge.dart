@@ -16,7 +16,7 @@ class CounterBadge extends StatelessWidget {
             color: kBadgeColor, borderRadius: BorderRadius.circular(9)),
         child: Text(
           count.toString(),
-          style: Theme.of(context).textTheme.caption!.copyWith(
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
                 fontWeight: FontWeight.w500,
                 color: Colors.white,
               ),

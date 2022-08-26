@@ -43,16 +43,16 @@ class ECommerceItemDescription extends StatelessWidget {
                                       children: [
                                         Text.rich(
                                           TextSpan(
-                                            text: 'Sellar  ',
+                                            text: 'Sellar',
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .bodyText1,
+                                                .bodyLarge,
                                             children: [
                                               TextSpan(
                                                   text: 'Platinum Member',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .bodyText1!
+                                                      .bodyLarge!
                                                       .copyWith(
                                                           color: Colors.black
                                                               .withOpacity(
@@ -64,7 +64,7 @@ class ECommerceItemDescription extends StatelessWidget {
                                           'Nintendo Switch',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyText1!
+                                              .bodyLarge!
                                               .copyWith(fontSize: 20),
                                         )
                                       ],

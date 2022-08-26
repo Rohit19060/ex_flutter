@@ -45,14 +45,14 @@ class EmailScreen extends StatelessWidget {
                                           text: email.name,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .button,
+                                              .labelLarge,
                                           children: [
                                             TextSpan(
                                                 text:
-                                                    '<elvia.atkins@gmail.com> to Jerry Torp',
+                                                    '<rohitjain19060@gmail.com> to Jerry Torp',
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .caption),
+                                                    .bodySmall),
                                           ],
                                         ),
                                       ),
@@ -60,7 +60,7 @@ class EmailScreen extends StatelessWidget {
                                         email.subject,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6,
+                                            .titleLarge,
                                       )
                                     ],
                                   ),
@@ -68,7 +68,7 @@ class EmailScreen extends StatelessWidget {
                                 const SizedBox(width: kDefaultPadding / 2),
                                 Text(
                                   'Today at ${email.time}',
-                                  style: Theme.of(context).textTheme.caption,
+                                  style: Theme.of(context).textTheme.bodySmall,
                                 ),
                               ],
                             ),
@@ -102,7 +102,7 @@ class EmailScreen extends StatelessWidget {
                                           'Download All',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .caption,
+                                              .bodySmall,
                                         ),
                                         const SizedBox(
                                             width: kDefaultPadding / 4),

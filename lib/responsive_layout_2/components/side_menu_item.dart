@@ -58,7 +58,7 @@ class SideMenuItem extends StatelessWidget {
                       const SizedBox(width: kDefaultPadding * 0.75),
                       Text(
                         title,
-                        style: Theme.of(context).textTheme.button!.copyWith(
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
                               color: (isActive || isHover)
                                   ? kTextColor
                                   : kGrayColor,

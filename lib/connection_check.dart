@@ -68,7 +68,7 @@ class _ConnectionsCheckState extends State<ConnectionsCheck> {
                   controller: _webAddressController,
                   style: Theme.of(context)
                       .textTheme
-                      .headline5
+                      .headlineSmall
                       ?.copyWith(color: Colors.black),
                   decoration: InputDecoration(
                     isDense: true,

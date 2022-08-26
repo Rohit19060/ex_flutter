@@ -26,7 +26,7 @@ class Badge extends StatelessWidget {
           number.toString(),
           style: Theme.of(context)
               .textTheme
-              .bodyText1!
+              .bodyLarge!
               .copyWith(fontWeight: FontWeight.w500, color: Colors.white),
         ),
       );

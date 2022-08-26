@@ -52,7 +52,7 @@ class DrawerItems extends StatelessWidget {
                               title,
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1!
+                                  .bodyLarge!
                                   .copyWith(
                                     color: selected
                                         ? Colors.white
