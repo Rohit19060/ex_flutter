@@ -9,23 +9,27 @@ import 'package:pinput/pinput.dart';
 
 void main() async {
   await dotenv.load(fileName: 'lib/.env');
-  runApp(const MaterialApp(home: HomePage()));
+  runApp(MaterialApp(
+    home: const HomePage(),
+    theme: ThemeData(
+      useMaterial3: true,
+      scaffoldBackgroundColor: Colors.white,
+      primarySwatch: Colors.blue,
+    ),
+  ));
 }
 
 Future<Map<String, String>> sendRequest(String url) async {
   try {
     final response = await get(Uri.parse(url),
         headers: <String, String>{'Accept': 'application/json'});
-    final x = json.decode(response.body) as Map<String, String>;
+    final x = json.decode(response.body) as Map<String, dynamic>;
     return <String, String>{
-      'status': x['status'].toString(),
-      'message': x['message'].toString()
+      'Status': x['Status'].toString(),
+      'Details': x['Details'].toString()
     };
   } on SocketException catch (e) {
-    return <String, String>{
-      'Status': 'Internet Issue',
-      'Details': e.message,
-    };
+    return <String, String>{'Status': 'Internet Issue', 'Details': e.message};
   } on Exception catch (e) {
     return <String, String>{
       'Status': 'Server Problem',
@@ -33,14 +37,6 @@ Future<Map<String, String>> sendRequest(String url) async {
     };
   }
 }
-
-Future<Map<String, String>> sendOtp({required String mob}) => sendRequest(
-    "https://2factor.in/API/V1/${dotenv.env['otpkey']}/SMS/$mob/AUTOGEN");
-
-Future<Map<String, String>> validateOTP(
-        {required String sessionId, required String otp}) =>
-    sendRequest(
-        "https://2factor.in/API/V1/${dotenv.env['otpkey']}/SMS/VERIFY/$sessionId/$otp");
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -50,12 +46,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final TextEditingController _mobController = TextEditingController();
-  final TextEditingController _otpController = TextEditingController();
-  bool _isOtpSent = false;
+  final TextEditingController _mobController = TextEditingController(),
+      _otpController = TextEditingController();
+  bool _isOtpSent = false, _buttonActive = false, _isLoading = false;
   String _sessionId = '';
-  bool _buttonActive = false;
-  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -64,41 +58,51 @@ class _HomePageState extends State<HomePage> {
     _otpController.dispose();
   }
 
-  void _sendOtp() {
+  void showToast(String str) => Fluttertoast.showToast(msg: str);
+
+  Future<void> _sendOtp() async {
     setState(() => _isLoading = true);
-    sendOtp(mob: _mobController.text).then((value) {
+    await sendRequest(
+            "https://2factor.in/API/V1/${dotenv.env['otpkey']}/SMS/${_mobController.text}/AUTOGEN")
+        .then((value) {
       if (value['Status'] == 'Success') {
-        Fluttertoast.showToast(msg: 'Otp Sent Successfully');
+        showToast('Otp Sent Successfully');
         _isOtpSent = true;
         _sessionId = value['Details'].toString();
         _buttonActive = false;
       } else {
-        Fluttertoast.showToast(msg: value['Details'] ?? 'Server Issue');
+        showToast(value['Details'] ?? 'Server Issue');
       }
-      setState(() => _isLoading = false);
     });
+    setState(() => _isLoading = false);
   }
 
-  void _validateOTP() {
+  Future<void> _validateOTP() async {
     setState(() => _isLoading = true);
-    validateOTP(otp: _otpController.text, sessionId: _sessionId).then((value) {
+    await sendRequest(
+            "https://2factor.in/API/V1/${dotenv.env['otpkey']}/SMS/VERIFY/$_sessionId/${_otpController.text}")
+        .then((value) {
       if (value['Status'] == 'Success') {
-        Fluttertoast.showToast(msg: 'Mobile Number Verified');
-        _isOtpSent = false;
-        _sessionId = '';
-        _mobController.text = '';
-        _otpController.text = '';
-        _buttonActive = false;
+        showToast('Mobile Number Verified');
+        reset();
       } else {
-        Fluttertoast.showToast(msg: value['Details'] ?? 'Invalid OTP');
+        showToast(value['Details'] ?? 'Invalid OTP');
       }
-      setState(() => _isLoading = false);
     });
+    setState(() => _isLoading = false);
+  }
+
+  void reset() {
+    _isOtpSent = false;
+    _sessionId = '';
+    _mobController.clear();
+    _otpController.clear();
+    _buttonActive = false;
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
           centerTitle: true,
           elevation: 0,
@@ -108,8 +112,7 @@ class _HomePageState extends State<HomePage> {
             style: TextStyle(color: Colors.black),
           ),
         ),
-        body: Container(
-          padding: const EdgeInsets.all(30.0),
+        body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -122,70 +125,46 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               if (_isOtpSent)
-                Pinput(
-                  autofocus: _isOtpSent,
-                  controller: _otpController,
-                  androidSmsAutofillMethod:
-                      AndroidSmsAutofillMethod.smsUserConsentApi,
-                  onClipboardFound: (value) {
-                    _otpController.text = value;
-                  },
-                  length: 6,
-                  onChanged: (value) {
-                    setState(() {
-                      if (value.length >= 6) {
-                        _buttonActive = true;
-                      } else {
-                        _buttonActive = false;
-                      }
-                    });
-                  },
+                Center(
+                  child: Pinput(
+                    autofocus: _isOtpSent,
+                    controller: _otpController,
+                    androidSmsAutofillMethod:
+                        AndroidSmsAutofillMethod.smsUserConsentApi,
+                    onClipboardFound: (value) {},
+                    length: 6,
+                    onChanged: (value) =>
+                        setState(() => _buttonActive = value.length >= 6),
+                  ),
                 )
               else
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'Enter Mobile Number',
-                    labelStyle: TextStyle(color: Colors.black),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(3),
-                      ),
-                      borderSide: BorderSide(width: 2.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(3),
-                      ),
-                      borderSide: BorderSide(width: 2.0),
-                    ),
-                    prefixIcon: Icon(
-                      Icons.phone,
-                      color: Colors.black,
-                    ),
-                    prefix: Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: Text('+91'),
-                    ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: TextFormField(
+                    controller: _mobController,
+                    style: const TextStyle(fontSize: 24),
+                    autofocus: !_isOtpSent,
+                    cursorColor: Colors.black,
+                    textInputAction: TextInputAction.send,
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) =>
+                        setState(() => _buttonActive = value.length >= 10),
+                    maxLength: 10,
+                    onFieldSubmitted: (_) => _sendOtp(),
+                    decoration: const InputDecoration(
+                        labelText: 'Enter Mobile Number',
+                        labelStyle: TextStyle(color: Colors.black),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(2)),
+                            borderSide: BorderSide(width: 2.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(2)),
+                            borderSide: BorderSide(width: 2.0)),
+                        prefixIcon: Icon(Icons.phone, color: Colors.black),
+                        prefix: Padding(
+                            padding: EdgeInsets.only(right: 10),
+                            child: Text('+91'))),
                   ),
-                  style: const TextStyle(fontSize: 24),
-                  autofocus: !_isOtpSent,
-                  cursorColor: Colors.black,
-                  textInputAction: TextInputAction.send,
-                  keyboardType: TextInputType.number,
-                  controller: _mobController,
-                  onChanged: (value) {
-                    setState(() {
-                      if (value.length >= 10) {
-                        _buttonActive = true;
-                      } else {
-                        _buttonActive = false;
-                      }
-                    });
-                  },
-                  maxLength: 10,
-                  onFieldSubmitted: (_) {
-                    _sendOtp();
-                  },
                 ),
               const SizedBox(height: 30),
               ElevatedButton(
@@ -193,20 +172,21 @@ class _HomePageState extends State<HomePage> {
                   shape: MaterialStateProperty.all(
                     _isLoading
                         ? RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50))
+                            borderRadius: BorderRadius.circular(100))
                         : RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(0.0)),
                   ),
-                  overlayColor:
-                      MaterialStateProperty.all(Colors.black.withOpacity(0.2)),
+                  shadowColor: MaterialStateProperty.all(Colors.white),
+                  overlayColor: MaterialStateProperty.all(Colors.white),
                   elevation: _buttonActive
-                      ? MaterialStateProperty.all(8)
+                      ? MaterialStateProperty.all(2)
                       : MaterialStateProperty.all(0),
+                  surfaceTintColor: MaterialStateProperty.all(Colors.white),
                   foregroundColor: MaterialStateProperty.all(Colors.black),
                   backgroundColor: MaterialStateProperty.all(Colors.white),
                   padding: MaterialStateProperty.all(
                     _isLoading
-                        ? const EdgeInsets.all(10)
+                        ? const EdgeInsets.all(12)
                         : const EdgeInsets.symmetric(
                             vertical: 10, horizontal: 15),
                   ),
@@ -217,13 +197,31 @@ class _HomePageState extends State<HomePage> {
                         : _sendOtp
                     : null,
                 child: _isLoading
-                    ? const CircularProgressIndicator()
-                    : Text(
-                        _isOtpSent ? 'Validate Otp' : 'Send Otp',
-                        style: const TextStyle(fontSize: 26),
-                      ),
+                    ? const CircularProgressIndicator(
+                        strokeWidth: 12,
+                        backgroundColor: Colors.blue,
+                        color: Colors.black,
+                      )
+                    : Text(_isOtpSent ? 'Validate Otp' : 'Send Otp',
+                        style: const TextStyle(fontSize: 26)),
               ),
               const SizedBox(height: 30),
+              if (_isOtpSent)
+                ElevatedButton(
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0.0))),
+                      overlayColor: MaterialStateProperty.all(Colors.white),
+                      shadowColor: MaterialStateProperty.all(Colors.white),
+                      surfaceTintColor: MaterialStateProperty.all(Colors.white),
+                      foregroundColor: MaterialStateProperty.all(Colors.black),
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                      padding: MaterialStateProperty.all(
+                          const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 15))),
+                  onPressed: reset,
+                  child: const Text('Reset', style: TextStyle(fontSize: 26)),
+                ),
             ],
           ),
         ),

@@ -9,8 +9,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
         title: 'Flutter Login UI',
         theme: ThemeData(
-            primarySwatch: Colors.blue,
-            scaffoldBackgroundColor: const Color(0XFFEFF3F6)),
+          useMaterial3: true,
+          primaryColor: Colors.blue,
+          scaffoldBackgroundColor: const Color(0XFFEFF3F6),
+        ),
         home: const MyHomePage(),
       );
 }
@@ -87,28 +89,28 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 30.0,
-              ),
+              const SizedBox(height: 30.0),
               const Text('Forgot Password ?'),
-              const SizedBox(
-                height: 30.0,
-              ),
+              const SizedBox(height: 30.0),
               Row(
                 children: <Widget>[
                   Expanded(
                     child: Container(
                       padding: const EdgeInsets.all(15.0),
                       decoration: BoxDecoration(
-                        color: const Color(0XFFFF27B0),
+                        color: Colors.blue,
                         borderRadius: BorderRadius.circular(100.0),
                         boxShadow: const [
                           BoxShadow(
-                            color: Color(0XFFFF27B0),
-                            offset: Offset(6, 2),
-                            blurRadius: 1.0,
-                            spreadRadius: 2.0,
-                          ),
+                              color: Color.fromRGBO(0, 0, 0, 0.1),
+                              offset: Offset(6, 2),
+                              blurRadius: 6.0,
+                              spreadRadius: 3.0),
+                          BoxShadow(
+                              color: Color.fromRGBO(255, 255, 255, 0.9),
+                              offset: Offset(-6, -2),
+                              blurRadius: 6.0,
+                              spreadRadius: 3.0)
                         ],
                       ),
                       child: const Center(
