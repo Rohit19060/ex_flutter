@@ -273,7 +273,7 @@ class _RepositoriesListState extends State<RepositoriesList> {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
-          final repositories = snapshot.data;
+          final repositories = snapshot.data!;
           return ListView.builder(
             primary: false,
             itemBuilder: (context, index) {
@@ -285,7 +285,7 @@ class _RepositoriesListState extends State<RepositoriesList> {
                 onTap: () => _launchUrl(context, repository.htmlUrl),
               );
             },
-            itemCount: repositories!.length,
+            itemCount: repositories.length,
           );
         },
       );
@@ -323,7 +323,7 @@ class _AssignedIssuesListState extends State<AssignedIssuesList> {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
-          final assignedIssues = snapshot.data;
+          final assignedIssues = snapshot.data!;
           return ListView.builder(
             primary: false,
             itemBuilder: (context, index) {
@@ -336,7 +336,7 @@ class _AssignedIssuesListState extends State<AssignedIssuesList> {
                 onTap: () => _launchUrl(context, assignedIssue.htmlUrl),
               );
             },
-            itemCount: assignedIssues!.length,
+            itemCount: assignedIssues.length,
           );
         },
       );
@@ -381,7 +381,7 @@ class _PullRequestsListState extends State<PullRequestsList> {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
-          final pullRequests = snapshot.data;
+          final pullRequests = snapshot.data!;
           return ListView.builder(
             primary: false,
             itemBuilder: (context, index) {
@@ -395,7 +395,7 @@ class _PullRequestsListState extends State<PullRequestsList> {
                 onTap: () => _launchUrl(context, pullRequest.htmlUrl ?? ''),
               );
             },
-            itemCount: pullRequests!.length,
+            itemCount: pullRequests.length,
           );
         },
       );
