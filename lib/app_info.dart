@@ -1,5 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+
+import 'Utils/constants.dart';
+
+void main() => runApp(MaterialApp(
+    title: 'Flutter Experiments',
+    theme: ThemeData(
+      primarySwatch: Colors.blue,
+      useMaterial3: true,
+      scaffoldBackgroundColor: Colors.white,
+    ),
+    home: const AppInfo()));
 
 class AppInfo extends StatefulWidget {
   const AppInfo({super.key});
@@ -17,30 +29,45 @@ class _AppInfoState extends State<AppInfo> {
     buildSignature: 'Unknown',
   );
 
+  String appVersion = '';
+
   @override
   void initState() {
     super.initState();
-    PackageInfo.fromPlatform()
-        .then((info) => setState(() => _packageInfo = info));
+    PackageInfo.fromPlatform().then((info) {
+      setState(() => _packageInfo = info);
+      appVersion = info.version.substring(0, 4) + info.buildNumber;
+    });
   }
 
   Widget _infoTile(String title, String subtitle) => ListTile(
-        title: Text(title),
-        subtitle: Text(subtitle.isEmpty ? 'Not set' : subtitle),
+        title: Center(child: Text(title)),
+        subtitle: Center(child: Text(subtitle.isEmpty ? 'Not set' : subtitle)),
       );
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text('App Info')),
+        appBar: AppBar(
+          title: const Text('App Info'),
+          centerTitle: true,
+        ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             _infoTile('App name', _packageInfo.appName),
             _infoTile('Package name', _packageInfo.packageName),
             _infoTile('App version', _packageInfo.version),
             _infoTile('Build number', _packageInfo.buildNumber),
             _infoTile('Build signature', _packageInfo.buildSignature),
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                child: Text('$appName by King Tech, v$appVersion')),
+            const Text('Made with ❤️ in India'),
           ],
         ),
       );
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('appVersion', appVersion));
+  }
 }

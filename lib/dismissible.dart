@@ -70,7 +70,7 @@ class CartItem extends StatelessWidget {
           background: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2),
-              color: Theme.of(context).errorColor,
+              color: Theme.of(context).colorScheme.error,
             ),
             margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 6),
             padding: const EdgeInsets.only(right: 15),

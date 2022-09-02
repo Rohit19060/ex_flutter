@@ -82,7 +82,6 @@ final ThemeData darkTheme = ThemeData(
   primaryColor: kPrimaryColor,
   secondaryHeaderColor: kBackgroundColor,
   applyElevationOverlayColor: true,
-  backgroundColor: kBackgroundColor,
   bannerTheme: MaterialBannerThemeData(
     elevation: 4,
     backgroundColor: kBackgroundColor,
