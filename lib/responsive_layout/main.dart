@@ -12,6 +12,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'ECommerce',
         theme: ThemeData(
+          useMaterial3: true,
+          primarySwatch: Colors.blue,
           primaryColor: const Color(0xFF283C63),
           secondaryHeaderColor: const Color(0xFFE7E9F5),
           iconTheme: IconThemeData(
