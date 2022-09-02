@@ -381,7 +381,7 @@ class _PullRequestsListState extends State<PullRequestsList> {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
-          final pullRequests = snapshot.data;
+          final pullRequests = snapshot.data!;
           return ListView.builder(
             primary: false,
             itemBuilder: (context, index) {
@@ -395,7 +395,7 @@ class _PullRequestsListState extends State<PullRequestsList> {
                 onTap: () => _launchUrl(context, pullRequest.htmlUrl ?? ''),
               );
             },
-            itemCount: pullRequests!.length,
+            itemCount: pullRequests.length,
           );
         },
       );

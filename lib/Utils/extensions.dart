@@ -42,9 +42,8 @@ extension StringExtension on String {
 
   String getDecimal() => double.parse(this).toStringAsFixed(0);
 
-  String toCapitalizedWords() => split(
-        RegExp('(?=[A-Z])'),
-      ).map((e) => e.toCapitalized()).join(' ');
+  String toCapitalizedWords() =>
+      split(RegExp('(?=[A-Z])')).map((e) => e.toCapitalized()).join(' ');
 
   String getGenderAvatar() {
     switch (this) {
