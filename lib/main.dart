@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'small_widget.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -12,9 +14,16 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           useMaterial3: true,
         ),
-        home: const Scaffold(
-          body: Center(
-            child: Text('Flutter Experiments'),
+        home: Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 100),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: const [
+                Text('Flutter Experiments'),
+                RoundedProgressBar(value: 35)
+              ],
+            ),
           ),
         ),
       );
