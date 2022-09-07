@@ -42,7 +42,8 @@ class RoundedProgressBar extends StatelessWidget {
     this.radius = 50,
     this.padding = 2,
   });
-  final double value, height, radius, padding;
+  final num value;
+  final double height, radius, padding;
   final Color color;
 
   @override
@@ -81,8 +82,8 @@ class RoundedProgressBar extends StatelessWidget {
     super.debugFillProperties(properties);
     properties.add(ColorProperty('color', color));
     properties.add(DoubleProperty('height', height));
-    properties.add(DoubleProperty('value', value));
     properties.add(DoubleProperty('radius', radius));
     properties.add(DoubleProperty('padding', padding));
+    properties.add(DiagnosticsProperty<num>('value', value));
   }
 }
