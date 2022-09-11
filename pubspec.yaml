@@ -9,6 +9,7 @@ environment:
   sdk: '>=2.18.0 <3.0.0'
 
 dependencies:
+  adaptive_navigation: ^0.0.7
   cloud_firestore: ^3.4.5
   connectivity_plus: ^2.3.6+1
   csv: ^5.0.1
