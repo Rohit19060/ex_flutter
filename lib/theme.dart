@@ -92,19 +92,18 @@ final ThemeData darkTheme = ThemeData(
   bottomAppBarColor: kBackgroundColor,
   bottomAppBarTheme:
       const BottomAppBarTheme(color: kBackgroundColor, elevation: 4),
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     showUnselectedLabels: true,
     unselectedItemColor: Colors.black,
     showSelectedLabels: true,
-    unselectedIconTheme:
-        const IconThemeData(color: Color.fromRGBO(108, 117, 125, 1)),
-    selectedIconTheme: const IconThemeData(color: Colors.blue),
+    unselectedIconTheme: IconThemeData(color: Color.fromRGBO(108, 117, 125, 1)),
+    selectedIconTheme: IconThemeData(color: Colors.blue),
     selectedItemColor: Colors.blue,
     backgroundColor: kBackgroundColor,
     elevation: 4,
     enableFeedback: true,
     landscapeLayout: BottomNavigationBarLandscapeLayout.spread,
-    mouseCursor: MaterialStateProperty.all(MouseCursor.defer),
+    mouseCursor: MaterialStatePropertyAll(MouseCursor.defer),
   ),
   visualDensity: VisualDensity.comfortable,
   useMaterial3: true,
@@ -130,7 +129,7 @@ final ThemeData darkTheme = ThemeData(
   ),
   checkboxTheme: CheckboxThemeData(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-    overlayColor: MaterialStateProperty.all(kBackgroundColor),
+    overlayColor: const MaterialStatePropertyAll(kBackgroundColor),
   ),
 
   cardTheme: CardTheme(
@@ -151,16 +150,12 @@ final ThemeData lightTheme = ThemeData(
     backgroundColor: kBackgroundColor,
     unselectedItemColor: kBackgroundColor,
     showSelectedLabels: true,
-    unselectedIconTheme: IconThemeData(
-      color: kBackgroundColor,
-    ),
-    selectedIconTheme: IconThemeData(
-      color: Colors.white,
-    ),
+    unselectedIconTheme: IconThemeData(color: kBackgroundColor),
+    selectedIconTheme: IconThemeData(color: Colors.white),
     selectedItemColor: Colors.white,
   ),
-  switchTheme: SwitchThemeData(
-    overlayColor: MaterialStateProperty.all(Colors.white),
+  switchTheme: const SwitchThemeData(
+    overlayColor: MaterialStatePropertyAll(Colors.white),
   ),
   textTheme: const TextTheme(
     bodyLarge: TextStyle(fontSize: 20),
@@ -189,7 +184,7 @@ final ThemeData lightTheme = ThemeData(
       const BottomSheetThemeData(backgroundColor: kBackgroundColor),
   checkboxTheme: CheckboxThemeData(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-    overlayColor: MaterialStateProperty.all(kBackgroundColor),
+    overlayColor: const MaterialStatePropertyAll(kBackgroundColor),
   ),
   cardTheme: const CardTheme(
       color: kBackgroundColor,

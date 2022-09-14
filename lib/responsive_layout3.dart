@@ -109,11 +109,13 @@ class HomePage extends StatelessWidget {
                   child: TextButton(
                     onPressed: () {},
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(purpleColor),
-                      foregroundColor: MaterialStateProperty.all(Colors.white),
-                      padding: MaterialStateProperty.all(
+                      backgroundColor:
+                          const MaterialStatePropertyAll(purpleColor),
+                      foregroundColor:
+                          const MaterialStatePropertyAll(Colors.white),
+                      padding: MaterialStatePropertyAll(
                           EdgeInsets.symmetric(vertical: 14.h)),
-                      textStyle: MaterialStateProperty.all(
+                      textStyle: MaterialStatePropertyAll(
                         TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w700,
@@ -148,13 +150,13 @@ class HomePage extends StatelessWidget {
                   child: TextButton(
                     onPressed: () {},
                     style: ButtonStyle(
-                        side: MaterialStateProperty.all(
-                            const BorderSide(color: borderColor)),
+                        side: const MaterialStatePropertyAll(
+                            BorderSide(color: borderColor)),
                         foregroundColor:
-                            MaterialStateProperty.all(darkTextColor),
-                        padding: MaterialStateProperty.all(
+                            const MaterialStatePropertyAll(darkTextColor),
+                        padding: MaterialStatePropertyAll(
                             EdgeInsets.symmetric(vertical: 14.h)),
-                        textStyle: MaterialStateProperty.all(TextStyle(
+                        textStyle: MaterialStatePropertyAll(TextStyle(
                             fontSize: 14.sp, fontWeight: FontWeight.w700))),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,

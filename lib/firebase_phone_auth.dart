@@ -203,26 +203,28 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 30),
                     ElevatedButton(
                       style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
+                        shape: MaterialStatePropertyAll(
                           _isLoading
                               ? RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(100))
                               : RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(0.0)),
                         ),
-                        shadowColor: MaterialStateProperty.all(Colors.white),
-                        overlayColor: MaterialStateProperty.all(Colors.white),
+                        shadowColor:
+                            const MaterialStatePropertyAll(Colors.white),
+                        overlayColor:
+                            const MaterialStatePropertyAll(Colors.white),
                         elevation: _buttonActive
-                            ? MaterialStateProperty.all(2)
-                            : MaterialStateProperty.all(0),
+                            ? const MaterialStatePropertyAll(2)
+                            : const MaterialStatePropertyAll(0),
                         surfaceTintColor:
-                            MaterialStateProperty.all(Colors.white),
+                            const MaterialStatePropertyAll(Colors.white),
                         foregroundColor:
-                            MaterialStateProperty.all(Colors.black),
+                            const MaterialStatePropertyAll(Colors.black),
                         backgroundColor:
-                            MaterialStateProperty.all(Colors.white),
+                            const MaterialStatePropertyAll(Colors.white),
                         padding:
-                            MaterialStateProperty.all(const EdgeInsets.all(15)),
+                            const MaterialStatePropertyAll(EdgeInsets.all(15)),
                       ),
                       onPressed: _buttonActive ? _verifyUser : null,
                       child: _isLoading
@@ -238,21 +240,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (_isOtpSent)
                       ElevatedButton(
                         style: ButtonStyle(
-                            shape: MaterialStateProperty.all(
+                            shape: MaterialStatePropertyAll(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(0.0))),
                             overlayColor:
-                                MaterialStateProperty.all(Colors.white),
+                                const MaterialStatePropertyAll(Colors.white),
                             shadowColor:
-                                MaterialStateProperty.all(Colors.white),
+                                const MaterialStatePropertyAll(Colors.white),
                             surfaceTintColor:
-                                MaterialStateProperty.all(Colors.white),
+                                const MaterialStatePropertyAll(Colors.white),
                             foregroundColor:
-                                MaterialStateProperty.all(Colors.black),
+                                const MaterialStatePropertyAll(Colors.black),
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.white),
-                            padding: MaterialStateProperty.all(
-                                const EdgeInsets.symmetric(
+                                const MaterialStatePropertyAll(Colors.white),
+                            padding: const MaterialStatePropertyAll(
+                                EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 15))),
                         onPressed: reset,
                         child:

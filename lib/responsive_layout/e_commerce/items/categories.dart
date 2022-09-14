@@ -35,14 +35,14 @@ class _CategoriesState extends State<Categories> {
                     left: index == 0 ? kPadding : 0),
                 child: ElevatedButton(
                   style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
+                      shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      padding: MaterialStateProperty.all(
-                          const EdgeInsets.all(kPadding)),
-                      backgroundColor: MaterialStateProperty.all(
+                      padding: const MaterialStatePropertyAll(
+                          EdgeInsets.all(kPadding)),
+                      backgroundColor: MaterialStatePropertyAll(
                           selectedIndex == index
                               ? Colors.white.withOpacity(0.8)
                               : Theme.of(context).colorScheme.secondary)),
