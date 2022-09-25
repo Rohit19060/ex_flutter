@@ -28,6 +28,9 @@ extension StringExtension on String {
   String toCapitalized() =>
       length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
 
+  String toCapitalizedWords() =>
+      split(RegExp('(?=[A-Z])')).map((e) => e.toCapitalized()).join(' ');
+
   bool isOnlyAlpha() => RegExp(r'^[a-zA-Z]+$').hasMatch(this);
 
   bool isEmail() => RegExp(
@@ -41,9 +44,6 @@ extension StringExtension on String {
           .hasMatch(this);
 
   String getDecimal() => double.parse(this).toStringAsFixed(0);
-
-  String toCapitalizedWords() =>
-      split(RegExp('(?=[A-Z])')).map((e) => e.toCapitalized()).join(' ');
 
   String getGenderAvatar() {
     switch (this) {

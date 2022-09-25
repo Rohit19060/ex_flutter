@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart';
+import 'package:path_provider/path_provider.dart';
 
 Future<dynamic> networkRequest({
   required String url,
@@ -81,4 +82,13 @@ Future<void> display(RemoteMessage message) async {
 
 void notificationRouter(String route, int situation) {
   // navigatorKey.currentState?.pushNamed(homeRoute, arguments: {'index': 2});
+}
+
+Future<String> downloadAndSaveFile(String url, String fileName) async {
+  final directory = await getApplicationDocumentsDirectory();
+  final filePath = '${directory.path}/$fileName';
+  final response = await get(Uri.parse(url));
+  final file = File(filePath);
+  await file.writeAsBytes(response.bodyBytes);
+  return filePath;
 }
