@@ -11,11 +11,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final TextStyle _bodytextstyle =
+  final TextStyle _bodyTextStyle =
       const TextStyle(fontSize: 40, fontWeight: FontWeight.bold);
-  MaterialStateProperty<EdgeInsets> pricebuttonpapdding =
-      MaterialStateProperty.all(
-          const EdgeInsets.symmetric(horizontal: 50, vertical: 25));
+  MaterialStateProperty<EdgeInsets> priceButtonPadding =
+      const MaterialStatePropertyAll(
+          EdgeInsets.symmetric(horizontal: 50, vertical: 25));
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -56,8 +56,8 @@ class _MyAppState extends State<MyApp> {
                           )
                         ])),
               const SizedBox(height: 40),
-              Text('Unlimited Design', style: _bodytextstyle),
-              Text('Subscription Service', style: _bodytextstyle),
+              Text('Unlimited Design', style: _bodyTextStyle),
+              Text('Subscription Service', style: _bodyTextStyle),
               const SizedBox(height: 20),
               SizedBox(
                 width: size.width * 0.5,
@@ -73,22 +73,22 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 onHover: (value) {
                   if (value) {
-                    setState(() => pricebuttonpapdding =
-                        MaterialStateProperty.all(const EdgeInsets.symmetric(
+                    setState(() => priceButtonPadding =
+                        const MaterialStatePropertyAll(EdgeInsets.symmetric(
                             horizontal: 60, vertical: 30)));
                   } else {
-                    setState(() => pricebuttonpapdding =
-                        MaterialStateProperty.all(const EdgeInsets.symmetric(
+                    setState(() => priceButtonPadding =
+                        const MaterialStatePropertyAll(EdgeInsets.symmetric(
                             horizontal: 40, vertical: 20)));
                   }
                 },
                 style: ButtonStyle(
-                    padding: pricebuttonpapdding,
-                    overlayColor: MaterialStateProperty.all(
-                        Colors.black.withOpacity(0.8)),
-                    backgroundColor: MaterialStateProperty.all(
-                        Colors.black.withOpacity(0.7)),
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    padding: priceButtonPadding,
+                    overlayColor:
+                        MaterialStatePropertyAll(Colors.black.withOpacity(0.8)),
+                    backgroundColor:
+                        MaterialStatePropertyAll(Colors.black.withOpacity(0.7)),
+                    shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40)))),
                 onPressed: () {},
                 child: const Text(
@@ -111,7 +111,7 @@ class _MyAppState extends State<MyApp> {
                   children: [
                     Text(
                       'Our Services',
-                      style: _bodytextstyle,
+                      style: _bodyTextStyle,
                     ),
                     Image.asset(
                       'assets/services.png',
@@ -132,7 +132,7 @@ class _MyAppState extends State<MyApp> {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<MaterialStateProperty<EdgeInsets>>(
-        'pricebuttonpapdding', pricebuttonpapdding));
+        'priceButtonPadding', priceButtonPadding));
   }
 }
 
@@ -200,14 +200,13 @@ class _MyCustomAppbarState extends State<MyCustomAppbar> {
                 ),
                 ElevatedButton(
                   style: ButtonStyle(
-                      overlayColor: MaterialStateProperty.all(
+                      overlayColor: MaterialStatePropertyAll(
                           Colors.black.withOpacity(0.8)),
-                      backgroundColor: MaterialStateProperty.all(
+                      backgroundColor: MaterialStatePropertyAll(
                           Colors.black.withOpacity(0.7)),
-                      padding: MaterialStateProperty.all(
-                          const EdgeInsets.symmetric(
-                              horizontal: 40, vertical: 20)),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      padding: const MaterialStatePropertyAll(
+                          EdgeInsets.symmetric(horizontal: 40, vertical: 20)),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)))),
                   onPressed: () {},
                   child: const Text('Login',

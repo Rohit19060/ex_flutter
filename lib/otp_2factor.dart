@@ -169,22 +169,23 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 30),
               ElevatedButton(
                 style: ButtonStyle(
-                  shape: MaterialStateProperty.all(
+                  shape: MaterialStatePropertyAll(
                     _isLoading
                         ? RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(100))
                         : RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(0.0)),
                   ),
-                  shadowColor: MaterialStateProperty.all(Colors.white),
-                  overlayColor: MaterialStateProperty.all(Colors.white),
+                  shadowColor: const MaterialStatePropertyAll(Colors.white),
+                  overlayColor: const MaterialStatePropertyAll(Colors.white),
                   elevation: _buttonActive
-                      ? MaterialStateProperty.all(2)
-                      : MaterialStateProperty.all(0),
-                  surfaceTintColor: MaterialStateProperty.all(Colors.white),
-                  foregroundColor: MaterialStateProperty.all(Colors.black),
-                  backgroundColor: MaterialStateProperty.all(Colors.white),
-                  padding: MaterialStateProperty.all(
+                      ? const MaterialStatePropertyAll(2)
+                      : const MaterialStatePropertyAll(0),
+                  surfaceTintColor:
+                      const MaterialStatePropertyAll(Colors.white),
+                  foregroundColor: const MaterialStatePropertyAll(Colors.black),
+                  backgroundColor: const MaterialStatePropertyAll(Colors.white),
+                  padding: MaterialStatePropertyAll(
                     _isLoading
                         ? const EdgeInsets.all(12)
                         : const EdgeInsets.symmetric(
@@ -209,16 +210,19 @@ class _HomePageState extends State<HomePage> {
               if (_isOtpSent)
                 ElevatedButton(
                   style: ButtonStyle(
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(0.0))),
-                      overlayColor: MaterialStateProperty.all(Colors.white),
-                      shadowColor: MaterialStateProperty.all(Colors.white),
-                      surfaceTintColor: MaterialStateProperty.all(Colors.white),
-                      foregroundColor: MaterialStateProperty.all(Colors.black),
-                      backgroundColor: MaterialStateProperty.all(Colors.white),
-                      padding: MaterialStateProperty.all(
-                          const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 15))),
+                      overlayColor:
+                          const MaterialStatePropertyAll(Colors.white),
+                      shadowColor: const MaterialStatePropertyAll(Colors.white),
+                      surfaceTintColor:
+                          const MaterialStatePropertyAll(Colors.white),
+                      foregroundColor:
+                          const MaterialStatePropertyAll(Colors.black),
+                      backgroundColor:
+                          const MaterialStatePropertyAll(Colors.white),
+                      padding: const MaterialStatePropertyAll(
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 15))),
                   onPressed: reset,
                   child: const Text('Reset', style: TextStyle(fontSize: 26)),
                 ),

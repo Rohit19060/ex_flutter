@@ -36,17 +36,15 @@ class ECommerceDrawer extends StatelessWidget {
                   ),
                   child: ElevatedButton(
                     style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
+                        shape: MaterialStatePropertyAll(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        padding: MaterialStateProperty.all(
-                          const EdgeInsets.symmetric(
-                            vertical: kPadding,
-                          ),
+                        padding: const MaterialStatePropertyAll(
+                          EdgeInsets.symmetric(vertical: kPadding),
                         ),
-                        backgroundColor: MaterialStateProperty.all(
+                        backgroundColor: MaterialStatePropertyAll(
                             Colors.white.withOpacity(0.8))),
                     child: Text(
                       'Sign In',
@@ -64,17 +62,17 @@ class ECommerceDrawer extends StatelessWidget {
                   ),
                   child: ElevatedButton(
                     style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
+                        shape: MaterialStatePropertyAll(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        padding: MaterialStateProperty.all(
-                          const EdgeInsets.symmetric(
+                        padding: const MaterialStatePropertyAll(
+                          EdgeInsets.symmetric(
                             vertical: kPadding,
                           ),
                         ),
-                        backgroundColor: MaterialStateProperty.all(
+                        backgroundColor: MaterialStatePropertyAll(
                             Colors.white.withOpacity(0.8))),
                     child: Text(
                       'Register',

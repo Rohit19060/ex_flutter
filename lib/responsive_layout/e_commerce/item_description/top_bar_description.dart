@@ -27,17 +27,17 @@ class TopBarDescription extends StatelessWidget {
               ),
               child: ElevatedButton(
                 style: ButtonStyle(
-                    shape: MaterialStateProperty.all(
+                    shape: MaterialStatePropertyAll(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    padding: MaterialStateProperty.all(
-                      const EdgeInsets.symmetric(
+                    padding: const MaterialStatePropertyAll(
+                      EdgeInsets.symmetric(
                         vertical: kPadding,
                       ),
                     ),
-                    backgroundColor: MaterialStateProperty.all(
+                    backgroundColor: MaterialStatePropertyAll(
                         Theme.of(context).colorScheme.secondary)),
                 child: Text(
                   'Add to Cart',
@@ -53,17 +53,17 @@ class TopBarDescription extends StatelessWidget {
               ),
               child: ElevatedButton(
                 style: ButtonStyle(
-                    shape: MaterialStateProperty.all(
+                    shape: MaterialStatePropertyAll(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    padding: MaterialStateProperty.all(
-                      const EdgeInsets.symmetric(
+                    padding: const MaterialStatePropertyAll(
+                      EdgeInsets.symmetric(
                         vertical: kPadding,
                       ),
                     ),
-                    backgroundColor: MaterialStateProperty.all(
+                    backgroundColor: MaterialStatePropertyAll(
                         Theme.of(context).primaryColor)),
                 child: const Text(
                   'Buy Now',

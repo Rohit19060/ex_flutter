@@ -27,13 +27,13 @@ class _MyAppState extends State<MyApp> {
         home: Scaffold(
           body: screens[index],
           bottomNavigationBar: NavigationBarTheme(
-            data: NavigationBarThemeData(
+            data: const NavigationBarThemeData(
               height: 70,
               labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
               backgroundColor: Colors.white,
-              indicatorColor: const Color.fromARGB(255, 0, 140, 255),
-              labelTextStyle: MaterialStateProperty.all(
-                const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+              indicatorColor: Color.fromARGB(255, 0, 140, 255),
+              labelTextStyle: MaterialStatePropertyAll(
+                TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
               ),
             ),
             child: NavigationBar(

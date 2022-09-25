@@ -51,4 +51,4 @@ Php/vendor/
 lib/.env
 GoogleService-Info.plist
 firebase_app_id_file.json
-lib/router_example/
+lib/utilities/

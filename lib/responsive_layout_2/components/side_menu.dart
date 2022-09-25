@@ -36,12 +36,13 @@ class SideMenu extends StatelessWidget {
                 const SizedBox(height: kDefaultPadding),
                 TextButton.icon(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(kPrimaryColor),
-                    padding: MaterialStateProperty.all(
-                        const EdgeInsets.symmetric(
+                    backgroundColor:
+                        const MaterialStatePropertyAll(kPrimaryColor),
+                    padding: const MaterialStatePropertyAll(
+                        EdgeInsets.symmetric(
                             vertical: kDefaultPadding,
                             horizontal: kDefaultPadding)),
-                    shape: MaterialStateProperty.all(
+                    shape: MaterialStatePropertyAll(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -60,16 +61,17 @@ class SideMenu extends StatelessWidget {
                 const SizedBox(height: kDefaultPadding),
                 TextButton.icon(
                   style: ButtonStyle(
-                    padding: MaterialStateProperty.all(
-                        const EdgeInsets.symmetric(
+                    padding: const MaterialStatePropertyAll(
+                        EdgeInsets.symmetric(
                             vertical: kDefaultPadding,
                             horizontal: kDefaultPadding)),
-                    shape: MaterialStateProperty.all(
+                    shape: MaterialStatePropertyAll(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    backgroundColor: MaterialStateProperty.all(kBgDarkColor),
+                    backgroundColor:
+                        const MaterialStatePropertyAll(kBgDarkColor),
                   ),
                   onPressed: () {},
                   icon:

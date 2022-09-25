@@ -78,19 +78,21 @@ class _CustomKeyboardExperimentState extends State<CustomKeyboardExperiment> {
               ),
               ElevatedButton(
                   style: ButtonStyle(
-                    shape: MaterialStateProperty.all(
+                    shape: MaterialStatePropertyAll(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0.0),
                       ),
                     ),
-                    overlayColor: MaterialStateProperty.all(
+                    overlayColor: MaterialStatePropertyAll(
                       Colors.black.withOpacity(0.2),
                     ),
-                    elevation: MaterialStateProperty.all(8),
-                    foregroundColor: MaterialStateProperty.all(Colors.black),
-                    backgroundColor: MaterialStateProperty.all(Colors.white),
-                    padding: MaterialStateProperty.all(
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    elevation: const MaterialStatePropertyAll(8),
+                    foregroundColor:
+                        const MaterialStatePropertyAll(Colors.black),
+                    backgroundColor:
+                        const MaterialStatePropertyAll(Colors.white),
+                    padding: const MaterialStatePropertyAll(
+                      EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                     ),
                   ),
                   child: const Text(
@@ -236,10 +238,10 @@ class CustomKeyboard extends StatelessWidget {
                       child: Text(e));
                 } else {
                   return TextButton(
-                    style: ButtonStyle(
-                      padding: MaterialStateProperty.all(EdgeInsets.zero),
-                      textStyle: MaterialStateProperty.all(
-                          const TextStyle(fontSize: 20)),
+                    style: const ButtonStyle(
+                      padding: MaterialStatePropertyAll(EdgeInsets.zero),
+                      textStyle:
+                          MaterialStatePropertyAll(TextStyle(fontSize: 20)),
                     ),
                     onPressed: onBackspace.call,
                     child: const Icon(
