@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'small_widget.dart';
+import 'utilities/marquee.dart';
 
 void main() => runApp(const MyApp());
 
@@ -15,13 +15,18 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 100),
+          body: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
-                Text('Flutter Experiments'),
-                RoundedProgressBar(value: 35)
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Flutter Experiments'),
+                Material(
+                  child: SizedBox(
+                    height: 20,
+                    width: 400,
+                    child: Marquee(text: 'This is bold text to check '),
+                  ),
+                ),
               ],
             ),
           ),
