@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) => MaterialApp(
         title: 'Material You Navigation Bar',
-        theme: ThemeData(primarySwatch: Colors.blue),
+        theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
         home: Scaffold(
           body: screens[index],
           bottomNavigationBar: NavigationBarTheme(

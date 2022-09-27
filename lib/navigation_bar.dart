@@ -121,10 +121,10 @@ class CurvedNavigationBar extends StatefulWidget {
 
 class CurvedNavigationBarState extends State<CurvedNavigationBar>
     with SingleTickerProviderStateMixin {
-  late double _startingPos;
   int _endingIndex = 0;
-  late double _pos;
   double _buttonHide = 0;
+  late double _startingPos;
+  late double _pos;
   late Widget _icon;
   late AnimationController _animationController;
   late int _length;
@@ -212,9 +212,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
             child: CustomPaint(
               painter: NavCustomPainter(
                   _pos, _length, widget.color, Directionality.of(context)),
-              child: Container(
-                height: 75.0,
-              ),
+              child: Container(height: 75.0),
             ),
           ),
           Positioned(
@@ -222,17 +220,19 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
             right: 0,
             bottom: 0 - (75.0 - widget.height),
             child: SizedBox(
-                height: 100.0,
-                child: Row(
-                    children: widget.items
-                        .map((item) => NavButton(
-                              onTap: _buttonTap,
-                              position: _pos,
-                              length: _length,
-                              index: widget.items.indexOf(item),
-                              child: Center(child: item),
-                            ))
-                        .toList())),
+              height: 100.0,
+              child: Row(
+                children: widget.items
+                    .map((item) => NavButton(
+                          onTap: _buttonTap,
+                          position: _pos,
+                          length: _length,
+                          index: widget.items.indexOf(item),
+                          child: Center(child: item),
+                        ))
+                    .toList(),
+              ),
+            ),
           ),
         ],
       ),
@@ -309,6 +309,7 @@ class NavCustomPainter extends CustomPainter {
 
 class NavButton extends StatelessWidget {
   const NavButton({
+    super.key,
     required this.onTap,
     required this.position,
     required this.length,
@@ -330,18 +331,18 @@ class NavButton extends StatelessWidget {
     return Expanded(
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
-        onTap: () {
-          onTap(index);
-        },
+        onTap: () => onTap(index),
         child: SizedBox(
-            height: 75.0,
-            child: Transform.translate(
-              offset: Offset(
-                  0, difference < 1.0 / length ? verticalAlignment * 40 : 0),
-              child: Opacity(
-                  opacity: difference < 1.0 / length * 0.99 ? opacity : 1.0,
-                  child: child),
-            )),
+          height: 75.0,
+          child: Transform.translate(
+            offset: Offset(
+                0, difference < 1.0 / length ? verticalAlignment * 40 : 0),
+            child: Opacity(
+              opacity: difference < 1.0 / length * 0.99 ? opacity : 1.0,
+              child: child,
+            ),
+          ),
+        ),
       ),
     );
   }
