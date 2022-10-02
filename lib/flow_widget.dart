@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
-const double buttonSize = 80;
+const double buttonSize = 60;
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) => MaterialApp(
-      title: 'Flow Widget',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(),
-    );
+        title: 'Flow Widget',
+        theme: ThemeData(
+          useMaterial3: true,
+          primarySwatch: Colors.blue,
+        ),
+        home: const MyHomePage(),
+      );
 }
 
 class MyHomePage extends StatefulWidget {
@@ -46,7 +47,7 @@ class _LinearFlowWidgetState extends State<LinearFlowWidget>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 200),
     );
   }
 
@@ -59,38 +60,32 @@ class _LinearFlowWidgetState extends State<LinearFlowWidget>
   @override
   Widget build(BuildContext context) => Flow(
         delegate: FlowMenuDelegate(animation: _controller),
-        children: const [
-          Icons.menu,
-          Icons.phone,
-          Icons.camera,
-          Icons.notifications
-        ].map<Widget>(buildItem).toList(),
-      );
-
-  Widget buildItem(IconData icon) => SizedBox(
-        width: buttonSize,
-        height: buttonSize,
-        child: FloatingActionButton(
-          elevation: 0.0,
-          splashColor: Colors.black,
-          child: Icon(
-            icon,
-            color: Colors.white,
-            size: 32.0,
-          ),
-          onPressed: () {
-            if (_controller.status == AnimationStatus.completed) {
-              _controller.reverse();
-            } else {
-              _controller.forward();
-            }
-          },
-        ),
+        children:
+            const [Icons.menu, Icons.phone, Icons.camera, Icons.notifications]
+                .map<Widget>(
+                  (e) => SizedBox(
+                    width: buttonSize,
+                    height: buttonSize,
+                    child: FloatingActionButton(
+                      elevation: 0.0,
+                      splashColor: Colors.black,
+                      child: Icon(
+                        e,
+                        color: Colors.white,
+                        size: 32.0,
+                      ),
+                      onPressed: () =>
+                          _controller.status == AnimationStatus.completed
+                              ? _controller.reverse()
+                              : _controller.forward(),
+                    ),
+                  ),
+                )
+                .toList(),
       );
 }
 
 class FlowMenuDelegate extends FlowDelegate {
-
   const FlowMenuDelegate({required this.animation}) : super(repaint: animation);
   final Animation<double> animation;
 
@@ -110,7 +105,5 @@ class FlowMenuDelegate extends FlowDelegate {
   }
 
   @override
-  bool shouldRepaint(covariant FlowDelegate oldDelegate) {
-    throw UnimplementedError();
-  }
+  bool shouldRepaint(covariant FlowDelegate oldDelegate) => true;
 }

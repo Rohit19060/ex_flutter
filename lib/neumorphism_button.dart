@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) => MaterialApp(
-        title: 'Neumorphic Button',
+        title: 'Neumorphism Button',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
@@ -31,10 +31,35 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: backgroundColor,
         body: Center(
+          // child: Listener(
+          //   onPointerMove: (details) {
+          //     print(details);
+          //     print('on Pointer Move');
+          //   },
+          //   onPointerHover: (event) {
+          //     print(event);
+          //     print('On Pointer Hover');
+          //   },
+          //   onPointerUp: (event) {
+          //     print(event);
+          //     print('On Pointer Hover');
+          //   },
+
+          //   onPointerSignal: (event) {
+          //     print(event);
+          //     print('On Pointer Hover');
+          //   },
           child: GestureDetector(
             onTap: () => debugPrint('hi'),
             onTapUp: (_) => setState(() => isPressed = false),
             onTapDown: (_) => setState(() => isPressed = true),
+            onVerticalDragCancel: () => setState(() => isPressed = false),
+            onSecondaryTap: () => debugPrint('Hi Secondary Tap'),
+            onHorizontalDragCancel: () => setState(() => isPressed = false),
+            onPanUpdate: (details) {},
+            onPanStart: (details) {},
+            onVerticalDragStart: (_) => setState(() => isPressed = true),
+            onHorizontalDragStart: (_) => setState(() => isPressed = true),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 100),
               decoration: BoxDecoration(
