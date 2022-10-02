@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> signInUsingPhone() async {
     if (_otpController.text.length < 6) {
-      await Fluttertoast.showToast(msg: 'Please Enter a Valid OTP');
+      showToast('Please Enter a Valid OTP');
       return;
     }
     try {
@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
           .signInWithCredential(PhoneAuthProvider.credential(
               verificationId: _verificationID, smsCode: _otpController.text))
           .then((value) {
-        Fluttertoast.showToast(msg: 'OTP Verified');
+        showToast('OTP Verified');
         if (value.user != null && mounted) {
           _user = value.user;
           _isLoading = false;
@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> verifyPhone() async {
     if (_mobController.text.length < 10) {
-      await Fluttertoast.showToast(msg: 'Please Enter a Valid Phone');
+      showToast('Please Enter a Valid Phone');
       return;
     }
     await FirebaseAuth.instance.verifyPhoneNumber(
@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       verificationFailed: (e) => debugPrint(e.message),
       codeSent: (verificationID, resendToken) {
-        Fluttertoast.showToast(msg: 'OTP Sent');
+        showToast('OTP Sent');
         updateVerificationID(verificationID);
       },
       codeAutoRetrievalTimeout: (verificationID) {
@@ -126,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () async {
                   setState(() => _isLoading = true);
                   await FirebaseAuth.instance.signOut().then((_) {
-                    Fluttertoast.showToast(msg: 'Logout Successfully');
+                    showToast('Logout Successfully');
                     reset();
                   });
                 },
@@ -265,3 +265,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
 }
+
+void showToast(String str) => Fluttertoast.showToast(msg: str);

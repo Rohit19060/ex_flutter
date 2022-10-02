@@ -24,7 +24,10 @@ class King extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
         home: const Kn(),
-        theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          useMaterial3: true,
+        ),
         routes: <String, WidgetBuilder>{
           './Discover': (context) => const Discover(),
           './YourNotes': (context) => const YourNotes()

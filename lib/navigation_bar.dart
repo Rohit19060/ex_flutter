@@ -309,6 +309,7 @@ class NavCustomPainter extends CustomPainter {
 
 class NavButton extends StatelessWidget {
   const NavButton({
+    super.key,
     required this.onTap,
     required this.position,
     required this.length,

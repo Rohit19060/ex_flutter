@@ -8,6 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         title: 'Material You Floating Action Button',
+        theme: ThemeData(useMaterial3: true, primarySwatch: Colors.blue),
         home: Scaffold(
           body: SingleChildScrollView(
             child: Column(
@@ -60,7 +61,7 @@ class MyApp extends StatelessWidget {
                     floatingActionButtonTheme:
                         const FloatingActionButtonThemeData(
                       largeSizeConstraints:
-                          BoxConstraints.tightFor(width: 120, height: 120),
+                          BoxConstraints.tightFor( ),
                     ),
                   ),
                   child: FloatingActionButton.extended(
