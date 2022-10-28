@@ -189,3 +189,147 @@ Future<String> downloadAndSaveFile(String url, String fileName) async {
   await file.writeAsBytes(response.bodyBytes);
   return filePath;
 }
+
+Future<DateTime> datePicker(BuildContext context) async {
+  final data = await showDatePicker(
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(1950),
+    lastDate: DateTime(DateTime.now().year - 13),
+  ).catchError((e) {
+    debugPrint('Select Date Error: $e');
+  });
+  return data ?? DateTime.now();
+}
+
+Future<TimeOfDay> timePicker(BuildContext context) async {
+  final data = await showTimePicker(
+    context: context,
+    initialTime: TimeOfDay.now(),
+  ).catchError((e) {
+    debugPrint('Select Time Error: $e');
+  });
+  if (data != null) {
+    return data;
+  } else {
+    return TimeOfDay.now();
+  }
+}
+
+Future<void> singleActionDialog(
+        BuildContext context, String text, Function() onConfirmTap) =>
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        actionsAlignment: MainAxisAlignment.spaceEvenly,
+        actionsOverflowButtonSpacing: 2,
+        actionsOverflowDirection: VerticalDirection.down,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        content: Text(text,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headline6),
+        actions: [
+          OutlinedButton(
+              style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all(Colors.white),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12))),
+                  padding: MaterialStateProperty.all(
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 30)),
+                  backgroundColor: MaterialStateProperty.all(Colors.redAccent)),
+              onPressed: () {
+                onConfirmTap();
+                Navigator.pop(context);
+              },
+              child: const Text('Ok', textAlign: TextAlign.center))
+        ],
+      ),
+    );
+
+Future<void> doubleActionDialog(
+        BuildContext context, String text, Function() onConfirmTap) =>
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        actionsAlignment: MainAxisAlignment.spaceEvenly,
+        actionsOverflowButtonSpacing: 2,
+        actionsOverflowDirection: VerticalDirection.down,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        content: Text(text,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.subtitle1),
+        actions: [
+          ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all(Theme.of(context).primaryColor),
+                foregroundColor: MaterialStateProperty.all(
+                    Theme.of(context).secondaryHeaderColor),
+              ),
+              onPressed: () {
+                onConfirmTap();
+                Navigator.pop(context);
+              },
+              child: const Text('Confirm', textAlign: TextAlign.center)),
+          ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancel', textAlign: TextAlign.center))
+        ],
+      ),
+    );
+
+Future<void> inputDialog(BuildContext context, String text,
+    VoidCallback onConfirmTap, TextEditingController controller) async {
+  await showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (context) => AlertDialog(
+      actionsAlignment: MainAxisAlignment.spaceEvenly,
+      actionsOverflowButtonSpacing: 2,
+      actionsOverflowDirection: VerticalDirection.down,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      content: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.12,
+        width: MediaQuery.of(context).size.width * 0.9,
+        child: Column(
+          children: [
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            const SizedBox(height: 10),
+            TextFormField(
+              controller: controller,
+              decoration: InputDecoration(
+                labelText: 'Reason',
+                hintText: 'Enter Reason',
+                labelStyle: Theme.of(context).textTheme.subtitle1,
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        OutlinedButton(
+            style: ButtonStyle(
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12))),
+                padding: MaterialStateProperty.all(
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 30)),
+                backgroundColor: MaterialStateProperty.all(Colors.redAccent)),
+            onPressed: () {
+              onConfirmTap();
+              Navigator.pop(context);
+            },
+            child: const Text(
+              'Update',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            )),
+      ],
+    ),
+  );
+}
