@@ -152,7 +152,7 @@ Future<ResponseModel> postRequestWithTokenFile({
     request.files.add(await MultipartFile.fromPath(fieldName, profilePic.path));
     final response = await request.send();
     final responseData = await Response.fromStream(response);
-    final x = jsonDecode(responseData.body);
+    final x = jsonDecode(responseData.body) as Map<String, dynamic>;
     if (response.statusCode < 400) {
       return ResponseModel(
         message: x['message'].toString(),
