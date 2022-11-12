@@ -5,7 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
+import 'package:path/path.dart' as e;
 
 UploadTask uploadFile(String destination, File file) {
   final ref = FirebaseStorage.instance.ref(destination);
@@ -46,7 +46,7 @@ class _StorageHomeState extends State<StorageHome> {
 
   @override
   Widget build(BuildContext context) {
-    final fileName = file != null ? basename(file!.path) : 'No file Selected';
+    final fileName = file != null ? e.basename(file!.path) : 'No file Selected';
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -96,7 +96,7 @@ class _StorageHomeState extends State<StorageHome> {
     if (file == null) {
       return;
     }
-    final fileName = basename(file!.path);
+    final fileName = e.basename(file!.path);
     final destination = 'files/$fileName';
     task = uploadFile(destination, file!);
     setState(() {});

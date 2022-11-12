@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:image_crop/image_crop.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as p;
-import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() => runApp(const MyApp());
@@ -38,7 +37,7 @@ class ShowFile extends StatelessWidget {
 
   Future<void> saveImage() async {
     await getExternalStorageDirectories().then((value) {
-      final fileName = basename(file!.path);
+      final fileName = p.basename(file!.path);
       file!.copy('${value!.first.path}/$fileName');
     });
   }

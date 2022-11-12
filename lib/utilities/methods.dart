@@ -145,14 +145,7 @@ final FlutterLocalNotificationsPlugin _notificationsPlugin =
 void initialize() {
   const initializationSettingsAndroid = InitializationSettings(
       android: AndroidInitializationSettings('@drawable/ic_launcher'));
-  _notificationsPlugin.initialize(
-    initializationSettingsAndroid,
-    onSelectNotification: (route) async {
-      if (route != null) {
-        notificationRouter(route, 3);
-      }
-    },
-  );
+  _notificationsPlugin.initialize(initializationSettingsAndroid);
 }
 
 Future<void> display(RemoteMessage message) async {
