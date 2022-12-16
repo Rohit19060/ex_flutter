@@ -84,7 +84,6 @@ flutter:
     - lib/.env
     - assets/images/
     - assets/icons/
-    - assets/
 
 # Flutter native scrips
 # An image asset can refer to one or more resolution-specific "variants", see
