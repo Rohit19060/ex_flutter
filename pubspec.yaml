@@ -74,6 +74,8 @@ dependencies:
   web_socket_channel: ^2.2.0
   webdriver: ^3.0.1
   websafe_svg: ^2.1.2+7
+  agora_rtc_engine: ^x.y.z
+  permission_handler: ^9.2.0
 
 dev_dependencies:
   flutter_lints: ^2.0.1
