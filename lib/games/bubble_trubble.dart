@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Expanded(
-            child: Container(
+            child: ColoredBox(
               color: Colors.grey,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
