@@ -32,17 +32,19 @@ class MyApp extends StatelessWidget {
         ),
         home: Scaffold(
           appBar: AppBar(title: const Text('Animations Playground')),
-          body: AnimationExamplesList(),
+          body: const AnimationExamplesList(),
         ),
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case 'animatedContainer':
-              return MaterialPageRoute(builder: (_) => AnimatedContainerPage());
+              return MaterialPageRoute(
+                  builder: (_) => const AnimatedContainerPage());
             case 'animatedOpacity':
-              return MaterialPageRoute(builder: (_) => AnimatedOpacityPage());
+              return MaterialPageRoute(
+                  builder: (_) => const AnimatedOpacityPage());
             case 'tweenAnimationBuilder':
               return MaterialPageRoute(
-                  builder: (_) => TweenAnimationBuilderPage());
+                  builder: (_) => const TweenAnimationBuilderPage());
             default:
               throw UnimplementedError(
                   'Route ${settings.name} not implemented');
@@ -52,6 +54,8 @@ class MyApp extends StatelessWidget {
 }
 
 class AnimationExamplesList extends StatelessWidget {
+  const AnimationExamplesList({super.key});
+
   @override
   Widget build(BuildContext context) => ListView.builder(
         itemBuilder: (context, index) {

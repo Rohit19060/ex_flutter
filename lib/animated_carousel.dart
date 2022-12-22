@@ -202,9 +202,8 @@ class _HomePageState extends State<HomePage> {
         ),
       );
 
-  _onPageChanged(int index) {
+  void _onPageChanged(int index) {
     setState(() {
-      print(index);
       _currentPage = index;
     });
   }

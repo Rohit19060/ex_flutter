@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class BuildWorkoutImageItem extends StatelessWidget {
   const BuildWorkoutImageItem({
+    super.key,
     required this.image,
     required this.radius,
     required this.width,

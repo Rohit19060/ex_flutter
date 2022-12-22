@@ -171,7 +171,7 @@ class ProfileScreen extends StatelessWidget {
                       closedColor: const Color(0xFFE9E9E9),
                       closedElevation: 0.0,
                       transitionDuration: const Duration(milliseconds: 1000),
-                      openBuilder: (context, _) => WorkoutScreen(),
+                      openBuilder: (context, _) => const WorkoutScreen(),
                       closedBuilder: (context, openContainer) => InkWell(
                         onTap: openContainer,
                         child: Container(

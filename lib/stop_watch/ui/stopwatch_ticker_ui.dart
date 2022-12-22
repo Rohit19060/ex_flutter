@@ -43,7 +43,7 @@ class StopwatchTickerUIState extends State<StopwatchTickerUI>
     super.dispose();
   }
 
-  void toggleRunning(bool isRunning) {
+  void toggleRunning({required bool isRunning}) {
     setState(() {
       if (isRunning) {
         _ticker.start();

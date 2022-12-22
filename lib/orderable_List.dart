@@ -32,7 +32,6 @@ class _MyStatefulWidgetState extends State<ReorderableExample> {
 
     return ReorderableListView(
       padding: const EdgeInsets.symmetric(horizontal: 40),
-      
       children: <Widget>[
         for (int index = 0; index < _items.length; index += 1)
           ListTile(

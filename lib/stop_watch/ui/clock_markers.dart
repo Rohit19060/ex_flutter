@@ -1,13 +1,14 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ClockSecondsTickMarker extends StatelessWidget {
   const ClockSecondsTickMarker({
-    Key? key,
+    super.key,
     required this.seconds,
     required this.radius,
-  }) : super(key: key);
+  });
   final int seconds;
   final double radius;
 
@@ -19,21 +20,28 @@ class ClockSecondsTickMarker extends StatelessWidget {
     return Transform(
       alignment: Alignment.center,
       transform: Matrix4.identity()
-        ..translate(-width / 2, -height / 2, 0.0) // center to origin
+        ..translate(-width / 2, -height / 2) // center to origin
         ..rotateZ(2 * pi * (seconds / 60.0))
-        ..translate(0.0, radius - height / 2, 0.0),
+        ..translate(0.0, radius - height / 2),
       child: Container(width: width, height: height, color: color),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DoubleProperty('radius', radius));
+    properties.add(IntProperty('seconds', seconds));
   }
 }
 
 class ClockTextMarker extends StatelessWidget {
   const ClockTextMarker({
-    Key? key,
+    super.key,
     required this.value,
     required this.maxValue,
     required this.radius,
-  }) : super(key: key);
+  });
   final int value;
   final int maxValue;
   final double radius;
@@ -45,19 +53,27 @@ class ClockTextMarker extends StatelessWidget {
     return Transform(
       alignment: Alignment.center,
       transform: Matrix4.identity()
-        ..translate(-width / 2, -height / 2, 0.0)
+        ..translate(-width / 2, -height / 2)
         ..rotateZ(pi + 2 * pi * (value / maxValue))
-        ..translate(0.0, radius - 35, 0.0)
+        ..translate(0.0, radius - 35)
         ..rotateZ(pi - 2 * pi * (value / maxValue)),
       child: SizedBox(
         width: width,
         height: height,
         child: Text(
           value.toString(),
-          style: TextStyle(fontSize: 24),
+          style: const TextStyle(fontSize: 24),
           textAlign: TextAlign.center,
         ),
       ),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DoubleProperty('radius', radius));
+    properties.add(IntProperty('maxValue', maxValue));
+    properties.add(IntProperty('value', value));
   }
 }

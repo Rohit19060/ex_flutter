@@ -166,7 +166,7 @@ class BarPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 5.0;
 
-    const topPoint = Offset(0, 0);
+    const topPoint = Offset.zero;
     final bottomPoint = Offset(0, size.height + 20);
     final centerPoint = Offset(0, (size.height + 20) / 2);
 

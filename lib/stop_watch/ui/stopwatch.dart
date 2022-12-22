@@ -21,7 +21,7 @@ class _StopwatchState extends State<Stopwatch> {
     setState(() {
       _isRunning = !_isRunning;
     });
-    _tickerUIKey.currentState?.toggleRunning(_isRunning);
+    _tickerUIKey.currentState?.toggleRunning(isRunning: _isRunning);
   }
 
   void _reset() {

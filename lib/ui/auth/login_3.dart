@@ -258,13 +258,7 @@ class _DelayedAnimationState extends State<DelayedAnimation>
         Tween<Offset>(begin: const Offset(0.0, 0.35), end: Offset.zero)
             .animate(curve);
 
-    if (widget.child == null) {
-      _controller.forward();
-    } else {
-      Timer(Duration(milliseconds: widget.delay), () {
-        _controller.forward();
-      });
-    }
+    _controller.forward();
   }
 
   @override

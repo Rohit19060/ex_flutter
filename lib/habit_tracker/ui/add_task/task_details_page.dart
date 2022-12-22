@@ -138,7 +138,7 @@ class _ConfirmTaskContentsState extends ConsumerState<ConfirmTaskContents> {
         title: const Text('Cancel'),
       ),
     );
-    if (didConfirm == true) {
+    if (didConfirm ?? true) {
       try {
         final dataStore = ref.read<HiveDataStore>(dataStoreProvider);
         // * No longer show [AddTaskItem] widget by default after a task is deleted for the first time

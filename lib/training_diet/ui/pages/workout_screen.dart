@@ -5,6 +5,8 @@ import '../../models/upper_body_workout.dart';
 import '../widgets/build_workout_image_item.dart';
 
 class WorkoutScreen extends StatelessWidget {
+  const WorkoutScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final today = DateTime.now();

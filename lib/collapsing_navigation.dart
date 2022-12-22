@@ -48,6 +48,8 @@ Color selectedColor = const Color(0xFF4AC8EA);
 Color drawerBackgroundColor = const Color(0xFF272D34);
 
 class Dashboard extends StatelessWidget {
+  const Dashboard({super.key});
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -247,7 +249,7 @@ class _CollapsingNavigationDrawerState extends State<CollapsingNavigationDrawer>
                           Navigator.of(context)
                               .push(
                                 MaterialPageRoute(
-                                  builder: (context) => Dashboard(),
+                                  builder: (context) => const Dashboard(),
                                 ),
                               )
                               .then((value) => setState(() {

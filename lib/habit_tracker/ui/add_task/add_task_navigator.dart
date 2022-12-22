@@ -23,7 +23,7 @@ class AddTaskNavigator extends StatelessWidget {
           builder: (context) {
             switch (routeSettings.name) {
               case AddTaskRoutes.root:
-                return AddTaskPage();
+                return const AddTaskPage();
               case AddTaskRoutes.confirmTask:
                 final taskPreset = routeSettings.arguments! as TaskPreset;
                 final task = Task.create(

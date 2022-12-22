@@ -85,6 +85,11 @@ dependencies:
   web_socket_channel: ^2.2.0
   webdriver: ^3.0.1
   websafe_svg: ^2.1.2+7
+  charts_flutter: ^0.12.0
+  pie_chart: ^5.3.2
+  flutter_circular_chart: ^0.1.0
+  fl_chart: ^0.55.2
+  flutter_sparkline: ^0.1.0
 
 dev_dependencies:
   flutter_lints: ^2.0.1
