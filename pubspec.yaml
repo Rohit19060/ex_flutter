@@ -70,7 +70,7 @@ dependencies:
   pinput: ^2.2.16
   platform_device_id: ^1.0.1
   provider: ^6.0.4
-  rxdart: ^0.27.5
+  rxdart: ^0.27.7
   shared_preferences: ^2.0.15
   shimmer: ^2.0.0
   simple_animations: ^5.0.0+2
