@@ -65,7 +65,7 @@ dependencies:
   page_flip_builder: ^0.1.3
   palette_generator: ^0.3.3+2
   path_provider: ^2.0.11
-  paytm_allinonesdk: ^1.1.8
+  paytm_allinonesdk: ^1.2.0
   permission_handler: ^10.2.0
   pinput: ^2.2.16
   platform_device_id: ^1.0.1
