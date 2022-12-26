@@ -67,7 +67,7 @@ dependencies:
   path_provider: ^2.0.11
   paytm_allinonesdk: ^1.1.8
   permission_handler: ^10.2.0
-  pinput: ^2.2.16
+  pinput: ^2.2.20
   platform_device_id: ^1.0.1
   provider: ^6.0.4
   rxdart: ^0.27.7
