@@ -9,25 +9,25 @@ import 'ui/theming/app_theme_manager.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await AppAssets.preloadSVGs();
+  await preloadSVGs();
   final dataStore = HiveDataStore();
   await dataStore.init();
   // await dataStore.createDemoTasks(
   //   frontTasks: [
-  //     Task.create(name: 'Take Vitamins', iconName: AppAssets.vitamins),
-  //     Task.create(name: 'Cycle to Work', iconName: AppAssets.bike),
-  //     Task.create(name: 'Wash Your Hands', iconName: AppAssets.washHands),
-  //     Task.create(name: 'Wear a Mask', iconName: AppAssets.mask),
-  //     Task.create(name: 'Brush Your Teeth', iconName: AppAssets.toothbrush),
-  //     //Task.create(name: 'Floss Your Teeth', iconName: AppAssets.dentalFloss),
+  //     Task.create(name: 'Take Vitamins', iconName: vitamins),
+  //     Task.create(name: 'Cycle to Work', iconName: bike),
+  //     Task.create(name: 'Wash Your Hands', iconName: washHands),
+  //     Task.create(name: 'Wear a Mask', iconName: mask),
+  //     Task.create(name: 'Brush Your Teeth', iconName: toothbrush),
+  //     //Task.create(name: 'Floss Your Teeth', iconName: dentalFloss),
   //   ],
   //   backTasks: [
-  //     Task.create(name: 'Eat a Healthy Meal', iconName: AppAssets.carrot),
-  //     Task.create(name: 'Walk the Dog', iconName: AppAssets.dog),
-  //     Task.create(name: 'Do Some Coding', iconName: AppAssets.html),
-  //     Task.create(name: 'Meditate', iconName: AppAssets.meditation),
-  //     Task.create(name: 'Do 10 Pushups', iconName: AppAssets.pushups),
-  //     //Task.create(name: 'Sleep 8 Hours', iconName: AppAssets.rest),
+  //     Task.create(name: 'Eat a Healthy Meal', iconName: carrot),
+  //     Task.create(name: 'Walk the Dog', iconName: dog),
+  //     Task.create(name: 'Do Some Coding', iconName: html),
+  //     Task.create(name: 'Meditate', iconName: meditation),
+  //     Task.create(name: 'Do 10 Pushups', iconName: pushups),
+  //     //Task.create(name: 'Sleep 8 Hours', iconName: rest),
   //   ],
   //   force: false,
   // );

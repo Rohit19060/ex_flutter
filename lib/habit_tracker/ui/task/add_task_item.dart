@@ -14,7 +14,7 @@ class AddTaskItem extends StatelessWidget {
         task: Task(
           id: '',
           name: 'Add a task',
-          iconName: AppAssets.plus,
+          iconName: plus,
         ),
         hasCompletedState: false,
         onCompleted: (completed) => onCompleted?.call(),

@@ -807,6 +807,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+  local_hero:
+    dependency: "direct main"
+    description:
+      name: local_hero
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   location:
     dependency: "direct main"
     description:
@@ -835,6 +842,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  lottie:
+    dependency: "direct main"
+    description:
+      name: lottie
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   matcher:
     dependency: transitive
     description:
@@ -920,7 +934,7 @@ packages:
     source: hosted
     version: "0.3.3+2"
   path:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path
       url: "https://pub.dartlang.org"

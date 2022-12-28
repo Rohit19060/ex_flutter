@@ -9,14 +9,14 @@ List<String> images = [
   'assets/images/lasvegas.jpg',
 ];
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class CardStack extends StatefulWidget {
+  const CardStack({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<CardStack> createState() => _CardStackState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _CardStackState extends State<CardStack> {
   double currentPage = images.length - 1.0;
   PageController controller = PageController(initialPage: images.length - 1);
 

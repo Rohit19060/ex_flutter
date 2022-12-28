@@ -65,10 +65,9 @@ class _CharacterListingScreenState extends State<CharacterListingScreen> {
                     padding: const EdgeInsets.only(left: 32.0, top: 8.0),
                     child: RichText(
                       text: const TextSpan(children: [
-                        TextSpan(
-                            text: 'Despicable Me', style: AppTheme.display1),
+                        TextSpan(text: 'Despicable Me', style: display1),
                         TextSpan(text: '\n'),
-                        TextSpan(text: 'Characters', style: AppTheme.display2),
+                        TextSpan(text: 'Characters', style: display2),
                       ]),
                     ),
                   ),
@@ -100,10 +99,15 @@ class _CharacterListingScreenState extends State<CharacterListingScreen> {
 }
 
 class CharacterDetailScreen extends StatefulWidget {
-  const CharacterDetailScreen({super.key, required this.character});
-  final double _expandedBottomSheetBottomPosition = 0;
-  final double _collapsedBottomSheetBottomPosition = -250;
-  final double _completeCollapsedBottomSheetBottomPosition = -330;
+  const CharacterDetailScreen(
+      {super.key,
+      required this.character,
+      this.expandedBottomSheetBottomPosition = 0,
+      this.collapsedBottomSheetBottomPosition = -250,
+      this.completeCollapsedBottomSheetBottomPosition = -330});
+  final double expandedBottomSheetBottomPosition;
+  final double collapsedBottomSheetBottomPosition;
+  final double completeCollapsedBottomSheetBottomPosition;
   final Character character;
 
   @override
@@ -112,6 +116,12 @@ class CharacterDetailScreen extends StatefulWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(DiagnosticsProperty<Character>('character', character));
+    properties.add(DoubleProperty('completeCollapsedBottomSheetBottomPosition',
+        completeCollapsedBottomSheetBottomPosition));
+    properties.add(DoubleProperty('collapsedBottomSheetBottomPosition',
+        collapsedBottomSheetBottomPosition));
+    properties.add(DoubleProperty('expandedBottomSheetBottomPosition',
+        expandedBottomSheetBottomPosition));
   }
 }
 
@@ -154,10 +164,8 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen>
                     color: Colors.white.withOpacity(0.9),
                   ),
                   onPressed: () {
-                    setState(() {
-                      _bottomSheetBottomPosition =
-                          widget._completeCollapsedBottomSheetBottomPosition;
-                    });
+                    setState(() => _bottomSheetBottomPosition =
+                        widget.completeCollapsedBottomSheetBottomPosition);
                     Navigator.of(context).pop();
                   },
                 ),
@@ -183,11 +191,9 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen>
                         tag: 'name-${widget.character.name}',
                         child: Material(
                           color: Colors.transparent,
-                          child: Container(
-                            child: Text(
-                              widget.character.name,
-                              style: AppTheme.heading,
-                            ),
+                          child: Text(
+                            widget.character.name,
+                            style: heading,
                           ),
                         ),
                       ),
@@ -196,7 +202,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen>
                       padding: const EdgeInsets.fromLTRB(32.0, 0.0, 8.0, 32.0),
                       child: Text(
                         widget.character.description,
-                        style: AppTheme.subHeading,
+                        style: subHeading,
                       ),
                     ),
                   ],
@@ -210,7 +216,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen>
             bottom: _bottomSheetBottomPosition,
             left: 0,
             right: 0,
-            child: Container(
+            child: DecoratedBox(
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -229,8 +235,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen>
                       height: 80,
                       child: Text(
                         'Clips',
-                        style:
-                            AppTheme.subHeading.copyWith(color: Colors.black),
+                        style: subHeading.copyWith(color: Colors.black),
                       ),
                     ),
                   ),
@@ -247,21 +252,18 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen>
     );
   }
 
-  _onTap() {
-    setState(() {
-      _bottomSheetBottomPosition = isCollapsed
-          ? widget._expandedBottomSheetBottomPosition
-          : widget._collapsedBottomSheetBottomPosition;
-      isCollapsed = !isCollapsed;
-    });
-  }
+  void _onTap() => setState(() {
+        _bottomSheetBottomPosition = isCollapsed
+            ? widget.expandedBottomSheetBottomPosition
+            : widget.collapsedBottomSheetBottomPosition;
+        isCollapsed = !isCollapsed;
+      });
 
-  @override
   void afterFirstLayout(BuildContext context) {
     Future.delayed(const Duration(milliseconds: 500), () {
       setState(() {
         isCollapsed = true;
-        _bottomSheetBottomPosition = widget._collapsedBottomSheetBottomPosition;
+        _bottomSheetBottomPosition = widget.collapsedBottomSheetBottomPosition;
       });
     });
   }
@@ -356,44 +358,44 @@ const List<Character> characters = <Character>[
       ]),
 ];
 
-class AppTheme {
-  static const TextStyle display1 = TextStyle(
-    fontFamily: 'WorkSans',
-    color: Colors.black,
-    fontSize: 38,
-    fontWeight: FontWeight.w600,
-    letterSpacing: 1.2,
-  );
+const TextStyle display1 = TextStyle(
+  fontFamily: 'WorkSans',
+  color: Colors.black,
+  fontSize: 38,
+  fontWeight: FontWeight.w600,
+  letterSpacing: 1.2,
+);
 
-  static const TextStyle display2 = TextStyle(
-    fontFamily: 'WorkSans',
-    color: Colors.black,
-    fontSize: 32,
-    fontWeight: FontWeight.normal,
-    letterSpacing: 1.1,
-  );
+const TextStyle display2 = TextStyle(
+  fontFamily: 'WorkSans',
+  color: Colors.black,
+  fontSize: 32,
+  fontWeight: FontWeight.normal,
+  letterSpacing: 1.1,
+);
 
-  static final TextStyle heading = TextStyle(
-    fontFamily: 'WorkSans',
-    fontWeight: FontWeight.w900,
-    fontSize: 34,
-    color: Colors.white.withOpacity(0.8),
-    letterSpacing: 1.2,
-  );
+final TextStyle heading = TextStyle(
+  fontFamily: 'WorkSans',
+  fontWeight: FontWeight.w900,
+  fontSize: 34,
+  color: Colors.white.withOpacity(0.8),
+  letterSpacing: 1.2,
+);
 
-  static final TextStyle subHeading = TextStyle(
-    fontFamily: 'WorkSans',
-    fontWeight: FontWeight.w500,
-    fontSize: 24,
-    color: Colors.white.withOpacity(0.8),
-  );
-}
+final TextStyle subHeading = TextStyle(
+  fontFamily: 'WorkSans',
+  fontWeight: FontWeight.w500,
+  fontSize: 24,
+  color: Colors.white.withOpacity(0.8),
+);
 
 class CharacterWidget extends StatelessWidget {
-  const CharacterWidget(
-      {required this.character,
-      required this.pageController,
-      required this.currentPage});
+  const CharacterWidget({
+    super.key,
+    required this.character,
+    required this.pageController,
+    required this.currentPage,
+  });
   final Character character;
 
   final PageController pageController;
@@ -422,9 +424,7 @@ class CharacterWidget extends StatelessWidget {
           if (pageController.position.haveDimensions) {
             value = pageController.page! - currentPage;
             value = (1 - (value.abs() * 0.6)).clamp(0.0, 1.0);
-            if (currentPage == 1) print('value $value');
           }
-
           return Stack(
             children: <Widget>[
               Align(
@@ -468,17 +468,15 @@ class CharacterWidget extends StatelessWidget {
                       tag: 'name-${character.name}',
                       child: Material(
                         color: Colors.transparent,
-                        child: Container(
-                          child: Text(
-                            character.name,
-                            style: AppTheme.heading,
-                          ),
+                        child: Text(
+                          character.name,
+                          style: heading,
                         ),
                       ),
                     ),
                     Text(
                       'Tap to Read more',
-                      style: AppTheme.subHeading,
+                      style: subHeading,
                     ),
                   ],
                 ),
