@@ -87,7 +87,7 @@ dependencies:
   toast: ^0.3.0
   transparent_image: ^2.0.0
   tuple: ^2.0.1
-  url_launcher: ^6.1.6
+  url_launcher: ^6.1.7
   uuid: ^3.0.7
   vector_math: ^2.1.2
   web_socket_channel: ^2.2.0
