@@ -33,7 +33,7 @@ dependencies:
   flutter_circular_chart: ^0.1.0
   flutter_dotenv: ^5.0.2
   flutter_inset_box_shadow: ^1.0.8
-  flutter_local_notifications: ^12.0.3
+  flutter_local_notifications: ^13.0.0
   flutter_native_splash: ^2.2.16
   flutter_native_timezone: ^2.0.0
   flutter_riverpod: ^2.1.3
