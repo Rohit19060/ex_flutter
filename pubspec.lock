@@ -722,7 +722,7 @@ packages:
       name: in_app_purchase
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.8"
+    version: "3.1.0"
   in_app_purchase_android:
     dependency: transitive
     description:
@@ -743,7 +743,7 @@ packages:
       name: in_app_purchase_storekit
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.2"
+    version: "0.3.4"
   intl:
     dependency: "direct main"
     description:
