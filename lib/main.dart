@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'animated_button.dart';
+import 'shimmer_effect.dart';
 
 void main() => runApp(const MyApp());
 
@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         title: 'Flutter Experiments',
-        theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
-        home: const BottomBarNavigationPatternExample(),
+        theme: ThemeData(useMaterial3: true),
+        home: const ShimmerHome(),
       );
 }

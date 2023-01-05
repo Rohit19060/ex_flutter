@@ -3,19 +3,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) => MaterialApp(
-        title: 'Flutter Experiments',
-        theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
-        home: const Scaffold(body: AuthScreen()),
-      );
-}
-
 enum AuthMode { signUp, login }
 
 class AuthScreen extends StatelessWidget {
@@ -78,9 +65,7 @@ class AuthScreen extends StatelessWidget {
 }
 
 class AuthCard extends StatefulWidget {
-  const AuthCard({
-    super.key,
-  });
+  const AuthCard({super.key});
 
   @override
   State<AuthCard> createState() => _AuthCardState();
@@ -232,9 +217,7 @@ class _AuthCardState extends State<AuthCard>
                     }
                     return null;
                   },
-                  onSaved: (value) {
-                    _authData['email'] = value!;
-                  },
+                  onSaved: (value) => _authData['email'] = value!,
                 ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Password'),
@@ -278,9 +261,7 @@ class _AuthCardState extends State<AuthCard>
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 if (_isLoading)
                   const CircularProgressIndicator()
                 else
