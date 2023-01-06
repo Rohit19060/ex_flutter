@@ -35,7 +35,7 @@ class ThemeSelectionDot extends StatelessWidget {
         height: 4,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: isSelected ? AppColors.white : AppColors.white60,
+          color: isSelected ? white : Colors.white60,
         ),
       );
   @override

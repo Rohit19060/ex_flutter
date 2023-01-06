@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-import '../../constants/app_colors.dart';
 import '../../models/front_or_back_side.dart';
 import '../../models/task.dart';
 import '../add_task/add_task_navigator.dart';
@@ -57,17 +56,20 @@ class TasksGridState extends AnimationControllerState<TasksGrid> {
     widget.onAddOrEditTask?.call();
     // * Short delay to wait for the animations to complete
     await Future.delayed(const Duration(milliseconds: 200));
-    final appThemeData = AppTheme.of(context);
-    final frontOrBackSide = ref.read<FrontOrBackSide>(frontOrBackSideProvider);
-    // * then, show the Add Task page
-    await showCupertinoModalBottomSheet<void>(
-      context: context,
-      barrierColor: AppColors.black50,
-      builder: (_) => AppTheme(
-        data: appThemeData,
-        child: AddTaskNavigator(frontOrBackSide: frontOrBackSide),
-      ),
-    );
+    if (mounted) {
+      final appThemeData = AppTheme.of(context);
+      final frontOrBackSide =
+          ref.read<FrontOrBackSide>(frontOrBackSideProvider);
+      // * then, show the Add Task page
+      await showCupertinoModalBottomSheet<void>(
+        context: context,
+        barrierColor: Colors.black54,
+        builder: (_) => AppTheme(
+          data: appThemeData,
+          child: AddTaskNavigator(frontOrBackSide: frontOrBackSide),
+        ),
+      );
+    }
   }
 
   Future<void> _editTask(WidgetRef ref, Task task) async {
@@ -77,21 +79,24 @@ class TasksGridState extends AnimationControllerState<TasksGrid> {
     widget.onAddOrEditTask?.call();
     // * Short delay to wait for the animations to complete
     await Future.delayed(const Duration(milliseconds: 200));
-    final appThemeData = AppTheme.of(context);
-    final frontOrBackSide = ref.read<FrontOrBackSide>(frontOrBackSideProvider);
-    // * then, show the TaskDetailsPage
-    await showCupertinoModalBottomSheet<void>(
-      context: context,
-      barrierColor: AppColors.black50,
-      builder: (_) => AppTheme(
-        data: appThemeData,
-        child: TaskDetailsPage(
-          task: task,
-          isNewTask: false,
-          frontOrBackSide: frontOrBackSide,
+    if (mounted) {
+      final appThemeData = AppTheme.of(context);
+      final frontOrBackSide =
+          ref.read<FrontOrBackSide>(frontOrBackSideProvider);
+      // * then, show the TaskDetailsPage
+      await showCupertinoModalBottomSheet<void>(
+        context: context,
+        barrierColor: Colors.black54,
+        builder: (_) => AppTheme(
+          data: appThemeData,
+          child: TaskDetailsPage(
+            task: task,
+            isNewTask: false,
+            frontOrBackSide: frontOrBackSide,
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 
   @override

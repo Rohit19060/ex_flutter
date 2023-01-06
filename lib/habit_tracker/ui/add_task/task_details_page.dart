@@ -36,9 +36,7 @@ class TaskDetailsPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: AppTheme.of(context).secondary,
           leading: AppBarIconButton(
-            iconName: isNewTask
-                ? AppAssets.navigationBack
-                : AppAssets.navigationClose,
+            iconName: isNewTask ? navigationBack : navigationClose,
             onPressed: () => Navigator.of(context).pop(),
           ),
           title: Text(
@@ -111,7 +109,7 @@ class _ConfirmTaskContentsState extends ConsumerState<ConfirmTaskContents> {
         // * Note: here we can use ref.read because ref is a property of [ConsumerState]
         final dataStore = ref.read<HiveDataStore>(dataStoreProvider);
         // * Once the first task is added, we no longer need to show the onboarding screen
-        await dataStore.setDidAddFirstTask(true);
+        await dataStore.setDidAddFirstTask(value: true);
         await dataStore.saveTask(task, widget.frontOrBackSide);
         // * Pop back to HomePage, using `rootNavigator: true` to ensure we dismiss the entire navigation stack.
         if (mounted) {
@@ -142,15 +140,13 @@ class _ConfirmTaskContentsState extends ConsumerState<ConfirmTaskContents> {
       try {
         final dataStore = ref.read<HiveDataStore>(dataStoreProvider);
         // * No longer show [AddTaskItem] widget by default after a task is deleted for the first time
-        await dataStore.setAlwaysShowAddTask(false);
+        await dataStore.setAlwaysShowAddTask(value: false);
         await dataStore.deleteTask(widget.task, widget.frontOrBackSide);
         // * Pop back to HomePage, using `rootNavigator: true` to ensure we dismiss the entire navigation stack.
         if (mounted) {
           Navigator.of(context, rootNavigator: true).pop();
         }
-      } on Exception catch (e) {
-        // TODO: Proper error handling
-        print(e);
+      } on Exception {
         rethrow;
       }
     }
@@ -196,8 +192,8 @@ class _ConfirmTaskContentsState extends ConsumerState<ConfirmTaskContents> {
                 if (!widget.isNewTask) ...[
                   Container(height: 48),
                   TaskPresetListTile(
-                    taskPreset: const TaskPreset(
-                        name: 'Delete Task', iconName: AppAssets.delete),
+                    taskPreset:
+                        const TaskPreset(name: 'Delete Task', iconName: delete),
                     showChevron: false,
                     onPressed: (_) => _deleteTask(),
                   ),

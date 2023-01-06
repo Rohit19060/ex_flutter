@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 title: 'Flutter Login Screen UI Challenge',
                 theme: ThemeData(),
-                home: LoginScreen(),
+                home: const LoginScreen(),
               );
             },
           ));
@@ -56,10 +56,6 @@ class SizeConfig {
     imageSizeMultiplier = _blockWidth;
     heightMultiplier = _blockHeight;
     widthMultiplier = _blockWidth;
-
-    print(_blockWidth);
-    print(_blockHeight);
-    print(_screenWidth);
   }
 }
 
@@ -75,6 +71,8 @@ const BoxDecoration containerGradient = BoxDecoration(
 );
 
 class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;

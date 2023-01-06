@@ -8,47 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-void main() => runApp(const MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) => MaterialApp(
-        title: 'Image Cropper',
-        theme: ThemeData(
-          useMaterial3: true,
-          primarySwatch: Colors.blue,
-        ),
-        home: const ImageCropTemplate(),
-      );
-}
-
-class ShowFile extends StatelessWidget {
-  const ShowFile({super.key, this.file});
-  final File? file;
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        body: Center(child: Image.file(file!)),
-        floatingActionButton: FloatingActionButton(
-          onPressed: saveImage,
-        ),
-      );
-
-  Future<void> saveImage() async {
-    await getExternalStorageDirectories().then((value) {
-      final fileName = p.basename(file!.path);
-      file!.copy('${value!.first.path}/$fileName');
-    });
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<File?>('file', file));
-  }
-}
-
 enum AppState { select, crop, save }
 
 class ImageCropTemplate extends StatefulWidget {
@@ -188,5 +147,28 @@ class _ImageCropTemplateState extends State<ImageCropTemplate> {
     properties.add(DiagnosticsProperty<ImagePicker>('picker', picker));
     properties
         .add(DiagnosticsProperty<GlobalKey<CropState>>('cropKey', cropKey));
+  }
+}
+
+class ShowFile extends StatelessWidget {
+  const ShowFile({super.key, this.file});
+  final File? file;
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        body: Center(child: Image.file(file!)),
+        floatingActionButton: FloatingActionButton(onPressed: saveImage),
+      );
+
+  Future<void> saveImage() async {
+    await getExternalStorageDirectories().then((value) {
+      final fileName = p.basename(file!.path);
+      file!.copy('${value!.first.path}/$fileName');
+    });
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<File?>('file', file));
   }
 }

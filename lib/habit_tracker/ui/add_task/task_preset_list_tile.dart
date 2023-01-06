@@ -37,7 +37,7 @@ class TaskPresetListTile extends StatelessWidget {
               ),
               child: SvgPicture.asset(
                 taskPreset.iconName,
-                color: AppColors.white,
+                color: white,
                 width: 24,
                 height: 24,
               ),

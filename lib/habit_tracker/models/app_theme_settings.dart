@@ -14,7 +14,7 @@ class AppThemeSettings {
         variantIndex: side == FrontOrBackSide.front ? 0 : 2,
       );
   // Index used to reference one of the colors in AppColors
-  // Can range between 0 and AppColors.allColors.length - 1
+  // Can range between 0 and allColors.length - 1
   @HiveField(0)
   final int colorIndex;
 
@@ -34,7 +34,7 @@ class AppThemeSettings {
 
   // actual AppThemeData object to be used by widgets
   AppThemeData get themeData {
-    final variants = AppThemeVariants(AppColors.allSwatches[colorIndex]);
+    final variants = AppThemeVariants(allSwatches[colorIndex]);
     return variants.themes[variantIndex];
   }
 }

@@ -16,7 +16,7 @@ class OnboardingPage extends StatelessWidget {
   Future<void> _addTask(BuildContext context, AppThemeData appThemeData) async {
     await showCupertinoModalBottomSheet<void>(
       context: context,
-      barrierColor: AppColors.black50,
+      barrierColor: Colors.black54,
       builder: (_) => AppTheme(
         data: appThemeData,
         child: const AddTaskNavigator(frontOrBackSide: FrontOrBackSide.front),
@@ -31,7 +31,7 @@ class OnboardingPage extends StatelessWidget {
     // * This page only shows on app startup until the first task is added,
     // * so it's ok to choose a default swatch and app theme.
     // * The user will be able to customize this later.
-    const defaultColorSwatch = AppColors.red;
+    const defaultColorSwatch = red;
     final defaultAppThemeVariants = AppThemeVariants(defaultColorSwatch);
     final appThemeData = defaultAppThemeVariants.themes[0];
     return AppTheme(
@@ -45,7 +45,7 @@ class OnboardingPage extends StatelessWidget {
             children: [
               Text(
                 'Add a task to begin.',
-                style: TextStyles.heading.copyWith(color: AppColors.white),
+                style: TextStyles.heading.copyWith(color: white),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
@@ -57,7 +57,7 @@ class OnboardingPage extends StatelessWidget {
                   task: Task(
                     id: '',
                     name: 'Tap and hold\nto add a task',
-                    iconName: AppAssets.plus,
+                    iconName: plus,
                   ),
                   hasCompletedState: false,
                   onCompleted: (completed) => _addTask(context, appThemeData),

@@ -29,17 +29,16 @@ class _HomePageState extends State<HomePage> {
         children: [
           Expanded(
             flex: 3,
-            child: Container(
+            child: ColoredBox(
               color: Colors.pink.shade100,
               child: Center(
                   child: Stack(
                 children: [
                   Container(
-                      child: Container(
                     color: Colors.blue,
                     height: 50,
                     width: 50,
-                  ))
+                  )
                 ],
               )),
             ),

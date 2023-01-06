@@ -18,7 +18,7 @@ class AddTaskPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: AppTheme.of(context).secondary,
           leading: AppBarIconButton(
-            iconName: AppAssets.navigationClose,
+            iconName: navigationClose,
             // * Using `rootNavigator: true` to ensure we dismiss the entire navigation stack.
             // * Remember that we show this page inside [AddTaskNavigator],
             // * which already contains a [Navigator])
@@ -33,11 +33,13 @@ class AddTaskPage extends StatelessWidget {
           elevation: 0,
         ),
         backgroundColor: AppTheme.of(context).primary,
-        body: AddTaskContents(),
+        body: const AddTaskContents(),
       );
 }
 
 class AddTaskContents extends StatelessWidget {
+  const AddTaskContents({super.key});
+
   @override
   Widget build(BuildContext context) => CustomScrollView(
         slivers: [

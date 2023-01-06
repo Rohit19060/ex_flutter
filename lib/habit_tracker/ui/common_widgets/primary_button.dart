@@ -20,7 +20,7 @@ class PrimaryButton extends StatelessWidget {
           child: Text(
             title,
             style: TextStyles.heading.copyWith(
-              color: AppColors.white,
+              color: white,
             ),
           ),
         ),

@@ -92,7 +92,7 @@ class CustomTextFieldState extends State<CustomTextField> {
                 child: IconButton(
                   onPressed: () => widget.onSubmit?.call(text),
                   icon: const ChevronIcon(
-                    color: AppColors.white,
+                    color: white,
                   ),
                 ),
               ),

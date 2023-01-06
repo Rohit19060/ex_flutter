@@ -9,8 +9,24 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart';
 import 'package:path_provider/path_provider.dart';
 
-Future<dynamic> networkRequest({
-  required String url,
+class ResponseModel {
+  ResponseModel({
+    required this.status,
+    required this.message,
+    this.data,
+  });
+
+  final bool status;
+  final String message;
+  final dynamic data;
+
+  @override
+  String toString() =>
+      'ResponseModel{status: $status, message: $message, data: $data}';
+}
+
+Future<ResponseModel> networkRequest(
+  String url, {
   Map<String, String>? formData,
   bool isPost = false,
 }) async {
@@ -27,18 +43,15 @@ Future<dynamic> networkRequest({
     } else {
       response = await get(Uri.parse(url), headers: headers);
     }
-    return jsonDecode(response.body);
-  } on TimeoutException {
-    return {
-      'status': 'false',
-      'message': 'The connection has timed out, Please try again!'
-    };
-  } on SocketException {
-    debugPrint('No Internet connection! 😑');
-    return {'status': 'false', 'message': 'No Internet connection! 😑'};
+    return ResponseModel(
+        message: '', status: true, data: jsonDecode(response.body));
+  } on TimeoutException catch (e) {
+    return ResponseModel(message: e.message.toString(), status: false);
+  } on SocketException catch (e) {
+    return ResponseModel(message: e.message, status: false);
   } on Exception catch (e) {
-    debugPrint('Request Error: $e');
-    return {'status': 'false', 'message': 'Connection Problem! 😐'};
+    debugPrint(e.toString());
+    return ResponseModel(message: 'Connection Problem! 😐', status: false);
   }
 }
 

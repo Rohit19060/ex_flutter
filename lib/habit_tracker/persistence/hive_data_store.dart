@@ -49,15 +49,11 @@ class HiveDataStore {
     if (frontBox.isEmpty || force == true) {
       await frontBox.clear();
       await frontBox.addAll(frontTasks);
-    } else {
-      print('Box already has ${frontBox.length} items');
     }
     final backBox = Hive.box<models.Task>(backTasksBoxName);
     if (backBox.isEmpty || force == true) {
       await backBox.clear();
       await backBox.addAll(backTasks);
-    } else {
-      print('Box already has ${backBox.length} items');
     }
   }
 
@@ -150,7 +146,7 @@ class HiveDataStore {
   }
 
   // Did Add First Task
-  Future<void> setDidAddFirstTask(bool value) async {
+  Future<void> setDidAddFirstTask({required bool value}) async {
     final box = Hive.box<bool>(flagsBoxName);
     await box.put(didAddFirstTaskKey, value);
   }
@@ -165,7 +161,7 @@ class HiveDataStore {
   }
 
   // Always Show Add Task
-  Future<void> setAlwaysShowAddTask(bool value) async {
+  Future<void> setAlwaysShowAddTask({required bool value}) async {
     final box = Hive.box<bool>(flagsBoxName);
     await box.put(alwaysShowAddTaskKey, value);
   }

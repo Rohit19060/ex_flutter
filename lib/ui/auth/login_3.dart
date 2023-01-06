@@ -228,7 +228,7 @@ class DelayedAnimation extends StatefulWidget {
   final Widget child;
   final int delay;
   @override
-  _DelayedAnimationState createState() => _DelayedAnimationState();
+  State<DelayedAnimation> createState() => _DelayedAnimationState();
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);

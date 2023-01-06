@@ -23,7 +23,7 @@ class AnimatedTask extends StatefulWidget {
   final ValueChanged<bool>? onCompleted;
 
   @override
-  _AnimatedTaskState createState() =>
+  AnimationControllerState<AnimatedTask> createState() =>
       _AnimatedTaskState(const Duration(milliseconds: 750));
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -111,7 +111,7 @@ class _AnimatedTaskState extends AnimationControllerState<AnimatedTask> {
                 Positioned.fill(
                   child: CenteredSvgIcon(
                     iconName: hasCompleted && _showCheckIcon
-                        ? AppAssets.check
+                        ? check
                         : widget.iconName,
                     color: iconColor,
                   ),

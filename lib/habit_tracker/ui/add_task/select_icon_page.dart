@@ -17,7 +17,7 @@ class SelectIconPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: AppTheme.of(context).secondary,
           leading: AppBarIconButton(
-            iconName: AppAssets.navigationClose,
+            iconName: navigationClose,
             onPressed: () => Navigator.of(context).pop(),
           ),
           title: Text(
@@ -80,14 +80,14 @@ class _SelectIconGridState extends State<SelectIconGrid> {
           mainAxisSpacing: 20,
         ),
         itemBuilder: (context, index) {
-          final iconName = AppAssets.allTaskIcons[index];
+          final iconName = allTaskIcons[index];
           return SelectTaskIcon(
             iconName: iconName,
             isSelected: _selectedIconName == iconName,
             onPressed: () => _select(iconName),
           );
         },
-        itemCount: AppAssets.allTaskIcons.length,
+        itemCount: allTaskIcons.length,
       );
 }
 
@@ -116,7 +116,7 @@ class SelectTaskIcon extends StatelessWidget {
             iconName: iconName,
             color: isSelected
                 ? AppTheme.of(context).accentNegative
-                : AppColors.white,
+                : white,
           ),
         ),
       );

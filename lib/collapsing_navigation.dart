@@ -44,8 +44,8 @@ TextStyle listTitleSelectedTextStyle = const TextStyle(
   fontWeight: FontWeight.w600,
 );
 
-Color selectedColor = const Color(0xFF4AC8EA);
-Color drawerBackgroundColor = const Color(0xFF272D34);
+const Color selectedColor = Color(0xFF4AC8EA);
+const Color drawerBackgroundColor = Color(0xFF272D34);
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});
@@ -77,11 +77,9 @@ class CollapsingNavigation extends StatelessWidget {
           ),
           // drawer: CollapsingNavigationDrawer(),
           body: Stack(
-            children: <Widget>[
-              Container(
-                color: selectedColor,
-              ),
-              const CollapsingNavigationDrawer(),
+            children: const <Widget>[
+              ColoredBox(color: selectedColor),
+              CollapsingNavigationDrawer(),
             ],
           ),
         ),
@@ -90,6 +88,7 @@ class CollapsingNavigation extends StatelessWidget {
 
 class CollapsingListTile extends StatefulWidget {
   const CollapsingListTile({
+    super.key,
     required this.title,
     required this.iconData,
     required this.animationController,
@@ -103,7 +102,7 @@ class CollapsingListTile extends StatefulWidget {
   final Function()? onTap;
 
   @override
-  _CollapsingListTileState createState() => _CollapsingListTileState();
+  State<CollapsingListTile> createState() => _CollapsingListTileState();
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
@@ -183,7 +182,7 @@ class CollapsingNavigationDrawer extends StatefulWidget {
   const CollapsingNavigationDrawer({super.key});
 
   @override
-  _CollapsingNavigationDrawerState createState() =>
+  State<CollapsingNavigationDrawer> createState() =>
       _CollapsingNavigationDrawerState();
 }
 
@@ -219,7 +218,7 @@ class _CollapsingNavigationDrawerState extends State<CollapsingNavigationDrawer>
         builder: getWidget,
       );
 
-  Widget getWidget(context, widget) => Material(
+  Widget getWidget(BuildContext context, Widget? widget) => Material(
         elevation: 8.0,
         child: Container(
           width: _widthAnimation.value,

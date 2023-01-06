@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 
+import 'utilities/methods.dart';
+
 Future<void> main() async {
   await dotenv.load(fileName: 'lib/.env');
   runApp(
@@ -158,22 +160,6 @@ class _MainPageState extends State<MainPage> {
     properties.add(IterableProperty<GeoModel>('countryList', countryList));
     properties.add(DiagnosticsProperty<bool>('isLoading', isLoading));
   }
-}
-
-class ResponseModel {
-  ResponseModel({
-    required this.status,
-    required this.message,
-    this.data,
-  });
-
-  final bool status;
-  final String message;
-  final dynamic data;
-
-  @override
-  String toString() =>
-      'ResponseModel{status: $status, message: $message, data: $data}';
 }
 
 class GeoModel {

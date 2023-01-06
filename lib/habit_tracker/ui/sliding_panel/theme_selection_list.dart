@@ -39,8 +39,7 @@ class _ThemeSelectionListState extends State<ThemeSelectionList> {
   late final _controller = ScrollController(initialScrollOffset: scrollOffset);
 
   double get scrollOffset {
-    final contentWidth =
-        ThemeVariantPicker.itemSize * AppColors.allSwatches.length;
+    final contentWidth = ThemeVariantPicker.itemSize * allSwatches.length;
     final selectedIndex = widget.currentThemeSettings.colorIndex;
     final offset = ThemeVariantPicker.itemSize * selectedIndex -
         (widget.availableWidth / 2 - ThemeVariantPicker.itemSize / 2);
@@ -49,7 +48,7 @@ class _ThemeSelectionListState extends State<ThemeSelectionList> {
 
   @override
   Widget build(BuildContext context) {
-    final allColors = AppColors.allSwatches.map((swatch) => swatch[0]).toList();
+    final allColors = allSwatches.map((swatch) => swatch[0]).toList();
     return ListView(
       controller: _controller,
       scrollDirection: Axis.horizontal,
