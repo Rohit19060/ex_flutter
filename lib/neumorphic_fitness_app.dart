@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 Color textColor = const Color(0xff3E67D6);
-Color boxColor = const Color(0xFFEFF3FF);
+Color boxColor = const Color.fromARGB(255, 239, 243, 255);
 
 final kboxShadow = [
   const BoxShadow(

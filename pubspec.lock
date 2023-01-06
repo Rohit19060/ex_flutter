@@ -92,6 +92,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.0"
+  circle_nav_bar:
+    dependency: "direct main"
+    description:
+      name: circle_nav_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1+1"
   clock:
     dependency: transitive
     description:
@@ -197,6 +204,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.8"
+  delayed_display:
+    dependency: "direct main"
+    description:
+      name: delayed_display
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   device_info:
     dependency: transitive
     description:
@@ -1206,6 +1220,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  show_up_animation:
+    dependency: "direct main"
+    description:
+      name: show_up_animation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   simple_animations:
     dependency: "direct main"
     description:
@@ -1246,6 +1267,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.0+2"
+  square_percent_indicater:
+    dependency: "direct main"
+    description:
+      name: square_percent_indicater
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   stack_trace:
     dependency: transitive
     description:

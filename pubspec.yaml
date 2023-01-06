@@ -90,6 +90,10 @@ dependencies:
   flutter_circular_chart: ^0.1.0
   fl_chart: ^0.55.2
   flutter_sparkline: ^0.1.0
+  circle_nav_bar: ^2.0.1+1
+  show_up_animation: ^2.0.0
+  square_percent_indicater: ^0.1.0
+  delayed_display: ^2.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.1
