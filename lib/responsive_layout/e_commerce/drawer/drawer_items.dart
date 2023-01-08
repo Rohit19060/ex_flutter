@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../k_padding.dart';
-import 'badge.dart';
 
 class DrawerItems extends StatelessWidget {
   const DrawerItems({
@@ -60,7 +59,8 @@ class DrawerItems extends StatelessWidget {
                                   ),
                             ),
                             const Spacer(),
-                            if (number != 0) Badge(number: number)
+                            if (number != 0)
+                              Badge(label: Text(number.toString()))
                           ],
                         ),
                       ),

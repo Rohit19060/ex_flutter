@@ -12,7 +12,7 @@ class ECommerceDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         height: double.infinity,
-        padding: const EdgeInsets.only(top: kIsWeb ? kPadding : 0),
+        padding: const EdgeInsets.only(top: kIsWeb ? kPadding : 1),
         color: Theme.of(context).colorScheme.secondary,
         child: SafeArea(
           child: SingleChildScrollView(

@@ -97,11 +97,9 @@ class _OverlayBuilderState extends State<OverlayBuilder> {
     addToOverlay(overlayEntry!);
   }
 
-  Future<void> addToOverlay(OverlayEntry entry) async {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      Overlay.of(context)!.insert(entry);
-    });
-  }
+  Future<void> addToOverlay(OverlayEntry entry) async =>
+      SchedulerBinding.instance
+          .addPostFrameCallback((_) => Overlay.of(context).insert(entry));
 
   void hideOverlay() {
     overlayEntry?.remove();

@@ -1,24 +1,21 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class Badge extends StatelessWidget {
-  const Badge({
-    super.key,
-    required this.number,
-  });
+class CustomBadge extends StatelessWidget {
+  const CustomBadge({super.key, required this.number});
   final int number;
 
   @override
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-        decoration: BoxDecoration(
+        decoration: const ShapeDecoration(
           color: Colors.red,
-          borderRadius: BorderRadius.circular(9),
-          boxShadow: [
+          shape: StadiumBorder(),
+          shadows: [
             BoxShadow(
-              offset: const Offset(4, 4),
+              offset: Offset(4, 4),
               blurRadius: 5,
-              color: Colors.black.withOpacity(0.2),
+              color: Color.fromRGBO(22, 0, 0, 0.2),
             ),
           ],
         ),
