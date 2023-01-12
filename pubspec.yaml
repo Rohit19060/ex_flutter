@@ -14,10 +14,12 @@ dependencies:
   animations: ^2.0.7
   avatar_glow: ^2.0.2
   charts_flutter: ^0.12.0
+  circle_nav_bar: ^2.0.1+1
   cloud_firestore: ^4.3.1
   connectivity_plus: ^3.0.2
   csv: ^5.0.1
   date_format: ^2.0.7
+  delayed_display: ^2.0.0
   device_info_plus: ^8.0.0
   dio: ^4.0.6
   fading_edge_scrollview: ^3.0.0
@@ -81,8 +83,10 @@ dependencies:
   rxdart: ^0.27.7
   shared_preferences: ^2.0.15
   shimmer: ^2.0.0
+  show_up_animation: ^2.0.0
   simple_animations: ^5.0.0+2
   sqflite: ^2.2.2
+  square_percent_indicater: ^0.1.0
   timezone: ^0.9.1
   toast: ^0.3.0
   transparent_image: ^2.0.0
@@ -93,10 +97,6 @@ dependencies:
   web_socket_channel: ^2.2.0
   webdriver: ^3.0.1
   websafe_svg: ^2.1.2+7
-  circle_nav_bar: ^2.0.1+1
-  show_up_animation: ^2.0.0
-  square_percent_indicater: ^0.1.0
-  delayed_display: ^2.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.1

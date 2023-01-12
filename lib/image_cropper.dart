@@ -87,19 +87,19 @@ class _ImageCropTemplateState extends State<ImageCropTemplate> {
   Future<void> _openImage(BuildContext context) async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     final file = File(pickedFile!.path);
-    final sample = await ImageCrop.sampleImage(
-      file: file,
-      preferredSize: context.size?.longestSide.ceil(),
-    );
+    if (mounted) {
+      final sample = await ImageCrop.sampleImage(
+        file: file,
+        preferredSize: context.size?.longestSide.ceil(),
+      );
+      await _sample?.delete();
+      await _file?.delete();
 
-    await _sample?.delete();
-    await _file?.delete();
-
-    setState(() {
       _sample = sample;
       _file = file;
       appState = AppState.crop;
-    });
+      setState(() {});
+    }
   }
 
   Future<void> _cropImage(GlobalKey<CropState> cropKey) async {

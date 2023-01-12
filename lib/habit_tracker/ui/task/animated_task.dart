@@ -24,6 +24,7 @@ class AnimatedTask extends StatefulWidget {
 
   @override
   AnimationControllerState<AnimatedTask> createState() =>
+      // ignore: no_logic_in_create_state
       _AnimatedTaskState(const Duration(milliseconds: 750));
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

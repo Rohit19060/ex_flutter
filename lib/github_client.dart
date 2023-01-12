@@ -7,6 +7,7 @@ import 'package:fluttericon/octicons_icons.dart';
 import 'package:github/github.dart';
 import 'package:http/http.dart' as http;
 import 'package:oauth2/oauth2.dart' as oauth2;
+import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -282,7 +283,26 @@ class _RepositoriesListState extends State<RepositoriesList> {
                 title:
                     Text('${repository.owner?.login ?? ''}/${repository.name}'),
                 subtitle: Text(repository.description),
-                onTap: () => _launchUrl(context, repository.htmlUrl),
+                onTap: () async {
+                  final isLaunch = await canLaunchUrlString(repository.htmlUrl);
+                  if (isLaunch) {
+                    await launchUrlString(repository.htmlUrl);
+                  } else if (mounted) {
+                    return showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Navigation error'),
+                        content: Text('Could not launch $url'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: const Text('Close'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
               );
             },
             itemCount: repositories.length,
@@ -333,7 +353,27 @@ class _AssignedIssuesListState extends State<AssignedIssuesList> {
                 subtitle: Text('${_nameWithOwner(assignedIssue)} '
                     'Issue #${assignedIssue.number} '
                     'opened by ${assignedIssue.user?.login ?? ''}'),
-                onTap: () => _launchUrl(context, assignedIssue.htmlUrl),
+                onTap: () async {
+                  final isLaunch =
+                      await canLaunchUrlString(assignedIssue.htmlUrl);
+                  if (isLaunch) {
+                    await launchUrlString(assignedIssue.htmlUrl);
+                  } else if (mounted) {
+                    return showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Navigation error'),
+                        content: Text('Could not launch $url'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: const Text('Close'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
               );
             },
             itemCount: assignedIssues.length,
@@ -392,33 +432,31 @@ class _PullRequestsListState extends State<PullRequestsList> {
                     'PR #${pullRequest.number} '
                     'opened by ${pullRequest.user?.login ?? ''} '
                     '(${pullRequest.state?.toLowerCase() ?? ''})'),
-                onTap: () => _launchUrl(context, pullRequest.htmlUrl ?? ''),
+                onTap: () async {
+                  final isLaunch =
+                      await canLaunchUrlString(pullRequest.htmlUrl ?? '');
+                  if (isLaunch) {
+                    await launchUrlString(pullRequest.htmlUrl ?? '');
+                  } else if (mounted) {
+                    return showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Navigation error'),
+                        content: Text('Could not launch $url'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: const Text('Close'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
               );
             },
             itemCount: pullRequests.length,
           );
         },
       );
-}
-
-Future<void> _launchUrl(BuildContext context, String url) async {
-  if (await canLaunchUrlString(url)) {
-    await launchUrlString(url);
-  } else {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Navigation error'),
-        content: Text('Could not launch $url'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('Close'),
-          ),
-        ],
-      ),
-    );
-  }
 }

@@ -20,6 +20,25 @@ class AppThemeData {
     required this.inactiveThemePanelRing,
     required this.overlayStyle,
   });
+  AppThemeData.lerp(AppThemeData a, AppThemeData b, double t)
+      : primary = Color.lerp(a.primary, b.primary, t)!,
+        secondary = Color.lerp(a.secondary, b.secondary, t)!,
+        accent = Color.lerp(a.accent, b.accent, t)!,
+        accentNegative = Color.lerp(a.accentNegative, b.accentNegative, t)!,
+        taskRing = Color.lerp(a.taskRing, b.taskRing, t)!,
+        taskIcon = Color.lerp(a.taskIcon, b.taskIcon, t)!,
+        settingsText = Color.lerp(a.settingsText, b.settingsText, t)!,
+        settingsLabel = Color.lerp(a.settingsLabel, b.settingsLabel, t)!,
+        settingsCta = Color.lerp(a.settingsCta, b.settingsCta, t)!,
+        settingsListIconBackground = Color.lerp(
+            a.settingsListIconBackground, b.settingsListIconBackground, t)!,
+        settingsInactiveIconBackground = Color.lerp(
+            a.settingsInactiveIconBackground,
+            b.settingsInactiveIconBackground,
+            t)!,
+        inactiveThemePanelRing =
+            Color.lerp(a.inactiveThemePanelRing, b.inactiveThemePanelRing, t)!,
+        overlayStyle = t < 0.5 ? a.overlayStyle : b.overlayStyle;
   final Color primary;
   final Color secondary;
   final Color accent;
@@ -33,30 +52,6 @@ class AppThemeData {
   final Color settingsInactiveIconBackground;
   final Color inactiveThemePanelRing;
   final SystemUiOverlayStyle overlayStyle;
-
-  static AppThemeData lerp(AppThemeData a, AppThemeData b, double t) {
-    final overlayStyle = t < 0.5 ? a.overlayStyle : b.overlayStyle;
-    return AppThemeData(
-      primary: Color.lerp(a.primary, b.primary, t)!,
-      secondary: Color.lerp(a.secondary, b.secondary, t)!,
-      accent: Color.lerp(a.accent, b.accent, t)!,
-      accentNegative: Color.lerp(a.accentNegative, b.accentNegative, t)!,
-      taskRing: Color.lerp(a.taskRing, b.taskRing, t)!,
-      taskIcon: Color.lerp(a.taskIcon, b.taskIcon, t)!,
-      settingsText: Color.lerp(a.settingsText, b.settingsText, t)!,
-      settingsLabel: Color.lerp(a.settingsLabel, b.settingsLabel, t)!,
-      settingsCta: Color.lerp(a.settingsCta, b.settingsCta, t)!,
-      settingsListIconBackground: Color.lerp(
-          a.settingsListIconBackground, b.settingsListIconBackground, t)!,
-      settingsInactiveIconBackground: Color.lerp(
-          a.settingsInactiveIconBackground,
-          b.settingsInactiveIconBackground,
-          t)!,
-      inactiveThemePanelRing:
-          Color.lerp(a.inactiveThemePanelRing, b.inactiveThemePanelRing, t)!,
-      overlayStyle: overlayStyle,
-    );
-  }
 }
 
 // Class for reading AppThemeData via InheritedWidget

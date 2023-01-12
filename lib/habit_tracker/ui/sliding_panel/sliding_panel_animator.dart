@@ -15,6 +15,7 @@ class SlidingPanelAnimator extends StatefulWidget {
 
   @override
   SlidingPanelAnimatorState createState() =>
+      // ignore: no_logic_in_create_state
       SlidingPanelAnimatorState(const Duration(milliseconds: 200));
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

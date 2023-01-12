@@ -166,7 +166,7 @@ Future<ResponseModel> postRequestWithTokenFile({
   } on SocketException catch (e) {
     return ResponseModel(message: e.message, status: false);
   } on Exception catch (e) {
-    return ResponseModel(message: '${e.toString()} 😐', status: false);
+    return ResponseModel(message: '$e 😐', status: false);
   }
 }
 

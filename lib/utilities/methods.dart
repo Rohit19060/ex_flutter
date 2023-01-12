@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import '../firebase_phone_auth.dart';
 
 class ResponseModel {
   ResponseModel({
@@ -196,6 +199,41 @@ Future<String> downloadAndSaveFile(String url, String fileName) async {
   return filePath;
 }
 
+Future<bool> requestPermission(Permission permission) async {
+  if (await permission.isGranted) {
+    return true;
+  } else {
+    final result = await permission.request();
+    if (result == PermissionStatus.granted) {
+      return true;
+    }
+  }
+  return false;
+}
+
+Future<void> downloadFileToDownloads(String url, String name) async {
+  final directory = await getApplicationDocumentsDirectory();
+  final response = await get(Uri.parse(url));
+  final headers = response.headers;
+  final contentType = headers['content-type'];
+  final extension = contentType?.split('/').last;
+  final file = File('${directory.path}/$name.$extension');
+  file.writeAsBytesSync(response.bodyBytes);
+  try {
+    if (await requestPermission(Permission.accessMediaLocation)) {
+      final downloadDirectory = Directory('/storage/emulated/0/Download');
+      if (!downloadDirectory.existsSync()) {
+        downloadDirectory.createSync();
+      }
+      final newFile = File('${downloadDirectory.path}/$name.pdf');
+      await file.copy(newFile.path);
+      showToast('Downloaded to Download folder');
+    }
+  } on Exception catch (e) {
+    showToast(e.toString());
+  }
+}
+
 Future<DateTime> datePicker(BuildContext context) async {
   final data = await showDatePicker(
     context: context,
@@ -204,6 +242,10 @@ Future<DateTime> datePicker(BuildContext context) async {
     lastDate: DateTime(DateTime.now().year - 13),
   ).catchError((e) {
     debugPrint('Select Date Error: $e');
+    return null;
+  }).onError((error, stackTrace) {
+    debugPrint('Select Date Error: $error');
+    return null;
   });
   return data ?? DateTime.now();
 }
@@ -213,13 +255,13 @@ Future<TimeOfDay> timePicker(BuildContext context) async {
     context: context,
     initialTime: TimeOfDay.now(),
   ).catchError((e) {
-    debugPrint('Select Time Error: $e');
+    debugPrint('Select Date Error: $e');
+    return null;
+  }).onError((error, stackTrace) {
+    debugPrint('Select Date Error: $error');
+    return null;
   });
-  if (data != null) {
-    return data;
-  } else {
-    return TimeOfDay.now();
-  }
+  return data ?? TimeOfDay.now();
 }
 
 Future<void> singleActionDialog(
@@ -233,7 +275,7 @@ Future<void> singleActionDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         content: Text(text,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline6),
+            style: Theme.of(context).textTheme.titleLarge),
         actions: [
           OutlinedButton(
               style: ButtonStyle(
@@ -263,7 +305,7 @@ Future<void> doubleActionDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         content: Text(text,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.subtitle1),
+            style: Theme.of(context).textTheme.titleMedium),
         actions: [
           ElevatedButton(
               style: ButtonStyle(
@@ -302,7 +344,7 @@ Future<void> inputDialog(BuildContext context, String text,
             Text(
               text,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 10),
             TextFormField(
@@ -310,7 +352,7 @@ Future<void> inputDialog(BuildContext context, String text,
               decoration: InputDecoration(
                 labelText: 'Reason',
                 hintText: 'Enter Reason',
-                labelStyle: Theme.of(context).textTheme.subtitle1,
+                labelStyle: Theme.of(context).textTheme.titleMedium,
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
               ),

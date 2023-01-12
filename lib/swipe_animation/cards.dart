@@ -281,22 +281,28 @@ class _DraggableCardState extends State<DraggableCard>
 
   Future<void> _slideLeft() async {
     dragStart = await _chooseRandomDragStart();
-    slideOutTween =
-        Tween(begin: Offset.zero, end: Offset(-2 * context.size!.width, 0));
+    if (mounted) {
+      slideOutTween =
+          Tween(begin: Offset.zero, end: Offset(-2 * context.size!.width, 0));
+    }
     await slideOutAnimation.forward(from: 0);
   }
 
   Future<void> _slideRight() async {
     dragStart = await _chooseRandomDragStart();
-    slideOutTween =
-        Tween(begin: Offset.zero, end: Offset(2 * context.size!.width, 0));
+    if (mounted) {
+      slideOutTween =
+          Tween(begin: Offset.zero, end: Offset(2 * context.size!.width, 0));
+    }
     await slideOutAnimation.forward(from: 0);
   }
 
   Future<void> _slideUp() async {
     dragStart = await _chooseRandomDragStart();
-    slideOutTween =
-        Tween(begin: Offset.zero, end: Offset(0, -2 * context.size!.height));
+    if (mounted) {
+      slideOutTween =
+          Tween(begin: Offset.zero, end: Offset(0, -2 * context.size!.height));
+    }
     await slideOutAnimation.forward(from: 0);
   }
 

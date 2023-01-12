@@ -24,6 +24,7 @@ class TasksGrid extends StatefulWidget {
 
   @override
   AnimationControllerState<TasksGrid> createState() =>
+      // ignore: no_logic_in_create_state
       TasksGridState(const Duration(milliseconds: 200));
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

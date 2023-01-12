@@ -89,7 +89,6 @@ final ThemeData darkTheme = ThemeData(
     leadingPadding: const EdgeInsets.all(8),
     padding: const EdgeInsets.all(8),
   ),
-  bottomAppBarColor: kBackgroundColor,
   bottomAppBarTheme:
       const BottomAppBarTheme(color: kBackgroundColor, elevation: 4),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
