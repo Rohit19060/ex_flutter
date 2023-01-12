@@ -94,7 +94,7 @@ dependencies:
   url_launcher: ^6.1.7
   uuid: ^3.0.7
   vector_math: ^2.1.2
-  web_socket_channel: ^2.2.0
+  web_socket_channel: ^2.3.0
   webdriver: ^3.0.1
   websafe_svg: ^2.1.2+7
 
