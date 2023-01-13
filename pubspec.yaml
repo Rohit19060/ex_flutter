@@ -86,11 +86,11 @@ dependencies:
   platform_device_id: ^1.0.1
   provider: ^6.0.5
   rxdart: ^0.27.7
-  shared_preferences: ^2.0.15
+  shared_preferences: ^2.0.16
   shimmer: ^2.0.0
   show_up_animation: ^2.0.0
   simple_animations: ^5.0.0+2
-  sqflite: ^2.2.2
+  sqflite: ^2.2.3
   square_percent_indicater: ^0.1.0
   timezone: ^0.9.1
   toast: ^0.3.0
@@ -99,7 +99,7 @@ dependencies:
   url_launcher: ^6.1.7
   uuid: ^3.0.7
   vector_math: ^2.1.2
-  web_socket_channel: ^2.2.0
+  web_socket_channel: ^2.3.0
   webdriver: ^3.0.1
   websafe_svg: ^2.1.2+7
 
