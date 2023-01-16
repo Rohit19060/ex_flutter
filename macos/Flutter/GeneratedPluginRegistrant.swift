@@ -21,7 +21,7 @@ import package_info_plus
 import path_provider_macos
 import platform_device_id
 import platform_device_id_macos
-import shared_preferences_macos
+import shared_preferences_foundation
 import smart_auth
 import sqflite
 import url_launcher_macos
