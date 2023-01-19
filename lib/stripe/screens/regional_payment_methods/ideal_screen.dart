@@ -4,13 +4,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import 'package:stripe_example/widgets/example_scaffold.dart';
-import 'package:stripe_example/widgets/loading_button.dart';
 
 import '../../config.dart';
+import '../../widgets/example_scaffold.dart';
+import '../../widgets/loading_button.dart';
 
 class IdealScreen extends StatelessWidget {
-  const IdealScreen({Key? key}) : super(key: key);
+  const IdealScreen({super.key});
 
   Future<Map<String, dynamic>> _createPaymentIntent() async {
     final url = Uri.parse('$kApiUrl/create-payment-intent');
@@ -26,7 +26,7 @@ class IdealScreen extends StatelessWidget {
       }),
     );
 
-    return json.decode(response.body);
+    return json.decode(response.body) as Map<String, dynamic>;
   }
 
   Future<void> _pay(BuildContext context) async {
@@ -41,15 +41,15 @@ class IdealScreen extends StatelessWidget {
     // 2. use the client secret to confirm the payment and handle the result.
     try {
       await Stripe.instance.confirmPayment(
-        paymentIntentClientSecret: clientSecret,
-        data: PaymentMethodParams.ideal(
+        paymentIntentClientSecret: clientSecret.toString(),
+        data: const PaymentMethodParams.ideal(
           paymentMethodData:
               PaymentMethodDataIdeal(bankName: kIsWeb ? 'revolut' : null),
         ),
       );
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Payment succesfully completed'),
         ),
       );
@@ -64,7 +64,7 @@ class IdealScreen extends StatelessWidget {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Unforeseen error: ${e}'),
+            content: Text('Unforeseen error: $e'),
           ),
         );
       }
@@ -72,19 +72,17 @@ class IdealScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'Ideal',
-      tags: ['Payment method'],
-      padding: EdgeInsets.all(16),
-      children: [
-        LoadingButton(
-          onPressed: () async {
-            await _pay(context);
-          },
-          text: 'Pay',
-        ),
-      ],
-    );
-  }
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'Ideal',
+        tags: ['Payment method'],
+        padding: EdgeInsets.all(16),
+        children: [
+          LoadingButton(
+            onPressed: () async {
+              await _pay(context);
+            },
+            text: 'Pay',
+          ),
+        ],
+      );
 }

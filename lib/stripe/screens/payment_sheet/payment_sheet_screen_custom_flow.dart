@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import 'package:stripe_example/widgets/example_scaffold.dart';
-import 'package:stripe_example/widgets/loading_button.dart';
 
-import 'package:stripe_example/config.dart';
+import '../../config.dart';
+import '../../widgets/example_scaffold.dart';
+import '../../widgets/loading_button.dart';
 
 class PaymentSheetScreenWithCustomFlow extends StatefulWidget {
   @override
@@ -17,41 +18,39 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreenWithCustomFlow> {
   int step = 0;
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'Payment Sheet',
-      tags: ['Custom Flow'],
-      children: [
-        Stepper(
-          controlsBuilder: emptyControlBuilder,
-          currentStep: step,
-          steps: [
-            Step(
-              title: Text('Init payment'),
-              content: LoadingButton(
-                onPressed: initPaymentSheet,
-                text: 'Init payment sheet',
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'Payment Sheet',
+        tags: const ['Custom Flow'],
+        children: [
+          Stepper(
+            controlsBuilder: emptyControlBuilder,
+            currentStep: step,
+            steps: [
+              Step(
+                title: const Text('Init payment'),
+                content: LoadingButton(
+                  onPressed: initPaymentSheet,
+                  text: 'Init payment sheet',
+                ),
               ),
-            ),
-            Step(
-              title: Text('Select payment method'),
-              content: LoadingButton(
-                onPressed: presentPaymentSheet,
-                text: 'Select payment method',
+              Step(
+                title: const Text('Select payment method'),
+                content: LoadingButton(
+                  onPressed: presentPaymentSheet,
+                  text: 'Select payment method',
+                ),
               ),
-            ),
-            Step(
-              title: Text('Confirm payment'),
-              content: LoadingButton(
-                onPressed: confirmPayment,
-                text: 'Pay now',
+              Step(
+                title: const Text('Confirm payment'),
+                content: LoadingButton(
+                  onPressed: confirmPayment,
+                  text: 'Pay now',
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
+            ],
+          ),
+        ],
+      );
 
   Future<void> initPaymentSheet() async {
     try {
@@ -65,15 +64,15 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreenWithCustomFlow> {
           customFlow: true,
           // Main params
           merchantDisplayName: 'Flutter Stripe Store Demo',
-          paymentIntentClientSecret: data['paymentIntent'],
+          paymentIntentClientSecret: data['paymentIntent'] as String?,
           // Customer keys
-          customerEphemeralKeySecret: data['ephemeralKey'],
-          customerId: data['customer'],
+          customerEphemeralKeySecret: data['ephemeralKey'] as String?,
+          customerId: data['customer'] as String?,
           // Extra options
-          applePay: PaymentSheetApplePay(
+          applePay: const PaymentSheetApplePay(
             merchantCountryCode: 'DE',
           ),
-          googlePay: PaymentSheetGooglePay(merchantCountryCode: 'DE'),
+          googlePay: const PaymentSheetGooglePay(merchantCountryCode: 'DE'),
           style: ThemeMode.dark,
         ),
       );
@@ -98,7 +97,7 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreenWithCustomFlow> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Payment option selected'),
         ),
       );
@@ -112,7 +111,7 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreenWithCustomFlow> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Unforeseen error: ${e}'),
+            content: Text('Unforeseen error: $e'),
           ),
         );
       }
@@ -129,7 +128,7 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreenWithCustomFlow> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Payment succesfully completed'),
         ),
       );
@@ -143,7 +142,7 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreenWithCustomFlow> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Unforeseen error: ${e}'),
+            content: Text('Unforeseen error: $e'),
           ),
         );
       }
@@ -167,7 +166,13 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreenWithCustomFlow> {
       throw Exception('Error code: ${body['error']}');
     }
 
-    return body;
+    return body as Map<String, dynamic>;
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IntProperty('step', step));
   }
 }
 

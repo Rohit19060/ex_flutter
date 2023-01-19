@@ -1,12 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import 'package:stripe_example/config.dart';
-import 'package:stripe_example/screens/payment_sheet/payment_sheet_screen_custom_flow.dart';
-import 'package:stripe_example/widgets/example_scaffold.dart';
-import 'package:stripe_example/widgets/loading_button.dart';
+
+import '../../config.dart';
+import '../../screens/payment_sheet/payment_sheet_screen_custom_flow.dart';
+import '../../widgets/example_scaffold.dart';
+import '../../widgets/loading_button.dart';
 
 class PaymentSheetScreen extends StatefulWidget {
   @override
@@ -17,34 +19,32 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreen> {
   int step = 0;
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'Payment Sheet',
-      tags: ['Single Step'],
-      children: [
-        Stepper(
-          controlsBuilder: emptyControlBuilder,
-          currentStep: step,
-          steps: [
-            Step(
-              title: Text('Init payment'),
-              content: LoadingButton(
-                onPressed: initPaymentSheet,
-                text: 'Init payment sheet',
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'Payment Sheet',
+        tags: const ['Single Step'],
+        children: [
+          Stepper(
+            controlsBuilder: emptyControlBuilder,
+            currentStep: step,
+            steps: [
+              Step(
+                title: const Text('Init payment'),
+                content: LoadingButton(
+                  onPressed: initPaymentSheet,
+                  text: 'Init payment sheet',
+                ),
               ),
-            ),
-            Step(
-              title: Text('Confirm payment'),
-              content: LoadingButton(
-                onPressed: confirmPayment,
-                text: 'Pay now',
+              Step(
+                title: const Text('Confirm payment'),
+                content: LoadingButton(
+                  onPressed: confirmPayment,
+                  text: 'Pay now',
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
+            ],
+          ),
+        ],
+      );
 
   Future<Map<String, dynamic>> _createTestPaymentSheet() async {
     final url = Uri.parse('$kApiUrl/payment-sheet');
@@ -61,7 +61,7 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreen> {
     if (body['error'] != null) {
       throw Exception(body['error']);
     }
-    return body;
+    return body as Map<String, dynamic>;
   }
 
   Future<void> initPaymentSheet() async {
@@ -70,7 +70,7 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreen> {
       final data = await _createTestPaymentSheet();
 
       // create some billingdetails
-      final billingDetails = BillingDetails(
+      const billingDetails = BillingDetails(
         name: 'Flutter Stripe',
         email: 'email@stripe.com',
         phone: '+48888000888',
@@ -88,22 +88,23 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreen> {
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
           // Main params
-          paymentIntentClientSecret: data['paymentIntent'],
+          paymentIntentClientSecret: data['paymentIntent'] as String?,
           merchantDisplayName: 'Flutter Stripe Store Demo',
           // Customer params
-          customerId: data['customer'],
-          customerEphemeralKeySecret: data['ephemeralKey'],
+          customerId: data['customer'] as String?,
+          customerEphemeralKeySecret: data['ephemeralKey'] as String?,
+
           // Extra params
-          primaryButtonLabel: 'Pay now',
-          applePay: PaymentSheetApplePay(
+          // primaryButtonLabel: 'Pay now',
+          applePay: const PaymentSheetApplePay(
             merchantCountryCode: 'DE',
           ),
-          googlePay: PaymentSheetGooglePay(
+          googlePay: const PaymentSheetGooglePay(
             merchantCountryCode: 'DE',
             testEnv: true,
           ),
           style: ThemeMode.dark,
-          appearance: PaymentSheetAppearance(
+          appearance: const PaymentSheetAppearance(
             colors: PaymentSheetAppearanceColors(
               background: Colors.lightBlue,
               primary: Colors.blue,
@@ -148,7 +149,7 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreen> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Payment succesfully completed'),
         ),
       );
@@ -162,10 +163,16 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreen> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Unforeseen error: ${e}'),
+            content: Text('Unforeseen error: $e'),
           ),
         );
       }
     }
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IntProperty('step', step));
   }
 }

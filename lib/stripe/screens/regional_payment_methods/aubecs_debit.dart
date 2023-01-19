@@ -1,15 +1,16 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import 'package:stripe_example/widgets/example_scaffold.dart';
-import 'package:stripe_example/widgets/loading_button.dart';
 
 import '../../config.dart';
+import '../../widgets/example_scaffold.dart';
+import '../../widgets/loading_button.dart';
 
 class AubecsExample extends StatefulWidget {
-  const AubecsExample({Key? key}) : super(key: key);
+  const AubecsExample({super.key});
 
   @override
   State<AubecsExample> createState() => _AubecsExampleState();
@@ -39,37 +40,35 @@ class _AubecsExampleState extends State<AubecsExample> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'Aubecs',
-      tags: ['Aubecs'],
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      children: [
-        AubecsFormField(
-          controller: _controller,
-          style: AubecsFormStyle(
-            textColor: Colors.black,
-            placeholderColor: Colors.blueAccent,
-            backgroundColor: Colors.grey[400],
-            borderColor: Colors.green,
-            textErrorColor: Colors.red,
-            borderWidth: 3,
-            borderRadius: 8,
-            fontSize: 16,
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'Aubecs',
+        tags: const ['Aubecs'],
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        children: [
+          AubecsFormField(
+            controller: _controller,
+            style: AubecsFormStyle(
+              textColor: Colors.black,
+              placeholderColor: Colors.blueAccent,
+              backgroundColor: Colors.grey[400],
+              borderColor: Colors.green,
+              textErrorColor: Colors.red,
+              borderWidth: 3,
+              borderRadius: 8,
+              fontSize: 16,
+            ),
+            companyName: 'Flutter stripe',
           ),
-          companyName: 'Flutter stripe',
-        ),
-        LoadingButton(
-          text: 'Pay',
-          onPressed: _details != null
-              ? () async {
-                  await _pay(context);
-                }
-              : null,
-        ),
-      ],
-    );
-  }
+          LoadingButton(
+            text: 'Pay',
+            onPressed: _details != null
+                ? () async {
+                    await _pay(context);
+                  }
+                : null,
+          ),
+        ],
+      );
 
   Future<Map<String, dynamic>> _createPaymentIntent() async {
     final url = Uri.parse('$kApiUrl/create-payment-intent');
@@ -85,7 +84,7 @@ class _AubecsExampleState extends State<AubecsExample> {
       }),
     );
 
-    return json.decode(response.body);
+    return json.decode(response.body) as Map<String, dynamic>;
   }
 
   Future<void> _pay(BuildContext context) async {
@@ -100,14 +99,14 @@ class _AubecsExampleState extends State<AubecsExample> {
     // 2. use the client secret to confirm the payment and handle the result.
     try {
       await Stripe.instance.confirmPayment(
-        paymentIntentClientSecret: clientSecret,
+        paymentIntentClientSecret: clientSecret.toString(),
         data: PaymentMethodParams.aubecs(
           paymentMethodData: PaymentMethodDataAubecs(formDetails: _details!),
         ),
       );
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Payment succesfully completed'),
         ),
       );
@@ -121,10 +120,16 @@ class _AubecsExampleState extends State<AubecsExample> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Unforeseen error: ${e}'),
+            content: Text('Unforeseen error: $e'),
           ),
         );
       }
     }
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<bool>('isCompleted', isCompleted));
   }
 }

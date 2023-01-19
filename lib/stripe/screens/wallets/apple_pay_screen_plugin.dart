@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 import 'package:pay/pay.dart' as pay;
-import 'package:stripe_example/config.dart';
-import 'package:stripe_example/widgets/example_scaffold.dart';
+
+import '../../config.dart';
+import '../../widgets/example_scaffold.dart';
 
 const _paymentItems = [
   pay.PaymentItem(
@@ -38,35 +39,34 @@ class _ApplePayExternalPluginScreenState
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'Apple Pay',
-      padding: EdgeInsets.all(16),
-      tags: ['iOS', 'Pay plugin'],
-      children: [
-        pay.ApplePayButton(
-          paymentConfigurationAsset: 'apple_pay_payment_profile.json',
-          paymentItems: _paymentItems,
-          margin: const EdgeInsets.only(top: 15),
-          onPaymentResult: onApplePayResult,
-          loadingIndicator: const Center(
-            child: CircularProgressIndicator(),
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'Apple Pay',
+        padding: const EdgeInsets.all(16),
+        tags: const ['iOS', 'Pay plugin'],
+        children: [
+          pay.ApplePayButton(
+            paymentConfigurationAsset: 'apple_pay_payment_profile.json',
+            paymentItems: _paymentItems,
+            margin: const EdgeInsets.only(top: 15),
+            onPaymentResult: onApplePayResult,
+            loadingIndicator: const Center(
+              child: CircularProgressIndicator(),
+            ),
+            childOnError:
+                const Text('Apple Pay is not available in this device'),
+            onError: (e) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                      'There was an error while trying to perform the payment'),
+                ),
+              );
+            },
           ),
-          childOnError: Text('Apple Pay is not available in this device'),
-          onError: (e) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text(
-                    'There was an error while trying to perform the payment'),
-              ),
-            );
-          },
-        ),
-      ],
-    );
-  }
+        ],
+      );
 
-  Future<void> onApplePayResult(paymentResult) async {
+  Future<void> onApplePayResult(Map<String, dynamic> paymentResult) async {
     try {
       //debugPrint(paymentResult.toString());
       // 1. Get Stripe token from payment result
@@ -84,7 +84,7 @@ class _ApplePayExternalPluginScreenState
 
       // 3. Confirm Apple pay payment method
       await Stripe.instance.confirmPayment(
-        paymentIntentClientSecret: clientSecret,
+        paymentIntentClientSecret: clientSecret.toString(),
         data: params,
       );
 
@@ -113,6 +113,6 @@ class _ApplePayExternalPluginScreenState
         'request_three_d_secure': 'any',
       }),
     );
-    return json.decode(response.body);
+    return json.decode(response.body) as Map<String, dynamic>;
   }
 }

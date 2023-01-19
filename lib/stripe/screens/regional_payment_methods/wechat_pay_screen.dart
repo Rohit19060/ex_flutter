@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:stripe_example/widgets/example_scaffold.dart';
-import 'package:stripe_example/widgets/loading_button.dart';
+
+import '../../widgets/example_scaffold.dart';
+import '../../widgets/loading_button.dart';
 
 class WeChatPayScreen extends StatelessWidget {
-  const WeChatPayScreen({Key? key}) : super(key: key);
+  const WeChatPayScreen({super.key});
 
   // Future<Map<String, dynamic>> _createPaymentIntent() async {
   //   final url = Uri.parse('$kApiUrl/create-payment-intent');
@@ -49,7 +50,7 @@ class WeChatPayScreen extends StatelessWidget {
       // );
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Payment succesfully completed'),
         ),
       );
@@ -63,7 +64,7 @@ class WeChatPayScreen extends StatelessWidget {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Unforeseen error: ${e}'),
+            content: Text('Unforeseen error: $e'),
           ),
         );
       }
@@ -71,19 +72,17 @@ class WeChatPayScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'WeChat Pay',
-      tags: ['Payment method'],
-      padding: EdgeInsets.all(16),
-      children: [
-        LoadingButton(
-          onPressed: () async {
-            await _pay(context);
-          },
-          text: 'Pay',
-        ),
-      ],
-    );
-  }
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'WeChat Pay',
+        tags: const ['Payment method'],
+        padding: const EdgeInsets.all(16),
+        children: [
+          LoadingButton(
+            onPressed: () async {
+              await _pay(context);
+            },
+            text: 'Pay',
+          ),
+        ],
+      );
 }

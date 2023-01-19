@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import 'package:stripe_example/widgets/example_scaffold.dart';
+import '../../widgets/example_scaffold.dart';
 
 import '../../config.dart';
 
@@ -92,7 +92,7 @@ class _ApplePayScreenState extends State<ApplePayScreen> {
 
       // 2. fetch Intent Client Secret from backend
       final response = await fetchPaymentIntentClientSecret();
-      final clientSecret = response['clientSecret'];
+      final clientSecret = response['clientSecret'].toString();
 
       // 2. Confirm apple pay payment
       await Stripe.instance.confirmApplePayPayment(clientSecret);
@@ -121,6 +121,6 @@ class _ApplePayScreenState extends State<ApplePayScreen> {
         'request_three_d_secure': 'any',
       }),
     );
-    return json.decode(response.body);
+    return json.decode(response.body) as Map<String, dynamic>;
   }
 }

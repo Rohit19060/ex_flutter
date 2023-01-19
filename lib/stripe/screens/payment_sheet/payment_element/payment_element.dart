@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:stripe_example/config.dart';
-
 import 'package:http/http.dart' as http;
+
+import '../../../config.dart';
+import '../../../widgets/loading_button.dart';
 import 'platforms/payment_element.dart'
     if (dart.library.js) 'platforms/payment_element_web.dart';
-import 'package:stripe_example/widgets/loading_button.dart';
 
 class PaymentElementExample extends StatefulWidget {
   @override
@@ -40,22 +41,20 @@ class _ThemeCardExampleState extends State<PaymentElementExample> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Flutter App'),
-      ),
-      body: Column(
-        children: [
-          Container(
-              child: clientSecret != null
-                  ? PlatformPaymentElement(clientSecret)
-                  : Center(child: CircularProgressIndicator())),
-          LoadingButton(onPressed: pay, text: 'Pay'),
-        ],
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Flutter App'),
+        ),
+        body: Column(
+          children: [
+            Container(
+                child: clientSecret != null
+                    ? PlatformPaymentElement(clientSecret)
+                    : const Center(child: CircularProgressIndicator())),
+            const LoadingButton(onPressed: pay, text: 'Pay'),
+          ],
+        ),
+      );
 
   Future<String> createPaymentIntent() async {
     final url = Uri.parse('$kApiUrl/create-payment-intent');
@@ -71,6 +70,13 @@ class _ThemeCardExampleState extends State<PaymentElementExample> {
         'request_three_d_secure': 'any',
       }),
     );
-    return json.decode(response.body)['clientSecret'];
+    final x = json.decode(response.body) as Map<String, dynamic>;
+    return x['clientSecret'].toString();
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('clientSecret', clientSecret));
   }
 }

@@ -1,15 +1,17 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Card;
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import 'package:stripe_example/config.dart';
-import 'package:stripe_example/screens/payment_sheet/payment_sheet_screen_custom_flow.dart';
-import 'package:stripe_example/utils.dart';
-import 'package:stripe_example/widgets/example_scaffold.dart';
-import 'package:stripe_example/widgets/loading_button.dart';
-import 'package:stripe_example/widgets/response_card.dart';
+
+import '../../config.dart';
+import '../../screens/payment_sheet/payment_sheet_screen_custom_flow.dart';
+import '../../utils.dart';
+import '../../widgets/example_scaffold.dart';
+import '../../widgets/loading_button.dart';
+import '../../widgets/response_card.dart';
 
 class SetupFuturePaymentScreen extends StatefulWidget {
   @override
@@ -26,80 +28,80 @@ class _SetupFuturePaymentScreenState extends State<SetupFuturePaymentScreen> {
   int step = 0;
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'Setup Future Payment',
-      children: [
-        Padding(
-          padding: EdgeInsets.all(16),
-          child: TextFormField(
-            initialValue: _email,
-            decoration: InputDecoration(hintText: 'Email', labelText: 'Email'),
-            onChanged: (value) {
-              setState(() {
-                _email = value;
-              });
-            },
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(16),
-          child: CardField(
-            onCardChanged: (card) {
-              setState(() {
-                _card = card;
-              });
-            },
-          ),
-        ),
-        Stepper(
-          controlsBuilder: emptyControlBuilder,
-          currentStep: step,
-          steps: [
-            Step(
-              title: Text('Save card'),
-              content: LoadingButton(
-                onPressed: _card?.complete == true ? _handleSavePress : null,
-                text: 'Save',
-              ),
-            ),
-            Step(
-              title: Text('Pay with saved card'),
-              content: LoadingButton(
-                onPressed: _setupIntentResult != null
-                    ? _handleOffSessionPayment
-                    : null,
-                text: 'Pay with saved card off-session',
-              ),
-            ),
-            Step(
-              title: Text('[Extra] Recovery Flow - Authenticate payment'),
-              content: Column(
-                children: [
-                  Text(
-                      'If the payment did not succeed. Notify your customer to return to your application to complete the payment. We recommend creating a recovery flow in your app that shows why the payment failed initially and lets your customer retry.'),
-                  SizedBox(height: 8),
-                  LoadingButton(
-                    onPressed: _retrievedPaymentIntent != null
-                        ? _handleRecoveryFlow
-                        : null,
-                    text: 'Authenticate payment (recovery flow)',
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        if (_setupIntentResult != null)
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'Setup Future Payment',
+        children: [
           Padding(
-            padding: EdgeInsets.all(16),
-            child: ResponseCard(
-              response: _setupIntentResult!.toJson().toPrettyString(),
+            padding: const EdgeInsets.all(16),
+            child: TextFormField(
+              initialValue: _email,
+              decoration:
+                  const InputDecoration(hintText: 'Email', labelText: 'Email'),
+              onChanged: (value) {
+                setState(() {
+                  _email = value;
+                });
+              },
             ),
           ),
-      ],
-    );
-  }
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: CardField(
+              onCardChanged: (card) {
+                setState(() {
+                  _card = card;
+                });
+              },
+            ),
+          ),
+          Stepper(
+            controlsBuilder: emptyControlBuilder,
+            currentStep: step,
+            steps: [
+              Step(
+                title: const Text('Save card'),
+                content: LoadingButton(
+                  onPressed: _card?.complete == true ? _handleSavePress : null,
+                  text: 'Save',
+                ),
+              ),
+              Step(
+                title: const Text('Pay with saved card'),
+                content: LoadingButton(
+                  onPressed: _setupIntentResult != null
+                      ? _handleOffSessionPayment
+                      : null,
+                  text: 'Pay with saved card off-session',
+                ),
+              ),
+              Step(
+                title:
+                    const Text('[Extra] Recovery Flow - Authenticate payment'),
+                content: Column(
+                  children: [
+                    const Text(
+                        'If the payment did not succeed. Notify your customer to return to your application to complete the payment. We recommend creating a recovery flow in your app that shows why the payment failed initially and lets your customer retry.'),
+                    const SizedBox(height: 8),
+                    LoadingButton(
+                      onPressed: _retrievedPaymentIntent != null
+                          ? _handleRecoveryFlow
+                          : null,
+                      text: 'Authenticate payment (recovery flow)',
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          if (_setupIntentResult != null)
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: ResponseCard(
+                response: _setupIntentResult!.toJson().toPrettyString(),
+              ),
+            ),
+        ],
+      );
 
   Future<void> _handleSavePress() async {
     if (_card == null) {
@@ -110,8 +112,8 @@ class _SetupFuturePaymentScreenState extends State<SetupFuturePaymentScreen> {
       final clientSecret = await _createSetupIntentOnBackend(_email);
 
       // 2. Gather customer billing information (ex. email)
-      final billingDetails = BillingDetails(
-        name: "Test User",
+      const billingDetails = BillingDetails(
+        name: 'Test User',
         email: 'email@stripe.com',
         phone: '+48888000888',
         address: Address(
@@ -136,7 +138,7 @@ class _SetupFuturePaymentScreenState extends State<SetupFuturePaymentScreen> {
       );
       log('Setup Intent created $setupIntentResult');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
             'Success: Setup intent created.',
           ),
@@ -162,9 +164,9 @@ class _SetupFuturePaymentScreenState extends State<SetupFuturePaymentScreen> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
               'Error!: The payment could not be completed! ${res['error']}')));
-      await _handleRetrievePaymentIntent(res['clientSecret']);
+      await _handleRetrievePaymentIntent(res['clientSecret'].toString());
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Success!: The payment was confirmed successfully!')));
       setState(() {
         step = 2;
@@ -181,9 +183,8 @@ class _SetupFuturePaymentScreenState extends State<SetupFuturePaymentScreen> {
     final paymentIntent =
         await Stripe.instance.retrievePaymentIntent(clientSecret);
 
-    final paymentMethodId = paymentIntent.paymentMethodId == null
-        ? _setupIntentResult?.paymentMethodId
-        : paymentIntent.paymentMethodId;
+    final paymentMethodId =
+        paymentIntent.paymentMethodId ?? _setupIntentResult?.paymentMethodId;
 
     setState(() {
       _retrievedPaymentIntent =
@@ -203,7 +204,7 @@ class _SetupFuturePaymentScreenState extends State<SetupFuturePaymentScreen> {
         ),
       );
     }
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Success!: The payment was confirmed successfully!')));
   }
 
@@ -218,7 +219,7 @@ class _SetupFuturePaymentScreenState extends State<SetupFuturePaymentScreen> {
         'email': email,
       }),
     );
-    final Map<String, dynamic> bodyResponse = json.decode(response.body);
+    final bodyResponse = json.decode(response.body) as Map<String, dynamic>;
     final clientSecret = bodyResponse['clientSecret'] as String;
     log('Client token  $clientSecret');
 
@@ -234,6 +235,12 @@ class _SetupFuturePaymentScreenState extends State<SetupFuturePaymentScreen> {
       },
       body: json.encode({'email': _email}),
     );
-    return json.decode(response.body);
+    return json.decode(response.body) as Map<String, dynamic>;
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IntProperty('step', step));
   }
 }

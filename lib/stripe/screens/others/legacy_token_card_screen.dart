@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:stripe_example/utils.dart';
-import 'package:stripe_example/widgets/example_scaffold.dart';
-import 'package:stripe_example/widgets/loading_button.dart';
-import 'package:stripe_example/widgets/response_card.dart';
+
+import '../../utils.dart';
+import '../../widgets/example_scaffold.dart';
+import '../../widgets/loading_button.dart';
+import '../../widgets/response_card.dart';
 
 class LegacyTokenCardScreen extends StatefulWidget {
   @override
@@ -16,33 +18,31 @@ class _LegacyTokenCardScreenState extends State<LegacyTokenCardScreen> {
   TokenData? tokenData;
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'Create token for card',
-      tags: ['Legacy'],
-      padding: EdgeInsets.all(16),
-      children: [
-        CardField(
-          autofocus: true,
-          onCardChanged: (card) {
-            setState(() {
-              _card = card;
-            });
-          },
-        ),
-        SizedBox(height: 20),
-        LoadingButton(
-          onPressed: _card?.complete == true ? _handleCreateTokenPress : null,
-          text: 'Create token',
-        ),
-        SizedBox(height: 20),
-        if (tokenData != null)
-          ResponseCard(
-            response: tokenData!.toJson().toPrettyString(),
-          )
-      ],
-    );
-  }
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'Create token for card',
+        tags: const ['Legacy'],
+        padding: const EdgeInsets.all(16),
+        children: [
+          CardField(
+            autofocus: true,
+            onCardChanged: (card) {
+              setState(() {
+                _card = card;
+              });
+            },
+          ),
+          const SizedBox(height: 20),
+          LoadingButton(
+            onPressed: _card?.complete == true ? _handleCreateTokenPress : null,
+            text: 'Create token',
+          ),
+          const SizedBox(height: 20),
+          if (tokenData != null)
+            ResponseCard(
+              response: tokenData!.toJson().toPrettyString(),
+            )
+        ],
+      );
 
   Future<void> _handleCreateTokenPress() async {
     if (_card == null) {
@@ -51,7 +51,7 @@ class _LegacyTokenCardScreenState extends State<LegacyTokenCardScreen> {
 
     try {
       // 1. Gather customer billing information (ex. email)
-      final address = Address(
+      const address = Address(
         city: 'Houston',
         country: 'US',
         line1: '1459  Circle Drive',
@@ -67,7 +67,7 @@ class _LegacyTokenCardScreenState extends State<LegacyTokenCardScreen> {
       setState(() {
         this.tokenData = tokenData;
       });
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Success: The token was created successfully!')));
       return;
     } catch (e) {
@@ -75,5 +75,11 @@ class _LegacyTokenCardScreenState extends State<LegacyTokenCardScreen> {
           .showSnackBar(SnackBar(content: Text('Error: $e')));
       rethrow;
     }
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<TokenData?>('tokenData', tokenData));
   }
 }

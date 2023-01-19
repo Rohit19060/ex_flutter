@@ -1,20 +1,21 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:stripe_example/.env.dart';
-import 'package:stripe_example/widgets/example_scaffold.dart';
-import '../../config.dart';
-import 'platforms/stripe_checkout.dart'
-    if (dart.library.js) 'platforms/stripe_checkout_web.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import 'package:stripe_checkout/stripe_checkout.dart';
 import 'package:http/http.dart' as http;
+import 'package:stripe_checkout/stripe_checkout.dart';
+
+import '../../config.dart';
+import '../../env.dart';
+import '../../widgets/example_scaffold.dart';
+import 'platforms/stripe_checkout.dart'
+    if (dart.library.js) 'platforms/stripe_checkout_web.dart';
 
 class CheckoutScreenExample extends StatefulWidget {
-  CheckoutScreenExample({
-    Key? key,
-  }) : super(key: key);
+  const CheckoutScreenExample({
+    super.key,
+  });
 
   @override
   _CheckoutScreenExample createState() => _CheckoutScreenExample();
@@ -22,24 +23,22 @@ class CheckoutScreenExample extends StatefulWidget {
 
 class _CheckoutScreenExample extends State<CheckoutScreenExample> {
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'Checkout Page',
-      padding: EdgeInsets.all(16),
-      children: [
-        SizedBox(height: 120),
-        Center(
-          child: ElevatedButton(
-            onPressed: getCheckout,
-            child: Text('Open Checkout'),
-          ),
-        )
-      ],
-    );
-  }
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'Checkout Page',
+        padding: const EdgeInsets.all(16),
+        children: [
+          const SizedBox(height: 120),
+          Center(
+            child: ElevatedButton(
+              onPressed: getCheckout,
+              child: const Text('Open Checkout'),
+            ),
+          )
+        ],
+      );
 
   Future<void> getCheckout() async {
-    final String sessionId = await _createCheckoutSession();
+    final sessionId = await _createCheckoutSession();
     final result = await redirectToCheckout(
       context: context,
       sessionId: sessionId,
@@ -50,10 +49,10 @@ class _CheckoutScreenExample extends State<CheckoutScreenExample> {
 
     if (mounted) {
       final text = result.when(
-        success: () => 'Paid succesfully',
+        success: () => 'Paid successfully',
         canceled: () => 'Checkout canceled',
         error: (e) => 'Error $e',
-        redirected: () => 'Redirected succesfully',
+        redirected: () => 'Redirected successfully',
       );
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(text)),
@@ -72,7 +71,7 @@ class _CheckoutScreenExample extends State<CheckoutScreenExample> {
         if (kIsWeb) 'port': getUrlPort(),
       }),
     );
-    final Map<String, dynamic> bodyResponse = json.decode(response.body);
+    final bodyResponse = json.decode(response.body) as Map<String, dynamic>;
     final id = bodyResponse['id'] as String;
     log('Checkout session id $id');
     return id;

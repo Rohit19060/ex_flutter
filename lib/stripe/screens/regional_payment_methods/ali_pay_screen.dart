@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import 'package:stripe_example/widgets/example_scaffold.dart';
-import 'package:stripe_example/widgets/loading_button.dart';
 
 import '../../config.dart';
+import '../../widgets/example_scaffold.dart';
+import '../../widgets/loading_button.dart';
 
 class AliPayScreen extends StatelessWidget {
-  const AliPayScreen({Key? key}) : super(key: key);
+  const AliPayScreen({super.key});
 
   Future<Map<String, dynamic>> _createPaymentIntent() async {
     final url = Uri.parse('$kApiUrl/create-payment-intent');
@@ -25,7 +25,7 @@ class AliPayScreen extends StatelessWidget {
       }),
     );
 
-    return json.decode(response.body);
+    return json.decode(response.body) as Map<String, dynamic>;
   }
 
   Future<void> _pay(BuildContext context) async {
@@ -40,15 +40,15 @@ class AliPayScreen extends StatelessWidget {
     // 2. use the client secret to confirm the payment and handle the result.
     try {
       await Stripe.instance.confirmPayment(
-        paymentIntentClientSecret: clientSecret,
-        data: PaymentMethodParams.alipay(
-          paymentMethodData: const PaymentMethodData(),
+        paymentIntentClientSecret: clientSecret as String,
+        data: const PaymentMethodParams.alipay(
+          paymentMethodData: PaymentMethodData(),
         ),
       );
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Payment succesfully completed'),
+        const SnackBar(
+          content: Text('Payment successfully completed'),
         ),
       );
     } on Exception catch (e) {
@@ -61,7 +61,7 @@ class AliPayScreen extends StatelessWidget {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Unforeseen error: ${e}'),
+            content: Text('Unforeseen error: $e'),
           ),
         );
       }
@@ -69,19 +69,17 @@ class AliPayScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'AliPay',
-      tags: ['Payment method'],
-      padding: EdgeInsets.all(16),
-      children: [
-        LoadingButton(
-          onPressed: () async {
-            await _pay(context);
-          },
-          text: 'Pay',
-        ),
-      ],
-    );
-  }
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'AliPay',
+        tags: ['Payment method'],
+        padding: EdgeInsets.all(16),
+        children: [
+          LoadingButton(
+            onPressed: () async {
+              await _pay(context);
+            },
+            text: 'Pay',
+          ),
+        ],
+      );
 }

@@ -1,13 +1,15 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import 'package:stripe_example/config.dart';
-import 'package:stripe_example/utils.dart';
-import 'package:stripe_example/widgets/example_scaffold.dart';
-import 'package:stripe_example/widgets/loading_button.dart';
-import 'package:stripe_example/widgets/response_card.dart';
+
+import '../../config.dart';
+import '../../utils.dart';
+import '../../widgets/example_scaffold.dart';
+import '../../widgets/loading_button.dart';
+import '../../widgets/response_card.dart';
 
 class NoWebhookPaymentCardFormScreen extends StatefulWidget {
   @override
@@ -34,53 +36,51 @@ class _NoWebhookPaymentCardFormScreenState
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'Card Form',
-      tags: ['No Webhook'],
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      children: [
-        CardFormField(
-          controller: controller,
-          countryCode: 'US',
-          style: CardFormStyle(
-            borderColor: Colors.blueGrey,
-            textColor: Colors.black,
-            fontSize: 24,
-            placeholderColor: Colors.blue,
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'Card Form',
+        tags: const ['No Webhook'],
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        children: [
+          CardFormField(
+            controller: controller,
+            countryCode: 'US',
+            style: CardFormStyle(
+              borderColor: Colors.blueGrey,
+              textColor: Colors.black,
+              fontSize: 24,
+              placeholderColor: Colors.blue,
+            ),
           ),
-        ),
-        LoadingButton(
-          onPressed:
-              controller.details.complete == true ? _handlePayPress : null,
-          text: 'Pay',
-        ),
-        Divider(),
-        Padding(
-          padding: EdgeInsets.all(8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              OutlinedButton(
-                onPressed: () => controller.focus(),
-                child: Text('Focus'),
-              ),
-              SizedBox(width: 12),
-              OutlinedButton(
-                onPressed: () => controller.blur(),
-                child: Text('Blur'),
-              ),
-            ],
+          LoadingButton(
+            onPressed:
+                controller.details.complete == true ? _handlePayPress : null,
+            text: 'Pay',
           ),
-        ),
-        Divider(),
-        SizedBox(height: 20),
-        ResponseCard(
-          response: controller.details.toJson().toPrettyString(),
-        )
-      ],
-    );
-  }
+          const Divider(),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OutlinedButton(
+                  onPressed: controller.focus,
+                  child: const Text('Focus'),
+                ),
+                const SizedBox(width: 12),
+                OutlinedButton(
+                  onPressed: controller.blur,
+                  child: const Text('Blur'),
+                ),
+              ],
+            ),
+          ),
+          const Divider(),
+          const SizedBox(height: 20),
+          ResponseCard(
+            response: controller.details.toJson().toPrettyString(),
+          )
+        ],
+      );
 
   Future<void> _handlePayPress() async {
     if (!controller.details.complete) {
@@ -90,7 +90,7 @@ class _NoWebhookPaymentCardFormScreenState
     try {
       // 1. Gather customer billing information (ex. email)
 
-      final billingDetails = BillingDetails(
+      const billingDetails = BillingDetails(
         email: 'email@stripe.com',
         phone: '+48888000888',
         address: Address(
@@ -105,7 +105,7 @@ class _NoWebhookPaymentCardFormScreenState
 
       // 2. Create payment method
       final paymentMethod = await Stripe.instance.createPaymentMethod(
-          params: PaymentMethodParams.card(
+          params: const PaymentMethodParams.card(
         paymentMethodData: PaymentMethodData(
           billingDetails: billingDetails,
         ),
@@ -130,7 +130,7 @@ class _NoWebhookPaymentCardFormScreenState
           paymentIntentResult['requiresAction'] == null) {
         // Payment succedeed
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content:
                 Text('Success!: The payment was confirmed successfully!')));
         return;
@@ -140,7 +140,7 @@ class _NoWebhookPaymentCardFormScreenState
           paymentIntentResult['requiresAction'] == true) {
         // 4. if payment requires action calling handleNextAction
         final paymentIntent = await Stripe.instance
-            .handleNextAction(paymentIntentResult['clientSecret']);
+            .handleNextAction(paymentIntentResult['clientSecret'].toString());
 
         // todo handle error
         /*if (cardActionError) {
@@ -173,7 +173,7 @@ class _NoWebhookPaymentCardFormScreenState
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Error: ${result['error']}')));
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Success!: The payment was confirmed successfully!')));
     }
   }
@@ -189,7 +189,7 @@ class _NoWebhookPaymentCardFormScreenState
       },
       body: json.encode({'paymentIntentId': paymentIntentId}),
     );
-    return json.decode(response.body);
+    return json.decode(response.body) as Map<String, dynamic>;
   }
 
   Future<Map<String, dynamic>> callNoWebhookPayEndpointMethodId({
@@ -211,6 +211,13 @@ class _NoWebhookPaymentCardFormScreenState
         'items': items
       }),
     );
-    return json.decode(response.body);
+    return json.decode(response.body) as Map<String, dynamic>;
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+        DiagnosticsProperty<CardFormEditController>('controller', controller));
   }
 }

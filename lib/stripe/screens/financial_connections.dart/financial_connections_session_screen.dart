@@ -1,16 +1,17 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import 'package:stripe_example/widgets/example_scaffold.dart';
-import 'package:stripe_example/widgets/loading_button.dart';
 
 import '../../config.dart';
+import '../../widgets/example_scaffold.dart';
+import '../../widgets/loading_button.dart';
 import '../../widgets/response_card.dart';
 
 class FinancialConnectionsScreen extends StatefulWidget {
-  const FinancialConnectionsScreen({Key? key}) : super(key: key);
+  const FinancialConnectionsScreen({super.key});
 
   @override
   State<FinancialConnectionsScreen> createState() =>
@@ -36,7 +37,7 @@ class _FinancialConnectionsScreenState
       },
     );
 
-    return json.decode(response.body);
+    return json.decode(response.body) as Map<String, dynamic>;
   }
 
   Future<void> _collectAccount(BuildContext context) async {
@@ -44,7 +45,7 @@ class _FinancialConnectionsScreenState
     // 1. Make sure to create a financial connection session on the backend and
     // forward the client secret of the session to the app.
     final result = await _financialConnectionsSheet();
-    final clientSecret = await result['clientSecret'];
+    final clientSecret = result['clientSecret'].toString();
 
     // 2. use the client secret to confirm the payment and handle the result.
     try {
@@ -65,7 +66,7 @@ class _FinancialConnectionsScreenState
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Unforeseen error: ${e}'),
+            content: Text('Unforeseen error: $e'),
           ),
         );
       }
@@ -77,7 +78,7 @@ class _FinancialConnectionsScreenState
     // 1. Make sure to create a financial connection session on the backend and
     // forward the client secret of the session to the app.
     final result = await _financialConnectionsSheet();
-    final clientSecret = await result['clientSecret'];
+    final clientSecret = result['clientSecret'].toString();
 
     // 2. use the client secret to confirm the payment and handle the result.
     try {
@@ -98,7 +99,7 @@ class _FinancialConnectionsScreenState
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Unforeseen error: ${e}'),
+            content: Text('Unforeseen error: $e'),
           ),
         );
       }
@@ -106,28 +107,31 @@ class _FinancialConnectionsScreenState
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'Financial connections',
-      tags: ['Financial connections'],
-      padding: EdgeInsets.all(16),
-      children: [
-        LoadingButton(
-          onPressed: () async {
-            await _collectAccount(context);
-          },
-          text: 'Collect financial account',
-        ),
-        LoadingButton(
-          onPressed: () async {
-            await _collectBankToken(context);
-          },
-          text: 'Collect banktoken',
-        ),
-        Divider(),
-        SizedBox(height: 20),
-        ResponseCard(response: response),
-      ],
-    );
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'Financial connections',
+        tags: const ['Financial connections'],
+        padding: const EdgeInsets.all(16),
+        children: [
+          LoadingButton(
+            onPressed: () async {
+              await _collectAccount(context);
+            },
+            text: 'Collect financial account',
+          ),
+          LoadingButton(
+            onPressed: () async {
+              await _collectBankToken(context);
+            },
+            text: 'Collect bank token',
+          ),
+          const Divider(),
+          const SizedBox(height: 20),
+          ResponseCard(response: response),
+        ],
+      );
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('response', response));
   }
 }

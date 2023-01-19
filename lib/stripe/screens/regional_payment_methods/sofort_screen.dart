@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import 'package:stripe_example/widgets/example_scaffold.dart';
-import 'package:stripe_example/widgets/loading_button.dart';
+import '../../widgets/example_scaffold.dart';
+import '../../widgets/loading_button.dart';
 
 import '../../config.dart';
 
@@ -26,7 +26,7 @@ class SofortScreen extends StatelessWidget {
       }),
     );
 
-    return json.decode(response.body);
+    return json.decode(response.body) as Map<String, dynamic>;
   }
 
   Future<void> _pay(BuildContext context) async {
@@ -41,7 +41,7 @@ class SofortScreen extends StatelessWidget {
     // 2. use the client secret to confirm the payment and handle the result.
     try {
       await Stripe.instance.confirmPayment(
-        paymentIntentClientSecret: clientSecret,
+        paymentIntentClientSecret: clientSecret.toString(),
         data: PaymentMethodParams.sofort(
           paymentMethodData: PaymentMethodDataSofort(country: 'de'),
         ),

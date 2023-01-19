@@ -6,8 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 import 'package:pay/pay.dart' as pay;
-import 'package:stripe_example/config.dart';
-import 'package:stripe_example/widgets/example_scaffold.dart';
+
+import '../../config.dart';
+import '../../widgets/example_scaffold.dart';
 
 const _paymentItems = [
   pay.PaymentItem(
@@ -38,37 +39,35 @@ class _GooglePayScreenState extends State<GooglePayScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'Google Pay',
-      padding: EdgeInsets.all(16),
-      tags: ['Android', 'Pay plugin'],
-      children: [
-        pay.GooglePayButton(
-          paymentConfigurationAsset: 'google_pay_payment_profile.json',
-          paymentItems: _paymentItems,
-          margin: const EdgeInsets.only(top: 15),
-          onPaymentResult: onGooglePayResult,
-          loadingIndicator: const Center(
-            child: CircularProgressIndicator(),
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'Google Pay',
+        padding: EdgeInsets.all(16),
+        tags: ['Android', 'Pay plugin'],
+        children: [
+          pay.GooglePayButton(
+            paymentConfigurationAsset: 'google_pay_payment_profile.json',
+            paymentItems: _paymentItems,
+            margin: const EdgeInsets.only(top: 15),
+            onPaymentResult: onGooglePayResult,
+            loadingIndicator: const Center(
+              child: CircularProgressIndicator(),
+            ),
+            onPressed: () async {
+              // 1. Add your stripe publishable key to assets/google_pay_payment_profile.json
+              await debugChangedStripePublishableKey();
+            },
+            childOnError: Text('Google Pay is not available in this device'),
+            onError: (e) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                      'There was an error while trying to perform the payment'),
+                ),
+              );
+            },
           ),
-          onPressed: () async {
-            // 1. Add your stripe publishable key to assets/google_pay_payment_profile.json
-            await debugChangedStripePublishableKey();
-          },
-          childOnError: Text('Google Pay is not available in this device'),
-          onError: (e) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text(
-                    'There was an error while trying to perform the payment'),
-              ),
-            );
-          },
-        ),
-      ],
-    );
-  }
+        ],
+      );
 
   Future<void> onGooglePayResult(paymentResult) async {
     try {
@@ -77,15 +76,17 @@ class _GooglePayScreenState extends State<GooglePayScreen> {
       debugPrint(paymentResult.toString());
       // 2. fetch Intent Client Secret from backend
       final response = await fetchPaymentIntentClientSecret();
-      final clientSecret = response['clientSecret'];
-      final token =
-          paymentResult['paymentMethodData']['tokenizationData']['token'];
-      final tokenJson = Map.castFrom(json.decode(token));
+      final clientSecret = response['clientSecret'].toString();
+      final token = paymentResult['paymentMethodData']['tokenizationData']
+              ['token']
+          .toString();
+      final tokenJson =
+          Map.castFrom(json.decode(token) as Map<dynamic, dynamic>);
       print(tokenJson);
 
       final params = PaymentMethodParams.cardFromToken(
         paymentMethodData: PaymentMethodDataCardFromToken(
-          token: tokenJson['id'], // TODO extract the actual token
+          token: tokenJson['id'].toString(), // TODO extract the actual token
         ),
       );
 
@@ -120,7 +121,7 @@ class _GooglePayScreenState extends State<GooglePayScreen> {
         'request_three_d_secure': 'any',
       }),
     );
-    return json.decode(response.body);
+    return json.decode(response.body) as Map<String, dynamic>;
   }
 
   Future<void> debugChangedStripePublishableKey() async {

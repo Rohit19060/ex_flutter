@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import 'package:stripe_example/widgets/example_scaffold.dart';
-import 'package:stripe_example/widgets/loading_button.dart';
 
 import '../../config.dart';
+import '../../widgets/example_scaffold.dart';
+import '../../widgets/loading_button.dart';
 
 class UsBankAccountScreen extends StatefulWidget {
   @override
@@ -32,41 +33,39 @@ class _UsBankAccountScreenState extends State<UsBankAccountScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'ACH payment Us bank account',
-      tags: ['Payments'],
-      padding: EdgeInsets.all(16),
-      children: [
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Routing number',
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'ACH payment Us bank account',
+        tags: const ['Payments'],
+        padding: const EdgeInsets.all(16),
+        children: [
+          const SizedBox(height: 20),
+          TextField(
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Routing number',
+            ),
+            controller: _routingNumberController,
           ),
-          controller: _routingNumberController,
-        ),
-        SizedBox(height: 10),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Account number',
+          const SizedBox(height: 10),
+          TextField(
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Account number',
+            ),
+            controller: _accountController,
           ),
-          controller: _accountController,
-        ),
-        SizedBox(height: 10),
-        LoadingButton(
-          onPressed: _handlePayPress,
-          text: 'Pay',
-        ),
-      ],
-    );
-  }
+          const SizedBox(height: 10),
+          LoadingButton(
+            onPressed: _handlePayPress,
+            text: 'Pay',
+          ),
+        ],
+      );
 
   Future<void> _handlePayPress() async {
     try {
       // 1. Gather customer billing information (ex. email)
-      final billingDetails = BillingDetails(
+      const billingDetails = BillingDetails(
         name: 'Flutter Stipe',
         email: 'email@stripe.com',
         phone: '+48888000888',
@@ -92,7 +91,8 @@ class _UsBankAccountScreenState extends State<UsBankAccountScreen> {
 
       if (paymentIntentResult['clientSecret'] != null) {
         final intent = await Stripe.instance.confirmPayment(
-          paymentIntentClientSecret: paymentIntentResult['clientSecret'],
+          paymentIntentClientSecret:
+              paymentIntentResult['clientSecret'].toString(),
           data: PaymentMethodParams.usBankAccount(
               paymentMethodData: PaymentMethodDataUsBank(
             routingNumber: _routingNumberController.text,
@@ -115,11 +115,9 @@ class _UsBankAccountScreenState extends State<UsBankAccountScreen> {
       verifyWithMicroDeposits: (_, __, ___) {
         showDialog(
             context: context,
-            builder: (context) {
-              return _VerifyMicroDepositsDialog(
-                clientSecret: clientSecret,
-              );
-            });
+            builder: (context) => _VerifyMicroDepositsDialog(
+                  clientSecret: clientSecret,
+                ));
       },
       orElse: () {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -146,20 +144,22 @@ class _UsBankAccountScreenState extends State<UsBankAccountScreen> {
       }),
     );
 
-    return json.decode(response.body);
+    return json.decode(response.body) as Map<String, dynamic>;
   }
 }
 
 class _VerifyMicroDepositsDialog extends StatefulWidget {
-  const _VerifyMicroDepositsDialog({
-    required this.clientSecret,
-    Key? key,
-  }) : super(key: key);
+  const _VerifyMicroDepositsDialog({required this.clientSecret});
   final String clientSecret;
 
   @override
   State<_VerifyMicroDepositsDialog> createState() =>
       _VerifyMicroDepositsDialogState();
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('clientSecret', clientSecret));
+  }
 }
 
 class _VerifyMicroDepositsDialogState
@@ -204,7 +204,7 @@ class _VerifyMicroDepositsDialogState
           ));
 
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Account verified successfully')));
+          const SnackBar(content: Text('Account verified successfully')));
     } on Exception catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Error: $e')));
@@ -213,52 +213,51 @@ class _VerifyMicroDepositsDialogState
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Text('Enter the details of the micro deposits verification'),
-            SizedBox(height: 10),
-            TextField(
-              controller: _descriptorController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Descriptor',
+  Widget build(BuildContext context) => Dialog(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              const Text(
+                  'Enter the details of the micro deposits verification'),
+              const SizedBox(height: 10),
+              TextField(
+                controller: _descriptorController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Descriptor',
+                ),
               ),
-            ),
-            SizedBox(height: 10),
-            Text('As alternative enter the microdeposits'),
-            SizedBox(height: 10),
-            TextField(
-              keyboardType: TextInputType.number,
-              controller: _amount1Controller,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Microdeposit 1 value',
+              const SizedBox(height: 10),
+              const Text('As alternative enter the microdeposits'),
+              const SizedBox(height: 10),
+              TextField(
+                keyboardType: TextInputType.number,
+                controller: _amount1Controller,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Microdeposit 1 value',
+                ),
               ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: _amount2Controller,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Microdeposit 1 value',
+              const SizedBox(height: 10),
+              TextField(
+                controller: _amount2Controller,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Microdeposit 1 value',
+                ),
               ),
-            ),
-            SizedBox(height: 10),
-            LoadingButton(
-              onPressed: () async {
-                await verifyIntentWithMicroDeposit();
-                Navigator.of(context).pop();
-              },
-              text: 'Confirm',
-            ),
-          ],
+              const SizedBox(height: 10),
+              LoadingButton(
+                onPressed: () async {
+                  await verifyIntentWithMicroDeposit();
+                  Navigator.of(context).pop();
+                },
+                text: 'Confirm',
+              ),
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

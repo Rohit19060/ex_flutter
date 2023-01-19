@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import 'package:stripe_example/widgets/example_scaffold.dart';
-import 'package:stripe_example/widgets/loading_button.dart';
 
 import '../../config.dart';
+import '../../widgets/example_scaffold.dart';
+import '../../widgets/loading_button.dart';
 
 class FpxScreen extends StatelessWidget {
-  const FpxScreen({Key? key}) : super(key: key);
+  const FpxScreen({super.key});
 
   Future<Map<String, dynamic>> _createPaymentIntent() async {
     final url = Uri.parse('$kApiUrl/create-payment-intent');
@@ -25,7 +25,7 @@ class FpxScreen extends StatelessWidget {
       }),
     );
 
-    return json.decode(response.body);
+    return json.decode(response.body) as Map<String, dynamic>;
   }
 
   Future<void> _pay(BuildContext context) async {
@@ -40,8 +40,8 @@ class FpxScreen extends StatelessWidget {
     // 2. use the client secret to confirm the payment and handle the result.
     try {
       await Stripe.instance.confirmPayment(
-        paymentIntentClientSecret: clientSecret,
-        data: PaymentMethodParams.fpx(
+        paymentIntentClientSecret: clientSecret.toString(),
+        data: const PaymentMethodParams.fpx(
           paymentMethodData: PaymentMethodDataFpx(
             testOfflineBank: false,
           ),
@@ -49,7 +49,7 @@ class FpxScreen extends StatelessWidget {
       );
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Payment succesfully completed'),
         ),
       );
@@ -63,7 +63,7 @@ class FpxScreen extends StatelessWidget {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Unforeseen error: ${e}'),
+            content: Text('Unforeseen error: $e'),
           ),
         );
       }
@@ -71,19 +71,17 @@ class FpxScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'FPX',
-      tags: ['Payment method'],
-      padding: EdgeInsets.all(16),
-      children: [
-        LoadingButton(
-          onPressed: () async {
-            await _pay(context);
-          },
-          text: 'Pay',
-        ),
-      ],
-    );
-  }
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'FPX',
+        tags: ['Payment method'],
+        padding: EdgeInsets.all(16),
+        children: [
+          LoadingButton(
+            onPressed: () async {
+              await _pay(context);
+            },
+            text: 'Pay',
+          ),
+        ],
+      );
 }

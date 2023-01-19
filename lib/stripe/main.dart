@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:stripe_example/.env.dart';
+
+import 'env.dart';
 import 'screens/screens.dart';
 import 'widgets/dismiss_focus_overlay.dart';
 
@@ -14,18 +15,15 @@ void main() async {
 }
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return DismissFocusOverlay(
-      child: MaterialApp(
-        theme: exampleAppTheme,
-        home: HomePage(),
-        navigatorObservers: [],
-      ),
-    );
-  }
+  Widget build(BuildContext context) => DismissFocusOverlay(
+        child: MaterialApp(
+          theme: exampleAppTheme,
+          home: HomePage(),
+        ),
+      );
 }
 
 class HomePage extends StatefulWidget {
@@ -40,26 +38,24 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Stripe Examples'),
-      ),
-      body: ListView(children: [
-        ...ListTile.divideTiles(
-          context: context,
-          tiles: [for (final example in Example.screens) example],
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Stripe Examples'),
         ),
-      ]),
-    );
-  }
+        body: ListView(children: [
+          ...ListTile.divideTiles(
+            context: context,
+            tiles: [for (final example in Example.screens) example],
+          ),
+        ]),
+      );
 }
 
 final exampleAppTheme = ThemeData(
-  colorScheme: ColorScheme.light(
+  colorScheme: const ColorScheme.light(
     primary: Color(0xff6058F7),
     secondary: Color(0xff6058F7),
   ),
   primaryColor: Colors.white,
-  appBarTheme: AppBarTheme(elevation: 1),
+  appBarTheme: const AppBarTheme(elevation: 1),
 );

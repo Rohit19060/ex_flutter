@@ -5,11 +5,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import 'package:stripe_example/config.dart';
-import 'package:stripe_example/widgets/example_scaffold.dart';
+
+import '../../config.dart';
+import '../../widgets/example_scaffold.dart';
 
 class GooglePayStripeScreen extends StatefulWidget {
-  const GooglePayStripeScreen({Key? key}) : super(key: key);
+  const GooglePayStripeScreen({super.key});
 
   @override
   _GooglePayStripeScreenState createState() => _GooglePayStripeScreenState();
@@ -18,17 +19,17 @@ class GooglePayStripeScreen extends StatefulWidget {
 class _GooglePayStripeScreenState extends State<GooglePayStripeScreen> {
   Future<void> startGooglePay() async {
     final googlePaySupported = await Stripe.instance
-        .isGooglePaySupported(IsGooglePaySupportedParams());
+        .isGooglePaySupported(const IsGooglePaySupportedParams());
     if (googlePaySupported) {
       try {
         // 1. fetch Intent Client Secret from backend
         final response = await fetchPaymentIntentClientSecret();
-        final clientSecret = response['clientSecret'];
+        final clientSecret = response['clientSecret'].toString();
 
         // 2.present google pay sheet
-        await Stripe.instance.initGooglePay(GooglePayInitParams(
+        await Stripe.instance.initGooglePay(const GooglePayInitParams(
             testEnv: true,
-            merchantName: "Example Merchant Name",
+            merchantName: 'Example Merchant Name',
             countryCode: 'us'));
 
         await Stripe.instance.presentGooglePay(
@@ -37,7 +38,7 @@ class _GooglePayStripeScreenState extends State<GooglePayStripeScreen> {
 
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-              content: Text('Google Pay payment succesfully completed')),
+              content: Text('Google Pay payment successfully completed')),
         );
       } catch (e) {
         log('Error during google pay',
@@ -48,7 +49,8 @@ class _GooglePayStripeScreenState extends State<GooglePayStripeScreen> {
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Google pay is not supported on this device')),
+        const SnackBar(
+            content: Text('Google pay is not supported on this device')),
       );
     }
   }
@@ -66,28 +68,24 @@ class _GooglePayStripeScreenState extends State<GooglePayStripeScreen> {
         'request_three_d_secure': 'any',
       }),
     );
-    return json.decode(response.body);
+    return json.decode(response.body) as Map<String, dynamic>;
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'Google Pay',
-      tags: ['Android'],
-      padding: EdgeInsets.all(16),
-      children: [
-        if (defaultTargetPlatform == TargetPlatform.android)
-          SizedBox(
-            height: 75,
-            child: GooglePayButton(
-              onTap: () {
-                startGooglePay();
-              },
-            ),
-          )
-        else
-          Text('Google Pay is not available in this device'),
-      ],
-    );
-  }
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'Google Pay',
+        tags: const ['Android'],
+        padding: const EdgeInsets.all(16),
+        children: [
+          if (defaultTargetPlatform == TargetPlatform.android)
+            SizedBox(
+              height: 75,
+              child: GooglePayButton(
+                onTap: startGooglePay,
+              ),
+            )
+          else
+            const Text('Google Pay is not available in this device'),
+        ],
+      );
 }

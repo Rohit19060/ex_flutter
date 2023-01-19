@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:stripe_example/utils.dart';
-import 'package:stripe_example/widgets/example_scaffold.dart';
-import 'package:stripe_example/widgets/loading_button.dart';
-import 'package:stripe_example/widgets/response_card.dart';
+
+import '../../utils.dart';
+import '../../widgets/example_scaffold.dart';
+import '../../widgets/loading_button.dart';
+import '../../widgets/response_card.dart';
 
 class LegacyTokenBankScreen extends StatefulWidget {
   @override
@@ -27,32 +29,30 @@ class _LegacyTokenBankScreenState extends State<LegacyTokenBankScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'Create token for bank',
-      tags: ['Legacy'],
-      padding: EdgeInsets.all(16),
-      children: [
-        TextField(
-          controller: _controller,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Accountnumber',
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'Create token for bank',
+        tags: const ['Legacy'],
+        padding: const EdgeInsets.all(16),
+        children: [
+          TextField(
+            controller: _controller,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Accountnumber',
+            ),
           ),
-        ),
-        SizedBox(height: 20),
-        LoadingButton(
-          onPressed: _handleCreateTokenPress,
-          text: 'Create token',
-        ),
-        SizedBox(height: 20),
-        if (tokenData != null)
-          ResponseCard(
-            response: tokenData!.toJson().toPrettyString(),
-          )
-      ],
-    );
-  }
+          const SizedBox(height: 20),
+          LoadingButton(
+            onPressed: _handleCreateTokenPress,
+            text: 'Create token',
+          ),
+          const SizedBox(height: 20),
+          if (tokenData != null)
+            ResponseCard(
+              response: tokenData!.toJson().toPrettyString(),
+            )
+        ],
+      );
 
   Future<void> _handleCreateTokenPress() async {
     try {
@@ -71,7 +71,7 @@ class _LegacyTokenBankScreenState extends State<LegacyTokenBankScreen> {
       setState(() {
         this.tokenData = tokenData;
       });
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Success: The token was created successfully!')));
       return;
     } catch (e) {
@@ -79,5 +79,11 @@ class _LegacyTokenBankScreenState extends State<LegacyTokenBankScreen> {
           .showSnackBar(SnackBar(content: Text('Error: $e')));
       rethrow;
     }
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<TokenData?>('tokenData', tokenData));
   }
 }
