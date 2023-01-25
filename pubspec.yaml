@@ -98,7 +98,7 @@ dependencies:
   tuple: ^2.0.1
   url_launcher: ^6.1.7
   uuid: ^3.0.7
-  vector_math: ^2.1.2
+  vector_math: ^2.1.4
   web_socket_channel: ^2.3.0
   webdriver: ^3.0.2
   websafe_svg: ^2.1.2+7
