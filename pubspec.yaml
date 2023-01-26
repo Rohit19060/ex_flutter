@@ -82,7 +82,7 @@ dependencies:
   paytm_allinonesdk: ^1.2.1
   permission_handler: ^10.2.0
   pie_chart: ^5.3.2
-  pinput: ^2.2.21
+  pinput: ^2.2.23
   platform_device_id: ^1.0.1
   provider: ^6.0.5
   rxdart: ^0.27.7
