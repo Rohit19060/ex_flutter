@@ -57,7 +57,7 @@ dependencies:
   google_fonts: ^3.0.1
   google_maps_flutter: ^2.2.3
   google_ml_vision: ^0.0.8
-  google_sign_in: ^5.4.3
+  google_sign_in: ^5.4.4
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   http: ^0.13.5
