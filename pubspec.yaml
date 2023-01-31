@@ -34,7 +34,7 @@ dependencies:
   firebase_database: ^10.0.9
   firebase_messaging: ^14.2.1
   firebase_storage: ^11.0.10
-  fl_chart: ^0.55.2
+  fl_chart: ^0.60.0
   flutter:
     sdk: flutter
   flutter_circular_chart: ^0.1.0
