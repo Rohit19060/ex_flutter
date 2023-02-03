@@ -9,8 +9,8 @@ environment:
   sdk: ">=2.18.2 <3.0.0"
 
 dependencies:
-  flutter_stripe: ^7.0.0
-  flutter_stripe_web: ^2.1.1
+  flutter_stripe: ^8.0.0+1
+  flutter_stripe_web: ^3.0.0
   stripe_checkout: ^1.0.0
   pay: ^1.1.0
   platform: ^3.0.0
