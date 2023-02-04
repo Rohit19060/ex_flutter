@@ -399,7 +399,7 @@ packages:
       name: fl_chart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.55.2"
+    version: "0.60.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -521,14 +521,14 @@ packages:
       name: flutter_stripe
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.0"
+    version: "8.0.0+1"
   flutter_stripe_web:
     dependency: "direct main"
     description:
       name: flutter_stripe_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.1"
+    version: "3.0.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -580,14 +580,14 @@ packages:
       name: github
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "9.8.0"
+    version: "9.9.0"
   go_router:
     dependency: "direct main"
     description:
       name: go_router
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.1"
+    version: "6.0.3"
   google_fonts:
     dependency: "direct main"
     description:
@@ -1376,7 +1376,7 @@ packages:
       name: stripe_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.1"
+    version: "8.0.0"
   stripe_checkout:
     dependency: "direct main"
     description:
@@ -1390,7 +1390,7 @@ packages:
       name: stripe_ios
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.0"
+    version: "8.0.0"
   stripe_js:
     dependency: transitive
     description:
@@ -1404,7 +1404,7 @@ packages:
       name: stripe_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.0"
+    version: "8.0.0"
   sync_http:
     dependency: transitive
     description:
