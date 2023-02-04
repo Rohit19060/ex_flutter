@@ -18,7 +18,7 @@ import flutter_native_timezone
 import in_app_purchase_storekit
 import location
 import package_info_plus
-import path_provider_macos
+import path_provider_foundation
 import platform_device_id
 import platform_device_id_macos
 import shared_preferences_foundation
