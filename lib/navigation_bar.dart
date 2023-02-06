@@ -1,12 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(
-      MaterialApp(
-        home: const BottomNavBar(),
-        theme: ThemeData(primaryColor: Colors.blueAccent),
-      ),
-    );
+void main() => runApp(MaterialApp(
+      home: const BottomNavBar(),
+      theme: ThemeData(primaryColor: Colors.blueAccent),
+    ));
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -355,4 +353,192 @@ class NavButton extends StatelessWidget {
     properties.add(IntProperty('length', length));
     properties.add(DoubleProperty('position', position));
   }
+}
+
+class NeoMorphicNavBar extends StatelessWidget {
+  const NeoMorphicNavBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 250, 250, 250),
+      body: const Center(
+        child: Text(
+          'NeoMorphicNavBar',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        elevation: 0,
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              RoundedNeoButton(
+                label: 'Home',
+                width: size.width * 0.17,
+                icon: Icons.home_outlined,
+                selectedIcon: Icons.home_rounded,
+                isPressed: true,
+              ),
+              RoundedNeoButton(
+                label: 'Bookings',
+                width: size.width * 0.17,
+                selectedIcon: Icons.book_rounded,
+                icon: Icons.book_outlined,
+              ),
+              RoundedNeoButton(
+                label: 'Chats',
+                width: size.width * 0.17,
+                selectedIcon: Icons.message_rounded,
+                icon: Icons.message_outlined,
+              ),
+              RoundedNeoButton(
+                label: 'Profile',
+                width: size.width * 0.17,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class RoundedNeoButton extends StatelessWidget {
+  const RoundedNeoButton({
+    super.key,
+    this.label = '',
+    this.width = 70,
+    this.selectedIcon = Icons.person_rounded,
+    this.icon = Icons.person_outlined,
+    this.onTap,
+    this.isPressed = false,
+  });
+
+  final String label;
+  final double width;
+  final bool isPressed;
+  final IconData selectedIcon;
+  final IconData icon;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) => InkWell(
+        borderRadius: BorderRadius.circular(40),
+        onTap: isPressed ? null : onTap,
+        child: NeuContainer(
+          isPressed: isPressed,
+          borderRadius: BorderRadius.circular(40),
+          child: SizedBox(
+            width: width,
+            height: width - 35,
+            child: Center(
+              child: FittedBox(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(isPressed ? selectedIcon : icon),
+                    Text(label),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(ObjectFlagProperty<VoidCallback?>.has('onTap', onTap));
+    properties.add(DiagnosticsProperty<IconData>('icon', icon));
+    properties.add(DiagnosticsProperty<IconData>('selectedIcon', selectedIcon));
+    properties.add(DoubleProperty('width', width));
+    properties.add(StringProperty('label', label));
+    properties.add(DiagnosticsProperty<bool>('isPressed', isPressed));
+  }
+}
+
+class NeuContainer extends StatefulWidget {
+  const NeuContainer({
+    super.key,
+    this.color = Colors.white,
+    required this.child,
+    this.borderRadius = const BorderRadius.only(
+      bottomLeft: Radius.circular(40),
+      bottomRight: Radius.circular(40),
+      topLeft: Radius.circular(40),
+      topRight: Radius.circular(40),
+    ),
+    this.padding = const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+    this.isPressed = false,
+    this.disabled = false,
+  });
+  final Widget child;
+  final BorderRadius borderRadius;
+  final EdgeInsetsGeometry padding;
+  final Color color;
+  final bool isPressed, disabled;
+
+  @override
+  State<NeuContainer> createState() => _NeuContainerState();
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(ColorProperty('color', color));
+    properties.add(DiagnosticsProperty<EdgeInsetsGeometry>('padding', padding));
+    properties
+        .add(DiagnosticsProperty<BorderRadius>('borderRadius', borderRadius));
+    properties.add(DiagnosticsProperty<bool>('isPressed', isPressed));
+    properties.add(DiagnosticsProperty<bool>('disabled', disabled));
+  }
+}
+
+class _NeuContainerState extends State<NeuContainer> {
+  bool _isPressed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _isPressed = widget.isPressed;
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) => Listener(
+        onPointerDown: (event) {
+          if (!widget.disabled) {
+            setState(() => _isPressed = true);
+          }
+        },
+        onPointerUp: (event) {
+          if (!widget.disabled) {
+            setState(() => _isPressed = false);
+          }
+        },
+        child: Container(
+          padding: widget.padding,
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 250, 250, 250),
+            borderRadius: widget.borderRadius,
+            boxShadow: _isPressed || widget.isPressed
+                ? null
+                : [
+                    BoxShadow(
+                      color: Colors.blue.withOpacity(0.1),
+                      offset: const Offset(-2, -2),
+                      blurRadius: 15,
+                      spreadRadius: 1,
+                    )
+                  ],
+          ),
+          child: widget.child,
+        ),
+      );
 }
