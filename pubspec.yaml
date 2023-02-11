@@ -32,7 +32,7 @@ dependencies:
   firebase_auth: ^4.2.5
   firebase_core: ^2.1.1
   firebase_database: ^10.0.10
-  firebase_messaging: ^14.2.1
+  firebase_messaging: ^14.2.2
   firebase_storage: ^11.0.10
   fl_chart: ^0.60.0
   flutter:
