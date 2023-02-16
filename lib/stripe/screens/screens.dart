@@ -13,10 +13,8 @@ import '../screens/regional_payment_methods/klarna_screen.dart';
 import '../screens/regional_payment_methods/paypal_screen.dart';
 import '../screens/regional_payment_methods/sofort_screen.dart';
 import '../screens/regional_payment_methods/us_bank_account.dart';
-import '../screens/wallets/apple_pay_screen.dart';
 import '../screens/wallets/apple_pay_screen_plugin.dart';
 import '../screens/wallets/google_pay_screen.dart';
-import '../screens/wallets/google_pay_stripe_screen.dart';
 import '../screens/wallets/open_apple_pay_setup_screen.dart';
 import '../widgets/platform_icons.dart';
 import 'card_payments/custom_card_payment_screen.dart';
@@ -61,6 +59,7 @@ class ExampleSection extends StatelessWidget {
 
 class Example extends StatelessWidget {
   const Example({
+    super.key,
     required this.title,
     required this.builder,
     this.style,
@@ -157,15 +156,15 @@ class Example extends StatelessWidget {
     ExampleSection(
       title: 'Wallets',
       children: [
-        Example(
-          title: 'Apple Pay',
-          leading: Image.asset(
-            'assets/apple_pay.png',
-            width: 48,
-          ),
-          builder: (c) => ApplePayScreen(),
-          platformsSupported: const [DevicePlatform.ios],
-        ),
+        // Example(
+        //   title: 'Apple Pay',
+        //   leading: Image.asset(
+        //     'assets/apple_pay.png',
+        //     width: 48,
+        //   ),
+        //   builder: (c) => ApplePayScreen(),
+        //   platformsSupported: const [DevicePlatform.ios],
+        // ),
         Example(
           title: 'Apple Pay - Pay Plugin',
           leading: Image.asset(
@@ -184,15 +183,15 @@ class Example extends StatelessWidget {
           builder: (c) => const OpenApplePaySetup(),
           platformsSupported: const [DevicePlatform.ios],
         ),
-        Example(
-          leading: Image.asset(
-            'assets/google_play.png',
-            width: 48,
-          ),
-          title: 'Google Pay',
-          builder: (c) => const GooglePayStripeScreen(),
-          platformsSupported: const [DevicePlatform.android],
-        ),
+        // Example(
+        //   leading: Image.asset(
+        //     'assets/google_play.png',
+        //     width: 48,
+        //   ),
+        //   title: 'Google Pay',
+        //   builder: (c) => const GooglePayStripeScreen(),
+        //   platformsSupported: const [DevicePlatform.android],
+        // ),
         Example(
           leading: Image.asset(
             'assets/google_play.png',
