@@ -21,14 +21,16 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) => DismissFocusOverlay(
         child: MaterialApp(
           theme: exampleAppTheme,
-          home: HomePage(),
+          home: const HomePage(),
         ),
       );
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {

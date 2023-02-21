@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 
-import '../../config.dart';
 import '../../screens/payment_sheet/payment_sheet_screen_custom_flow.dart';
 import '../../widgets/example_scaffold.dart';
 import '../../widgets/loading_button.dart';
 
 class PaymentSheetScreen extends StatefulWidget {
+  const PaymentSheetScreen({super.key});
+
   @override
   _PaymentSheetScreenState createState() => _PaymentSheetScreenState();
 }
@@ -47,8 +48,8 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreen> {
       );
 
   Future<Map<String, dynamic>> _createTestPaymentSheet() async {
-    print('$kApiUrl/payment-sheet');
-    final url = Uri.parse('$kApiUrl/payment-sheet');
+    print('http://192.168.1.4:3000/api/stripe');
+    final url = Uri.parse('http://192.168.1.4:3000/api/stripe');
     final response = await http.post(
       url,
       headers: {
