@@ -94,7 +94,7 @@ dependencies:
   square_percent_indicater: ^0.1.0
   timezone: ^0.9.1
   toast: ^0.3.0
-  transparent_image: ^2.0.0
+  transparent_image: ^2.0.1
   tuple: ^2.0.1
   url_launcher: ^6.1.9
   uuid: ^3.0.7
