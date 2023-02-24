@@ -595,6 +595,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.3"
+  google_identity_services_web:
+    dependency: transitive
+    description:
+      name: google_identity_services_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   google_maps_flutter:
     dependency: "direct main"
     description:
@@ -636,7 +643,7 @@ packages:
       name: google_sign_in
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.4.4"
+    version: "6.0.0"
   google_sign_in_android:
     dependency: transitive
     description:
@@ -664,7 +671,7 @@ packages:
       name: google_sign_in_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.2+1"
+    version: "0.11.0"
   hive:
     dependency: "direct main"
     description:
