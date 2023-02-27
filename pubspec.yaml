@@ -55,7 +55,7 @@ dependencies:
   go_router: ^6.0.9
   github: ^9.10.1
   google_fonts: ^4.0.1
-  google_maps_flutter: ^2.2.3
+  google_maps_flutter: ^2.2.4
   google_ml_vision: ^0.0.8
   google_sign_in: ^6.0.1
   hive: ^2.2.3
