@@ -31,7 +31,7 @@ dependencies:
   file_picker: ^5.2.5
   firebase_auth: ^4.3.0
   firebase_core: ^2.1.1
-  firebase_database: ^10.0.14
+  firebase_database: ^10.0.16
   firebase_messaging: ^14.3.0
   firebase_storage: ^11.0.16
   fl_chart: ^0.61.0
