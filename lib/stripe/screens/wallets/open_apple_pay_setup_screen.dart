@@ -7,7 +7,7 @@ class OpenApplePaySetup extends StatefulWidget {
   const OpenApplePaySetup({super.key});
 
   @override
-  _OpenApplePaySetupState createState() => _OpenApplePaySetupState();
+  State<OpenApplePaySetup> createState() => _OpenApplePaySetupState();
 }
 
 class _OpenApplePaySetupState extends State<OpenApplePaySetup> {

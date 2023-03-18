@@ -32,9 +32,7 @@ class _FinancialConnectionsScreenState
     final url = Uri.parse('$kApiUrl/financial-connections-sheet');
     final response = await http.post(
       url,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: {'Content-Type': 'application/json'},
     );
 
     return json.decode(response.body) as Map<String, dynamic>;
@@ -57,18 +55,14 @@ class _FinancialConnectionsScreenState
         response = result.toString();
       });
     } on Exception catch (e) {
-      if (e is StripeException) {
+      if (e is StripeException && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error from Stripe: ${e.error.localizedMessage}'),
-          ),
+              content: Text('Error from Stripe: ${e.error.localizedMessage}')),
         );
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Unforeseen error: $e'),
-          ),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Unforeseen error: $e')));
       }
     }
   }
@@ -90,18 +84,12 @@ class _FinancialConnectionsScreenState
         response = result.toString();
       });
     } on Exception catch (e) {
-      if (e is StripeException) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error from Stripe: ${e.error.localizedMessage}'),
-          ),
-        );
+      if (e is StripeException && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Error from Stripe: ${e.error.localizedMessage}')));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Unforeseen error: $e'),
-          ),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Unforeseen error: $e')));
       }
     }
   }
@@ -113,15 +101,11 @@ class _FinancialConnectionsScreenState
         padding: const EdgeInsets.all(16),
         children: [
           LoadingButton(
-            onPressed: () async {
-              await _collectAccount(context);
-            },
+            onPressed: () async => _collectAccount(context),
             text: 'Collect financial account',
           ),
           LoadingButton(
-            onPressed: () async {
-              await _collectBankToken(context);
-            },
+            onPressed: () async => _collectBankToken(context),
             text: 'Collect bank token',
           ),
           const Divider(),

@@ -8,8 +8,10 @@ import '../../widgets/loading_button.dart';
 import '../../widgets/response_card.dart';
 
 class LegacyTokenCardScreen extends StatefulWidget {
+  const LegacyTokenCardScreen({super.key});
+
   @override
-  _LegacyTokenCardScreenState createState() => _LegacyTokenCardScreenState();
+  State<LegacyTokenCardScreen> createState() => _LegacyTokenCardScreenState();
 }
 
 class _LegacyTokenCardScreenState extends State<LegacyTokenCardScreen> {
@@ -33,6 +35,7 @@ class _LegacyTokenCardScreenState extends State<LegacyTokenCardScreen> {
           ),
           const SizedBox(height: 20),
           LoadingButton(
+            // ignore: use_if_null_to_convert_nulls_to_bools
             onPressed: _card?.complete == true ? _handleCreateTokenPress : null,
             text: 'Create token',
           ),
@@ -62,15 +65,15 @@ class _LegacyTokenCardScreenState extends State<LegacyTokenCardScreen> {
 
       // 2. Create payment method
       final tokenData = await Stripe.instance.createToken(
-          CreateTokenParams.card(
+          const CreateTokenParams.card(
               params: CardTokenParams(address: address, currency: 'USD')));
-      setState(() {
-        this.tokenData = tokenData;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Success: The token was created successfully!')));
+      setState(() => this.tokenData = tokenData);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Success: The token was created successfully!')));
+      }
       return;
-    } catch (e) {
+    } on Exception catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Error: $e')));
       rethrow;

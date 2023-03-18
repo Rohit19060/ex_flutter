@@ -14,8 +14,10 @@ import '../../widgets/loading_button.dart';
 import '../../widgets/response_card.dart';
 
 class SetupFuturePaymentScreen extends StatefulWidget {
+  const SetupFuturePaymentScreen({super.key});
+
   @override
-  _SetupFuturePaymentScreenState createState() =>
+  State<SetupFuturePaymentScreen> createState() =>
       _SetupFuturePaymentScreenState();
 }
 
@@ -61,6 +63,7 @@ class _SetupFuturePaymentScreenState extends State<SetupFuturePaymentScreen> {
               Step(
                 title: const Text('Save card'),
                 content: LoadingButton(
+                  // ignore: use_if_null_to_convert_nulls_to_bools
                   onPressed: _card?.complete == true ? _handleSavePress : null,
                   text: 'Save',
                 ),
@@ -130,25 +133,22 @@ class _SetupFuturePaymentScreenState extends State<SetupFuturePaymentScreen> {
 
       final setupIntentResult = await Stripe.instance.confirmSetupIntent(
         paymentIntentClientSecret: clientSecret,
-        params: PaymentMethodParams.card(
+        params: const PaymentMethodParams.card(
           paymentMethodData: PaymentMethodData(
             billingDetails: billingDetails,
           ),
         ),
       );
       log('Setup Intent created $setupIntentResult');
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Success: Setup intent created.',
-          ),
-        ),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Success: Setup intent created.')));
+      }
       setState(() {
         step = 1;
         _setupIntentResult = setupIntentResult;
       });
-    } catch (error, s) {
+    } on Exception catch (error, s) {
       log('Error while saving payment', error: error, stackTrace: s);
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Error code: $error')));
@@ -157,7 +157,7 @@ class _SetupFuturePaymentScreenState extends State<SetupFuturePaymentScreen> {
 
   Future<void> _handleOffSessionPayment() async {
     final res = await _chargeCardOffSession();
-    if (res['error'] != null) {
+    if (res['error'] != null && mounted) {
       // If the PaymentIntent has any other status, the payment did not succeed and the request fails.
       // Notify your customer e.g., by email, text, push notification) to complete the payment.
       // We recommend creating a recovery flow in your app that shows why the payment failed initially and lets your customer retry.
@@ -168,11 +168,8 @@ class _SetupFuturePaymentScreenState extends State<SetupFuturePaymentScreen> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Success!: The payment was confirmed successfully!')));
-      setState(() {
-        step = 2;
-      });
+      setState(() => step = 2);
     }
-
     log('charge off session result: $res');
   }
 
@@ -186,26 +183,23 @@ class _SetupFuturePaymentScreenState extends State<SetupFuturePaymentScreen> {
     final paymentMethodId =
         paymentIntent.paymentMethodId ?? _setupIntentResult?.paymentMethodId;
 
-    setState(() {
-      _retrievedPaymentIntent =
-          paymentIntent.copyWith(paymentMethodId: paymentMethodId);
-    });
+    setState(() => _retrievedPaymentIntent =
+        paymentIntent.copyWith(paymentMethodId: paymentMethodId));
   }
 
   //  https://stripe.com/docs/payments/save-and-reuse?platform=ios#start-a-recovery-flow
   Future<void> _handleRecoveryFlow() async {
-    // TODO lastPaymentError
     if (_retrievedPaymentIntent?.paymentMethodId != null && _card != null) {
       await Stripe.instance.confirmPayment(
-        paymentIntentClientSecret: _retrievedPaymentIntent!.clientSecret,
-        data: PaymentMethodParams.cardFromMethodId(
-          paymentMethodData: PaymentMethodDataCardFromMethod(
-              paymentMethodId: _retrievedPaymentIntent!.paymentMethodId!),
-        ),
-      );
+          paymentIntentClientSecret: _retrievedPaymentIntent!.clientSecret,
+          data: PaymentMethodParams.cardFromMethodId(
+              paymentMethodData: PaymentMethodDataCardFromMethod(
+                  paymentMethodId: _retrievedPaymentIntent!.paymentMethodId!)));
     }
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Success!: The payment was confirmed successfully!')));
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Success!: The payment was confirmed successfully!')));
+    }
   }
 
   Future<String> _createSetupIntentOnBackend(String email) async {

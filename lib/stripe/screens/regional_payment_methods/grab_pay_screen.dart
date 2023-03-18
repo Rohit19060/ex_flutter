@@ -8,9 +8,14 @@ import '../../config.dart';
 import '../../widgets/example_scaffold.dart';
 import '../../widgets/loading_button.dart';
 
-class GrabPayScreen extends StatelessWidget {
+class GrabPayScreen extends StatefulWidget {
   const GrabPayScreen({super.key});
 
+  @override
+  State<GrabPayScreen> createState() => _GrabPayScreenState();
+}
+
+class _GrabPayScreenState extends State<GrabPayScreen> {
   Future<Map<String, dynamic>> _createPaymentIntent() async {
     final url = Uri.parse('$kApiUrl/create-payment-intent');
     final response = await http.post(
@@ -37,8 +42,8 @@ class GrabPayScreen extends StatelessWidget {
     final result = await _createPaymentIntent();
     final clientSecret = await result['clientSecret'];
 
-    // 2. create some billingdetails
-    final billingDetails = const BillingDetails(
+    // 2. create some billing details
+    const billingDetails = BillingDetails(
       email: 'email@stripe.com',
       phone: '+60123456789',
       address: Address(
@@ -55,20 +60,22 @@ class GrabPayScreen extends StatelessWidget {
     try {
       await Stripe.instance.confirmPayment(
         paymentIntentClientSecret: clientSecret.toString(),
-        data: PaymentMethodParams.grabPay(
+        data: const PaymentMethodParams.grabPay(
           paymentMethodData: PaymentMethodData(
             billingDetails: billingDetails,
           ),
         ),
       );
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Payment succesfully completed'),
-        ),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Payment successfully completed'),
+          ),
+        );
+      }
     } on Exception catch (e) {
-      if (e is StripeException) {
+      if (e is StripeException && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error from Stripe: ${e.error.localizedMessage}'),
@@ -87,8 +94,8 @@ class GrabPayScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ExampleScaffold(
         title: 'GrabPay',
-        tags: ['Payment method'],
-        padding: EdgeInsets.all(16),
+        tags: const ['Payment method'],
+        padding: const EdgeInsets.all(16),
         children: [
           LoadingButton(
             onPressed: () async {

@@ -8,8 +8,10 @@ import '../../widgets/loading_button.dart';
 import '../../widgets/response_card.dart';
 
 class LegacyTokenBankScreen extends StatefulWidget {
+  const LegacyTokenBankScreen({super.key});
+
   @override
-  _LegacyTokenBankScreenState createState() => _LegacyTokenBankScreenState();
+  State<LegacyTokenBankScreen> createState() => _LegacyTokenBankScreenState();
 }
 
 class _LegacyTokenBankScreenState extends State<LegacyTokenBankScreen> {
@@ -38,7 +40,7 @@ class _LegacyTokenBankScreenState extends State<LegacyTokenBankScreen> {
             controller: _controller,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
-              labelText: 'Accountnumber',
+              labelText: 'Account number',
             ),
           ),
           const SizedBox(height: 20),
@@ -48,9 +50,7 @@ class _LegacyTokenBankScreenState extends State<LegacyTokenBankScreen> {
           ),
           const SizedBox(height: 20),
           if (tokenData != null)
-            ResponseCard(
-              response: tokenData!.toJson().toPrettyString(),
-            )
+            ResponseCard(response: tokenData!.toJson().toPrettyString())
         ],
       );
 
@@ -68,13 +68,13 @@ class _LegacyTokenBankScreenState extends State<LegacyTokenBankScreen> {
       // 2. Create payment method
       final tokenData = await Stripe.instance
           .createToken(CreateTokenParams.bankAccount(params: params));
-      setState(() {
-        this.tokenData = tokenData;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Success: The token was created successfully!')));
+      setState(() => this.tokenData = tokenData);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Success: The token was created successfully!')));
+      }
       return;
-    } catch (e) {
+    } on Exception catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Error: $e')));
       rethrow;

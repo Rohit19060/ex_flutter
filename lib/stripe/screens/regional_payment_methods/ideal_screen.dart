@@ -9,9 +9,14 @@ import '../../config.dart';
 import '../../widgets/example_scaffold.dart';
 import '../../widgets/loading_button.dart';
 
-class IdealScreen extends StatelessWidget {
+class IdealScreen extends StatefulWidget {
   const IdealScreen({super.key});
 
+  @override
+  State<IdealScreen> createState() => _IdealScreenState();
+}
+
+class _IdealScreenState extends State<IdealScreen> {
   Future<Map<String, dynamic>> _createPaymentIntent() async {
     final url = Uri.parse('$kApiUrl/create-payment-intent');
     final response = await http.post(
@@ -44,23 +49,21 @@ class IdealScreen extends StatelessWidget {
         paymentIntentClientSecret: clientSecret.toString(),
         data: const PaymentMethodParams.ideal(
           paymentMethodData:
-              PaymentMethodDataIdeal(bankName: kIsWeb ? 'revolut' : null),
+              PaymentMethodDataIdeal(bankName: kIsWeb ? 'revolt' : null),
         ),
       );
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Payment succesfully completed'),
-        ),
-      );
-    } on Exception catch (e) {
-      if (e is StripeException) {
+      if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-                'Error from Stripe: ${e.error.localizedMessage ?? e.error.code}'),
+          const SnackBar(
+            content: Text('Payment successfully completed'),
           ),
         );
+      }
+    } on Exception catch (e) {
+      if (e is StripeException && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+                'Error from Stripe: ${e.error.localizedMessage ?? e.error.code}')));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -74,8 +77,8 @@ class IdealScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ExampleScaffold(
         title: 'Ideal',
-        tags: ['Payment method'],
-        padding: EdgeInsets.all(16),
+        tags: const ['Payment method'],
+        padding: const EdgeInsets.all(16),
         children: [
           LoadingButton(
             onPressed: () async {

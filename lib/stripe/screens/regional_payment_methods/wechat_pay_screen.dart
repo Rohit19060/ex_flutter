@@ -42,8 +42,6 @@ class WeChatPayScreen extends StatelessWidget {
 
       // 3. use the client secret to confirm the payment and handle the result.
 
-      // TODO: uncomment when wechat is enabled again
-
       // await Stripe.instance.confirmPayment(
       //   clientSecret,
       //   PaymentMethodParams.weChatPay(appId: 'com.flutter.stripe.example'),

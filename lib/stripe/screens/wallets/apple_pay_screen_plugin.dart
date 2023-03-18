@@ -17,8 +17,10 @@ const _paymentItems = [
 ];
 
 class ApplePayExternalPluginScreen extends StatefulWidget {
+  const ApplePayExternalPluginScreen({super.key});
+
   @override
-  _ApplePayExternalPluginScreenState createState() =>
+  State<ApplePayExternalPluginScreen> createState() =>
       _ApplePayExternalPluginScreenState();
 }
 
@@ -45,13 +47,10 @@ class _ApplePayExternalPluginScreenState
         tags: const ['iOS', 'Pay plugin'],
         children: [
           pay.ApplePayButton(
-            paymentConfigurationAsset: 'apple_pay_payment_profile.json',
             paymentItems: _paymentItems,
             margin: const EdgeInsets.only(top: 15),
             onPaymentResult: onApplePayResult,
-            loadingIndicator: const Center(
-              child: CircularProgressIndicator(),
-            ),
+            loadingIndicator: const Center(child: CircularProgressIndicator()),
             childOnError:
                 const Text('Apple Pay is not available in this device'),
             onError: (e) {
@@ -77,25 +76,19 @@ class _ApplePayExternalPluginScreenState
       final clientSecret = response['clientSecret'];
 
       final params = PaymentMethodParams.cardFromToken(
-        paymentMethodData: PaymentMethodDataCardFromToken(
-          token: token.id,
-        ),
+        paymentMethodData: PaymentMethodDataCardFromToken(token: token.id),
       );
 
       // 3. Confirm Apple pay payment method
       await Stripe.instance.confirmPayment(
-        paymentIntentClientSecret: clientSecret.toString(),
-        data: params,
-      );
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text('Apple Pay payment succesfully completed')),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+          paymentIntentClientSecret: clientSecret.toString(), data: params);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Apple Pay payment successfully completed')));
+      }
+    } on Exception catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Error: $e')));
     }
   }
 

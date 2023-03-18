@@ -96,7 +96,7 @@ class Example extends StatelessWidget {
       children: [
         Example(
           title: 'Single Step',
-          builder: (context) => PaymentSheetScreen(),
+          builder: (context) => const PaymentSheetScreen(),
           platformsSupported: const [
             DevicePlatform.android,
             DevicePlatform.ios
@@ -104,7 +104,7 @@ class Example extends StatelessWidget {
         ),
         Example(
           title: 'Custom Flow',
-          builder: (context) => PaymentSheetScreenWithCustomFlow(),
+          builder: (context) => const PaymentSheetScreenWithCustomFlow(),
           platformsSupported: const [
             DevicePlatform.android,
             DevicePlatform.ios
@@ -112,7 +112,7 @@ class Example extends StatelessWidget {
         ),
         Example(
           title: 'Web Payment Element',
-          builder: (c) => PaymentElementExample(),
+          builder: (c) => const PaymentElementExample(),
           platformsSupported: const [
             DevicePlatform.web,
           ],
@@ -125,19 +125,19 @@ class Example extends StatelessWidget {
         Example(
           title: 'Simple - Using webhooks',
           style: const TextStyle(fontWeight: FontWeight.w600),
-          builder: (c) => WebhookPaymentScreen(),
+          builder: (c) => const WebhookPaymentScreen(),
         ),
         Example(
           title: 'Without webhooks',
-          builder: (c) => NoWebhookPaymentScreen(),
+          builder: (c) => const NoWebhookPaymentScreen(),
         ),
         Example(
           title: 'Card Field themes',
-          builder: (c) => ThemeCardExample(),
+          builder: (c) => const ThemeCardExample(),
         ),
         Example(
           title: 'Card Form',
-          builder: (c) => NoWebhookPaymentCardFormScreen(),
+          builder: (c) => const NoWebhookPaymentCardFormScreen(),
           platformsSupported: const [
             DevicePlatform.android,
             DevicePlatform.ios
@@ -145,7 +145,7 @@ class Example extends StatelessWidget {
         ),
         Example(
           title: 'Flutter UI (not PCI compliant)',
-          builder: (c) => CustomCardPaymentScreen(),
+          builder: (c) => const CustomCardPaymentScreen(),
           platformsSupported: const [
             DevicePlatform.android,
             DevicePlatform.ios
@@ -171,7 +171,7 @@ class Example extends StatelessWidget {
             'assets/apple_pay.png',
             width: 48,
           ),
-          builder: (c) => ApplePayExternalPluginScreen(),
+          builder: (c) => const ApplePayExternalPluginScreen(),
           platformsSupported: const [DevicePlatform.ios],
         ),
         Example(
@@ -198,7 +198,7 @@ class Example extends StatelessWidget {
             width: 48,
           ),
           title: 'Google Pay - Pay Plugin',
-          builder: (c) => GooglePayScreen(),
+          builder: (c) => const GooglePayScreen(),
           platformsSupported: const [DevicePlatform.android],
         ),
       ],
@@ -267,9 +267,8 @@ class Example extends StatelessWidget {
       ),
       Example(
         title: 'Us bank accounts (ACH)',
-        builder: (contex) => UsBankAccountScreen(),
+        builder: (contex) => const UsBankAccountScreen(),
       ),
-      // TODO: uncomment when we can re-enable wechat pay
       // Example(
       //   title: 'WeChat Pay',
       //   leading: Image.asset(
@@ -295,22 +294,22 @@ class Example extends StatelessWidget {
     ExampleSection(title: 'Others', children: [
       Example(
         title: 'Setup Future Payment',
-        builder: (c) => SetupFuturePaymentScreen(),
+        builder: (c) => const SetupFuturePaymentScreen(),
         platformsSupported: const [DevicePlatform.android, DevicePlatform.ios],
       ),
       Example(
         title: 'Re-collect CVC',
-        builder: (c) => CVCReCollectionScreen(),
+        builder: (c) => const CVCReCollectionScreen(),
         platformsSupported: const [DevicePlatform.android, DevicePlatform.ios],
       ),
       Example(
         title: 'Create token for card (legacy)',
-        builder: (context) => LegacyTokenCardScreen(),
+        builder: (context) => const LegacyTokenCardScreen(),
         platformsSupported: const [DevicePlatform.android, DevicePlatform.ios],
       ),
       Example(
         title: 'Create token for bank (legacy)',
-        builder: (context) => LegacyTokenBankScreen(),
+        builder: (context) => const LegacyTokenBankScreen(),
         platformsSupported: const [DevicePlatform.android, DevicePlatform.ios],
       ),
     ]),

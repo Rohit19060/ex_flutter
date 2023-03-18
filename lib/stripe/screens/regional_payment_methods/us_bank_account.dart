@@ -10,8 +10,10 @@ import '../../widgets/example_scaffold.dart';
 import '../../widgets/loading_button.dart';
 
 class UsBankAccountScreen extends StatefulWidget {
+  const UsBankAccountScreen({super.key});
+
   @override
-  _UsBankAccountScreenState createState() => _UsBankAccountScreenState();
+  State<UsBankAccountScreen> createState() => _UsBankAccountScreenState();
 }
 
 class _UsBankAccountScreenState extends State<UsBankAccountScreen> {
@@ -82,7 +84,7 @@ class _UsBankAccountScreenState extends State<UsBankAccountScreen> {
       // 2. call API to create PaymentIntent
       final paymentIntentResult = await _createPaymentIntent();
 
-      if (paymentIntentResult['error'] != null) {
+      if (paymentIntentResult['error'] != null && mounted) {
         // Error during creating or confirming Intent
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Error: ${paymentIntentResult['error']}')));
@@ -95,15 +97,14 @@ class _UsBankAccountScreenState extends State<UsBankAccountScreen> {
               paymentIntentResult['clientSecret'].toString(),
           data: PaymentMethodParams.usBankAccount(
               paymentMethodData: PaymentMethodDataUsBank(
-            routingNumber: _routingNumberController.text,
-            accountNumber: _accountController.text,
-            billingDetails: billingDetails,
-          )),
+                  routingNumber: _routingNumberController.text,
+                  accountNumber: _accountController.text,
+                  billingDetails: billingDetails)),
         );
 
         handleNexAction(intent.nextAction, intent.clientSecret);
       }
-    } catch (e) {
+    } on Exception catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Error: $e')));
       rethrow;
@@ -122,7 +123,7 @@ class _UsBankAccountScreenState extends State<UsBankAccountScreen> {
       orElse: () {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content:
-                Text('Error unknown followupaction rectrievied: $action')));
+                Text('Error unknown follow up action retrieved: $action')));
       },
     );
   }
@@ -202,9 +203,10 @@ class _VerifyMicroDepositsDialogState
                   ]
                 : null,
           ));
-
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Account verified successfully')));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Account verified successfully')));
+      }
     } on Exception catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Error: $e')));
@@ -252,7 +254,9 @@ class _VerifyMicroDepositsDialogState
               LoadingButton(
                 onPressed: () async {
                   await verifyIntentWithMicroDeposit();
-                  Navigator.of(context).pop();
+                  if (mounted) {
+                    Navigator.of(context).pop();
+                  }
                 },
                 text: 'Confirm',
               ),

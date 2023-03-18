@@ -8,9 +8,14 @@ import '../../config.dart';
 import '../../widgets/example_scaffold.dart';
 import '../../widgets/loading_button.dart';
 
-class AliPayScreen extends StatelessWidget {
+class AliPayScreen extends StatefulWidget {
   const AliPayScreen({super.key});
 
+  @override
+  State<AliPayScreen> createState() => _AliPayScreenState();
+}
+
+class _AliPayScreenState extends State<AliPayScreen> {
   Future<Map<String, dynamic>> _createPaymentIntent() async {
     final url = Uri.parse('$kApiUrl/create-payment-intent');
     final response = await http.post(
@@ -46,24 +51,20 @@ class AliPayScreen extends StatelessWidget {
         ),
       );
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Payment successfully completed'),
-        ),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Payment successfully completed'),
+          ),
+        );
+      }
     } on Exception catch (e) {
-      if (e is StripeException) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error from Stripe: ${e.error.localizedMessage}'),
-          ),
-        );
+      if (e is StripeException && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Error from Stripe: ${e.error.localizedMessage}')));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Unforeseen error: $e'),
-          ),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Unforeseen error: $e')));
       }
     }
   }
@@ -71,13 +72,11 @@ class AliPayScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ExampleScaffold(
         title: 'AliPay',
-        tags: ['Payment method'],
-        padding: EdgeInsets.all(16),
+        tags: const ['Payment method'],
+        padding: const EdgeInsets.all(16),
         children: [
           LoadingButton(
-            onPressed: () async {
-              await _pay(context);
-            },
+            onPressed: () async => _pay(context),
             text: 'Pay',
           ),
         ],

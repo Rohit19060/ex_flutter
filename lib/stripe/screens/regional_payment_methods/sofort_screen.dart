@@ -1,17 +1,21 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
+
+import '../../config.dart';
 import '../../widgets/example_scaffold.dart';
 import '../../widgets/loading_button.dart';
 
-import '../../config.dart';
+class SofortScreen extends StatefulWidget {
+  const SofortScreen({super.key});
 
-class SofortScreen extends StatelessWidget {
-  const SofortScreen({Key? key}) : super(key: key);
+  @override
+  State<SofortScreen> createState() => _SofortScreenState();
+}
 
+class _SofortScreenState extends State<SofortScreen> {
   Future<Map<String, dynamic>> _createPaymentIntent() async {
     final url = Uri.parse('$kApiUrl/create-payment-intent');
     final response = await http.post(
@@ -42,48 +46,40 @@ class SofortScreen extends StatelessWidget {
     try {
       await Stripe.instance.confirmPayment(
         paymentIntentClientSecret: clientSecret.toString(),
-        data: PaymentMethodParams.sofort(
+        data: const PaymentMethodParams.sofort(
           paymentMethodData: PaymentMethodDataSofort(country: 'de'),
         ),
       );
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Payment succesfully completed'),
-        ),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Payment successfully completed')),
+        );
+      }
     } on Exception catch (e) {
-      if (e is StripeException) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+      if (e is StripeException && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(
-                'Error from Stripe: ${e.error.localizedMessage ?? e.error.code}'),
-          ),
-        );
+                'Error from Stripe: ${e.error.localizedMessage ?? e.error.code}')));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Unforeseen error: ${e}'),
-          ),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Unforeseen error: $e')));
       }
     }
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'Sofort',
-      tags: ['Payment method'],
-      padding: EdgeInsets.all(16),
-      children: [
-        LoadingButton(
-          onPressed: () async {
-            await _pay(context);
-          },
-          text: 'Pay',
-        ),
-      ],
-    );
-  }
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'Sofort',
+        tags: const ['Payment method'],
+        padding: const EdgeInsets.all(16),
+        children: [
+          LoadingButton(
+            onPressed: () async {
+              await _pay(context);
+            },
+            text: 'Pay',
+          ),
+        ],
+      );
 }

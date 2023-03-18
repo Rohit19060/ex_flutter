@@ -8,9 +8,14 @@ import '../../config.dart';
 import '../../widgets/example_scaffold.dart';
 import '../../widgets/loading_button.dart';
 
-class FpxScreen extends StatelessWidget {
+class FpxScreen extends StatefulWidget {
   const FpxScreen({super.key});
 
+  @override
+  State<FpxScreen> createState() => _FpxScreenState();
+}
+
+class _FpxScreenState extends State<FpxScreen> {
   Future<Map<String, dynamic>> _createPaymentIntent() async {
     final url = Uri.parse('$kApiUrl/create-payment-intent');
     final response = await http.post(
@@ -48,13 +53,15 @@ class FpxScreen extends StatelessWidget {
         ),
       );
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Payment succesfully completed'),
-        ),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Payment successfully completed'),
+          ),
+        );
+      }
     } on Exception catch (e) {
-      if (e is StripeException) {
+      if (e is StripeException && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error from Stripe: ${e.error.localizedMessage}'),
@@ -73,8 +80,8 @@ class FpxScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ExampleScaffold(
         title: 'FPX',
-        tags: ['Payment method'],
-        padding: EdgeInsets.all(16),
+        tags: const ['Payment method'],
+        padding: const EdgeInsets.all(16),
         children: [
           LoadingButton(
             onPressed: () async {

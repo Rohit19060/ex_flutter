@@ -5,41 +5,48 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 enum DevicePlatform { ios, android, web }
 
 DevicePlatform? get selectedPlatform {
-  if (kIsWeb) return DevicePlatform.web;
-  if (defaultTargetPlatform == TargetPlatform.android)
+  if (kIsWeb) {
+    return DevicePlatform.web;
+  }
+  if (defaultTargetPlatform == TargetPlatform.android) {
     return DevicePlatform.android;
-  if (defaultTargetPlatform == TargetPlatform.iOS) return DevicePlatform.ios;
+  }
+  if (defaultTargetPlatform == TargetPlatform.iOS) {
+    return DevicePlatform.ios;
+  }
   return null;
 }
 
 class PlatformIcons extends StatelessWidget {
   const PlatformIcons({
-    Key? key,
+    super.key,
     required this.supported,
-  }) : super(key: key);
+  });
 
   final List<DevicePlatform> supported;
 
   @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        for (final p in DevicePlatform.values) ...[
-          _PlatformIcon(supported: supported, platform: p),
-          SizedBox(width: 8),
-        ]
-      ],
-    );
+  Widget build(BuildContext context) => Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          for (final p in DevicePlatform.values) ...[
+            _PlatformIcon(supported: supported, platform: p),
+            const SizedBox(width: 8),
+          ]
+        ],
+      );
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IterableProperty<DevicePlatform>('supported', supported));
   }
 }
 
 class _PlatformIcon extends StatelessWidget {
   const _PlatformIcon({
-    Key? key,
     required this.supported,
     required this.platform,
-  }) : super(key: key);
+  });
 
   final List<DevicePlatform> supported;
   final DevicePlatform platform;
@@ -54,13 +61,20 @@ class _PlatformIcon extends StatelessWidget {
         color: isCurrent ? color : color.withOpacity(0.2),
         borderRadius: BorderRadius.circular(12),
       ),
+      padding: const EdgeInsets.all(8),
       child: Icon(
         platform.icon,
         size: 16,
         color: isCurrent ? Colors.white60 : color,
       ),
-      padding: EdgeInsets.all(8),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(EnumProperty<DevicePlatform>('platform', platform));
+    properties.add(IterableProperty<DevicePlatform>('supported', supported));
   }
 }
 

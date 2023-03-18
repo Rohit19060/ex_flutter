@@ -9,8 +9,10 @@ import '../../widgets/example_scaffold.dart';
 import '../../widgets/loading_button.dart';
 
 class CVCReCollectionScreen extends StatefulWidget {
+  const CVCReCollectionScreen({super.key});
+
   @override
-  _CVCReCollectionScreenState createState() => _CVCReCollectionScreenState();
+  State<CVCReCollectionScreen> createState() => _CVCReCollectionScreenState();
 }
 
 class _CVCReCollectionScreenState extends State<CVCReCollectionScreen> {
@@ -64,14 +66,16 @@ class _CVCReCollectionScreenState extends State<CVCReCollectionScreen> {
     // 1. fetch Intent Client Secret from backend
     final paymentMethod = await _fetchPaymentIntentWithPaymentMethod();
 
-    if (paymentMethod['error'] != null) {
+    if (paymentMethod['error'] != null && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error code: ${paymentMethod['error']}')));
       return;
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Success!: The payment was confirmed successfully!')));
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Success!: The payment was confirmed successfully!')));
+    }
   }
 
   Future<void> _paySynchronously() async {
@@ -83,7 +87,7 @@ class _CVCReCollectionScreenState extends State<CVCReCollectionScreen> {
       email: _email,
     );
     log('paymentIntent $paymentIntent');
-    if (paymentIntent['error'] != null) {
+    if (paymentIntent['error'] != null && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error code: ${paymentIntent['error']}')));
     } else if (paymentIntent['succeeded'] == true) {

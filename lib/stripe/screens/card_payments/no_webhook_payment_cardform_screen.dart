@@ -12,8 +12,10 @@ import '../../widgets/loading_button.dart';
 import '../../widgets/response_card.dart';
 
 class NoWebhookPaymentCardFormScreen extends StatefulWidget {
+  const NoWebhookPaymentCardFormScreen({super.key});
+
   @override
-  _NoWebhookPaymentCardFormScreenState createState() =>
+  State<NoWebhookPaymentCardFormScreen> createState() =>
       _NoWebhookPaymentCardFormScreenState();
 }
 
@@ -119,7 +121,7 @@ class _NoWebhookPaymentCardFormScreenState
         items: ['id-1'],
       );
 
-      if (paymentIntentResult['error'] != null) {
+      if (paymentIntentResult['error'] != null && mounted) {
         // Error during creating or confirming Intent
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Error: ${paymentIntentResult['error']}')));
@@ -127,9 +129,9 @@ class _NoWebhookPaymentCardFormScreenState
       }
 
       if (paymentIntentResult['clientSecret'] != null &&
-          paymentIntentResult['requiresAction'] == null) {
-        // Payment succedeed
-
+          paymentIntentResult['requiresAction'] == null &&
+          mounted) {
+        // Payment succeeded
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content:
                 Text('Success!: The payment was confirmed successfully!')));
@@ -142,7 +144,7 @@ class _NoWebhookPaymentCardFormScreenState
         final paymentIntent = await Stripe.instance
             .handleNextAction(paymentIntentResult['clientSecret'].toString());
 
-        // todo handle error
+        // (Rohit19060)todo handle error
         /*if (cardActionError) {
         Alert.alert(
         `Error code: ${cardActionError.code}`,
@@ -153,13 +155,13 @@ class _NoWebhookPaymentCardFormScreenState
         if (paymentIntent.status == PaymentIntentsStatus.RequiresConfirmation) {
           // 5. Call API to confirm intent
           await confirmIntent(paymentIntent.id);
-        } else {
-          // Payment succedeed
+        } else if (mounted) {
+          // Payment succeeded
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text('Error: ${paymentIntentResult['error']}')));
         }
       }
-    } catch (e) {
+    } on Exception catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Error: $e')));
       rethrow;
@@ -169,7 +171,7 @@ class _NoWebhookPaymentCardFormScreenState
   Future<void> confirmIntent(String paymentIntentId) async {
     final result = await callNoWebhookPayEndpointIntentId(
         paymentIntentId: paymentIntentId);
-    if (result['error'] != null) {
+    if (result['error'] != null && mounted) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Error: ${result['error']}')));
     } else {

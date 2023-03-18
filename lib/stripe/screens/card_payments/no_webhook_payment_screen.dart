@@ -12,8 +12,10 @@ import '../..//widgets/loading_button.dart';
 import '../..//widgets/response_card.dart';
 
 class NoWebhookPaymentScreen extends StatefulWidget {
+  const NoWebhookPaymentScreen({super.key});
+
   @override
-  _NoWebhookPaymentScreenState createState() => _NoWebhookPaymentScreenState();
+  State<NoWebhookPaymentScreen> createState() => _NoWebhookPaymentScreenState();
 }
 
 class _NoWebhookPaymentScreenState extends State<NoWebhookPaymentScreen> {
@@ -101,7 +103,7 @@ class _NoWebhookPaymentScreenState extends State<NoWebhookPaymentScreen> {
 
       // 2. Create payment method
       final paymentMethod = await Stripe.instance.createPaymentMethod(
-          params: PaymentMethodParams.card(
+          params: const PaymentMethodParams.card(
         paymentMethodData: PaymentMethodData(
           billingDetails: billingDetails,
         ),
@@ -115,7 +117,7 @@ class _NoWebhookPaymentScreenState extends State<NoWebhookPaymentScreen> {
         items: ['id-1'],
       );
 
-      if (paymentIntentResult['error'] != null) {
+      if (paymentIntentResult['error'] != null && mounted) {
         // Error during creating or confirming Intent
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Error: ${paymentIntentResult['error']}')));
@@ -123,9 +125,9 @@ class _NoWebhookPaymentScreenState extends State<NoWebhookPaymentScreen> {
       }
 
       if (paymentIntentResult['clientSecret'] != null &&
-          paymentIntentResult['requiresAction'] == null) {
-        // Payment succedeed
-
+          paymentIntentResult['requiresAction'] == null &&
+          mounted) {
+        // Payment succeeded
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content:
                 Text('Success!: The payment was confirmed successfully!')));
@@ -136,9 +138,9 @@ class _NoWebhookPaymentScreenState extends State<NoWebhookPaymentScreen> {
           paymentIntentResult['requiresAction'] == true) {
         // 4. if payment requires action calling handleNextAction
         final paymentIntent = await Stripe.instance
-            .handleNextAction(paymentIntentResult['clientSecret'].toString()  );
+            .handleNextAction(paymentIntentResult['clientSecret'].toString());
 
-        // todo handle error
+        // (Rohit19060)todo handle error
         /*if (cardActionError) {
         Alert.alert(
         `Error code: ${cardActionError.code}`,
@@ -149,13 +151,13 @@ class _NoWebhookPaymentScreenState extends State<NoWebhookPaymentScreen> {
         if (paymentIntent.status == PaymentIntentsStatus.RequiresConfirmation) {
           // 5. Call API to confirm intent
           await confirmIntent(paymentIntent.id);
-        } else {
-          // Payment succedeed
+        } else if (mounted) {
+          // Payment succeeded
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text('Error: ${paymentIntentResult['error']}')));
         }
       }
-    } catch (e) {
+    } on Exception catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Error: $e')));
       rethrow;
@@ -165,7 +167,7 @@ class _NoWebhookPaymentScreenState extends State<NoWebhookPaymentScreen> {
   Future<void> confirmIntent(String paymentIntentId) async {
     final result = await callNoWebhookPayEndpointIntentId(
         paymentIntentId: paymentIntentId);
-    if (result['error'] != null) {
+    if (result['error'] != null && mounted) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Error: ${result['error']}')));
     } else {

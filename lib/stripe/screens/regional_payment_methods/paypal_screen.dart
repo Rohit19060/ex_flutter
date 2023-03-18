@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
+
+import '../../config.dart';
 import '../../widgets/example_scaffold.dart';
 import '../../widgets/loading_button.dart';
 
-import '../../config.dart';
-
 class PayPalScreen extends StatefulWidget {
-  const PayPalScreen({Key? key}) : super(key: key);
+  const PayPalScreen({super.key});
 
   @override
   State<PayPalScreen> createState() => _PayPalScreenState();
@@ -61,7 +61,7 @@ class _PayPalScreenState extends State<PayPalScreen> {
       final billingDetails = BillingDetails(
         // email is mandatory
         email: email,
-        address: Address(
+        address: const Address(
           city: 'Stockholm',
           country: 'SV',
           line1: 'Kungsgatan 1',
@@ -78,52 +78,42 @@ class _PayPalScreenState extends State<PayPalScreen> {
         ),
       );
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Payment succesfully completed'),
-        ),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Payment successfully completed'),
+          ),
+        );
+      }
     } on Exception catch (e) {
-      if (e is StripeException) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error from Stripe: ${e.error.localizedMessage}'),
-          ),
-        );
+      if (e is StripeException && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Error from Stripe: ${e.error.localizedMessage}')));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Unforeseen error: ${e}'),
-          ),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Unforeseen error: $e')));
       }
     }
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ExampleScaffold(
-      title: 'PayPal',
-      tags: ['Payment method'],
-      padding: EdgeInsets.all(16),
-      children: [
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Email',
+  Widget build(BuildContext context) => ExampleScaffold(
+        title: 'PayPal',
+        tags: const ['Payment method'],
+        padding: const EdgeInsets.all(16),
+        children: [
+          TextField(
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Email',
+            ),
+            controller: _emailController,
           ),
-          controller: _emailController,
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        LoadingButton(
-          onPressed: () async {
-            await _pay(_emailController.text);
-          },
-          text: 'Pay',
-        ),
-      ],
-    );
-  }
+          const SizedBox(height: 15),
+          LoadingButton(
+            onPressed: () async => _pay(_emailController.text),
+            text: 'Pay',
+          ),
+        ],
+      );
 }

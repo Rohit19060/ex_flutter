@@ -10,8 +10,11 @@ import '../../widgets/example_scaffold.dart';
 import '../../widgets/loading_button.dart';
 
 class PaymentSheetScreenWithCustomFlow extends StatefulWidget {
+  const PaymentSheetScreenWithCustomFlow({super.key});
+
   @override
-  _PaymentSheetScreenState createState() => _PaymentSheetScreenState();
+  State<PaymentSheetScreenWithCustomFlow> createState() =>
+      _PaymentSheetScreenState();
 }
 
 class _PaymentSheetScreenState extends State<PaymentSheetScreenWithCustomFlow> {
@@ -79,10 +82,9 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreenWithCustomFlow> {
       setState(() {
         step = 1;
       });
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+    } on Exception catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Error: $e')));
       rethrow;
     }
   }
@@ -92,15 +94,14 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreenWithCustomFlow> {
       // 3. display the payment sheet.
       await Stripe.instance.presentPaymentSheet();
 
-      setState(() {
-        step = 2;
-      });
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Payment option selected'),
-        ),
-      );
+      setState(() => step = 2);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Payment option selected'),
+          ),
+        );
+      }
     } on Exception catch (e) {
       if (e is StripeException) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -110,9 +111,7 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreenWithCustomFlow> {
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Unforeseen error: $e'),
-          ),
+          SnackBar(content: Text('Unforeseen error: $e')),
         );
       }
     }
@@ -123,28 +122,18 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreenWithCustomFlow> {
       // 4. Confirm the payment sheet.
       await Stripe.instance.confirmPaymentSheetPayment();
 
-      setState(() {
-        step = 0;
-      });
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Payment succesfully completed'),
-        ),
-      );
+      setState(() => step = 0);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Payment successfully completed')));
+      }
     } on Exception catch (e) {
       if (e is StripeException) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error from Stripe: ${e.error.localizedMessage}'),
-          ),
-        );
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Error from Stripe: ${e.error.localizedMessage}')));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Unforeseen error: $e'),
-          ),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Unforeseen error: $e')));
       }
     }
   }
@@ -156,17 +145,13 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreenWithCustomFlow> {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: json.encode({
-        'a': 'a',
-      }),
+      body: json.encode({'a': 'a'}),
     );
-    final body = json.decode(response.body);
-
+    final body = json.decode(response.body) as Map<String, dynamic>;
     if (body['error'] != null) {
       throw Exception('Error code: ${body['error']}');
     }
-
-    return body as Map<String, dynamic>;
+    return body;
   }
 
   @override
@@ -176,4 +161,4 @@ class _PaymentSheetScreenState extends State<PaymentSheetScreenWithCustomFlow> {
   }
 }
 
-final ControlsWidgetBuilder emptyControlBuilder = (_, __) => Container();
+ControlsWidgetBuilder emptyControlBuilder = (_, __) => Container();

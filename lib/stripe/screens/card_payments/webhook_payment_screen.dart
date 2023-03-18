@@ -11,8 +11,10 @@ import '../..//widgets/loading_button.dart';
 import '../..//widgets/response_card.dart';
 
 class WebhookPaymentScreen extends StatefulWidget {
+  const WebhookPaymentScreen({super.key});
+
   @override
-  _WebhookPaymentScreenState createState() => _WebhookPaymentScreenState();
+  State<WebhookPaymentScreen> createState() => _WebhookPaymentScreenState();
 }
 
 class _WebhookPaymentScreenState extends State<WebhookPaymentScreen> {
@@ -58,6 +60,7 @@ class _WebhookPaymentScreenState extends State<WebhookPaymentScreen> {
             title: const Text('Save card during payment'),
           ),
           LoadingButton(
+            // ignore: use_if_null_to_convert_nulls_to_bools
             onPressed: _card?.complete == true ? _handlePayPress : null,
             text: 'Pay',
           ),
@@ -97,18 +100,18 @@ class _WebhookPaymentScreenState extends State<WebhookPaymentScreen> {
     final paymentIntent = await Stripe.instance.confirmPayment(
       paymentIntentClientSecret: clientSecret['clientSecret'].toString(),
       data: PaymentMethodParams.card(
-        paymentMethodData: PaymentMethodData(
-          billingDetails: billingDetails,
-        ),
+        paymentMethodData: PaymentMethodData(billingDetails: billingDetails),
       ),
       options: PaymentMethodOptions(
-        setupFutureUsage:
-            _saveCard == true ? PaymentIntentsFutureUsage.OffSession : null,
-      ),
+          setupFutureUsage:
+              // ignore: use_if_null_to_convert_nulls_to_bools
+              _saveCard == true ? PaymentIntentsFutureUsage.OffSession : null),
     );
 
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Success!: The payment was confirmed successfully!')));
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Success!: The payment was confirmed successfully!')));
+    }
   }
 
   Future<Map<String, dynamic>> fetchPaymentIntentClientSecret() async {

@@ -10,8 +10,10 @@ import 'platforms/payment_element.dart'
     if (dart.library.js) 'platforms/payment_element_web.dart';
 
 class PaymentElementExample extends StatefulWidget {
+  const PaymentElementExample({super.key});
+
   @override
-  _ThemeCardExampleState createState() => _ThemeCardExampleState();
+  State<PaymentElementExample> createState() => _ThemeCardExampleState();
 }
 
 class _ThemeCardExampleState extends State<PaymentElementExample> {
@@ -26,17 +28,10 @@ class _ThemeCardExampleState extends State<PaymentElementExample> {
   Future<void> getClientSecret() async {
     try {
       final client = await createPaymentIntent();
-      setState(() {
-        clientSecret = client;
-      });
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            e.toString(),
-          ),
-        ),
-      );
+      setState(() => clientSecret = client);
+    } on Exception catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 

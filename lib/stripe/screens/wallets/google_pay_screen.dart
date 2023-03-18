@@ -19,8 +19,10 @@ const _paymentItems = [
 ];
 
 class GooglePayScreen extends StatefulWidget {
+  const GooglePayScreen({super.key});
+
   @override
-  _GooglePayScreenState createState() => _GooglePayScreenState();
+  State<GooglePayScreen> createState() => _GooglePayScreenState();
 }
 
 class _GooglePayScreenState extends State<GooglePayScreen> {
@@ -41,22 +43,20 @@ class _GooglePayScreenState extends State<GooglePayScreen> {
   @override
   Widget build(BuildContext context) => ExampleScaffold(
         title: 'Google Pay',
-        padding: EdgeInsets.all(16),
-        tags: ['Android', 'Pay plugin'],
+        padding: const EdgeInsets.all(16),
+        tags: const ['Android', 'Pay plugin'],
         children: [
           pay.GooglePayButton(
-            paymentConfigurationAsset: 'google_pay_payment_profile.json',
             paymentItems: _paymentItems,
             margin: const EdgeInsets.only(top: 15),
             onPaymentResult: onGooglePayResult,
-            loadingIndicator: const Center(
-              child: CircularProgressIndicator(),
-            ),
+            loadingIndicator: const Center(child: CircularProgressIndicator()),
             onPressed: () async {
               // 1. Add your stripe publishable key to assets/google_pay_payment_profile.json
               await debugChangedStripePublishableKey();
             },
-            childOnError: Text('Google Pay is not available in this device'),
+            childOnError:
+                const Text('Google Pay is not available in this device'),
             onError: (e) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
@@ -69,7 +69,7 @@ class _GooglePayScreenState extends State<GooglePayScreen> {
         ],
       );
 
-  Future<void> onGooglePayResult(paymentResult) async {
+  Future<void> onGooglePayResult(Map<String, dynamic> paymentResult) async {
     try {
       // 1. Add your stripe publishable key to assets/google_pay_payment_profile.json
 
@@ -82,25 +82,21 @@ class _GooglePayScreenState extends State<GooglePayScreen> {
           .toString();
       final tokenJson =
           Map.castFrom(json.decode(token) as Map<dynamic, dynamic>);
-      print(tokenJson);
-
       final params = PaymentMethodParams.cardFromToken(
         paymentMethodData: PaymentMethodDataCardFromToken(
-          token: tokenJson['id'].toString(), // TODO extract the actual token
+          token: tokenJson['id']
+              .toString(), // (R0hit19060) extract the actual token
         ),
       );
 
       // 3. Confirm Google pay payment method
       await Stripe.instance.confirmPayment(
-        paymentIntentClientSecret: clientSecret,
-        data: params,
-      );
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text('Google Pay payment succesfully completed')),
-      );
-    } catch (e) {
+          paymentIntentClientSecret: clientSecret, data: params);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Google Pay payment successfully completed')));
+      }
+    } on Exception catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );
