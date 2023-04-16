@@ -20,13 +20,16 @@ extension MapExtension on Map<String, dynamic> {
 }
 
 extension StringExtension on String {
+  String multiple(int x) => this * x;
+
   String toTitleCase() => replaceAll(RegExp(' +'), ' ')
       .split(' ')
       .map((str) => str.toCapitalized())
       .join(' ');
 
-  String toCapitalized() =>
-      length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+  String toCapitalized() => length > 1
+      ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}'
+      : toUpperCase();
 
   bool isOnlyAlpha() => RegExp(r'^[a-zA-Z]+$').hasMatch(this);
 

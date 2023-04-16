@@ -69,6 +69,24 @@ class HexColor extends Color {
   }
 }
 
+// Futures concurrently
+class CovidAPI {
+  Future<int> getCases() => Future.value(1000);
+  Future<int> getRecovered() => Future.value(100);
+  Future<int> getDeaths() => Future.value(10);
+}
+
+Future<Object?> futureWait() async {
+  final api = CovidAPI();
+  final values = await Future.wait([
+    api.getCases(),
+    api.getRecovered(),
+    api.getDeaths(),
+  ]);
+  print(values);
+  return null;
+}
+
 class KeyPad extends StatelessWidget {
   const KeyPad({
     super.key,
@@ -381,3 +399,155 @@ Future<void> inputDialog(BuildContext context, String text,
     ),
   );
 }
+
+// Implement a "call" method in your Dart classes to make them callable like a function
+class PasswordValidator {
+  bool call(String password) => password.length > 10;
+}
+
+// final validator = PasswordValidator();
+// can use it like this:
+// validator('test');
+// validator('test1234');
+// // no need to use it like this:
+// validator.call('not-so-frozen-arctic')
+
+// Use the "?.call()" syntax to invoke a callback but only if it's not null.
+// void _dragComplete() {
+//   if (onDragCompleted != null) {
+//     onDragCompleted();
+//   }
+// }
+// Use this instead of below code
+// Future<void> _dragComplete() async {
+//   onDragCompleted?.call();
+// }
+
+// Using anonymous functions and functions as arguments
+
+// void main() {
+//   final sayHi = (name) => 'Hi, $name';
+//   welcome(sayHi, 'Andrea');
+// }
+// void welcome(String Function(String) greet, String name) {
+//   print(greet(name));
+//   print('Welcome to this course');
+// }
+// const values = [1, 2, 3];
+// values.map((value) => square(value)).toList();
+// Use arrow syntax to make the code more concise
+// values.map(square).toList();
+
+// You can use collection-if and spreads with lists, sets AND maps
+
+// const addRatings = true;
+// const restaurant = {
+//   'name': 'Pizza Mario',
+//   'cuisine': 'Italian',
+//   if (addRatings) ...{
+//     'avgRating': 4.3,
+//     'numRatings': 5,
+//   }
+// };
+
+// Need to iterate through a map in a null-safe manner? Use `.entries`:
+// const timeSpent = <String, double>{
+//   'Blogging': 10.5,
+//   'YouTube': 30.5,
+//   'Courses': 75.2,
+// };
+
+// for (var entry in timeSpent.entries) {
+//   print('${entry.key}: ${entry.value}');
+// }
+
+// Use named constructors and initializer lists for more ergonomic APIs.
+// class Temperature {
+//   Temperature.celsius(this.celsius);
+//   Temperature.fahrenheit(double fahrenheit) : celsius = (fahrenheit - 32) / 1.8;
+//   double celsius;
+// }
+
+// final temp1 = Temperature.celsius(30);
+// final temp2 = Temperature.fahrenheit(90);
+
+// Getters and setters
+
+// class Temperature {
+//   Temperature.celsius(this.celsius);
+//   Temperature.fahrenheit(double fahrenheit) : celsius = (fahrenheit - 32) / 1.8;
+//   double celsius;
+//   double get fahrenheit => celsius * 1.8 + 32;
+//   set fahrenheit(double fahrenheit) => celsius = (fahrenheit - 32) / 1.8;
+// }
+// final temp1 = Temperature.celsius(30);
+// print(temp1.fahrenheit);
+// final temp2 = Temperature.fahrenheit(90);
+// temp2.celsius = 28;
+
+// Need a collection of unique items? Use a Set rather than a List.
+// const citiesList = [
+//   'London',
+//   'Paris',
+//   'Rome',
+//   'London',
+// ];
+
+// const citiesSet = {
+//   'London',
+//   'Paris',
+//   'Rome',
+// };
+// citiesSet.union({'Delhi', 'Moscow'});
+// citiesSet.difference({'London', 'Madrid'});
+// citiesSet.intersection({'London', 'Berlin'});
+
+
+//  Try Catch rethrow Finally Example
+// Future<void> printWeather() async {
+//   try {
+//     final api = WeatherApiClient();
+//     final weather = await api.getWeather('London');
+//     print(weather);
+//   } on SocketException catch (_) {
+//     print('Could not fetch data. Check your connection.');
+//   } on WeatherApiException catch (e) {
+//     print(e.message);
+//   } catch (e, st) {
+//     print('Error: $e\nStack trace: $st');
+//     rethrow;
+//   } finally {
+//     print('Done');
+//   }
+// }
+
+
+// Common Future constructors
+// await Future.delayed(Duration(seconds: 2), () => 'Latte');
+// await Future.value('Cappuccino');
+// await Future.error(Exception('Out of milk'));
+
+// Common Stream constructors
+// Stream.fromIterable([1, 2, 3]);
+// Stream.value(10);
+// Stream.empty();
+// Stream.error(Exception('something went wrong'));
+// Stream.fromFuture(Future.delayed(Duration(seconds: 1), () => 42));
+// Stream.periodic(Duration(seconds: 1), (index) => index);
+
+// Sync & Async Generators
+// Iterable<int> naturalsTo(int n) sync* {
+//   int k = 0;
+//   while (k < n) yield k++;
+// }
+// Stream<int> asynchronousNaturalsTo(int n) async* {
+//   int k = 0;
+//   while (k < n) yield k++;
+// }
+// Stream<int> countStream(int n) async* {
+//   for (var i = 1; i <= n; i++) {
+//     // dummy delay - this could be a network request
+//     await Future.delayed(Duration(seconds: 1));
+//     yield i;
+//   }
+// }
