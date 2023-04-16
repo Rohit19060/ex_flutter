@@ -11,7 +11,7 @@ class _ScaleTransitionExampleState extends State<ScaleTransitionExample>
     with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 300),
+    duration: const Duration(milliseconds: 1300),
   )..repeat(reverse: true);
 
   late final Animation<double> _animation = CurvedAnimation(

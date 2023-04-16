@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'scale_transitions.dart';
+import 'custom_bottom_bar.dart';
 
 void main() => runApp(const MyApp());
 
@@ -11,6 +11,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
         title: 'Flutter Experiments',
         theme: ThemeData(useMaterial3: true),
-        home: const ScaleTransitionExample(),
+        home: const BottomBars(),
       );
 }

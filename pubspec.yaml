@@ -15,20 +15,20 @@ dependencies:
   avatar_glow: ^2.0.2
   charts_flutter: ^0.12.0
   circle_nav_bar: ^2.0.1+1
-  cloud_firestore: ^4.4.5
+  cloud_firestore: ^4.5.0
   connectivity_plus: ^3.0.3
   csv: ^5.0.1
   date_format: ^2.0.7
   delayed_display: ^2.0.0
   device_info_plus: ^8.0.0
-  dio: ^5.0.3
+  dio: ^5.1.1
   fading_edge_scrollview: ^3.0.0
   file_picker: ^5.2.6
-  firebase_auth: ^4.3.0
+  firebase_auth: ^4.4.0
   firebase_core: ^2.1.1
   firebase_database: ^10.0.16
   firebase_messaging: ^14.3.0
-  firebase_storage: ^11.0.16
+  firebase_storage: ^11.1.0
   fl_chart: ^0.61.0
   flutter:
     sdk: flutter
@@ -50,7 +50,7 @@ dependencies:
   fluttertoast: ^8.1.3
   font_awesome_flutter: ^10.3.0
   github: ^9.11.0
-  go_router: ^6.5.0
+  go_router: ^6.5.6
   google_fonts: ^4.0.1
   google_maps_flutter: ^2.2.5
   google_ml_vision: ^0.0.8
@@ -67,7 +67,7 @@ dependencies:
   local_auth: ^2.1.6
   local_hero: ^0.2.0
   location: ^4.4.0
-  lottie: ^2.3.0
+  lottie: ^2.3.1
   math_expressions: ^2.3.1
   modal_bottom_sheet: ^2.1.2
   oauth2: ^2.0.1
