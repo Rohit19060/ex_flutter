@@ -17,7 +17,7 @@ dependencies:
   circle_nav_bar: ^2.0.1+1
   cloud_firestore: ^4.5.2
   connectivity_plus: ^3.0.3
-  csv: ^5.0.1
+  csv: ^5.0.2
   date_format: ^2.0.7
   delayed_display: ^2.0.0
   device_info_plus: ^8.0.0
