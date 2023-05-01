@@ -43,7 +43,7 @@ dependencies:
   flutter_sparkline: ^0.1.0
   flutter_spinkit: ^5.2.0
   flutter_staggered_grid_view: ^0.6.2
-  flutter_stripe: ^9.1.1
+  flutter_stripe: ^9.2.0
   flutter_stripe_web: ^4.1.0
   flutter_svg: ^2.0.5
   fluttericon: ^2.0.0
