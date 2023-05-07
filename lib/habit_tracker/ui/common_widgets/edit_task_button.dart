@@ -28,7 +28,10 @@ class EditTaskButton extends StatelessWidget {
           onPressed: onPressed,
           icon: SvgPicture.asset(
             threeDots,
-            color: AppTheme.of(context).accentNegative,
+            colorFilter: ColorFilter.mode(
+              AppTheme.of(context).accentNegative,
+              BlendMode.srcIn,
+            ),
             width: 16,
             height: 16,
           ),

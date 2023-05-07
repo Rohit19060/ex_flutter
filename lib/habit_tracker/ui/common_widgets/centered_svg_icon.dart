@@ -18,7 +18,7 @@ class CenteredSvgIcon extends StatelessWidget {
       child: isSvg
           ? SvgPicture.asset(
               iconName,
-              color: color,
+              colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
             )
           : FittedBox(
               child: Text(

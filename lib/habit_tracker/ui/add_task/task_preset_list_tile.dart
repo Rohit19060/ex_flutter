@@ -37,7 +37,10 @@ class TaskPresetListTile extends StatelessWidget {
               ),
               child: SvgPicture.asset(
                 taskPreset.iconName,
-                color: white,
+                colorFilter: const ColorFilter.mode(
+                  white,
+                  BlendMode.srcIn,
+                ),
                 width: 24,
                 height: 24,
               ),

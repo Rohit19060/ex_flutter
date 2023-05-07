@@ -52,8 +52,11 @@ class SideMenuItem extends StatelessWidget {
                       WebsafeSvg.asset(
                         iconSrc,
                         height: 20,
-                        color:
-                            (isActive || isHover) ? kPrimaryColor : kGrayColor,
+                        colorFilter: (isActive || isHover)
+                            ? const ColorFilter.mode(
+                                kPrimaryColor, BlendMode.srcIn)
+                            : const ColorFilter.mode(
+                                kGrayColor, BlendMode.srcIn),
                       ),
                       const SizedBox(width: kDefaultPadding * 0.75),
                       Text(

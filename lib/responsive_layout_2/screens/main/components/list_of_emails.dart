@@ -98,7 +98,8 @@ class _ListOfEmailsState extends State<ListOfEmails> {
                       WebsafeSvg.asset(
                         'assets/icons/Angle down.svg',
                         width: 16,
-                        color: Colors.black,
+                        colorFilter: const ColorFilter.mode(
+                            Colors.black, BlendMode.srcIn),
                       ),
                       const SizedBox(width: 5),
                       const Text(

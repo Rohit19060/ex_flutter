@@ -109,7 +109,8 @@ class EmailScreen extends StatelessWidget {
                                         WebsafeSvg.asset(
                                           'assets/icons/Download.svg',
                                           height: 16,
-                                          color: kGrayColor,
+                                          colorFilter: const ColorFilter.mode(
+                                              kGrayColor, BlendMode.srcIn),
                                         ),
                                       ],
                                     ),

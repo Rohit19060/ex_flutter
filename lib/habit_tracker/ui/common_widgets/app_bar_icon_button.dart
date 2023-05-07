@@ -18,7 +18,10 @@ class AppBarIconButton extends StatelessWidget {
         onPressed: onPressed,
         icon: SvgPicture.asset(
           iconName,
-          color: AppTheme.of(context).settingsText,
+          colorFilter: ColorFilter.mode(
+            AppTheme.of(context).settingsText,
+            BlendMode.srcIn,
+          ),
           width: 20,
           height: 20,
         ),

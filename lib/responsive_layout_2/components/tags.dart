@@ -57,7 +57,7 @@ class Tags extends StatelessWidget {
               WebsafeSvg.asset(
                 'assets/icons/Markup filled.svg',
                 height: 18,
-                color: color,
+                colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
               ),
               const SizedBox(width: kDefaultPadding / 2),
               Text(

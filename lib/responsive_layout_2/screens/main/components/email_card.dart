@@ -86,7 +86,11 @@ class EmailCard extends StatelessWidget {
                               if (email.isAttachmentAvailable)
                                 WebsafeSvg.asset(
                                   'assets/icons/Paperclip.svg',
-                                  color: isActive ? Colors.white70 : kGrayColor,
+                                  colorFilter: isActive
+                                      ? const ColorFilter.mode(
+                                          Colors.white70, BlendMode.srcIn)
+                                      : const ColorFilter.mode(
+                                          kGrayColor, BlendMode.srcIn),
                                 )
                             ],
                           ),
@@ -133,7 +137,10 @@ class EmailCard extends StatelessWidget {
                     child: WebsafeSvg.asset(
                       'assets/icons/Markup filled.svg',
                       height: 18,
-                      color: email.tagColor,
+                      colorFilter: ColorFilter.mode(
+                        email.tagColor!,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   )
               ],

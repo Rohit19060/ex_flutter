@@ -10,8 +10,9 @@ class WishlistRepository {
   Dio get _client =>
       Dio(BaseOptions(baseUrl: 'https://reqres.in/api/users?page=2'));
   Future<List<BoardGame>> getBoardGames() async {
-    final result = await _client.get('/search?limit=20');
-    final games = result.data['data'] as List<dynamic>;
+    final result =
+        (await _client.get('/search?limit=20')).data as Map<String, dynamic>;
+    final games = result['data'] as List<dynamic>;
     return games
         .map((e) => BoardGame.fromJson(e as Map<String, dynamic>))
         .toList();

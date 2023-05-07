@@ -82,9 +82,8 @@ Future<void> preloadSVGs() async {
     ...allTaskIcons,
   ];
   for (final asset in assets) {
-    await precachePicture(
-      ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, asset),
-      null,
-    );
+    final loader = SvgAssetLoader(asset);
+    await svg.cache
+        .putIfAbsent(loader.cacheKey(null), () => loader.loadBytes(null));
   }
 }

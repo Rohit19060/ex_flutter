@@ -78,12 +78,11 @@ class CovidAPI {
 
 Future<Object?> futureWait() async {
   final api = CovidAPI();
-  final values = await Future.wait([
+  await Future.wait([
     api.getCases(),
     api.getRecovered(),
     api.getDeaths(),
   ]);
-  print(values);
   return null;
 }
 
