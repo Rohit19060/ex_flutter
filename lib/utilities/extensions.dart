@@ -2,6 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:intl/intl.dart';
 
+extension OptionalInfixAddition<T extends num> on T? {
+  // T? operator +(T? other) =>
+  //     this == null || other == null ? null : this! + other as T;
+  T? operator +(T? other) {
+    final shadow = this;
+    if (shadow != null) {
+      return shadow + (other ?? 0) as T;
+    } else {
+      return null;
+    }
+  }
+}
+
 extension DateTimeExtension on DateTime {
   String toDateTimeString() =>
       '${DateFormat('dd MMM yyyy').format(this)} at ${DateFormat('hh:mm a').format(this)}';
