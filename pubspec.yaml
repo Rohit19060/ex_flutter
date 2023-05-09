@@ -23,7 +23,7 @@ dependencies:
   device_info_plus: ^8.2.2
   dio: ^5.1.1
   fading_edge_scrollview: ^3.0.0
-  file_picker: ^5.2.11
+  file_picker: ^5.3.0
   firebase_auth: ^4.5.0
   firebase_core: ^2.11.0
   firebase_database: ^10.1.2
