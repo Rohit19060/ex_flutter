@@ -421,26 +421,26 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_storage
-      sha256: "1861a9ecf3ec0f62745a6e3145b80d619cc3ed8ff41e1cd43529b52ba0ecff6a"
+      sha256: e69bea73474dc827f0cfe22d80aa6aa3e9d4a095e12939c049abab59fc9884b4
       url: "https://pub.dev"
     source: hosted
-    version: "11.1.2"
+    version: "11.2.0"
   firebase_storage_platform_interface:
     dependency: transitive
     description:
       name: firebase_storage_platform_interface
-      sha256: "88080a166ae062a0a57ace8a86294ee6a9c60fe377d4a93bab725a243380a887"
+      sha256: "97cf21feb184ae8d53396d74d215baca01363c513fca3b4496089c3f2701ae5a"
       url: "https://pub.dev"
     source: hosted
-    version: "4.3.0"
+    version: "4.4.0"
   firebase_storage_web:
     dependency: transitive
     description:
       name: firebase_storage_web
-      sha256: bd89a28c58d4f18ff5d9b4e3358520a5540800d933709bb2c1ff36b83e396f09
+      sha256: "6b07626eaff386e1822d327f80ba19a7a3b2599b1fcc9fa14bb8cd2767c28271"
       url: "https://pub.dev"
     source: hosted
-    version: "3.5.0"
+    version: "3.6.0"
   fl_chart:
     dependency: "direct main"
     description:
