@@ -215,14 +215,14 @@ class _DraggableCardState extends State<DraggableCard>
 
     slideOutAnimation = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this)
-      ..addListener(() => {
-            setState(() {
-              cardOffset = slideOutTween!.evaluate(slideOutAnimation);
-              if (widget.onSlideUpdate != null) {
-                widget.onSlideUpdate!(cardOffset!.distance);
-              }
-            }),
-          })
+      ..addListener(
+        () => setState(() {
+          cardOffset = slideOutTween!.evaluate(slideOutAnimation);
+          if (widget.onSlideUpdate != null) {
+            widget.onSlideUpdate!(cardOffset!.distance);
+          }
+        }),
+      )
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           setState(() {
