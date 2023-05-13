@@ -1,6 +1,4 @@
 analyzer:
-  strong-mode:
-    implicit-casts: false
   language:
     strict-casts: true
     strict-raw-types: true
@@ -224,4 +222,3 @@ linter:
     # - use_to_and_as_if_applicable # has false positives, so we prefer to catch this by code-review
     - valid_regexps
     - void_checks
-

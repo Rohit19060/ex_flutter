@@ -3,18 +3,17 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import 'package:pay/pay.dart' as pay;
 
 import '../../config.dart';
 import '../../widgets/example_scaffold.dart';
 
-const _paymentItems = [
-  pay.PaymentItem(
-    label: 'Total',
-    amount: '0.01',
-    status: pay.PaymentItemStatus.final_price,
-  )
-];
+// const _paymentItems = [
+//   pay.PaymentItem(
+//     label: 'Total',
+//     amount: '0.01',
+//     status: pay.PaymentItemStatus.final_price,
+//   )
+// ];
 
 class ApplePayExternalPluginScreen extends StatefulWidget {
   const ApplePayExternalPluginScreen({super.key});
@@ -41,27 +40,27 @@ class _ApplePayExternalPluginScreenState
   }
 
   @override
-  Widget build(BuildContext context) => ExampleScaffold(
+  Widget build(BuildContext context) => const ExampleScaffold(
         title: 'Apple Pay',
-        padding: const EdgeInsets.all(16),
-        tags: const ['iOS', 'Pay plugin'],
+        padding: EdgeInsets.all(16),
+        tags: ['iOS', 'Pay plugin'],
         children: [
-          pay.ApplePayButton(
-            paymentItems: _paymentItems,
-            margin: const EdgeInsets.only(top: 15),
-            onPaymentResult: onApplePayResult,
-            loadingIndicator: const Center(child: CircularProgressIndicator()),
-            childOnError:
-                const Text('Apple Pay is not available in this device'),
-            onError: (e) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text(
-                      'There was an error while trying to perform the payment'),
-                ),
-              );
-            },
-          ),
+          // pay.ApplePayButton(
+          //   paymentItems: _paymentItems,
+          //   margin: const EdgeInsets.only(top: 15),
+          //   onPaymentResult: onApplePayResult,
+          //   loadingIndicator: const Center(child: CircularProgressIndicator()),
+          //   childOnError:
+          //       const Text('Apple Pay is not available in this device'),
+          //   onError: (e) {
+          //     ScaffoldMessenger.of(context).showSnackBar(
+          //       const SnackBar(
+          //         content: Text(
+          //             'There was an error while trying to perform the payment'),
+          //       ),
+          //     );
+          //   },
+          // ),
         ],
       );
 

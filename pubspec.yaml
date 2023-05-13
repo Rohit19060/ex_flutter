@@ -13,7 +13,6 @@ dependencies:
   adaptive_navigation: ^0.0.9
   animations: ^2.0.7
   avatar_glow: ^2.0.2
-  charts_flutter: ^0.12.0
   circle_nav_bar: ^2.0.1+1
   cloud_firestore: ^4.6.0
   connectivity_plus: ^4.0.0
@@ -32,15 +31,15 @@ dependencies:
   fl_chart: ^0.62.0
   flutter:
     sdk: flutter
-  flutter_circular_chart: ^0.1.0
   flutter_dotenv: ^5.0.2
   flutter_inset_box_shadow: ^1.0.8
   flutter_local_notifications: ^14.0.0+1
+  flutter_localizations:
+    sdk: flutter
   flutter_native_splash: ^2.2.19
   flutter_native_timezone: ^2.0.0
   flutter_riverpod: ^2.3.6
   flutter_screenutil: ^5.7.0
-  flutter_sparkline: ^0.1.0
   flutter_spinkit: ^5.2.0
   flutter_staggered_grid_view: ^0.6.2
   flutter_stripe: ^9.2.0
@@ -60,10 +59,9 @@ dependencies:
   http: ^0.13.6
   image: ^4.0.17
   image_crop: ^0.4.1
-  # image_cropping: ^0.0.13
   image_picker: ^0.8.7+4
   in_app_purchase: ^3.1.5
-  intl: ^0.17.0
+  intl: ^0.18.0
   local_auth: ^2.1.6
   local_hero: ^0.2.0
   location: ^4.4.0
@@ -76,7 +74,6 @@ dependencies:
   palette_generator: ^0.3.3+2
   path: ^1.8.2
   path_provider: ^2.0.14
-  pay: ^1.1.1
   paytm_allinonesdk: ^1.2.1
   permission_handler: ^10.2.0
   pie_chart: ^5.3.2
