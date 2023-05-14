@@ -127,9 +127,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      drawer: Drawer(
+      drawer: const Drawer(
         child: Column(
-          children: const [
+          children: [
             ListTile(
               leading: Icon(Icons.favorite),
               title: Text('First'),

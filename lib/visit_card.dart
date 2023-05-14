@@ -55,37 +55,37 @@ class MainCard extends StatelessWidget {
         backgroundColor: mC,
         body: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(25),
+            const Padding(
+              padding: EdgeInsets.all(25),
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       NMButton(icon: Icons.arrow_back),
                       NMButton(icon: Icons.menu),
                     ],
                   ),
-                  const AvatarImage(),
-                  const SizedBox(height: 15),
-                  const Text(
+                  AvatarImage(),
+                  SizedBox(height: 15),
+                  Text(
                     'Steven Dz',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
                   ),
-                  const Text(
+                  Text(
                     'Amsterdam',
                     style: TextStyle(fontWeight: FontWeight.w200),
                   ),
-                  const SizedBox(height: 15),
-                  const Text(
+                  SizedBox(height: 15),
+                  Text(
                     'Mobile App Developer and Game Designer',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20),
                   ),
-                  const SizedBox(height: 35),
+                  SizedBox(height: 35),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       NMButton(icon: FontAwesomeIcons.facebookF),
                       SizedBox(width: 25),
                       NMButton(icon: FontAwesomeIcons.twitter),
@@ -93,9 +93,9 @@ class MainCard extends StatelessWidget {
                       NMButton(icon: FontAwesomeIcons.instagram),
                     ],
                   ),
-                  const Spacer(),
+                  Spacer(),
                   Row(
-                    children: const [
+                    children: [
                       SocialBox(
                           icon: FontAwesomeIcons.dribbble,
                           count: '35',
@@ -107,9 +107,9 @@ class MainCard extends StatelessWidget {
                           category: 'followers'),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20),
                   Row(
-                    children: const [
+                    children: [
                       SocialBox(
                           icon: FontAwesomeIcons.heart,
                           count: '5.1k',
@@ -121,9 +121,9 @@ class MainCard extends StatelessWidget {
                           category: 'following'),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20),
                   Row(
-                    children: const [
+                    children: [
                       SocialBox(
                           icon: FontAwesomeIcons.whiskeyGlass,
                           count: '97',
@@ -135,7 +135,7 @@ class MainCard extends StatelessWidget {
                           category: 'projects'),
                     ],
                   ),
-                  const SizedBox(height: 35),
+                  SizedBox(height: 35),
                 ],
               ),
             ),

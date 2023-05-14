@@ -210,9 +210,9 @@ class _LoginScreenState extends State<LoginScreen>
                               border: Border.all(),
                               color: Colors.transparent,
                               borderRadius: BorderRadius.circular(20.0)),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const <Widget>[
+                            children: <Widget>[
                               Center(
                                 child: ImageIcon(
                                   AssetImage('assets/images/facebook.png'),

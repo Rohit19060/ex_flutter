@@ -668,9 +668,9 @@ class _ContentState extends State<Content> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(16.0),
                 color: Colors.blue,
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Padding(
                       padding: EdgeInsets.only(bottom: 8.0),
                       child: Text(

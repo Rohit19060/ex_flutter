@@ -12,12 +12,12 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           primarySwatch: Colors.blue,
         ),
-        home: Scaffold(
+        home: const Scaffold(
           body: Center(
             child: SelectionArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const <Widget>[
+                children: <Widget>[
                   Text('Row 1'),
                   Text('Row 2'),
                   Text('Row 3'),

@@ -11,8 +11,8 @@ class _ExtraPageState extends State<ExtraPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(),
-        body: Column(
-          children: const [
+        body: const Column(
+          children: [
             FractionallySizedBox(
               heightFactor: 1 / 2,
               widthFactor: 1 / 2,

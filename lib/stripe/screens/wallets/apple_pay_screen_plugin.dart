@@ -44,24 +44,6 @@ class _ApplePayExternalPluginScreenState
         title: 'Apple Pay',
         padding: EdgeInsets.all(16),
         tags: ['iOS', 'Pay plugin'],
-        children: [
-          // pay.ApplePayButton(
-          //   paymentItems: _paymentItems,
-          //   margin: const EdgeInsets.only(top: 15),
-          //   onPaymentResult: onApplePayResult,
-          //   loadingIndicator: const Center(child: CircularProgressIndicator()),
-          //   childOnError:
-          //       const Text('Apple Pay is not available in this device'),
-          //   onError: (e) {
-          //     ScaffoldMessenger.of(context).showSnackBar(
-          //       const SnackBar(
-          //         content: Text(
-          //             'There was an error while trying to perform the payment'),
-          //       ),
-          //     );
-          //   },
-          // ),
-        ],
       );
 
   Future<void> onApplePayResult(Map<String, dynamic> paymentResult) async {

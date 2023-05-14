@@ -44,9 +44,9 @@ class _FoodHomePageState extends State<FoodHomePage> {
                   curve: Curves.bounceIn,
                   direction: Direction.horizontal,
                   offset: 0.5,
-                  child: Column(
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         'Good evening',
                         style: TextStyle(

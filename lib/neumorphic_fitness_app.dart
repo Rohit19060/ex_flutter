@@ -135,21 +135,21 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) => SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
+            const Padding(
+              padding: EdgeInsets.all(20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Hello Almamun',
                         style:
                             TextStyle(fontSize: 16, color: Color(0xff869CEE)),
                       ),
                       Row(
-                        children: const [
+                        children: [
                           Text(
                             'Find A ',
                             style: TextStyle(
@@ -170,7 +170,7 @@ class _BodyState extends State<Body> {
                       )
                     ],
                   ),
-                  const Icon(Icons.search)
+                  Icon(Icons.search)
                 ],
               ),
             ),
@@ -207,8 +207,8 @@ class _BodyState extends State<Body> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: const [
+                            const Row(
+                              children: [
                                 Text(
                                   'Legs ',
                                   style: TextStyle(
@@ -226,8 +226,8 @@ class _BodyState extends State<Body> {
                                 )
                               ],
                             ),
-                            Row(
-                              children: const [
+                            const Row(
+                              children: [
                                 Text(
                                   'Glutes ',
                                   style: TextStyle(
@@ -576,8 +576,8 @@ class _PageState extends State<Page> {
         appBar: AppBar(
           backgroundColor: boxColor,
           elevation: 0,
-          title: Row(
-            children: const [
+          title: const Row(
+            children: [
               Text(
                 'Start ',
                 style: TextStyle(

@@ -60,9 +60,9 @@ class _ThirdPageState extends State<ThirdPage> {
                   ),
                 ],
               ),
-              drawer: Drawer(
+              drawer: const Drawer(
                 child: Column(
-                  children: const [
+                  children: [
                     ListTile(
                       leading: Icon(Icons.favorite),
                       title: Text('First'),

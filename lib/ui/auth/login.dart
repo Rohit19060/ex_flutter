@@ -100,9 +100,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const SizedBox(height: 50),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     SquareTile(imagePath: 'assets/images/google.png'),
                     SizedBox(width: 25),
                     SquareTile(imagePath: 'assets/images/apple.png')

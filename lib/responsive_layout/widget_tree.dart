@@ -14,8 +14,8 @@ class WidgetTree extends StatelessWidget {
     return Scaffold(
       body: ResponsiveLayout(
         iphone: const ECommerceItems(),
-        ipad: Row(
-          children: const [
+        ipad: const Row(
+          children: [
             Expanded(
               flex: 9,
               child: ECommerceItems(),

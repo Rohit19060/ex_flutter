@@ -54,11 +54,11 @@ class _VideoGameUIState extends State<VideoGameUI> {
               ),
               Opacity(
                 opacity: toolbarOpacity,
-                child: SafeArea(
+                child: const SafeArea(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 20),
+                    padding: EdgeInsets.only(top: 20),
                     child: Row(
-                      children: const [
+                      children: [
                         SizedBox(
                           width: 18,
                         ),

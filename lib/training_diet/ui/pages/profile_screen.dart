@@ -187,10 +187,10 @@ class ProfileScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          child: Column(
+                          child: const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              const Padding(
+                              Padding(
                                 padding: EdgeInsets.only(
                                   top: 16.0,
                                   left: 16.0,
@@ -204,7 +204,7 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const Padding(
+                              Padding(
                                 padding: EdgeInsets.only(top: 4.0, left: 16),
                                 child: Text(
                                   'Upper Body',
@@ -219,7 +219,7 @@ class ProfileScreen extends StatelessWidget {
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
-                                  children: const <Widget>[
+                                  children: <Widget>[
                                     BuildWorkoutImageItem(
                                       image: 'assets/images/chest.png',
                                       radius: 25.0,

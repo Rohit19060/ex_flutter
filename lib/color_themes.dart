@@ -49,9 +49,9 @@ class HomePage extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 17),
             width: _containerWidth,
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const <Widget>[
+              children: <Widget>[
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: Text('Theme'),
@@ -129,10 +129,8 @@ class ThemeSwitcher extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
                             Icon(appThemes[i].icon),
-                            Text(
-                              appThemes[i].title,
-                              style: Theme.of(context).textTheme.titleSmall
-                            ),
+                            Text(appThemes[i].title,
+                                style: Theme.of(context).textTheme.titleSmall),
                           ],
                         ),
                       ),

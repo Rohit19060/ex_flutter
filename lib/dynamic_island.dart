@@ -174,8 +174,8 @@ class CallCollapsed extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Row(
         children: [
-          Row(
-            children: const [
+          const Row(
+            children: [
               Icon(
                 CupertinoIcons.phone_fill,
                 color: Colors.greenAccent,
@@ -234,8 +234,8 @@ class CallExpanded extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          Row(
-            children: const [
+          const Row(
+            children: [
               CircleAvatar(
                 backgroundColor: Colors.red,
                 radius: 22,
@@ -290,12 +290,12 @@ class LocationExpanded extends StatelessWidget {
   const LocationExpanded({super.key});
 
   @override
-  Widget build(BuildContext context) => Column(
+  Widget build(BuildContext context) => const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: const [
+            children: [
               Expanded(
                 child: Icon(
                   CupertinoIcons.arrow_turn_up_left,
@@ -326,12 +326,12 @@ class LocationExpanded extends StatelessWidget {
               )
             ],
           ),
-          const SizedBox(height: 15),
+          SizedBox(height: 15),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            padding: EdgeInsets.symmetric(horizontal: 15.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
                   '120 m',
                   style: TextStyle(
@@ -471,14 +471,14 @@ class MusicExpanded extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
-          Row(
+          const Row(
             children: [
-              const Spacer(),
+              Spacer(),
               Expanded(
                 flex: 2,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Icon(
                       CupertinoIcons.backward_end_alt_fill,
                       color: Colors.white,
@@ -506,7 +506,7 @@ class MusicExpanded extends StatelessWidget {
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
+                  children: [
                     Icon(
                       CupertinoIcons.antenna_radiowaves_left_right,
                       color: Colors.white,

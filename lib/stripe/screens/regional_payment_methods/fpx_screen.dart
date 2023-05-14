@@ -47,9 +47,7 @@ class _FpxScreenState extends State<FpxScreen> {
       await Stripe.instance.confirmPayment(
         paymentIntentClientSecret: clientSecret.toString(),
         data: const PaymentMethodParams.fpx(
-          paymentMethodData: PaymentMethodDataFpx(
-            testOfflineBank: false,
-          ),
+          paymentMethodData: PaymentMethodDataFpx(),
         ),
       );
 

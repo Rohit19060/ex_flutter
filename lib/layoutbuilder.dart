@@ -58,9 +58,9 @@ class _SecondPageState extends State<SecondPage> {
                   ),
                 ],
               ),
-              drawer: Drawer(
+              drawer: const Drawer(
                 child: Column(
-                  children: const [
+                  children: [
                     ListTile(
                       leading: Icon(Icons.favorite),
                       title: Text('First'),

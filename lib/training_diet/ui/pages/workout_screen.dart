@@ -54,12 +54,12 @@ class WorkoutScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                trailing: Column(
+                trailing: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: const <Widget>[
+                      children: <Widget>[
                         Icon(
                           Icons.access_time,
                           color: Colors.white30,
@@ -77,12 +77,12 @@ class WorkoutScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 4.0,
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: const <Widget>[
+                      children: <Widget>[
                         Icon(
                           Icons.shutter_speed,
                           color: Colors.white30,
