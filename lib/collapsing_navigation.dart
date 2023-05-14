@@ -76,8 +76,8 @@ class CollapsingNavigation extends StatelessWidget {
             elevation: 0.0,
           ),
           // drawer: CollapsingNavigationDrawer(),
-          body: Stack(
-            children: const <Widget>[
+          body: const Stack(
+            children: <Widget>[
               ColoredBox(color: selectedColor),
               CollapsingNavigationDrawer(),
             ],
