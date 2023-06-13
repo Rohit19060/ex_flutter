@@ -111,7 +111,7 @@ dependencies:
   timezone: ^0.9.2
   toast: ^0.3.0
   transparent_image: ^2.0.1
-  tuple: ^2.0.1
+  tuple: ^2.0.2
   universal_platform: ^1.0.0+1
   url_launcher: ^6.1.11
   uuid: ^3.0.7
