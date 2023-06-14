@@ -104,7 +104,7 @@ dependencies:
   shared_preferences: ^2.1.1
   shimmer: ^3.0.0
   show_up_animation: ^2.0.0
-  simple_animations: ^5.0.0+3
+  simple_animations: ^5.0.2
   sqflite: ^2.2.8+1
   square_percent_indicater: ^0.1.0
   stripe_checkout: ^1.0.0
