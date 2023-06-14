@@ -58,7 +58,7 @@ dependencies:
   flutter_svg: ^2.0.7
   fluttericon: ^2.0.0
   fluttertoast: ^8.2.1
-  focusable_control_builder: ^1.0.1+1
+  focusable_control_builder: ^1.0.2+1
   font_awesome_flutter: ^10.4.0
   freezed_annotation: ^2.2.0
   gap: ^3.0.0
