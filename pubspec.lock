@@ -695,10 +695,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_stripe_web
-      sha256: a108d14725cbdcd0516ac6143fe0eddb86ef44dc0ba067a8a5c6c1e97190e175
+      sha256: e6ffc95641914706d5967922053be7c14647ed2b3f751cc0b2056654950c7a5b
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.1"
+    version: "4.2.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -1774,10 +1774,10 @@ packages:
     dependency: transitive
     description:
       name: stripe_js
-      sha256: aa2d08f65724e39227d5346af8418cf3cc37613c95f04d5e6db029a21df0df2e
+      sha256: ea4e917ac81ab4590e4464975fdf5d7eb50a0eeb267d532ada0d8515c8790be9
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "3.1.0"
   stripe_platform_interface:
     dependency: transitive
     description:
