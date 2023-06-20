@@ -40,7 +40,7 @@ dependencies:
   flextras: ^1.0.0
   flutter:
     sdk: flutter
-  flutter_animate: ^4.1.1+1
+  flutter_animate: ^4.2.0
   flutter_bloc: ^8.1.2
   flutter_dotenv: ^5.0.2
   flutter_inset_box_shadow: ^1.0.8
