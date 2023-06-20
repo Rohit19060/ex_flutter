@@ -165,7 +165,7 @@ class _CustomKeyboardExperimentState extends State<CustomKeyboardExperiment> {
 
     // Delete the previous character
     final previousCodeUnit = text.codeUnitAt(textSelection.start - 1);
-    final offset = _isUtf16Surrogate(previousCodeUnit) ? 2 : 1;
+    final offset =  previousCodeUnit & 0xF800 == 0xD800 ? 2 : 1;
     final newStart = textSelection.start - offset;
     final newEnd = textSelection.start;
     final newText = text.replaceRange(
@@ -179,8 +179,6 @@ class _CustomKeyboardExperimentState extends State<CustomKeyboardExperiment> {
       extentOffset: newStart,
     );
   }
-
-  bool _isUtf16Surrogate(int value) => value & 0xF800 == 0xD800;
 
   @override
   void dispose() {
