@@ -777,10 +777,10 @@ packages:
     dependency: "direct main"
     description:
       name: github
-      sha256: b0194a326787f0e306dc35e1e39a786d819364ff90a8cdddc9cfda1fdfa17cdb
+      sha256: c4f71eba8715d593af7c0954e0f123810acade2725ca1cf985b8e3d2edb15716
       url: "https://pub.dev"
     source: hosted
-    version: "9.14.0"
+    version: "9.15.0"
   go_router:
     dependency: "direct main"
     description:
