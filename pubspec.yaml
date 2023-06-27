@@ -74,7 +74,7 @@ dependencies:
   http: ^0.13.6
   image: ^4.0.17
   image_crop: ^0.4.1
-  image_picker: ^0.8.9
+  image_picker: ^1.0.0
   in_app_purchase: ^3.1.5
   intl: ^0.18.0
   local_auth: ^2.1.6
