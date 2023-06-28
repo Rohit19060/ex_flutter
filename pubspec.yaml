@@ -59,7 +59,7 @@ dependencies:
   fluttericon: ^2.0.0
   fluttertoast: ^8.2.1
   focusable_control_builder: ^1.0.2+1
-  font_awesome_flutter: ^10.4.0
+  font_awesome_flutter: ^10.5.0
   freezed_annotation: ^2.2.0
   gap: ^3.0.1
   github: ^9.15.1
