@@ -22,7 +22,6 @@ class ShaderPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant ShaderPainter oldDelegate) {
-    return oldDelegate.shader != shader || oldDelegate.update != update;
-  }
+  bool shouldRepaint(covariant ShaderPainter oldDelegate) =>
+      oldDelegate.shader != shader || oldDelegate.update != update;
 }
