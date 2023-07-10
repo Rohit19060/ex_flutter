@@ -29,9 +29,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         body: DraggableGridViewBuilder(
           isOnlyLongPress: false,
-          dragCompletion: (list, beforeIndex, afterIndex) {
-            print('onDragAccept: $beforeIndex -> $afterIndex');
-          },
+          dragCompletion: (list, beforeIndex, afterIndex) {},
           dragFeedback: (list, index) => Material(
             color: Colors.green,
             child: SizedBox(
@@ -55,9 +53,7 @@ class HomePage extends StatelessWidget {
             final table = tables[i];
             return DraggableGridItem(
               isDraggable: true,
-              dragCallback: (context, afterIndex) {
-                print('onDragUpdate: $afterIndex -> $afterIndex');
-              },
+              dragCallback: (context, afterIndex) {},
               child: TableWidget(
                   isAssign: false,
                   table: table,
@@ -318,6 +314,7 @@ class DraggableGridItem {
 
   final bool isDraggable;
   final Widget child;
+  // ignore: avoid_positional_boolean_parameters
   final Function(BuildContext context, bool isDragging)? dragCallback;
 }
 

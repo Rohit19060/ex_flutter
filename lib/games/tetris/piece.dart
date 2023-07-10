@@ -312,89 +312,90 @@ class Piece {
               rotationState = (rotationState + 1) % 4;
             }
             break;
-          case Tetromino.T:
-            switch (rotationState) {
-              case 0:
-                newPositions = [
-                  positions[2] - rowLength,
-                  positions[2],
-                  positions[2] + 1,
-                  positions[2] + rowLength,
-                ];
-                if (piecePositionIsValid(newPositions)) {
-                  positions = newPositions;
-                  rotationState = (rotationState + 1) % 4;
-                }
-                break;
-              case 1:
-                newPositions = [
-                  positions[1] - 1,
-                  positions[1],
-                  positions[1] + 1,
-                  positions[1] + rowLength,
-                ];
-                if (piecePositionIsValid(newPositions)) {
-                  positions = newPositions;
-                  rotationState = (rotationState + 1) % 4;
-                }
-                break;
-              case 2:
-                newPositions = [
-                  positions[1] - rowLength,
-                  positions[1] - 1,
-                  positions[1] + 1,
-                  positions[1] + rowLength,
-                ];
-                if (piecePositionIsValid(newPositions)) {
-                  positions = newPositions;
-                  rotationState = (rotationState + 1) % 4;
-                }
-                break;
-              case 3:
-                newPositions = [
-                  positions[2] - rowLength,
-                  positions[2] - 1,
-                  positions[2],
-                  positions[2] + 1,
-                ];
-                if (piecePositionIsValid(newPositions)) {
-                  positions = newPositions;
-                  rotationState = (rotationState + 1) % 4;
-                }
-                break;
-            }
         }
-        break;
+      case Tetromino.T:
+        switch (rotationState) {
+          case 0:
+            newPositions = [
+              positions[2] - rowLength,
+              positions[2],
+              positions[2] + 1,
+              positions[2] + rowLength,
+            ];
+            if (piecePositionIsValid(newPositions)) {
+              positions = newPositions;
+              rotationState = (rotationState + 1) % 4;
+            }
+            break;
+          case 1:
+            newPositions = [
+              positions[1] - 1,
+              positions[1],
+              positions[1] + 1,
+              positions[1] + rowLength,
+            ];
+            if (piecePositionIsValid(newPositions)) {
+              positions = newPositions;
+              rotationState = (rotationState + 1) % 4;
+            }
+            break;
+          case 2:
+            newPositions = [
+              positions[1] - rowLength,
+              positions[1] - 1,
+              positions[1] + 1,
+              positions[1] + rowLength,
+            ];
+            if (piecePositionIsValid(newPositions)) {
+              positions = newPositions;
+              rotationState = (rotationState + 1) % 4;
+            }
+            break;
+          case 3:
+            newPositions = [
+              positions[2] - rowLength,
+              positions[2] - 1,
+              positions[2],
+              positions[2] + 1,
+            ];
+            if (piecePositionIsValid(newPositions)) {
+              positions = newPositions;
+              rotationState = (rotationState + 1) % 4;
+            }
+            break;
+        }
+
       default:
+        break;
     }
   }
+}
 
-  bool positionIsValid(int position) {
-    final row = (position / rowLength).floor();
-    final col = position % rowLength;
-    if (row < 0 || col < 0 || board[row][col] != null) {
+bool positionIsValid(int position) {
+  final row = (position / rowLength).floor();
+  final col = position % rowLength;
+  if (row < 0 || col < 0 || board[row][col] != null) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+bool piecePositionIsValid(List<int> positions) {
+  var firstColOccupied = false;
+  var lastColOccupied = false;
+
+  for (final pos in positions) {
+    if (!positionIsValid(pos)) {
       return false;
-    } else {
-      return true;
+    }
+    final col = pos % rowLength;
+    if (col == 0) {
+      firstColOccupied = true;
+    }
+    if (col == rowLength - 1) {
+      lastColOccupied = true;
     }
   }
-
-  bool piecePositionIsValid(List<int> positions) {
-    var firstColOccupied = false;
-    var lastColOccupied = false;
-
-    for (final pos in positions) {
-      if (!positionIsValid(pos)) {
-        return false;
-      }
-      final col = pos % rowLength;
-      if (col == 0) {
-        firstColOccupied = true;
-      }
-      if (col == rowLength - 1) {
-        lastColOccupied = true;
-      }
-    }
-    return !(firstColOccupied && lastColOccupied);
-  }
+  return !(firstColOccupied && lastColOccupied);
 }

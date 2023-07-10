@@ -1,9 +1,4 @@
-import 'dart:convert';
-
 class Document {
-  Document() : _json = jsonDecode(documentJson) as Map<String, Object?>;
-  final Map<String, Object?> _json;
-
   (String, {DateTime modified}) get metadata {
     // Add from here...
     const title = 'My Document';

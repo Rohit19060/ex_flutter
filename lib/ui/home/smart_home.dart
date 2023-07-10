@@ -134,6 +134,7 @@ class SmartDeviceBox extends StatelessWidget {
   final String smartDeviceName;
   final String iconPath;
   final bool powerOn;
+  // ignore: avoid_positional_boolean_parameters
   final void Function(bool)? onChanged;
 
   @override
@@ -189,6 +190,7 @@ class SmartDeviceBox extends StatelessWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
+    // ignore: avoid_positional_boolean_parameters
     properties.add(ObjectFlagProperty<void Function(bool p1)?>.has(
         'onChanged', onChanged));
     properties.add(DiagnosticsProperty<bool>('powerOn', powerOn));

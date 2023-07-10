@@ -42,9 +42,11 @@ Future<ResponseModel> networkRequest(
     }
     Response response;
     if (isPost) {
-      response = await post(Uri.parse(url), body: formData, headers: headers);
+      response = await post(Uri.parse('http://192.168.29.5:8000/api/$url'),
+          body: formData, headers: headers);
     } else {
-      response = await get(Uri.parse(url), headers: headers);
+      response = await get(Uri.parse('http://192.168.29.5:8000/api/$url'),
+          headers: headers);
     }
     return ResponseModel(
         message: '', status: true, data: jsonDecode(response.body));

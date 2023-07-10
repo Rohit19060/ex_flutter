@@ -65,20 +65,12 @@ class ThemeNotifier extends Notifier<ThemeMode> {
         theme = ThemeMode.system;
         break;
     }
-    print('Theme build');
-    print(theme);
     return theme;
   }
 
   Future<void> updateTheme({bool isDark = false}) async {
-    print('updated theme called');
-    print(isDark);
-    print('Before State');
-    print(state);
     final sharedPreferences = ref.read(sharedPreferencesProvider);
     state = isDark ? ThemeMode.dark : ThemeMode.light;
-    print('After State');
-    print(state);
     await sharedPreferences.setBool('theme', isDark);
   }
 }

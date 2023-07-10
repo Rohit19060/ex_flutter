@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class SelectableTile extends StatefulWidget {
   const SelectableTile({super.key, required this.builder, this.onPressed});
+  // ignore: avoid_positional_boolean_parameters
   final Widget Function(BuildContext, bool) builder;
   final VoidCallback? onPressed;
 
@@ -14,6 +15,7 @@ class SelectableTile extends StatefulWidget {
     properties
         .add(ObjectFlagProperty<VoidCallback?>.has('onPressed', onPressed));
     properties.add(
+        // ignore: avoid_positional_boolean_parameters
         ObjectFlagProperty<Widget Function(BuildContext p1, bool p2)>.has(
             'builder', builder));
   }

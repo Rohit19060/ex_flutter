@@ -56,6 +56,7 @@ class _GooglePayScreenState extends State<GooglePayScreen> {
       // 2. fetch Intent Client Secret from backend
       final response = await fetchPaymentIntentClientSecret();
       final clientSecret = response['clientSecret'].toString();
+      // ignore: avoid_dynamic_calls
       final token = paymentResult['paymentMethodData']['tokenizationData']
               ['token']
           .toString();
