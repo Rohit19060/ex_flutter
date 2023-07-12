@@ -2,47 +2,69 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
-void main() => runApp(const MyApp());
+import 'utilities/methods.dart';
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class ImageInput extends StatefulWidget {
+  const ImageInput({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<ImageInput> createState() => _ImageInputState();
 }
 
-class _MyAppState extends State<MyApp> {
-  File? profileImage;
-  String url =
-      'https://raw.githubusercontent.com/TechMET-Solutions/Developer-Utilities/main/cricstock%20chat.png';
-  XFile? _file;
+class _ImageInputState extends State<ImageInput> {
+  File? _profileImage;
 
-  final picker = ImagePicker();
-
+  final _picker = ImagePicker();
+  final _cropper = ImageCropper();
   bool _loading = false;
 
   Future<void> getImage(ImageSource img) async {
-    final pickedFile = await picker.pickImage(source: img);
-    _file = pickedFile;
-    if (pickedFile != null) {
-      profileImage = File(pickedFile.path);
-    } else {
+    final pickedFile = await _picker.pickImage(source: img);
+    if (pickedFile == null) {
       await Fluttertoast.showToast(msg: 'Please Pick a Image');
+      return;
     }
+    final croppedFile = await _cropper.cropImage(
+      maxHeight: 200,
+      maxWidth: 200,
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarWidgetColor: Colors.white,
+          statusBarColor: Colors.blue,
+          toolbarColor: Colors.blue,
+          toolbarTitle: 'Crop the Image',
+        ),
+      ],
+      sourcePath: CroppedFile(pickedFile.path).path,
+      aspectRatio: const CropAspectRatio(ratioX: 4, ratioY: 4),
+      aspectRatioPresets: [
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.ratio5x3,
+        CropAspectRatioPreset.ratio5x4,
+        CropAspectRatioPreset.square
+      ],
+      compressQuality: 30,
+    );
+    if (croppedFile == null) {
+      await Fluttertoast.showToast(msg: 'Please Pick a Image');
+      return;
+    }
+    _profileImage = File(croppedFile.path);
     setState(() {});
   }
 
   Future<void> uploadImage() async {
     setState(() => _loading = true);
-    final value = await postRequestWithTokenFile(
+    final value = await postRequestWithImage(
       fieldName: 'image',
-      profilePic: _file!,
+      profilePic: _profileImage!,
     );
     await Fluttertoast.showToast(msg: value.message);
     setState(() => _loading = false);
@@ -64,15 +86,16 @@ class _MyAppState extends State<MyApp> {
                 ClipOval(
                   child: ColoredBox(
                     color: Colors.grey.shade200,
-                    child: profileImage == null
+                    child: _profileImage == null
                         ? FadeInImage.assetNetwork(
                             height: 80,
                             width: 80,
                             placeholder: 'assets/images/avatar.jpg',
-                            image: url,
+                            image:
+                                'https://avatars.githubusercontent.com/u/39453065?v=4',
                           )
                         : Image.file(
-                            profileImage!,
+                            _profileImage!,
                             height: 80,
                             width: 80,
                             fit: BoxFit.cover,
@@ -85,17 +108,15 @@ class _MyAppState extends State<MyApp> {
                       ListTile(
                         leading: const Icon(Icons.photo_library),
                         title: const Text('Photo Library'),
-                        onTap: () {
-                          getImage(ImageSource.gallery);
-                          Navigator.of(context).pop();
+                        onTap: () async {
+                          await getImage(ImageSource.gallery);
                         },
                       ),
                       ListTile(
                         leading: const Icon(Icons.photo_camera),
                         title: const Text('Camera'),
-                        onTap: () {
-                          getImage(ImageSource.camera);
-                          Navigator.of(context).pop();
+                        onTap: () async {
+                          await getImage(ImageSource.camera);
                         },
                       ),
                     ],
@@ -114,39 +135,16 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       );
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<ImagePicker>('picker', picker));
-    properties.add(StringProperty('url', url));
-    properties.add(DiagnosticsProperty<File?>('profileImage', profileImage));
-  }
 }
 
-class ResponseModel {
-  ResponseModel({
-    required this.status,
-    required this.message,
-    this.data,
-  });
-
-  final bool status;
-  final String message;
-  final dynamic data;
-
-  @override
-  String toString() =>
-      'ResponseModel{status: $status, message: $message, data: $data}';
-}
-
-Future<ResponseModel> postRequestWithTokenFile({
-  required XFile profilePic,
+Future<ResponseModel> postRequestWithImage({
+  required File profilePic,
   required String fieldName,
 }) async {
   try {
     final headers = <String, String>{'content-type': 'application/json'};
     final request = MultipartRequest(
-        'POST', Uri.parse('http://192.168.0.121:3000/api/upload'));
+        'POST', Uri.parse('http://192.168.29.5:8000/api/upload'));
     request.headers.addAll(headers);
     request.fields.addAll({});
     request.files.add(await MultipartFile.fromPath(fieldName, profilePic.path));
@@ -177,6 +175,7 @@ Future<ResponseModel> postRequestWithTokenFile({
 //         $request->image->move(public_path('images/test'), $imageName);
 //         info("Image uploaded successfully");
 //         info($imageName);
+//         return response()->json(["message" => "Image Uploaded Successfully " . $imageName]);
 //     }
-//     return response()->json(["message" => "Image Uploaded Successfully " . $imageName]);
+//     return response()->json(["message" => "Image Field Not Found"]);
 // });

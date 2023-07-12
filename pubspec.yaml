@@ -73,7 +73,7 @@ dependencies:
   hooks_riverpod: ^2.3.6
   http: ^0.13.6
   image: ^4.0.17
-  image_crop: ^0.4.1
+  image_cropper: ^4.0.1
   image_picker: ^1.0.0
   in_app_purchase: ^3.1.5
   intl: ^0.18.0
