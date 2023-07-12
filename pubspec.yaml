@@ -79,7 +79,7 @@ dependencies:
   intl: ^0.18.0
   local_auth: ^2.1.6
   local_hero: ^0.2.0
-  location: ^4.4.0
+  location: ^5.0.0
   lottie: ^2.3.2
   material_color_utilities: ^0.2.0
   math_expressions: ^2.4.0
