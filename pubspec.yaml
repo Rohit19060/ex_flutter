@@ -16,7 +16,7 @@ dependencies:
   animations: ^2.0.7
   avatar_glow: ^2.0.2
   circle_nav_bar: ^2.0.1+1
-  cloud_firestore: ^4.8.2
+  cloud_firestore: ^4.8.3
   collection: ^1.17.1
   connectivity_plus: ^4.0.0
   csv: ^5.0.2
