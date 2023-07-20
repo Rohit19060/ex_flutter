@@ -461,26 +461,26 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_database
-      sha256: "36699bda00feb31433606f034078c690f148c15a4721b351a83c796ba4bba4e7"
+      sha256: "08eff8d3321973f73f94633d807fb1f4589b4e2d2e0c33c7e656f42d2f9eba72"
       url: "https://pub.dev"
     source: hosted
-    version: "10.2.3"
+    version: "10.2.4"
   firebase_database_platform_interface:
     dependency: transitive
     description:
       name: firebase_database_platform_interface
-      sha256: "8bd62f80b51d71a81087a33fe2e2a868fb818a6e33b319a137a7bcb35dec262d"
+      sha256: db95e96b27c6d8ee4e1daf9ee7ff0e7433c5c340f9cfb5d855e65cbdb7430b9c
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.5+3"
+    version: "0.2.5+4"
   firebase_database_web:
     dependency: transitive
     description:
       name: firebase_database_web
-      sha256: "05e6b0c2a192569cd5ce2be4a708756ca9f56e4c7b6fe1916f0f9d96a826f235"
+      sha256: "1ae57beac0a002d0a778bcde569c3fad2457b7ca3d9ef2936287e562d0af6962"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.3+3"
+    version: "0.2.3+4"
   firebase_messaging:
     dependency: "direct main"
     description:
