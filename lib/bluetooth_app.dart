@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'firebase_phone_auth.dart';
-
 class BlueToothApp extends StatefulWidget {
   const BlueToothApp({super.key});
 
@@ -20,17 +18,18 @@ class _BlueToothAppState extends State<BlueToothApp> {
 
   Future<void> checkBluetooth() async {
     await FlutterBluePlus.turnOn();
-    final blue1 = await FlutterBluePlus.isOn;
-    if (blue1) {
-      if (await requestPermission(Permission.bluetoothScan) &&
-          await requestPermission(Permission.bluetoothConnect) &&
-          await requestPermission(Permission.bluetooth)) {
-        final devices = await FlutterBluePlus.connectedDevices;
-        final devicesPaired = await FlutterBluePlus.bondedDevices;
+    FlutterBluePlus.adapterState.listen((event) async {
+      if (event == BluetoothAdapterState.on) {
+        if (await requestPermission(Permission.bluetoothScan) &&
+            await requestPermission(Permission.bluetoothConnect) &&
+            await requestPermission(Permission.bluetooth)) {
+          final devices = await FlutterBluePlus.connectedSystemDevices;
+          final devicesPaired = await FlutterBluePlus.bondedDevices;
+          debugPrint(devicesPaired.toString());
+          debugPrint(devices.toString());
+        }
       }
-    } else {
-      showToast('Please Turn On Bluetooth for Printing');
-    }
+    });
   }
 
   Future<bool> requestPermission(Permission permission) async {
