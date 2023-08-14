@@ -570,10 +570,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_blue_plus
-      sha256: "29e9bd92abc66b69e5a888fd4a4444dd28b53b34f0e468e4260bd0277ea9ff9e"
+      sha256: "368f1d1268f9934267e9abee7168768e4c4c488bd19764b12973a4dbca7c7df1"
       url: "https://pub.dev"
     source: hosted
-    version: "1.14.1"
+    version: "1.14.7"
   flutter_dotenv:
     dependency: "direct main"
     description:
