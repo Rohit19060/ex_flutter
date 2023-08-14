@@ -1177,10 +1177,10 @@ packages:
     dependency: "direct main"
     description:
       name: location
-      sha256: c8e0c8cd92c6ce8b42760f9aafd6d80592459e2e0cd702bc336061c738ec4715
+      sha256: "06be54f682c9073cbfec3899eb9bc8ed90faa0e17735c9d9fa7fe426f5be1dd1"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.2+1"
+    version: "5.0.3"
   location_platform_interface:
     dependency: transitive
     description:
