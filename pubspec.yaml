@@ -48,7 +48,7 @@ dependencies:
   flutter_local_notifications: ^15.1.0+1
   flutter_localizations:
     sdk: flutter
-  flutter_native_splash: ^2.2.19
+  flutter_native_splash: ^2.3.2
   flutter_native_timezone: ^2.0.0
   flutter_riverpod: ^2.3.6
   flutter_screenutil: ^5.7.0
