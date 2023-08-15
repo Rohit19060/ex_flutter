@@ -38,13 +38,15 @@ class RoundedProgressBar extends StatelessWidget {
     super.key,
     required this.value,
     this.color = Colors.blue,
-    this.height = 6,
+    this.height = 8,
     this.radius = 50,
     this.padding = 2,
-  });
+    this.duration = 500,
+  }) : assert(value >= 0 && value <= 100, 'Value must be between 0 and 100');
   final num value;
   final double height, radius, padding;
   final Color color;
+  final int duration;
 
   @override
   Widget build(BuildContext context) => LayoutBuilder(
@@ -53,7 +55,8 @@ class RoundedProgressBar extends StatelessWidget {
           return Stack(
             alignment: Alignment.centerLeft,
             children: [
-              Container(
+              AnimatedContainer(
+                duration: Duration(milliseconds: duration),
                 width: x,
                 height: height + (padding * 2),
                 decoration: BoxDecoration(
@@ -61,16 +64,14 @@ class RoundedProgressBar extends StatelessWidget {
                   borderRadius: BorderRadius.circular(radius),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: padding),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 500),
-                  width: (value / 100) * x,
-                  height: height,
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.circular(radius),
-                  ),
+              AnimatedContainer(
+                margin: EdgeInsets.symmetric(horizontal: padding),
+                duration: Duration(milliseconds: duration),
+                width: (value / 100) * x,
+                height: height,
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(radius),
                 ),
               ),
             ],
@@ -85,5 +86,6 @@ class RoundedProgressBar extends StatelessWidget {
     properties.add(DoubleProperty('radius', radius));
     properties.add(DoubleProperty('padding', padding));
     properties.add(DiagnosticsProperty<num>('value', value));
+    properties.add(IntProperty('duration', duration));
   }
 }
