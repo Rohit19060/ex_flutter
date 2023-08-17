@@ -82,7 +82,7 @@ dependencies:
   local_hero: ^0.2.0
   location: ^5.0.3
   lottie: ^2.6.0
-  material_color_utilities: ^0.2.0
+  material_color_utilities: ^0.5.0
   math_expressions: ^2.4.0
   modal_bottom_sheet: ^2.1.2
 
