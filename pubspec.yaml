@@ -86,6 +86,7 @@ dependencies:
   math_expressions: ^2.4.0
   modal_bottom_sheet: ^2.1.2
 
+  nfc_manager: ^3.3.0
   oauth2: ^2.0.1
   package_info_plus: ^4.1.0
   page_flip_builder: ^0.1.3
