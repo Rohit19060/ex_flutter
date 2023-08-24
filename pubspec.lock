@@ -1077,6 +1077,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.18.1"
+  intl_phone_number_input:
+    dependency: "direct main"
+    description:
+      name: intl_phone_number_input
+      sha256: b812c6e3924e56e65b9684076ccd8eb24126abe0c84091d35d75a25e613a1793
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.3+1"
   js:
     dependency: transitive
     description:
@@ -1101,6 +1109,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.8.1"
+  libphonenumber_platform_interface:
+    dependency: transitive
+    description:
+      name: libphonenumber_platform_interface
+      sha256: b8c57fc74bf61491672b8cd94039e35359c6e0d79a88018c1cc7facb76771a4b
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.1"
+  libphonenumber_plugin:
+    dependency: transitive
+    description:
+      name: libphonenumber_plugin
+      sha256: d95a0f799936e6e243cd0be151af9a6f09286bbb2c513d517dad548c4b3eb70e
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.2"
+  libphonenumber_web:
+    dependency: transitive
+    description:
+      name: libphonenumber_web
+      sha256: "3eb541422e581d198be4d59293cb5902e4057ae6bb0822eaddf9a0f98952d222"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.1"
   lints:
     dependency: transitive
     description:
