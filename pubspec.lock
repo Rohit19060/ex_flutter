@@ -913,10 +913,10 @@ packages:
     dependency: "direct main"
     description:
       name: hooks_riverpod
-      sha256: "2bb8ae6a729e1334f71f1ef68dd5f0400dca8f01de8cbdcde062584a68017b18"
+      sha256: "60d6c894b2f6fbabf8c14bb9eaf2387d72cab394a4b2215de23e23865a426254"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.8"
+    version: "2.3.9"
   html:
     dependency: transitive
     description:
