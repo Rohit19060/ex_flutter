@@ -13,7 +13,7 @@ dependencies:
   adaptive_breakpoints: ^0.1.6
   adaptive_components: ^0.0.9
   adaptive_navigation: ^0.0.9
-  animations: ^2.0.7
+  animations: ^2.0.8
   avatar_glow: ^2.0.2
   circle_nav_bar: ^2.0.1+1
   cloud_firestore: ^4.9.0
