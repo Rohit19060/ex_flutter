@@ -79,7 +79,7 @@ dependencies:
   in_app_purchase: ^3.1.9
   intl: ^0.18.0
   intl_phone_number_input: ^0.7.3+1
-  local_auth: ^2.1.6
+  local_auth: ^2.1.7
   local_hero: ^0.2.0
   location: ^5.0.3
   lottie: ^2.6.0
