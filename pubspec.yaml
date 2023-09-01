@@ -75,7 +75,7 @@ dependencies:
   http: ^1.1.0
   image: ^4.0.17
   image_cropper: ^5.0.0
-  image_picker: ^1.0.2
+  image_picker: ^1.0.4
   in_app_purchase: ^3.1.9
   intl: ^0.18.0
   intl_phone_number_input: ^0.7.3+1
