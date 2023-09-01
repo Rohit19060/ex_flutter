@@ -20,7 +20,7 @@ dependencies:
   collection: ^1.17.1
   connectivity_plus: ^4.0.2
   csv: ^5.0.2
-  cupertino_icons: ^1.0.5
+  cupertino_icons: ^1.0.6
   date_format: ^2.0.7
   delayed_display: ^2.0.0
   desktop_window: ^0.4.0
