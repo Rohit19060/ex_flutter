@@ -128,7 +128,7 @@ dependencies:
       path: plugins/window_size
 
 dev_dependencies:
-  flutter_lints: ^2.0.2
+  flutter_lints: ^2.0.3
   msix: ^3.16.1
 flutter:
   uses-material-design: true
