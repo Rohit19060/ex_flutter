@@ -1041,10 +1041,10 @@ packages:
     dependency: "direct main"
     description:
       name: in_app_purchase
-      sha256: "479ce227eab7ba1c118b735f8cd7877455b511f6835880b5a024bb9fb1ade018"
+      sha256: "17074a826f32e36f6cc36effcbcf92abc3b0d8a1e02f42583eaa4c6c79d4f026"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.9"
+    version: "3.1.10"
   in_app_purchase_android:
     dependency: transitive
     description:
