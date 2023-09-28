@@ -130,7 +130,7 @@ dependencies:
 
 dev_dependencies:
   flutter_lints: ^2.0.3
-  msix: ^3.16.1
+  msix: ^3.16.4
 flutter:
   uses-material-design: true
 
