@@ -121,7 +121,7 @@ dependencies:
   uuid: ^4.0.0
   vector_math: ^2.1.4
   web_socket_channel: ^2.4.0
-  webdriver: ^3.0.2
+  webdriver: ^3.0.3
   websafe_svg: ^3.0.1+1
   window_size:
     git:
