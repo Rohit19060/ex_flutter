@@ -165,10 +165,10 @@ packages:
     dependency: "direct main"
     description:
       name: connectivity_plus
-      sha256: "77a180d6938f78ca7d2382d2240eb626c0f6a735d0bfdce227d8ffb80f95c48b"
+      sha256: "94d51c6f1299133a2baa4c5c3d2c11ec7d7fb4768dee5c52a56f7d7522fcf70e"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.2"
+    version: "5.0.0"
   connectivity_plus_platform_interface:
     dependency: transitive
     description:
@@ -1493,6 +1493,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.4.0"
+  phonepe_payment_sdk:
+    dependency: "direct main"
+    description:
+      name: phonepe_payment_sdk
+      sha256: "692c807b0f2d20684eabafb7711ab5c77b52e4c50fed32199516176e48792b44"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   pie_chart:
     dependency: "direct main"
     description:
