@@ -118,7 +118,7 @@ dependencies:
   tuple: ^2.0.2
   universal_platform: ^1.0.0+1
   url_launcher: ^6.1.14
-  uuid: ^4.0.0
+  uuid: ^4.1.0
   vector_math: ^2.1.4
   web_socket_channel: ^2.4.0
   webdriver: ^3.0.2
