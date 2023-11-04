@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'material_you_navigation.dart';
+import 'text_form_field.dart';
 
 void main() => runApp(const MyApp());
 
@@ -9,8 +9,5 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-      title: 'Flutter Experiments',
-      theme:
-          ThemeData(useMaterial3: true, colorScheme: ColorScheme.fromSwatch()),
-      home: const MaterialYouNavigation());
+      title: 'Flutter Experiments', theme: ThemeData(useMaterial3: true, colorScheme: ColorScheme.fromSwatch()), home: const TextFormFields());
 }
