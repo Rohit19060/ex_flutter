@@ -13,7 +13,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
   firebase_storage
   local_auth_windows
   permission_handler_windows
-  platform_device_id_windows
   smart_auth
   url_launcher_windows
   window_size

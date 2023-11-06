@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:platform_device_id/platform_device_id.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +42,7 @@ class _NotesState extends State<Notes> {
   Future<void> initPlatformState() async {
     String? deviceId;
     try {
-      deviceId = await PlatformDeviceId.getDeviceId;
+      deviceId = '';
     } on PlatformException {
       deviceId = 'Failed to get deviceId.';
     }
@@ -98,10 +97,7 @@ class _NotesState extends State<Notes> {
                                       color: Colors.redAccent,
                                     ),
                                     onPressed: () {
-                                      db
-                                          .collection('Note')
-                                          .doc(doc.id)
-                                          .delete();
+                                      db.collection('Note').doc(doc.id).delete();
                                     })
                                 : null,
                           ),
@@ -150,8 +146,7 @@ class _NotesState extends State<Notes> {
                           db.collection('Note').add({
                             'DeviceId': _devId,
                             'Note': _note,
-                            'TimeStamp': DateFormat('y/M/d H:m:s')
-                                .format(DateTime.now()),
+                            'TimeStamp': DateFormat('y/M/d H:m:s').format(DateTime.now()),
                           });
                           Navigator.pop(context);
                         }
@@ -168,8 +163,7 @@ class _NotesState extends State<Notes> {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties
-        .add(DiagnosticsProperty<GlobalKey<FormState>>('formName', formName));
+    properties.add(DiagnosticsProperty<GlobalKey<FormState>>('formName', formName));
     properties.add(DiagnosticsProperty<FirebaseFirestore>('db', db));
   }
 }

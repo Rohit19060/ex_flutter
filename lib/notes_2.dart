@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:platform_device_id/platform_device_id.dart';
 
 final db = FirebaseFirestore.instance;
 String? name, id;
@@ -28,10 +27,7 @@ class King extends StatelessWidget {
           primarySwatch: Colors.blue,
           useMaterial3: true,
         ),
-        routes: <String, WidgetBuilder>{
-          './Discover': (context) => const Discover(),
-          './YourNotes': (context) => const YourNotes()
-        },
+        routes: <String, WidgetBuilder>{'./Discover': (context) => const Discover(), './YourNotes': (context) => const YourNotes()},
       );
 }
 
@@ -70,10 +66,7 @@ class _KnState extends State<Kn> {
                   style: TextStyle(fontSize: 30, color: Colors.black),
                 ),
               ),
-              ListTile(
-                  leading: const Icon(Icons.share),
-                  title: const Text('Our Website'),
-                  onTap: () => {}),
+              ListTile(leading: const Icon(Icons.share), title: const Text('Our Website'), onTap: () => {}),
             ],
           ),
         ),
@@ -193,7 +186,7 @@ class _YourNotesState extends State<YourNotes> {
   Future<void> initPlatformState() async {
     String? deviceId;
     try {
-      deviceId = await PlatformDeviceId.getDeviceId;
+      deviceId = '';
     } on PlatformException catch (e) {
       deviceId = e.message;
     }
@@ -240,13 +233,11 @@ class _YourNotesState extends State<YourNotes> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         docData['TimeStamp'].toString(),
@@ -260,10 +251,7 @@ class _YourNotesState extends State<YourNotes> {
                                   ),
                                   IconButton(
                                     onPressed: () {
-                                      db
-                                          .collection('Note')
-                                          .doc(doc.id)
-                                          .delete();
+                                      db.collection('Note').doc(doc.id).delete();
                                     },
                                     icon: const Icon(Icons.delete_forever),
                                   )

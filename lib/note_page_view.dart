@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:platform_device_id/platform_device_id.dart';
+// import 'package:platform_device_id/platform_device_id.dart';
 
 final db = FirebaseFirestore.instance;
 String? name, id, deviceId;
@@ -103,10 +103,7 @@ class King extends StatelessWidget {
                   style: TextStyle(fontSize: 30, color: Colors.black),
                 ),
               ),
-              ListTile(
-                  leading: const Icon(Icons.share),
-                  title: const Text('Our Website'),
-                  onTap: () => {}),
+              ListTile(leading: const Icon(Icons.share), title: const Text('Our Website'), onTap: () => {}),
             ],
           ),
         ),
@@ -166,7 +163,7 @@ class _YourNotesState extends State<YourNotes> {
 
   Future<void> initPlatformState() async {
     try {
-      deviceId = await PlatformDeviceId.getDeviceId;
+      deviceId = '';
     } on PlatformException catch (e) {
       deviceId = e.message;
     }

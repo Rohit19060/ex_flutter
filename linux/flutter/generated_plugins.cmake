@@ -6,7 +6,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
   desktop_window
   dynamic_color
   file_selector_linux
-  platform_device_id_linux
   smart_auth
   url_launcher_linux
   window_size
