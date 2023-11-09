@@ -113,7 +113,7 @@ dependencies:
   pinput: ^3.0.1
   platform: ^3.1.0
   # platform_device_id: ^1.0.1
-  provider: ^6.0.5
+  provider: ^6.1.0
   rnd: ^0.2.0
   rxdart: ^0.27.7
   shared_preferences: ^2.2.2
