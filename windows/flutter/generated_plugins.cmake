@@ -11,8 +11,10 @@ list(APPEND FLUTTER_PLUGIN_LIST
   firebase_auth
   firebase_core
   firebase_storage
+  geolocator_windows
   local_auth_windows
   permission_handler_windows
+  rive_common
   smart_auth
   url_launcher_windows
   window_size
