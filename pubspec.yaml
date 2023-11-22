@@ -38,7 +38,7 @@ dependencies:
   firebase_core: ^2.21.0
   firebase_database: ^10.3.3
   firebase_messaging: ^14.7.3
-  firebase_remote_config: ^4.3.3
+  firebase_remote_config: ^4.3.5
   firebase_storage: ^11.4.1
   fl_chart: ^0.64.0
   flextras: ^1.0.0
