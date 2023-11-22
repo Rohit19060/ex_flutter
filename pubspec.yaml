@@ -34,7 +34,7 @@ dependencies:
   extra_alignments: ^1.0.0+1
   fading_edge_scrollview: ^3.0.0
   file_picker: ^6.1.1
-  firebase_auth: ^4.12.1
+  firebase_auth: ^4.14.1
   firebase_core: ^2.21.0
   firebase_database: ^10.3.3
   firebase_messaging: ^14.7.3
