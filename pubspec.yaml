@@ -50,7 +50,7 @@ dependencies:
   flutter_blue_plus: ^1.29.5
   flutter_dotenv: ^5.1.0
   flutter_inset_box_shadow: ^1.0.8
-  flutter_local_notifications: ^16.1.0
+  flutter_local_notifications: ^16.2.0
   flutter_markdown: ^0.6.18+2
   flutter_localizations:
     sdk: flutter
