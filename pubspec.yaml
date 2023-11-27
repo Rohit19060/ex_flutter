@@ -32,7 +32,7 @@ dependencies:
   dynamic_color: ^1.6.8
   english_words: ^4.0.0
   extra_alignments: ^1.0.0+1
-  fading_edge_scrollview: ^3.0.0
+  fading_edge_scrollview: ^4.0.0
   file_picker: ^6.1.1
   firebase_auth: ^4.14.1
   firebase_core: ^2.23.0
