@@ -698,10 +698,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_blue_plus
-      sha256: b099abd98db419dbd46981ccb6c751e00420a28d2c65a50fb6e3e2018b8a319c
+      sha256: "74c523a171a10c9346e4bf30239082a8d07679e20a7b42d1ceabd0c8726b339d"
       url: "https://pub.dev"
     source: hosted
-    version: "1.29.8"
+    version: "1.29.11"
   flutter_cache_manager:
     dependency: transitive
     description:
