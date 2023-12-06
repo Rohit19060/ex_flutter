@@ -101,7 +101,7 @@ dependencies:
   nfc_manager: ^3.3.0
   oauth2: ^2.0.2
   package_info_plus: ^5.0.1
-  page_flip_builder: ^0.1.3
+  page_flip_builder: ^0.1.4
   palette_generator: ^0.3.3+3
   particle_field: ^1.0.0
   path: ^1.8.3
