@@ -81,7 +81,7 @@ dependencies:
   hive: ^2.2.3
   mailer: ^6.0.1
   hive_flutter: ^1.1.0
-  home_widget: ^0.3.0
+  home_widget: ^0.4.0
   hooks_riverpod: ^2.4.9
   http: ^1.1.2
   image: ^4.1.3
