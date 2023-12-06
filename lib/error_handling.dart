@@ -10,30 +10,30 @@ Future<void> main() async {
     library: 'FlutterErrorDetails.library',
     context: ErrorDescription('FlutterErrorDetails.context'),
     informationCollector: () {
-      print('FlutterErrorDetails.informationCollector');
+      debugPrint('FlutterErrorDetails.informationCollector');
       return <DiagnosticsNode>[];
     },
     stackFilter: (stack) => stack,
   ));
   FlutterError.presentError = (details) async {
-    print('FlutterError: ${details.exception}');
-    print('FlutterError: ${details.context}');
-    print('FlutterError: ${details.informationCollector}');
-    print('FlutterError: ${details.library}');
-    print('FlutterError: ${details.stack}');
-    print('FlutterError: ${details.stackFilter}');
-    print('FlutterError: ${details.silent}');
+    debugPrint('FlutterError: ${details.exception}');
+    debugPrint('FlutterError: ${details.context}');
+    debugPrint('FlutterError: ${details.informationCollector}');
+    debugPrint('FlutterError: ${details.library}');
+    debugPrint('FlutterError: ${details.stack}');
+    debugPrint('FlutterError: ${details.stackFilter}');
+    debugPrint('FlutterError: ${details.silent}');
   };
   FlutterError.onError = (details) {
-    print('FlutterError: ${details.exception}');
+    debugPrint('FlutterError: ${details.exception}');
     FlutterError.presentError(details);
     if (kReleaseMode) {
       exit(1);
     }
   };
   PlatformDispatcher.instance.onError = (error, stack) {
-    print('PlatformDispatcher: $error');
-    print('PlatformDispatcher: $stack');
+    debugPrint('PlatformDispatcher: $error');
+    debugPrint('PlatformDispatcher: $stack');
     return false;
   };
   runApp(const MyApp());

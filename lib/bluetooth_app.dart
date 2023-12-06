@@ -23,7 +23,7 @@ class _BlueToothAppState extends State<BlueToothApp> {
         if (await requestPermission(Permission.bluetoothScan) &&
             await requestPermission(Permission.bluetoothConnect) &&
             await requestPermission(Permission.bluetooth)) {
-          final devices = await FlutterBluePlus.connectedSystemDevices;
+          final devices = await FlutterBluePlus.systemDevices;
           final devicesPaired = await FlutterBluePlus.bondedDevices;
           debugPrint(devicesPaired.toString());
           debugPrint(devices.toString());

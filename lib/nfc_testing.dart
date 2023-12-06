@@ -16,7 +16,7 @@ class NFCTestingState extends State<NFCTesting> {
   void initState() {
     super.initState();
     NfcManager.instance.isAvailable().then((v) {
-      print(v);
+      debugPrint(v.toString());
       setState(() {});
     });
   }
@@ -43,8 +43,7 @@ class NFCTestingState extends State<NFCTesting> {
                             child: SingleChildScrollView(
                               child: ValueListenableBuilder<dynamic>(
                                 valueListenable: result,
-                                builder: (context, value, _) =>
-                                    Text('${value ?? 'aasdf'}'),
+                                builder: (context, value, _) => Text('${value ?? ''}'),
                               ),
                             ),
                           ),
@@ -58,15 +57,9 @@ class NFCTestingState extends State<NFCTesting> {
                             crossAxisSpacing: 4,
                             mainAxisSpacing: 4,
                             children: [
-                              ElevatedButton(
-                                  onPressed: _tagRead,
-                                  child: const Text('Tag Read')),
-                              ElevatedButton(
-                                  onPressed: _ndefWrite,
-                                  child: const Text('Ndef Write')),
-                              ElevatedButton(
-                                  onPressed: _ndefWriteLock,
-                                  child: const Text('Ndef Write Lock')),
+                              ElevatedButton(onPressed: _tagRead, child: const Text('Tag Read')),
+                              ElevatedButton(onPressed: _ndefWrite, child: const Text('Ndef Write')),
+                              ElevatedButton(onPressed: _ndefWriteLock, child: const Text('Ndef Write Lock')),
                             ],
                           ),
                         ),
@@ -78,20 +71,16 @@ class NFCTestingState extends State<NFCTesting> {
       );
 
   void _tagRead() {
-    print('tag read');
     NfcManager.instance.startSession(onDiscovered: (tag) async {
       result.value = tag.data;
-      print('tag data: $tag');
       await NfcManager.instance.stopSession();
     });
   }
 
   void _ndefWrite() {
-    print('writing');
     NfcManager.instance.startSession(
         alertMessage: 'Ready to write',
         onError: (error) {
-          print('error: $error');
           result.value = error;
           return Future.value();
         },
@@ -99,34 +88,27 @@ class NFCTestingState extends State<NFCTesting> {
           NfcPollingOption.iso14443,
         },
         onDiscovered: (tag) async {
-          print('writing');
           final ndef = Ndef.from(tag);
           if (ndef == null || !ndef.isWritable) {
             result.value = 'Tag is not ndef writable';
-            await NfcManager.instance
-                .stopSession(errorMessage: result.value.toString());
+            await NfcManager.instance.stopSession(errorMessage: result.value.toString());
             return;
           }
 
           final message = NdefMessage([
             NdefRecord.createText('Hello World!'),
             NdefRecord.createUri(Uri.parse('https://flutter.dev')),
-            NdefRecord.createMime(
-                'text/plain', Uint8List.fromList('Hello'.codeUnits)),
-            NdefRecord.createExternal('com.example', 'mytype',
-                Uint8List.fromList('mydata'.codeUnits)),
+            NdefRecord.createMime('text/plain', Uint8List.fromList('Hello'.codeUnits)),
+            NdefRecord.createExternal('com.example', 'x', Uint8List.fromList('x'.codeUnits)),
           ]);
 
           try {
-            print('writing');
-            print('writing');
             await ndef.write(message);
             result.value = 'Success to "Ndef Write"';
             await NfcManager.instance.stopSession();
-          } catch (e) {
+          } on Exception catch (e) {
             result.value = e;
-            await NfcManager.instance
-                .stopSession(errorMessage: result.value.toString());
+            await NfcManager.instance.stopSession(errorMessage: result.value.toString());
             return;
           }
         });
@@ -137,8 +119,7 @@ class NFCTestingState extends State<NFCTesting> {
       final ndef = Ndef.from(tag);
       if (ndef == null) {
         result.value = 'Tag is not ndef';
-        await NfcManager.instance
-            .stopSession(errorMessage: result.value.toString());
+        await NfcManager.instance.stopSession(errorMessage: result.value.toString());
         return;
       }
 
@@ -146,10 +127,9 @@ class NFCTestingState extends State<NFCTesting> {
         await ndef.writeLock();
         result.value = 'Success to "Ndef Write Lock"';
         await NfcManager.instance.stopSession();
-      } catch (e) {
+      } on Exception catch (e) {
         result.value = e;
-        await NfcManager.instance
-            .stopSession(errorMessage: result.value.toString());
+        await NfcManager.instance.stopSession(errorMessage: result.value.toString());
         return;
       }
     });
@@ -158,6 +138,7 @@ class NFCTestingState extends State<NFCTesting> {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
+    // ignore: strict_raw_type
     properties.add(DiagnosticsProperty<ValueNotifier>('result', result));
   }
 }

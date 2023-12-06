@@ -35,9 +35,7 @@ class MerchantScreen extends State<MerchantApp> {
   String packageName = 'com.phonepe.simulator';
 
   void startTransaction() {
-    dropdownValue == 'Container'
-        ? startContainerTransaction()
-        : startPGTransaction();
+    dropdownValue == 'Container' ? startContainerTransaction() : startPGTransaction();
   }
 
   void initPhonePeSdk() {
@@ -48,7 +46,7 @@ class MerchantScreen extends State<MerchantApp> {
               })
             })
         .catchError((error) {
-      handleError(error);
+      handleError(error as Exception);
       return <dynamic>{};
     });
   }
@@ -61,7 +59,7 @@ class MerchantScreen extends State<MerchantApp> {
               })
             })
         .catchError((error) {
-      handleError(error);
+      handleError(error as Exception);
       return <dynamic>{};
     });
   }
@@ -74,7 +72,7 @@ class MerchantScreen extends State<MerchantApp> {
               })
             })
         .catchError((error) {
-      handleError(error);
+      handleError(error as Exception);
       return <dynamic>{};
     });
   }
@@ -87,7 +85,7 @@ class MerchantScreen extends State<MerchantApp> {
               })
             })
         .catchError((error) {
-      handleError(error);
+      handleError(error as Exception);
       return <dynamic>{};
     });
   }
@@ -101,7 +99,7 @@ class MerchantScreen extends State<MerchantApp> {
                 })
               })
           .catchError((error) {
-        handleError(error);
+        handleError(error as Exception);
         return <dynamic>{};
       });
     }
@@ -114,12 +112,10 @@ class MerchantScreen extends State<MerchantApp> {
                 setState(() {
                   if (apps != null) {
                     final l = json.decode(apps) as List<dynamic>;
-                    final upiApps = List<UPIApp>.from(l.map((model) =>
-                        UPIApp.fromJson(model as Map<String, dynamic>)));
-                    var appString = '';
+                    final upiApps = List<UPIApp>.from(l.map((model) => UPIApp.fromJson(model as Map<String, dynamic>)));
+                    final appString = StringBuffer();
                     for (final element in upiApps) {
-                      appString +=
-                          '${element.applicationName} ${element.version} ${element.packageName}';
+                      appString.write('${element.applicationName} ${element.version} ${element.packageName}\n');
                     }
                     result = 'Installed Upi Apps - $appString';
                   } else {
@@ -128,7 +124,7 @@ class MerchantScreen extends State<MerchantApp> {
                 })
               })
           .catchError((error) {
-        handleError(error);
+        handleError(error as Exception);
         return <dynamic>{};
       });
     }
@@ -136,8 +132,7 @@ class MerchantScreen extends State<MerchantApp> {
 
   Future<void> startPGTransaction() async {
     try {
-      await PhonePePaymentSdk.startPGTransaction(
-              body, callback, checksum, pgHeaders, apiEndPoint, packageName)
+      await PhonePePaymentSdk.startPGTransaction(body, callback, checksum, pgHeaders, apiEndPoint, packageName)
           .then((response) => {
                 setState(() {
                   if (response != null) {
@@ -146,8 +141,7 @@ class MerchantScreen extends State<MerchantApp> {
                     if (status == 'SUCCESS') {
                       result = 'Flow Completed - Status: Success!';
                     } else {
-                      result =
-                          'Flow Completed - Status: $status and Error: $error';
+                      result = 'Flow Completed - Status: $status and Error: $error';
                     }
                   } else {
                     result = 'Flow Incomplete';
@@ -155,28 +149,23 @@ class MerchantScreen extends State<MerchantApp> {
                 })
               })
           .catchError((error) {
-        handleError(error);
+        handleError(error as Exception);
         return <dynamic>{};
       });
-    } catch (error) {
+    } on Exception catch (error) {
       handleError(error);
     }
   }
 
-  void handleError(error) {
+  void handleError(Exception error) {
     setState(() {
-      if (error is Exception) {
-        result = error.toString();
-      } else {
-        result = {'error': error};
-      }
+      result = error.toString();
     });
   }
 
   Future<void> startContainerTransaction() async {
     try {
-      await PhonePePaymentSdk.startContainerTransaction(
-              body, callback, checksum, headers, apiEndPoint)
+      await PhonePePaymentSdk.startContainerTransaction(body, callback, checksum, headers, apiEndPoint)
           .then((response) => {
                 setState(() {
                   if (response != null) {
@@ -185,8 +174,7 @@ class MerchantScreen extends State<MerchantApp> {
                     if (status == 'SUCCESS') {
                       result = 'Flow Completed - Status: Success!';
                     } else {
-                      result =
-                          'Flow Completed - Status: $status and Error: $error';
+                      result = 'Flow Completed - Status: $status and Error: $error';
                     }
                   } else {
                     result = 'Flow Incomplete';
@@ -194,10 +182,10 @@ class MerchantScreen extends State<MerchantApp> {
                 })
               })
           .catchError((error) {
-        handleError(error);
+        handleError(error as Exception);
         return <dynamic>{};
       });
-    } catch (error) {
+    } on Exception catch (error) {
       result = {'error': error};
     }
   }
@@ -256,23 +244,20 @@ class MerchantScreen extends State<MerchantApp> {
                             });
                           },
                           items: environmentList
-                              .map<DropdownMenuItem<String>>(
-                                  (value) => DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                      ))
+                              .map<DropdownMenuItem<String>>((value) => DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  ))
                               .toList(),
                         )
                       ],
                     ),
                     Visibility(
                         visible: Platform.isAndroid,
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const SizedBox(height: 10),
-                              Text('Package Name: $packageName'),
-                            ])),
+                        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+                          const SizedBox(height: 10),
+                          Text('Package Name: $packageName'),
+                        ])),
                     const SizedBox(height: 10),
                     Row(
                       children: <Widget>[
@@ -291,9 +276,7 @@ class MerchantScreen extends State<MerchantApp> {
                       'Warning: Init SDK is Mandatory to use all the functionalities*',
                       style: TextStyle(color: Colors.red),
                     ),
-                    ElevatedButton(
-                        onPressed: initPhonePeSdk,
-                        child: const Text('INIT SDK')),
+                    ElevatedButton(onPressed: initPhonePeSdk, child: const Text('INIT SDK')),
                     const SizedBox(width: 5.0),
                     TextField(
                       decoration: const InputDecoration(
@@ -339,53 +322,30 @@ class MerchantScreen extends State<MerchantApp> {
                             });
                           },
                           items: apiList
-                              .map<DropdownMenuItem<String>>(
-                                  (value) => DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                      ))
+                              .map<DropdownMenuItem<String>>((value) => DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  ))
                               .toList(),
                         )
                       ],
                     ),
-                    ElevatedButton(
-                        onPressed: startTransaction,
-                        child: const Text('Start Transaction')),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Expanded(
-                              child: ElevatedButton(
-                                  onPressed: isPhonePeInstalled,
-                                  child: const Text('PhonePe App'))),
-                          const SizedBox(width: 5.0),
-                          Expanded(
-                              child: ElevatedButton(
-                                  onPressed: isGpayInstalled,
-                                  child: const Text('Gpay App'))),
-                          const SizedBox(width: 5.0),
-                          Expanded(
-                              child: ElevatedButton(
-                                  onPressed: isPaytmInstalled,
-                                  child: const Text('Paytm App'))),
-                        ]),
+                    ElevatedButton(onPressed: startTransaction, child: const Text('Start Transaction')),
+                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
+                      Expanded(child: ElevatedButton(onPressed: isPhonePeInstalled, child: const Text('PhonePe App'))),
+                      const SizedBox(width: 5.0),
+                      Expanded(child: ElevatedButton(onPressed: isGpayInstalled, child: const Text('Gpay App'))),
+                      const SizedBox(width: 5.0),
+                      Expanded(child: ElevatedButton(onPressed: isPaytmInstalled, child: const Text('Paytm App'))),
+                    ]),
                     Visibility(
                         visible: Platform.isAndroid,
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Expanded(
-                                  child: ElevatedButton(
-                                      onPressed: getPackageSignatureForAndroid,
-                                      child:
-                                          const Text('Get Package Signature'))),
-                              const SizedBox(width: 5.0),
-                              Expanded(
-                                  child: ElevatedButton(
-                                      onPressed: getInstalledUpiAppsForAndroid,
-                                      child: const Text('Get UPI Apps'))),
-                              const SizedBox(width: 5.0),
-                            ])),
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
+                          Expanded(child: ElevatedButton(onPressed: getPackageSignatureForAndroid, child: const Text('Get Package Signature'))),
+                          const SizedBox(width: 5.0),
+                          Expanded(child: ElevatedButton(onPressed: getInstalledUpiAppsForAndroid, child: const Text('Get UPI Apps'))),
+                          const SizedBox(width: 5.0),
+                        ])),
                     Text('Result: \n $result')
                   ],
                 ),
@@ -398,13 +358,10 @@ class MerchantScreen extends State<MerchantApp> {
     properties.add(StringProperty('body', body));
     properties.add(StringProperty('callback', callback));
     properties.add(StringProperty('checksum', checksum));
-    properties
-        .add(DiagnosticsProperty<Map<String, String>>('headers', headers));
-    properties
-        .add(DiagnosticsProperty<Map<String, String>>('pgHeaders', pgHeaders));
+    properties.add(DiagnosticsProperty<Map<String, String>>('headers', headers));
+    properties.add(DiagnosticsProperty<Map<String, String>>('pgHeaders', pgHeaders));
     properties.add(IterableProperty<String>('apiList', apiList));
-    properties
-        .add(IterableProperty<String>('environmentList', environmentList));
+    properties.add(IterableProperty<String>('environmentList', environmentList));
     properties.add(StringProperty('apiEndPoint', apiEndPoint));
     properties.add(DiagnosticsProperty<bool>('enableLogs', enableLogs));
     properties.add(DiagnosticsProperty<Object?>('result', result));
@@ -419,10 +376,8 @@ class MerchantScreen extends State<MerchantApp> {
 class UPIApp {
   UPIApp(this.packageName, this.applicationName, this.version);
 
-  factory UPIApp.fromJson(Map<String, dynamic> parsedJson) => UPIApp(
-      parsedJson['packageName'] as String?,
-      parsedJson['applicationName'] as String?,
-      parsedJson['version'].toString());
+  factory UPIApp.fromJson(Map<String, dynamic> parsedJson) =>
+      UPIApp(parsedJson['packageName'] as String?, parsedJson['applicationName'] as String?, parsedJson['version'].toString());
   final String? packageName;
   final String? applicationName;
   final String? version;

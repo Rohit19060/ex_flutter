@@ -9,8 +9,7 @@ Color mCD = Colors.black.withOpacity(0.075);
 Color mCC = Colors.green.withOpacity(0.65);
 Color fCL = Colors.grey.shade600;
 
-BoxDecoration nMbox =
-    BoxDecoration(shape: BoxShape.circle, color: mC, boxShadow: [
+BoxDecoration nMbox = BoxDecoration(shape: BoxShape.circle, color: mC, boxShadow: [
   BoxShadow(
     color: mCD,
     offset: const Offset(10, 10),
@@ -23,16 +22,9 @@ BoxDecoration nMbox =
   ),
 ]);
 
-BoxDecoration nMboxInvert = BoxDecoration(
-    borderRadius: BorderRadius.circular(15),
-    color: mCD,
-    boxShadow: [
-      BoxShadow(
-          color: mCL,
-          offset: const Offset(3, 3),
-          blurRadius: 3,
-          spreadRadius: -3),
-    ]);
+BoxDecoration nMboxInvert = BoxDecoration(borderRadius: BorderRadius.circular(15), color: mCD, boxShadow: [
+  BoxShadow(color: mCL, offset: const Offset(3, 3), blurRadius: 3, spreadRadius: -3),
+]);
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -96,43 +88,25 @@ class MainCard extends StatelessWidget {
                   Spacer(),
                   Row(
                     children: [
-                      SocialBox(
-                          icon: FontAwesomeIcons.dribbble,
-                          count: '35',
-                          category: 'shots'),
+                      SocialBox(icon: FontAwesomeIcons.dribbble, count: '35', category: 'shots'),
                       SizedBox(width: 15),
-                      SocialBox(
-                          icon: FontAwesomeIcons.userLarge,
-                          count: '1.2k',
-                          category: 'followers'),
+                      SocialBox(icon: FontAwesomeIcons.userFriends, count: '1.2k', category: 'followers'),
                     ],
                   ),
                   SizedBox(height: 20),
                   Row(
                     children: [
-                      SocialBox(
-                          icon: FontAwesomeIcons.heart,
-                          count: '5.1k',
-                          category: 'likes'),
+                      SocialBox(icon: FontAwesomeIcons.heart, count: '5.1k', category: 'likes'),
                       SizedBox(width: 15),
-                      SocialBox(
-                          icon: FontAwesomeIcons.user,
-                          count: '485',
-                          category: 'following'),
+                      SocialBox(icon: FontAwesomeIcons.user, count: '485', category: 'following'),
                     ],
                   ),
                   SizedBox(height: 20),
                   Row(
                     children: [
-                      SocialBox(
-                          icon: FontAwesomeIcons.whiskeyGlass,
-                          count: '97',
-                          category: 'buckets'),
+                      SocialBox(icon: FontAwesomeIcons.solidStar, count: '4.9', category: 'rating'),
                       SizedBox(width: 15),
-                      SocialBox(
-                          icon: FontAwesomeIcons.folderOpen,
-                          count: '7',
-                          category: 'projects'),
+                      SocialBox(icon: FontAwesomeIcons.folderOpen, count: '7', category: 'projects'),
                     ],
                   ),
                   SizedBox(height: 35),
@@ -157,8 +131,7 @@ class MainCard extends StatelessWidget {
                           ),
                           const Text(
                             'Share',
-                            style: TextStyle(
-                                fontSize: 28, fontWeight: FontWeight.w700),
+                            style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
                           ),
                           const SizedBox(height: 25),
                           Container(
@@ -194,11 +167,7 @@ class MainCard extends StatelessWidget {
 }
 
 class SocialBox extends StatelessWidget {
-  const SocialBox(
-      {super.key,
-      required this.icon,
-      required this.count,
-      required this.category});
+  const SocialBox({super.key, required this.icon, required this.count, required this.category});
   final IconData icon;
   final String count;
   final String category;

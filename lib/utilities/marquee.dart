@@ -82,8 +82,7 @@ class Marquee extends StatefulWidget {
           'The fadingEdgeGradientFractionOnEnd value should be between 0 and '
           '1, inclusive',
         ),
-        assert(numberOfRounds == null || numberOfRounds > 0,
-            'Number of Rounds should be above 0'),
+        assert(numberOfRounds == null || numberOfRounds > 0, 'Number of Rounds should be above 0'),
         assert(
           accelerationDuration >= Duration.zero,
           "The accelerationDuration cannot be negative as time travel isn't "
@@ -122,29 +121,20 @@ class Marquee extends StatefulWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(ObjectFlagProperty<VoidCallback?>.has('onDone', onDone));
-    properties.add(DiagnosticsProperty<IntegralCurve>(
-        'decelerationCurve', decelerationCurve));
-    properties.add(DiagnosticsProperty<Duration>(
-        'decelerationDuration', decelerationDuration));
-    properties.add(DiagnosticsProperty<IntegralCurve>(
-        'accelerationCurve', accelerationCurve));
-    properties.add(DiagnosticsProperty<Duration>(
-        'accelerationDuration', accelerationDuration));
+    properties.add(DiagnosticsProperty<IntegralCurve>('decelerationCurve', decelerationCurve));
+    properties.add(DiagnosticsProperty<Duration>('decelerationDuration', decelerationDuration));
+    properties.add(DiagnosticsProperty<IntegralCurve>('accelerationCurve', accelerationCurve));
+    properties.add(DiagnosticsProperty<Duration>('accelerationDuration', accelerationDuration));
     properties.add(DoubleProperty('startPadding', startPadding));
-    properties
-        .add(DoubleProperty('fadingEdgeEndFraction', fadingEdgeEndFraction));
-    properties.add(
-        DoubleProperty('fadingEdgeStartFraction', fadingEdgeStartFraction));
-    properties.add(DiagnosticsProperty<bool>(
-        'showFadingOnlyWhenScrolling', showFadingOnlyWhenScrolling));
+    properties.add(DoubleProperty('fadingEdgeEndFraction', fadingEdgeEndFraction));
+    properties.add(DoubleProperty('fadingEdgeStartFraction', fadingEdgeStartFraction));
+    properties.add(DiagnosticsProperty<bool>('showFadingOnlyWhenScrolling', showFadingOnlyWhenScrolling));
     properties.add(IntProperty('numberOfRounds', numberOfRounds));
-    properties
-        .add(DiagnosticsProperty<Duration>('pauseAfterRound', pauseAfterRound));
+    properties.add(DiagnosticsProperty<Duration>('pauseAfterRound', pauseAfterRound));
     properties.add(DiagnosticsProperty<Duration>('startAfter', startAfter));
     properties.add(DoubleProperty('velocity', velocity));
     properties.add(DoubleProperty('blankSpace', blankSpace));
-    properties.add(EnumProperty<CrossAxisAlignment>(
-        'crossAxisAlignment', crossAxisAlignment));
+    properties.add(EnumProperty<CrossAxisAlignment>('crossAxisAlignment', crossAxisAlignment));
     properties.add(EnumProperty<Axis>('scrollAxis', scrollAxis));
     properties.add(EnumProperty<TextDirection>('textDirection', textDirection));
     properties.add(DoubleProperty('textScaleFactor', textScaleFactor));
@@ -211,28 +201,17 @@ class _MarqueeState extends State<Marquee> with SingleTickerProviderStateMixin {
 
   void _initialize(BuildContext context) {
     final totalLength = _getTextWidth(context) + widget.blankSpace;
-    final accelerationLength = widget.accelerationCurve.integral *
-        widget.velocity *
-        _accelerationDuration.inMilliseconds /
-        1000.0;
-    final decelerationLength = widget.decelerationCurve.integral *
-        widget.velocity *
-        _decelerationDuration.inMilliseconds /
-        1000.0;
-    final linearLength =
-        (totalLength - accelerationLength.abs() - decelerationLength.abs()) *
-            (widget.velocity > 0 ? 1 : -1);
+    final accelerationLength = widget.accelerationCurve.integral * widget.velocity * _accelerationDuration.inMilliseconds / 1000.0;
+    final decelerationLength = widget.decelerationCurve.integral * widget.velocity * _decelerationDuration.inMilliseconds / 1000.0;
+    final linearLength = (totalLength - accelerationLength.abs() - decelerationLength.abs()) * (widget.velocity > 0 ? 1 : -1);
 // Calculate scroll positions at various scrolling phases.
     _startPosition = 2 * totalLength - widget.startPadding;
     _accelerationTarget = _startPosition + accelerationLength;
     _linearTarget = _accelerationTarget + linearLength;
     _decelerationTarget = _linearTarget + decelerationLength;
 // Calculate durations for the phases.
-    _totalDuration = _accelerationDuration +
-        _decelerationDuration +
-        Duration(milliseconds: (linearLength / widget.velocity * 1000).toInt());
-    _linearDuration =
-        _totalDuration - _accelerationDuration - _decelerationDuration;
+    _totalDuration = _accelerationDuration + _decelerationDuration + Duration(milliseconds: (linearLength / widget.velocity * 1000).toInt());
+    _linearDuration = _totalDuration - _accelerationDuration - _decelerationDuration;
     assert(
       _totalDuration > Duration.zero,
       'With the given values, the total duration for one round would be '
@@ -340,8 +319,7 @@ class _MarqueeState extends State<Marquee> with SingleTickerProviderStateMixin {
         alignment = isHorizontal ? Alignment.topCenter : Alignment.centerLeft;
         break;
       case CrossAxisAlignment.end:
-        alignment =
-            isHorizontal ? Alignment.bottomCenter : Alignment.centerRight;
+        alignment = isHorizontal ? Alignment.bottomCenter : Alignment.centerRight;
         break;
       case CrossAxisAlignment.center:
         alignment = Alignment.center;
@@ -357,13 +335,9 @@ class _MarqueeState extends State<Marquee> with SingleTickerProviderStateMixin {
       reverse: widget.textDirection == TextDirection.rtl,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (_, i) {
-        final text = i.isEven
-            ? Text(widget.text,
-                style: widget.style, textScaleFactor: widget.textScaleFactor)
-            : _buildBlankSpace();
-        return alignment == null
-            ? text
-            : Align(alignment: alignment, child: text);
+        final text =
+            i.isEven ? Text(widget.text, style: widget.style, textScaler: TextScaler.linear(widget.textScaleFactor ?? 1.0)) : _buildBlankSpace();
+        return alignment == null ? text : Align(alignment: alignment, child: text);
       },
     );
     return kIsWeb ? marquee : _wrapWithFadingEdgeScrollView(marquee);
@@ -374,10 +348,8 @@ class _MarqueeState extends State<Marquee> with SingleTickerProviderStateMixin {
         height: widget.scrollAxis == Axis.vertical ? widget.blankSpace : null,
       );
 
-  Widget _wrapWithFadingEdgeScrollView(Widget child) =>
-      FadingEdgeScrollView.fromScrollView(
-        gradientFractionOnStart:
-            !showFading ? 0.0 : widget.fadingEdgeStartFraction,
+  Widget _wrapWithFadingEdgeScrollView(Widget child) => FadingEdgeScrollView.fromScrollView(
+        gradientFractionOnStart: !showFading ? 0.0 : widget.fadingEdgeStartFraction,
         gradientFractionOnEnd: !showFading ? 0.0 : widget.fadingEdgeEndFraction,
         child: child as ScrollView,
       );

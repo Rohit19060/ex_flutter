@@ -16,15 +16,12 @@ class _PhoneCountryInputState extends State<PhoneCountryInput> {
         body: Column(
           children: [
             InternationalPhoneNumberInput(
-              onInputChanged: (number) {
-                print(number.phoneNumber);
-              },
+              onInputChanged: (number) => debugPrint(number.phoneNumber),
               onInputValidated: print,
               selectorConfig: SelectorConfig(
                 trailingSpace: false,
                 leadingPadding: 0,
-                countryComparator: (p0, p1) =>
-                    p0.dialCode!.compareTo(p1.dialCode!),
+                countryComparator: (p0, p1) => p0.dialCode!.compareTo(p1.dialCode!),
               ),
               textFieldController: controller,
             ),
@@ -34,7 +31,6 @@ class _PhoneCountryInputState extends State<PhoneCountryInput> {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(
-        DiagnosticsProperty<TextEditingController>('controller', controller));
+    properties.add(DiagnosticsProperty<TextEditingController>('controller', controller));
   }
 }

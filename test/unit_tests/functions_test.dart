@@ -16,13 +16,15 @@ void main() {
   });
   group('get user function', () {
     test('giver user repo, status code is 200', () async {
-      when(() => mockHttpClient.get(Uri.parse('https://jsonplaceholder.typicode.com/users/1'))).thenAnswer((_) async => Response('''
+      when(() => mockHttpClient.get(Uri.parse('https://jsonplaceholder.typicode.com/users/1'))).thenAnswer((_) async => Response(
+          '''
             {
                 "name": "Leanne Graham",
                 "username": "Bret",
                 "email": "Sincere@april.biz",
                 "website": "hildegard.org"
-}''', 200));
+}''',
+          200));
       final user = await userRepo.getUser();
       expect(user, isA<User>());
     });
@@ -46,7 +48,7 @@ void main() {
   group('Dynamic API calls test', () {
     testWidgets('Given API call when response is 200 then show data', (tested) async {
       final userList = [User(email: '', name: '', phone: '', website: ''), User(email: '', name: '', phone: '', website: '')];
-      Future<List<User>> getUserList() async => userList;
+      // Future<List<User>> getUserList() async => userList;
       await tested.pumpWidget(const MaterialApp(home: MyApp()));
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
       await tested.pumpAndSettle();

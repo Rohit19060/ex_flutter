@@ -26,8 +26,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _mobController = TextEditingController(),
-      _otpController = TextEditingController();
+  final TextEditingController _mobController = TextEditingController(), _otpController = TextEditingController();
   bool _isOtpSent = false, _buttonActive = false, _isLoading = false;
   String _verificationID = '';
   User? _user = FirebaseAuth.instance.currentUser;
@@ -39,8 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     try {
       await FirebaseAuth.instance
-          .signInWithCredential(PhoneAuthProvider.credential(
-              verificationId: _verificationID, smsCode: _otpController.text))
+          .signInWithCredential(PhoneAuthProvider.credential(verificationId: _verificationID, smsCode: _otpController.text))
           .then((value) {
         showToast('OTP Verified');
         if (value.user != null && mounted) {
@@ -50,8 +48,9 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       });
     } on Exception catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      }
       reset();
     }
   }
@@ -73,9 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: '+91${_mobController.text}',
       verificationCompleted: (credential) async {
-        await FirebaseAuth.instance
-            .signInWithCredential(credential)
-            .then((value) async {
+        await FirebaseAuth.instance.signInWithCredential(credential).then((value) async {
           if (value.user != null && mounted) {
             setState(() => _user = value.user);
           }
@@ -137,11 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: _user != null
-                ? [
-                    Text('UserId: ${_user!.uid}'),
-                    Text('DisplayName: ${_user!.displayName}'),
-                    Text('Phone: ${_user!.phoneNumber}')
-                  ]
+                ? [Text('UserId: ${_user!.uid}'), Text('DisplayName: ${_user!.displayName}'), Text('Phone: ${_user!.phoneNumber}')]
                 : [
                     if (_isOtpSent)
                       Center(
@@ -149,10 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           defaultPinTheme: PinTheme(
                             width: 56,
                             height: 56,
-                            textStyle: const TextStyle(
-                                fontSize: 20,
-                                color: Color.fromARGB(255, 0, 81, 255),
-                                fontWeight: FontWeight.w600),
+                            textStyle: const TextStyle(fontSize: 20, color: Color.fromARGB(255, 0, 81, 255), fontWeight: FontWeight.w600),
                             decoration: BoxDecoration(
                               border: Border.all(),
                               borderRadius: BorderRadius.circular(20),
@@ -160,12 +150,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           autofocus: _isOtpSent,
                           controller: _otpController,
-                          androidSmsAutofillMethod:
-                              AndroidSmsAutofillMethod.smsUserConsentApi,
+                          androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
                           onClipboardFound: (value) {},
                           length: 6,
-                          onChanged: (value) =>
-                              setState(() => _buttonActive = value.length >= 6),
+                          onChanged: (value) => setState(() => _buttonActive = value.length >= 6),
                         ),
                       )
                     else
@@ -178,26 +166,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           cursorColor: Colors.black,
                           textInputAction: TextInputAction.send,
                           keyboardType: TextInputType.number,
-                          onChanged: (value) => setState(
-                              () => _buttonActive = value.length >= 10),
+                          onChanged: (value) => setState(() => _buttonActive = value.length >= 10),
                           maxLength: 10,
                           onFieldSubmitted: (_) => _verifyUser(),
                           decoration: const InputDecoration(
                               labelText: 'Enter Mobile Number',
                               labelStyle: TextStyle(color: Colors.black),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(2)),
-                                  borderSide: BorderSide(width: 2.0)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(2)),
-                                  borderSide: BorderSide(width: 2.0)),
-                              prefixIcon:
-                                  Icon(Icons.phone, color: Colors.black),
-                              prefix: Padding(
-                                  padding: EdgeInsets.only(right: 10),
-                                  child: Text('+91'))),
+                              focusedBorder:
+                                  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(2)), borderSide: BorderSide(width: 2.0)),
+                              enabledBorder:
+                                  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(2)), borderSide: BorderSide(width: 2.0)),
+                              prefixIcon: Icon(Icons.phone, color: Colors.black),
+                              prefix: Padding(padding: EdgeInsets.only(right: 10), child: Text('+91'))),
                         ),
                       ),
                     const SizedBox(height: 30),
@@ -205,26 +185,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: ButtonStyle(
                         shape: MaterialStatePropertyAll(
                           _isLoading
-                              ? RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100))
-                              : RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0.0)),
+                              ? RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))
+                              : RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
                         ),
-                        shadowColor:
-                            const MaterialStatePropertyAll(Colors.white),
-                        overlayColor:
-                            const MaterialStatePropertyAll(Colors.white),
-                        elevation: _buttonActive
-                            ? const MaterialStatePropertyAll(2)
-                            : const MaterialStatePropertyAll(0),
-                        surfaceTintColor:
-                            const MaterialStatePropertyAll(Colors.white),
-                        foregroundColor:
-                            const MaterialStatePropertyAll(Colors.black),
-                        backgroundColor:
-                            const MaterialStatePropertyAll(Colors.white),
-                        padding:
-                            const MaterialStatePropertyAll(EdgeInsets.all(15)),
+                        shadowColor: const MaterialStatePropertyAll(Colors.white),
+                        overlayColor: const MaterialStatePropertyAll(Colors.white),
+                        elevation: _buttonActive ? const MaterialStatePropertyAll(2) : const MaterialStatePropertyAll(0),
+                        surfaceTintColor: const MaterialStatePropertyAll(Colors.white),
+                        foregroundColor: const MaterialStatePropertyAll(Colors.black),
+                        backgroundColor: const MaterialStatePropertyAll(Colors.white),
+                        padding: const MaterialStatePropertyAll(EdgeInsets.all(15)),
                       ),
                       onPressed: _buttonActive ? _verifyUser : null,
                       child: _isLoading
@@ -233,32 +203,21 @@ class _LoginScreenState extends State<LoginScreen> {
                               backgroundColor: Colors.blue,
                               color: Colors.black,
                             )
-                          : Text(_isOtpSent ? 'Validate Otp' : 'Send Otp',
-                              style: const TextStyle(fontSize: 26)),
+                          : Text(_isOtpSent ? 'Validate Otp' : 'Send Otp', style: const TextStyle(fontSize: 26)),
                     ),
                     const SizedBox(height: 30),
                     if (_isOtpSent)
                       ElevatedButton(
                         style: ButtonStyle(
-                            shape: MaterialStatePropertyAll(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(0.0))),
-                            overlayColor:
-                                const MaterialStatePropertyAll(Colors.white),
-                            shadowColor:
-                                const MaterialStatePropertyAll(Colors.white),
-                            surfaceTintColor:
-                                const MaterialStatePropertyAll(Colors.white),
-                            foregroundColor:
-                                const MaterialStatePropertyAll(Colors.black),
-                            backgroundColor:
-                                const MaterialStatePropertyAll(Colors.white),
-                            padding: const MaterialStatePropertyAll(
-                                EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 15))),
+                            shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0))),
+                            overlayColor: const MaterialStatePropertyAll(Colors.white),
+                            shadowColor: const MaterialStatePropertyAll(Colors.white),
+                            surfaceTintColor: const MaterialStatePropertyAll(Colors.white),
+                            foregroundColor: const MaterialStatePropertyAll(Colors.black),
+                            backgroundColor: const MaterialStatePropertyAll(Colors.white),
+                            padding: const MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: 10, horizontal: 15))),
                         onPressed: reset,
-                        child:
-                            const Text('Reset', style: TextStyle(fontSize: 26)),
+                        child: const Text('Reset', style: TextStyle(fontSize: 26)),
                       ),
                   ],
           ),
