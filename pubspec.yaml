@@ -13,7 +13,7 @@ dependencies:
   adaptive_breakpoints: ^0.1.6
   adaptive_components: ^0.0.9
   adaptive_navigation: ^0.0.9
-  animations: ^2.0.8
+  animations: ^2.0.10
   app_tracking_transparency: ^2.0.4
   avatar_glow: ^2.0.2
   awesome_dialog: ^3.1.0
