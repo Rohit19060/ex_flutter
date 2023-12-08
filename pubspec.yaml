@@ -39,7 +39,7 @@ dependencies:
   firebase_database: ^10.3.7
   firebase_messaging: ^14.7.7
   firebase_remote_config: ^4.3.7
-  firebase_storage: ^11.5.4
+  firebase_storage: ^11.5.5
   fl_chart: ^0.65.0
   flextras: ^1.0.0
   flutter:
