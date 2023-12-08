@@ -35,7 +35,7 @@ dependencies:
   fading_edge_scrollview: ^4.0.0
   file_picker: ^6.1.1
   firebase_auth: ^4.15.1
-  firebase_core: ^2.24.1
+  firebase_core: ^2.24.2
   firebase_database: ^10.3.7
   firebase_messaging: ^14.7.7
   firebase_remote_config: ^4.3.7
