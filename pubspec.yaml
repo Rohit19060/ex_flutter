@@ -54,7 +54,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_markdown: ^0.6.18+2
-  flutter_native_splash: ^2.3.7
+  flutter_native_splash: ^2.3.8
   # flutter_native_timezone: ^2.0.0
   flutter_riverpod: ^2.4.9
   flutter_screenutil: ^5.9.0
