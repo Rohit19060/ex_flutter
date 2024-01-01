@@ -3,21 +3,6 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  cloud_firestore
-  connectivity_plus
-  desktop_window
-  dynamic_color
-  file_selector_windows
-  firebase_auth
-  firebase_core
-  firebase_storage
-  geolocator_windows
-  local_auth_windows
-  permission_handler_windows
-  rive_common
-  smart_auth
-  url_launcher_windows
-  window_size
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
