@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_experiments/animated_neumorphism.dart';
-import 'package:flutter_experiments/unit_tests/functions.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart';
-import 'package:mocktail/mocktail.dart';
+
+import '../../stuff/unit_tests/functions.dart';
 
 class MockHttpClient extends Mock implements Client {}
 

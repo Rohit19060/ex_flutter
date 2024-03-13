@@ -1,5 +1,6 @@
-import 'package:flutter_experiments/unit_tests/counter.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import '../stuff/unit_tests/counter.dart';
 
 void main() {
   late Counter counter;
@@ -21,7 +22,9 @@ void main() {
       expect(counter.count, 0);
     });
 
-    test('given counter class when it is incremented then the value of count should be incremented', () {
+    test(
+        'given counter class when it is incremented then the value of count should be incremented',
+        () {
       // Arrange
 
       // Act
@@ -31,7 +34,9 @@ void main() {
       expect(counter.count, 1);
     });
 
-    test('given counter class when it is decremented then the value of count should be decremented', () {
+    test(
+        'given counter class when it is decremented then the value of count should be decremented',
+        () {
       // Arrange
 
       // Act
@@ -41,7 +46,9 @@ void main() {
       expect(counter.count, -1);
     });
 
-    test('given counter class when it is reset then the value of count should be zero', () {
+    test(
+        'given counter class when it is reset then the value of count should be zero',
+        () {
       // Arrange
 
       // Act
